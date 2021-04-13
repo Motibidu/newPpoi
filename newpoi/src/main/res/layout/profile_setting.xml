@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_setting_entry"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/profile_setting_back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="@drawable/btn_back"/>
+
+    <Button
+        android:id="@+id/complete_profile_setting_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="완료"/>
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="60dp"
+        android:background="#95a5a6"
+        android:layout_centerHorizontal="true"
+        />
+    <Button
+        android:id="@+id/profile_picture_loadButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#95a5a6"
+        android:background="@drawable/ic_baseline_add_24"
+        android:layout_below="@+id/profile_picture"/>
+
+    <TextView
+        android:id="@+id/profile_Textview_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_picture_loadButton"
+        android:layout_marginLeft="30dp"
+        android:text="이름"/>
+    <EditText
+        android:id="@+id/profile_EditText_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="이름을 입력해주세요."
+        android:layout_below="@+id/profile_Textview_name"/>
+    <TextView
+        android:id="@+id/profile_Textview_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_name"
+        android:layout_marginLeft="30dp"
+        android:text="생년월일"/>
+    <EditText
+        android:id="@+id/profile_EditText_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="생년월일을 입력해주세요.(****/**/**)"
+        android:layout_below="@+id/profile_Textview_birth"/>
+    <TextView
+        android:id="@+id/profile_Textview_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_birth"
+        android:layout_marginLeft="30dp"
+        android:text="핸드폰"/>
+    <EditText
+        android:id="@+id/profile_EditText_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="핸드폰 번호를 입력해주세요(***-***-****)"
+        android:layout_below="@+id/profile_Textview_phoneNumber"/>
+    <TextView
+        android:id="@+id/profile_Textview_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_phoneNumber"
+        android:layout_marginLeft="30dp"
+        android:text="주소"/>
+    <EditText
+        android:id="@+id/profile_EditText_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="ex) OO도 OO시 OOO구 OO동 OO로12 345-6789"
+        android:layout_below="@+id/profile_Textview_address"/>
+
+
+</RelativeLayout>

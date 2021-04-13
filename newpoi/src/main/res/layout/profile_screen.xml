@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/profile_screen_back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="@drawable/btn_back"/>
+
+    <Button
+        android:id="@+id/profile_setting_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="71dp"
+        android:background="@color/black"
+        android:text="프로필수정" />
+
+    <Button
+        android:id="@+id/account_setting_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        android:text="계정수정" />
+
+    <ImageView
+        android:id="@+id/profile_screen_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="70dp"
+        android:background="#95a5a6"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/profile_TextView_name_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_screen_picture"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="이름"/>
+    <TextView
+        android:id="@+id/profile_TextView_name_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/profile_TextView_name_title"/>
+    <TextView
+        android:id="@+id/profile_TextView_birth_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_TextView_name_content"
+        android:layout_marginLeft="30dp"
+        android:text="생년월일"/>
+    <TextView
+        android:id="@+id/profile_TextView_birth_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="0000/00/00"
+        android:layout_below="@+id/profile_TextView_birth_title"/>
+    <TextView
+        android:id="@+id/profile_TextView_phoneNumber_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_TextView_birth_content"
+        android:layout_marginLeft="30dp"
+        android:text="핸드폰"/>
+    <TextView
+        android:id="@+id/profile_TextView_phoneNumber_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="000-0000-0000"
+        android:layout_below="@+id/profile_TextView_phoneNumber_title"/>
+    <TextView
+        android:id="@+id/profile_TextView_address_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_TextView_phoneNumber_content"
+        android:layout_marginLeft="30dp"
+        android:text="주소"/>
+    <TextView
+        android:id="@+id/profile_TextView_address_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="OO도 OO시 OOO구 OO동 OO로12 345-6789"
+        android:layout_below="@+id/profile_TextView_address_title"/>
+
+
+</RelativeLayout>

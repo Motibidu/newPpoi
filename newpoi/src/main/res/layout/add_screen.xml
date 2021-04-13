@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="새로 만들기 : "
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topAppBar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="2"
+                android:columnOrderPreserved="false"
+                android:rowCount="4">
+                <ImageButton
+                    android:id="@+id/basic_self_introduction"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+                <ImageButton
+                    android:id="@+id/self_introduction0"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/self_introduction0" />
+                <ImageButton
+                    android:id="@+id/self_introduction1"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/self_introduction1" />
+                <ImageButton
+                    android:id="@+id/self_introduction2"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+                <ImageButton
+                    android:id="@+id/self_introduction3"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+                <ImageButton
+                    android:id="@+id/self_introduction4"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+                <ImageButton
+                    android:id="@+id/self_introduction5"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+                <ImageButton
+                    android:id="@+id/self_introduction6"
+                    android:layout_width="184dp"
+                    android:layout_height="230dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg"
+                    android:src="@drawable/basic_self_introduction" />
+
+
+
+
+<!--                                <androidx.cardview.widget.CardView-->
+<!--                                    app:cardCornerRadius="6dp"-->
+<!--                                    android:layout_width="175dp"-->
+<!--                                    android:layout_height="210dp"-->
+<!--                                    app:cardElevation="5dp"-->
+<!--                                    android:layout_marginLeft="10dp"-->
+<!--                                    android:layout_margin="5dp"-->
+<!--                                    android:elevation="0dp">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:src="@drawable/basic_self_introduction"/>-->
+<!--                                </androidx.cardview.widget.CardView>-->
+<!--                                <androidx.cardview.widget.CardView-->
+<!--                                    app:cardCornerRadius="6dp"-->
+<!--                                    android:layout_width="175dp"-->
+<!--                                    android:layout_height="210dp"-->
+<!--                                    app:cardElevation="5dp"-->
+<!--                                    android:layout_marginLeft="10dp"-->
+<!--                                    android:layout_margin="5dp"-->
+<!--                                    android:elevation="0dp">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:src="@drawable/basic_self_introduction"/>-->
+<!--                                </androidx.cardview.widget.CardView>-->
+<!--                                <androidx.cardview.widget.CardView-->
+<!--                                    app:cardCornerRadius="6dp"-->
+<!--                                    android:layout_width="175dp"-->
+<!--                                    android:layout_height="210dp"-->
+<!--                                    app:cardElevation="5dp"-->
+<!--                                    android:layout_marginLeft="10dp"-->
+<!--                                    android:layout_margin="5dp"-->
+<!--                                    android:elevation="0dp">-->
+<!--                                    <ImageView-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:src="@drawable/basic_self_introduction"/>-->
+<!--                                </androidx.cardview.widget.CardView>-->
+
+
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

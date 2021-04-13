@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_recentitems"
+        android:enabled="true"
+        android:icon = "@drawable/ic_baseline_recentitems_24"
+        android:title="최근항목" />
+    <item
+        android:id="@+id/action_examples"
+        android:enabled="true"
+        android:icon = "@drawable/ic_baseline_examples_24"
+        android:title="예시" />
+    <item
+        android:id="@+id/action_open"
+        android:enabled="true"
+        android:icon = "@drawable/ic_baseline_open_24"
+        android:title="열기" />
+    <item
+        android:id="@+id/action_bookmarked"
+        android:enabled="true"
+        android:icon = "@drawable/ic_baseline_bookmarked_24"
+        android:title="저장됨" />
+
+
+</menu>

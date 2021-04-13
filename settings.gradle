@@ -1,2 +1,2 @@
-include ':poitest'
+include ':newpoi'
 include ':poishadow'

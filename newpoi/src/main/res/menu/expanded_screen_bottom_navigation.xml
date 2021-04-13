@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/create_action"
+            android:enabled="true"
+            android:tooltipText="작성"
+            android:title="작성"
+            >@color/black</item>
+</menu>
