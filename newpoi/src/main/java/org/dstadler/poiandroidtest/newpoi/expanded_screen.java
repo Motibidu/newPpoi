@@ -42,9 +42,11 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class expanded_screen extends AppCompatActivity {
 
@@ -54,8 +56,12 @@ public class expanded_screen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseStorage fStorage;
     private StorageReference storageReference;
-    private Uri retrievedURI;
+    private Uri fetchUri;
     public Uri return_retrievedURI;
+
+    public interface MyCallback {
+        void onCallback(Uri value);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,8 +97,7 @@ public class expanded_screen extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                retrievedURI = retrieve_DOCX_URI();
-                Toast.makeText(expanded_screen.this,retrievedURI.toString(),Toast.LENGTH_SHORT).show();
+
 //                File targetFile = new File(retrievedURI.getPath());
 //                try{
 //                    XWPFDocument doc = new XWPFDocument(OPCPackage.open(targetFile));
@@ -219,21 +224,28 @@ public class expanded_screen extends AppCompatActivity {
         }
     }
 
-    private Uri retrieve_DOCX_URI(){
+    private void retrieve_DOCX_URI(MyCallback myCallback){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
         StorageReference profileRef = storageReference.child("Documents/self_introduction2.doc");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                return_retrievedURI = uri;
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+                File file = new File(uri.getPath());
+                try {
+                    FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+                    XWPFDocument document = new XWPFDocument(fis);
+
+                    List<XWPFParagraph> paragraphs = document.getParagraphs();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
-        return return_retrievedURI;
     }
 
 
