@@ -56,11 +56,13 @@
                     android:src="@drawable/ic_baseline_add_24"/>
             </LinearLayout>
             <LinearLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="5">
                 <EditText
+                    android:id="@+id/growth_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="성장과정제목"

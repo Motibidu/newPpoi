@@ -6,4 +6,6 @@
     <string name="display_name">Display Name:</string>
     <string name="login_failed">Login failed.</string>
     <string name="email_text">Email:</string>
+    <string name="complete">완료</string>
+    <string name="modify">수정</string>
 </resources>

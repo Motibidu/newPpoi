@@ -92,8 +92,8 @@ public class profile_setting extends AppCompatActivity {
                 phoneNumber = value.getString("phoneNumber");
                 profile_EditText_name.setText(fullName);
                 profile_EditText_birth.setText(birth);
-                profile_EditText_address.setText(phoneNumber);
-                profile_EditText_phoneNumber.setText(address);
+                profile_EditText_address.setText(address);
+                profile_EditText_phoneNumber.setText(phoneNumber);
             }
         });
         StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
