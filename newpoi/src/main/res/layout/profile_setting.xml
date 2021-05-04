@@ -13,13 +13,15 @@
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:background="@drawable/btn_back"/>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/complete_profile_setting_button"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_com"
-        android:layout_marginTop="18dp"
+        android:background="@drawable/radius"
+        android:layout_marginTop="13dp"
+        android:textColor="@color/white"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
         android:text="@string/complete"/>
 
     <ImageView
@@ -33,20 +35,22 @@
         android:background="@drawable/btn_com"
         android:layout_centerHorizontal="true"
         />
-    <Button
+    <android.widget.Button
         android:id="@+id/profile_picture_loadButton"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#ff9ff3"
+        android:background="@drawable/radius"
         android:text="@string/modify"
-        android:layout_below="@+id/profile_picture"/>
+        android:textColor="@color/white"
+        android:layout_below="@+id/profile_picture" />
     <TextView
         android:id="@+id/profile_Textview_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_picture_loadButton"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="30dp"
         android:text="이름"/>
@@ -54,30 +58,15 @@
         android:id="@+id/profile_EditText_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginRight="30dp"
         android:hint="이름을 입력해주세요."
         android:layout_below="@+id/profile_Textview_name"/>
     <TextView
-        android:id="@+id/profile_Textview_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_EditText_name"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:text="이메일"/>
-    <EditText
-        android:id="@+id/profile_EditText_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:layout_below="@+id/profile_Textview_email"/>
-    <TextView
         android:id="@+id/profile_Textview_eame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_EditText_email"
+        android:layout_below="@+id/profile_EditText_name"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="30dp"
         android:text="영문이름"/>
@@ -85,15 +74,31 @@
         android:id="@+id/profile_EditText_eame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginRight="30dp"
         android:hint="영문이름을 입력해주세요."
         android:layout_below="@+id/profile_Textview_eame"/>
     <TextView
-        android:id="@+id/profile_Textview_age"
+        android:id="@+id/profile_Textview_birth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_EditText_eame"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="30dp"
+        android:text="주민등록번호"/>
+    <EditText
+        android:id="@+id/profile_EditText_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="30dp"
+        android:hint="OOOOOO-OOOOOOO"
+        android:layout_below="@+id/profile_Textview_birth"/>
+    <TextView
+        android:id="@+id/profile_Textview_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_birth"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="30dp"
         android:text="나이"/>
@@ -101,47 +106,15 @@
         android:id="@+id/profile_EditText_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginRight="30dp"
         android:hint="나이를 입력해주세요."
         android:layout_below="@+id/profile_Textview_age"/>
     <TextView
-        android:id="@+id/profile_Textview_birth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_EditText_age"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:text="생년월일"/>
-    <EditText
-        android:id="@+id/profile_EditText_birth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:hint="생년월일을 입력해주세요.(****/**/**)"
-        android:layout_below="@+id/profile_Textview_birth"/>
-    <TextView
-        android:id="@+id/profile_Textview_phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_EditText_birth"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:text="핸드폰"/>
-    <EditText
-        android:id="@+id/profile_EditText_phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="30dp"
-        android:hint="핸드폰 번호를 입력해주세요(***-***-****)"
-        android:layout_below="@+id/profile_Textview_phoneNumber"/>
-    <TextView
         android:id="@+id/profile_Textview_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_EditText_phoneNumber"
+        android:layout_below="@+id/profile_EditText_age"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="30dp"
         android:text="주소"/>
@@ -149,10 +122,43 @@
         android:id="@+id/profile_EditText_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginRight="30dp"
         android:hint="ex) OO도 OO시 OOO구 OO동 OO로12 345-6789"
         android:layout_below="@+id/profile_Textview_address"/>
+    <TextView
+        android:id="@+id/profile_Textview_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_address"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="30dp"
+        android:text="이메일"/>
+    <EditText
+        android:id="@+id/profile_EditText_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/profile_Textview_email"/>
+
+    <TextView
+        android:id="@+id/profile_Textview_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_EditText_email"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="30dp"
+        android:text="핸드폰"/>
+    <EditText
+        android:id="@+id/profile_EditText_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="30dp"
+        android:hint="핸드폰 번호를 입력해주세요(***-***-****)"
+        android:layout_below="@+id/profile_Textview_phoneNumber"/>
+
 
 
 </RelativeLayout>

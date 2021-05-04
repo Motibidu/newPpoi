@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,7 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,9 +40,12 @@ import java.util.Map;
 public class profile_setting extends AppCompatActivity {
 
     private ImageButton imageButton;
-    private EditText profile_EditText_name, profile_EditText_birth, profile_EditText_phoneNumber, profile_EditText_address;
+    private EditText profile_EditText_name, profile_EditText_birth, profile_EditText_phoneNumber,
+            profile_EditText_address, profile_EditText_email, profile_EditText_eame, profile_EditText_age;
+
     private Button profile_picture_loadButton, complete_profile_setting_button;
-    private String userID, fullName, birth, phoneNumber, address, imageKey;
+    private String userID, name, rnn, phoneNumber, address, email, eame, age;
+
     public Uri imageUri;
     public ImageView profile_picture;
 
@@ -52,6 +59,11 @@ public class profile_setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_setting);
 
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         fStorage = FirebaseStorage.getInstance();
@@ -61,8 +73,14 @@ public class profile_setting extends AppCompatActivity {
         profile_EditText_birth = (EditText)findViewById(R.id.profile_EditText_birth);
         profile_EditText_phoneNumber = (EditText)findViewById(R.id.profile_EditText_phoneNumber);
         profile_EditText_address = (EditText)findViewById(R.id.profile_EditText_address);
+        profile_EditText_email = findViewById(R.id.profile_EditText_email);
+        profile_EditText_eame = findViewById(R.id.profile_EditText_eame);
+        profile_EditText_age = findViewById(R.id.profile_EditText_age);
+
+
         profile_picture_loadButton = (Button)findViewById(R.id.profile_picture_loadButton);
         profile_picture = (ImageView)findViewById(R.id.profile_picture);
+
 
 
         imageButton = (ImageButton) findViewById(R.id.profile_setting_back_button);
@@ -86,14 +104,21 @@ public class profile_setting extends AppCompatActivity {
         documentReference.addSnapshotListener(profile_setting.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                fullName = value.getString("fullName");
-                birth = value.getString("birth");
+                name = value.getString("name");
+                rnn = value.getString("rnn");
                 address = value.getString("address");
                 phoneNumber = value.getString("phoneNumber");
-                profile_EditText_name.setText(fullName);
-                profile_EditText_birth.setText(birth);
+                email = value.getString("email");
+                eame = value.getString("eame");
+                age = value.getString("age");
+
+                profile_EditText_name.setText(name);
+                profile_EditText_birth.setText(rnn);
                 profile_EditText_address.setText(address);
                 profile_EditText_phoneNumber.setText(phoneNumber);
+                profile_EditText_email.setText(email);
+                profile_EditText_eame.setText(eame);
+                profile_EditText_age.setText(age);
             }
         });
         StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
@@ -110,10 +135,13 @@ public class profile_setting extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(profile_setting.this, profile_screen.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
-                fullName = profile_EditText_name.getText().toString().trim();
-                birth = profile_EditText_birth.getText().toString().trim();
+                name = profile_EditText_name.getText().toString().trim();
+                rnn = profile_EditText_birth.getText().toString().trim();
                 phoneNumber = profile_EditText_phoneNumber.getText().toString().trim();
                 address = profile_EditText_address.getText().toString().trim();
+                email = profile_EditText_email.getText().toString().trim();
+                eame = profile_EditText_eame.getText().toString().trim();
+                age = profile_EditText_age.getText().toString().trim();
 
                 if(mAuth.getCurrentUser() == null){
 
@@ -123,14 +151,18 @@ public class profile_setting extends AppCompatActivity {
                     if(userID != null) {
                         DocumentReference documentReference = fStore.collection("users").document(userID);
                         Map<String, Object> user = new HashMap<>();
-                        user.put("fullName", fullName);
-                        user.put("birth", birth);
+                        user.put("name", name);
+                        user.put("rnn", rnn);
                         user.put("phoneNumber", phoneNumber);
                         user.put("address", address);
+                        user.put("email", email);
+                        user.put("eame", eame);
+                        user.put("age", age);
+
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(profile_setting.this, "onSuccess : user Profile is created for " + fullName, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(profile_setting.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -170,7 +202,10 @@ public class profile_setting extends AppCompatActivity {
                         riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Picasso.get().load(uri).into(profile_picture);
+                                Glide
+                                    .with(profile_setting.this)
+                                    .load(uri)
+                                    .into(profile_picture);
                                 pd.dismiss();
                                 Snackbar.make(findViewById(R.id.profile_setting_entry),"Image uploaded", Snackbar.LENGTH_SHORT).show();
                             }

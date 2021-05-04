@@ -4,6 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 repositories {
     google()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -40,7 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.2.2'
 
     implementation files('../poishadow/build/libs/poishadow-all.jar')
-
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
 
     // Testing-only dependencies
@@ -59,7 +60,7 @@ android {
 
     defaultConfig {
         applicationId 'org.dstadler.poiandroidtest.newpoi'
-        minSdkVersion 16
+        minSdkVersion 25
         targetSdkVersion 25
         versionCode 1
         versionName '1.0'

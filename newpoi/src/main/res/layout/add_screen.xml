@@ -8,6 +8,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/themeColor"
         app:title="새로 만들기 : "
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         />
@@ -35,7 +36,7 @@
                     android:layout_marginLeft="5dp"
                     android:scaleType="fitXY"
                     android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
+                    android:src="@drawable/promissory0" />
                 <ImageButton
                     android:id="@+id/self_introduction0"
                     android:layout_width="184dp"

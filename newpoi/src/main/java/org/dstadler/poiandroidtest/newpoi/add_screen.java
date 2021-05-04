@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -38,6 +41,11 @@ public class add_screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_screen);
 
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
@@ -55,7 +63,7 @@ public class add_screen extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(add_screen.this, expanded_screen.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.basic_self_introduction);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
                 intent.putExtra("imgPath", imgPath.toString());
                 startActivity(intent);
             }

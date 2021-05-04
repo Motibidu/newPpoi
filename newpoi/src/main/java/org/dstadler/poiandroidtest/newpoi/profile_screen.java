@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -33,9 +36,9 @@ public class profile_screen extends AppCompatActivity {
     private ImageButton profile_screen_back_button;
     private static int ACCOUNT_RQST_CODE = 0;
     private static int PROFILE_RQST_CODE = 1;
-    private TextView profile_TextView_name_content, profile_TextView_birth_content,
-    profile_TextView_phoneNumber_content,profile_TextView_address_content;
-    private String userID, fullName, birth, phoneNumber,address;
+    private TextView profile_name_content, profile_eame_content, profile_rnn_content,
+    profile_age_content, profile_address_content, profile_email_content, profile_phoneNumber_content;
+    private String userID, name, eame, rnn, age, address, email, phoneNumber;
 
     private Uri imageUri;
     private ImageView profile_screen_picture;
@@ -77,13 +80,24 @@ public class profile_screen extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
+
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+
         mAuth = FirebaseAuth.getInstance();
         storageReference = fStorage.getInstance().getReference();
 
-        profile_TextView_name_content = findViewById(R.id.profile_TextView_name_content);
-        profile_TextView_birth_content = findViewById(R.id.profile_TextView_birth_content);
-        profile_TextView_phoneNumber_content = findViewById(R.id.profile_TextView_phoneNumber_content);
-        profile_TextView_address_content = findViewById(R.id.profile_TextView_address_content);
+        profile_name_content = findViewById(R.id.profile_name_content);
+        profile_eame_content = findViewById(R.id.profile_eame_content);
+        profile_rnn_content = findViewById(R.id.profile_rnn_content);
+        profile_age_content = findViewById(R.id.profile_age_content);
+        profile_address_content = findViewById(R.id.profile_address_content);
+        profile_email_content = findViewById(R.id.profile_email_content);
+        profile_phoneNumber_content = findViewById(R.id.profile_phoneNumber_content);
+
+
         profile_screen_picture = findViewById(R.id.profile_screen_picture);
 
         profile_screen_back_button = (ImageButton)findViewById(R.id.profile_screen_back_button);
@@ -150,23 +164,30 @@ public class profile_screen extends AppCompatActivity {
                         }
                     });
 
-                    fullName = value.getString("fullName");
-                    birth = value.getString("birth");
+                    name = value.getString("name");
+                    eame = value.getString("eame");
+                    rnn = value.getString("rnn");
+                    age = value.getString("age");
                     address = value.getString("address");
+                    email = value.getString("email");
                     phoneNumber = value.getString("phoneNumber");
 
-                    profile_TextView_name_content.setText(fullName);
-                    profile_TextView_birth_content.setText(birth);
-                    profile_TextView_address_content.setText(address);
-                    profile_TextView_phoneNumber_content.setText(phoneNumber);
+                    profile_name_content.setText(name);
+                    profile_eame_content.setText(eame);
+                    profile_rnn_content.setText(rnn);
+                    profile_age_content.setText(age);
+                    profile_address_content.setText(address);
+                    profile_email_content.setText(email);
+                    profile_phoneNumber_content.setText(phoneNumber);
+
                 }
             });
         }
         else if (account == null){
-            profile_TextView_name_content.setText("");
-            profile_TextView_birth_content.setText("");
-            profile_TextView_address_content.setText("");
-            profile_TextView_phoneNumber_content.setText("");
+            profile_name_content.setText("");
+            profile_rnn_content.setText("");
+            profile_address_content.setText("");
+            profile_phoneNumber_content.setText("");
 //            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
         }
     }

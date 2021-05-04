@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.renderscript.ScriptGroup;
@@ -23,6 +24,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,12 +39,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +55,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.squareup.picasso.Picasso;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -79,7 +91,21 @@ import java.util.regex.Pattern;
 
 public class expanded_screen extends AppCompatActivity {
 
-    private ImageButton expanded_screen_backButton, plus;
+    public static int sCorner = 80;
+    public static int sMargin = 1;
+    public static int sBorder = 0;
+    public static String sColor = "#34ace0";
+
+
+    private ImageButton expanded_screen_backButton;
+    private Button expanded_screen_download_without_modify, create;
+
+    private TextInputEditText e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16, e17;
+    private String Se0, Se1, Se2, Se3, Se4, Se5, Se6, Se7, Se8, Se9, Se10, Se11, Se12, Se13, Se14, Se15, Se16, Se17;
+    private String pSe0, pSe1, pSe2, pSe3, pSe4, pSe5, pSe6, pSe7, pSe8, pSe9, pSe10, pSe11, pSe12, pSe13,pSe14, pSe15, pSe16, pSe17;
+    private EditText expanded_screen_name;
+
+
     private ImageView expanded_screen_mainImageView;
     private String folder, fileName, filePath, title_growth;
     private FirebaseAuth mAuth;
@@ -88,23 +114,80 @@ public class expanded_screen extends AppCompatActivity {
     private Uri fetchUri;
     public Uri return_retrievedURI;
     private static final int MY_PERMISSION_STORAGE = 1111;
-    private EditText growth_title;
+
     private Map<String, String> data = new HashMap<String, String>();
 
-    public interface MyCallback {
-        void onCallback(Uri value);
-    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.expanded_screen);
 
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+
+
         mAuth = FirebaseAuth.getInstance();
         storageReference = fStorage.getInstance().getReference();
+        pSe0 = PreferenceManager.getString(expanded_screen.this, "Se0");
+        pSe1 =PreferenceManager.getString(expanded_screen.this, "Se1");
+        pSe2 =PreferenceManager.getString(expanded_screen.this, "Se2");
+        pSe3 =PreferenceManager.getString(expanded_screen.this, "Se3");
+        pSe4 =PreferenceManager.getString(expanded_screen.this, "Se4");
+        pSe5 =PreferenceManager.getString(expanded_screen.this, "Se5");
+        pSe6 =PreferenceManager.getString(expanded_screen.this, "Se6");
+        pSe7 =PreferenceManager.getString(expanded_screen.this, "Se7");
+        pSe8 =PreferenceManager.getString(expanded_screen.this, "Se8");
+        pSe10 = PreferenceManager.getString(expanded_screen.this, "Se10");
+        pSe11 = PreferenceManager.getString(expanded_screen.this, "Se11");
+        pSe12 = PreferenceManager.getString(expanded_screen.this, "Se12");
+        pSe13 = PreferenceManager.getString(expanded_screen.this, "Se13");
+        pSe14 = PreferenceManager.getString(expanded_screen.this, "Se14");
+        pSe15 = PreferenceManager.getString(expanded_screen.this, "Se15");
+        pSe16 = PreferenceManager.getString(expanded_screen.this, "Se16");
+        pSe17 = PreferenceManager.getString(expanded_screen.this, "Se17");
 
 
-        expanded_screen_backButton = (ImageButton)findViewById(R.id.expanded_screen_backButton);
+        e0 = findViewById(R.id.editText0);
+        e0.setText(pSe0);
+        e1 = findViewById(R.id.editText1);
+        e1.setText(pSe1);
+        e2 = findViewById(R.id.editText2);
+        e2.setText(pSe2);
+        e3 = findViewById(R.id.editText3);
+        e3.setText(pSe3);
+        e4 = findViewById(R.id.editText4);
+        e4.setText(pSe4);
+        e5 = findViewById(R.id.editText5);
+        e5.setText(pSe5);
+        e6 = findViewById(R.id.editText6);
+        e6.setText(pSe6);
+        e7 = findViewById(R.id.editText7);
+        e7.setText(pSe7);
+        e8 = findViewById(R.id.editText8);
+        e8.setText(pSe8);
+        e10 = findViewById(R.id.editText10);
+        e10.setText(pSe10);
+        e11 = findViewById(R.id.editText11);
+        e11.setText(pSe11);
+        e12 = findViewById(R.id.editText12);
+        e12.setText(pSe12);
+        e13 = findViewById(R.id.editText13);
+        e13.setText(pSe13);
+        e14 = findViewById(R.id.editText14);
+        e14.setText(pSe14);
+        e15 = findViewById(R.id.editText15);
+        e15.setText(pSe15);
+        e16 = findViewById(R.id.editText16);
+        e16.setText(pSe16);
+        e17 = findViewById(R.id.editText17);
+        e17.setText(pSe17);
+
+
+        expanded_screen_backButton = findViewById(R.id.expanded_screen_backButton);
         expanded_screen_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,37 +195,96 @@ public class expanded_screen extends AppCompatActivity {
             }
         });
         
-        expanded_screen_mainImageView = (ImageView)findViewById(R.id.expanded_screen_mainImageView);
-//        content_image = (ScrollView)findViewById(R.id.content_image);
-//        imageView2 = (ImageView)findViewById(R.id.imageView2);
-
-
+        expanded_screen_mainImageView = findViewById(R.id.expanded_screen_mainImageView);
 
         Intent intent = getIntent();
         String imgPath = intent.getStringExtra("imgPath");
         Uri imgUri = Uri.parse(imgPath);
 
-        expanded_screen_mainImageView.setImageURI(null);
+//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(expanded_screen.this)
+//                // You can pass your own memory cache implementation
+//                .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+//                .build();
+//
+//        DisplayImageOptions options = new DisplayImageOptions.Builder()
+//                .displayer(new RoundedBitmapDisplayer(10)) //rounded corner bitmap
+//                .cacheInMemory(true)
+//                .cacheOnDisc(true)
+//                .build();
+//
+//        ImageLoader imageLoader = ImageLoader.getInstance();
+//        imageLoader.init(config);
+//        imageLoader.displayImage(String.valueOf(imgUri),expanded_screen_mainImageView, options);
+
+//        expanded_screen_mainImageView.setImageURI(null);
+        Glide.with(this).load(imgUri)
+                .apply(RequestOptions.bitmapTransform(
+                        new RoundedCornersTransformation(this, sCorner, sMargin, "#34ace0", sBorder))).into(expanded_screen_mainImageView);
         expanded_screen_mainImageView.setImageURI(imgUri);
 
-        plus = (ImageButton)findViewById(R.id.plus);
-        plus.setOnClickListener(new View.OnClickListener(){
+        expanded_screen_download_without_modify = findViewById(R.id.expanded_screen_download_without_modify);
+        expanded_screen_download_without_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fileName = "test6(이력서10).docx";
+                fileName = "promissory0.docx";
                 checkPermission();
-                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/AP/"+fileName);
+                download_without_modify(fileName);
+            }
+        });
+
+
+        create = findViewById(R.id.expanded_screen_create);
+        create.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //                fileName = "차용증(워드).docx";
+                expanded_screen_name = findViewById(R.id.expanded_screen_name);
+                fileName = expanded_screen_name.getText().toString().trim()+".docx";
+
+                Se0=e0.getText().toString().trim();
+                Se1=e1.getText().toString().trim();
+                Se2=e2.getText().toString().trim();
+                Se3=e3.getText().toString().trim();
+                Se4=e4.getText().toString().trim();
+                Se5=e5.getText().toString().trim();
+                Se6=e6.getText().toString().trim();
+                Se7=e7.getText().toString().trim();
+                Se8=e8.getText().toString().trim();
+                Se10= e10.getText().toString().trim();
+                Se11=e11.getText().toString().trim();
+                Se12=e12.getText().toString().trim();
+                Se13=e13.getText().toString().trim();
+                Se14=e14.getText().toString().trim();
+                Se15=e15.getText().toString().trim();
+                Se16=e16.getText().toString().trim();
+                Se17=e17.getText().toString().trim();
+
+                checkPermission();
+
+
+                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
                 if(f.exists()){
                     Toast.makeText(expanded_screen.this,"The file exists!",Toast.LENGTH_SHORT).show();
-
                     try {
-                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/AP/"+fileName);
-                    final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/AP/edited_"+fileName));
-                        data.put("name","Park Ji Hoon");
-                        data.put("rrn","981109-1236412");
-                        data.put("address","경기도 고양시 일산서구 탄현동 홀트로57 403-1201");
-                        data.put("num","010-6230-1825");
-                        data.put("email","jack981109@naver.com");
+                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
+                    final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/edited_"+fileName));
+                        data.put("cre_name",Se0);
+                        data.put("cre_add",Se1);
+                        data.put("cre_rrn",Se2);
+                        data.put("deb_name",Se3);
+                        data.put("deb_add",Se4);
+                        data.put("deb_rrn",Se5);
+                        data.put("joi_name",Se6);
+                        data.put("joi_add",Se7);
+                        data.put("joi_rrn",Se8);
+                        data.put("ori",Se10);
+                        data.put("ara",Se11);
+                        data.put("in",Se12);
+                        data.put("gday",Se13);
+                        data.put("pri_rep",Se14);
+                        data.put("year",Se15);
+                        data.put("month",Se16);
+                        data.put("day",Se17);
 
                         replace(is,data,out);
 
@@ -153,13 +295,36 @@ public class expanded_screen extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(expanded_screen.this,"Start Downloading!",Toast.LENGTH_SHORT).show();
-                    retrieve_DOCX_URI(fileName);
+                    download_without_modify(fileName);
                 }
                 Toast.makeText(expanded_screen.this,"Finished!",Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+    @Override
+    protected void onPause() {
+        PreferenceManager.setString(expanded_screen.this, "Se0", e0.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se1", e1.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se2", e2.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se3", e3.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se4", e4.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se5", e5.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se6", e6.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se7", e7.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se8", e8.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se10", e10.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se11", e11.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se12", e12.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se13", e13.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se14", e14.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se15", e15.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se16", e16.getText().toString().trim());
+        PreferenceManager.setString(expanded_screen.this, "Se17", e17.getText().toString().trim());
+        super.onPause();
+    }
+
     private void replace(InputStream is, Map<String, String> data, OutputStream out) throws Exception, IOException {
         XWPFDocument docx = new XWPFDocument(OPCPackage.open(is));
         for (XWPFParagraph p : docx.getParagraphs()) {
@@ -272,15 +437,14 @@ public class expanded_screen extends AppCompatActivity {
         return map;
     }
 
-    private void retrieve_DOCX_URI(String fileName){
+    private void download_without_modify(String fileName){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        StorageReference profileRef = storageReference.child("Documents/"+fileName);
+        StorageReference profileRef = storageReference.child("Documents/"+"promissory0.docx");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 downloadFile(expanded_screen.this,fileName,".docx", folder, uri.toString());
-                Toast.makeText(expanded_screen.this,"Successed!!",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -296,7 +460,7 @@ public class expanded_screen extends AppCompatActivity {
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 //        request.setVisibleInDownloadsUi (true);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/AP/"+fileName+fileExtension);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/"+fileName+fileExtension);
 
         downloadManager.enqueue(request);
     }
@@ -351,9 +515,5 @@ public class expanded_screen extends AppCompatActivity {
                 break;
         }
     }
-
-
-
-
 
 }

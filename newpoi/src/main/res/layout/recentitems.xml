@@ -8,6 +8,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/themeColor"
         app:title="최근항목"
         app:menu="@menu/top_app_bar_menu"
         app:navigationIcon="@drawable/ic_baseline_person_24"
