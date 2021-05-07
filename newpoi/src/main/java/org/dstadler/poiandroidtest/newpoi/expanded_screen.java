@@ -1,28 +1,18 @@
 package org.dstadler.poiandroidtest.newpoi;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Point;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.provider.Settings;
-import android.renderscript.ScriptGroup;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,28 +32,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.squareup.picasso.Picasso;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -79,10 +53,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -102,9 +73,10 @@ public class expanded_screen extends AppCompatActivity {
 
     private TextInputEditText e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14, e15, e16, e17;
     private String Se0, Se1, Se2, Se3, Se4, Se5, Se6, Se7, Se8, Se9, Se10, Se11, Se12, Se13, Se14, Se15, Se16, Se17;
-    private String pSe0, pSe1, pSe2, pSe3, pSe4, pSe5, pSe6, pSe7, pSe8, pSe9, pSe10, pSe11, pSe12, pSe13,pSe14, pSe15, pSe16, pSe17;
+    private String pSe0, pSe1, pSe2, pSe3, pSe4, pSe5, pSe6, pSe7, pSe8, pSe9, pSe10, pSe11, pSe12, pSe13, pSe14, pSe15, pSe16, pSe17;
     private EditText expanded_screen_name;
 
+    private ReceiverManager rm;
 
     private ImageView expanded_screen_mainImageView;
     private String folder, fileName, filePath, title_growth;
@@ -118,7 +90,6 @@ public class expanded_screen extends AppCompatActivity {
     private Map<String, String> data = new HashMap<String, String>();
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,20 +98,21 @@ public class expanded_screen extends AppCompatActivity {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
+        rm = new ReceiverManager(expanded_screen.this);
 
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = fStorage.getInstance().getReference();
         pSe0 = PreferenceManager.getString(expanded_screen.this, "Se0");
-        pSe1 =PreferenceManager.getString(expanded_screen.this, "Se1");
-        pSe2 =PreferenceManager.getString(expanded_screen.this, "Se2");
-        pSe3 =PreferenceManager.getString(expanded_screen.this, "Se3");
-        pSe4 =PreferenceManager.getString(expanded_screen.this, "Se4");
-        pSe5 =PreferenceManager.getString(expanded_screen.this, "Se5");
-        pSe6 =PreferenceManager.getString(expanded_screen.this, "Se6");
-        pSe7 =PreferenceManager.getString(expanded_screen.this, "Se7");
-        pSe8 =PreferenceManager.getString(expanded_screen.this, "Se8");
+        pSe1 = PreferenceManager.getString(expanded_screen.this, "Se1");
+        pSe2 = PreferenceManager.getString(expanded_screen.this, "Se2");
+        pSe3 = PreferenceManager.getString(expanded_screen.this, "Se3");
+        pSe4 = PreferenceManager.getString(expanded_screen.this, "Se4");
+        pSe5 = PreferenceManager.getString(expanded_screen.this, "Se5");
+        pSe6 = PreferenceManager.getString(expanded_screen.this, "Se6");
+        pSe7 = PreferenceManager.getString(expanded_screen.this, "Se7");
+        pSe8 = PreferenceManager.getString(expanded_screen.this, "Se8");
         pSe10 = PreferenceManager.getString(expanded_screen.this, "Se10");
         pSe11 = PreferenceManager.getString(expanded_screen.this, "Se11");
         pSe12 = PreferenceManager.getString(expanded_screen.this, "Se12");
@@ -194,7 +166,7 @@ public class expanded_screen extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        
+
         expanded_screen_mainImageView = findViewById(R.id.expanded_screen_mainImageView);
 
         Intent intent = getIntent();
@@ -234,74 +206,134 @@ public class expanded_screen extends AppCompatActivity {
 
 
         create = findViewById(R.id.expanded_screen_create);
-        create.setOnClickListener(new View.OnClickListener(){
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //                fileName = "차용증(워드).docx";
-                expanded_screen_name = findViewById(R.id.expanded_screen_name);
-                fileName = expanded_screen_name.getText().toString().trim()+".docx";
 
-                Se0=e0.getText().toString().trim();
-                Se1=e1.getText().toString().trim();
-                Se2=e2.getText().toString().trim();
-                Se3=e3.getText().toString().trim();
-                Se4=e4.getText().toString().trim();
-                Se5=e5.getText().toString().trim();
-                Se6=e6.getText().toString().trim();
-                Se7=e7.getText().toString().trim();
-                Se8=e8.getText().toString().trim();
-                Se10= e10.getText().toString().trim();
-                Se11=e11.getText().toString().trim();
-                Se12=e12.getText().toString().trim();
-                Se13=e13.getText().toString().trim();
-                Se14=e14.getText().toString().trim();
-                Se15=e15.getText().toString().trim();
-                Se16=e16.getText().toString().trim();
-                Se17=e17.getText().toString().trim();
+                expanded_screen_name = findViewById(R.id.expanded_screen_name);
+                fileName = expanded_screen_name.getText().toString().trim();
+
+                Se0 = e0.getText().toString().trim();
+                Se1 = e1.getText().toString().trim();
+                Se2 = e2.getText().toString().trim();
+                Se3 = e3.getText().toString().trim();
+                Se4 = e4.getText().toString().trim();
+                Se5 = e5.getText().toString().trim();
+                Se6 = e6.getText().toString().trim();
+                Se7 = e7.getText().toString().trim();
+                Se8 = e8.getText().toString().trim();
+                Se10 = e10.getText().toString().trim();
+                Se11 = e11.getText().toString().trim();
+                Se12 = e12.getText().toString().trim();
+                Se13 = e13.getText().toString().trim();
+                Se14 = e14.getText().toString().trim();
+                Se15 = e15.getText().toString().trim();
+                Se16 = e16.getText().toString().trim();
+                Se17 = e17.getText().toString().trim();
 
                 checkPermission();
+                download_with_modify(fileName, rm);
 
 
-                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
-                if(f.exists()){
-                    Toast.makeText(expanded_screen.this,"The file exists!",Toast.LENGTH_SHORT).show();
-                    try {
-                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
-                    final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/edited_"+fileName));
-                        data.put("cre_name",Se0);
-                        data.put("cre_add",Se1);
-                        data.put("cre_rrn",Se2);
-                        data.put("deb_name",Se3);
-                        data.put("deb_add",Se4);
-                        data.put("deb_rrn",Se5);
-                        data.put("joi_name",Se6);
-                        data.put("joi_add",Se7);
-                        data.put("joi_rrn",Se8);
-                        data.put("ori",Se10);
-                        data.put("ara",Se11);
-                        data.put("in",Se12);
-                        data.put("gday",Se13);
-                        data.put("pri_rep",Se14);
-                        data.put("year",Se15);
-                        data.put("month",Se16);
-                        data.put("day",Se17);
-
-                        replace(is,data,out);
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }   catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }else{
-                    Toast.makeText(expanded_screen.this,"Start Downloading!",Toast.LENGTH_SHORT).show();
-                    download_without_modify(fileName);
-                }
-                Toast.makeText(expanded_screen.this,"Finished!",Toast.LENGTH_SHORT).show();
+//                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
+//                if(f.exists()){
+//                    Toast.makeText(expanded_screen.this,"The file exists!",Toast.LENGTH_SHORT).show();
+//                    try {
+//                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/"+fileName);
+//                    final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/ZN/edited_"+fileName));
+//                        data.put("cre_name",Se0);
+//                        data.put("cre_add",Se1);
+//                        data.put("cre_rrn",Se2);
+//                        data.put("deb_name",Se3);
+//                        data.put("deb_add",Se4);
+//                        data.put("deb_rrn",Se5);
+//                        data.put("joi_name",Se6);
+//                        data.put("joi_add",Se7);
+//                        data.put("joi_rrn",Se8);
+//                        data.put("ori",Se10);
+//                        data.put("ara",Se11);
+//                        data.put("in",Se12);
+//                        data.put("gday",Se13);
+//                        data.put("pri_rep",Se14);
+//                        data.put("year",Se15);
+//                        data.put("month",Se16);
+//                        data.put("day",Se17);
+//
+//                        replace(is,data,out);
+//
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }   catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }else{
+//                    Toast.makeText(expanded_screen.this,"Start Downloading!",Toast.LENGTH_SHORT).show();
+//                    download_with_modify(fileName, rm);
+//                }
+//                Toast.makeText(expanded_screen.this,"Finished!",Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            long r_downloadID = PreferenceManager.getLong(expanded_screen.this, "r_downloadID");
+//            String i_downloadID = intent.getExtras().getString("adsf");
+            fileName = fileName+".docx";
+//            Toast.makeText(expanded_screen.this, completeDownloadId + "completeDownloadId", Toast.LENGTH_SHORT).show();
+            Toast.makeText(expanded_screen.this, r_downloadID + "_i_download__broadcast", Toast.LENGTH_SHORT).show();
+            Toast.makeText(expanded_screen.this, fileName + "fileName", Toast.LENGTH_SHORT).show();
+
+//            long r_downloadID = PreferenceManager.getLong(expanded_screen.this, "r_downloadID");
+//            long i_downloadID = intent.getLongExtra("i_downloadID", -1);
+//            Toast.makeText(expanded_screen.this, completeDownloadId+"_r_download_broadcast", Toast.LENGTH_SHORT).show();
+
+            if(r_downloadID == completeDownloadId) {
+
+                File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
+
+                if (f.exists()) {
+                    Toast.makeText(expanded_screen.this, "The file exists!", Toast.LENGTH_SHORT).show();
+                    try {
+                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
+                        final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName));
+                        data.put("cre_name", Se0);
+                        data.put("cre_add", Se1);
+                        data.put("cre_rrn", Se2);
+                        data.put("deb_name", Se3);
+                        data.put("deb_add", Se4);
+                        data.put("deb_rrn", Se5);
+                        data.put("joi_name", Se6);
+                        data.put("joi_add", Se7);
+                        data.put("joi_rrn", Se8);
+                        data.put("ori", Se10);
+                        data.put("ara", Se11);
+                        data.put("in", Se12);
+                        data.put("gday", Se13);
+                        data.put("pri_rep", Se14);
+                        data.put("year", Se15);
+                        data.put("month", Se16);
+                        data.put("day", Se17);
+
+                        replace(is, data, out);
+                        f.delete();
+                        Toast.makeText(expanded_screen.this, "Finished!", Toast.LENGTH_SHORT).show();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(expanded_screen.this, "No File!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
 
     @Override
     protected void onPause() {
@@ -444,14 +476,13 @@ public class expanded_screen extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                downloadFile(expanded_screen.this,fileName,".docx", folder, uri.toString());
+                downloadFile_without_modify(expanded_screen.this, fileName,".docx", folder, uri.toString());
             }
         });
     }
-
-    public void downloadFile(Context context, String pfileName, String fileExtension, String destinationDirectory, String url){
-        int idx = pfileName.indexOf('.');
-        String fileName = pfileName.substring(0, idx);
+    private void downloadFile_without_modify(Context context, String pfileName, String fileExtension, String destinationDirectory, String url){
+//        int idx = pfileName.indexOf('.');
+//        String fileName = pfileName.substring(0, idx);
 
         DownloadManager downloadManager = (DownloadManager) context.
                 getSystemService(Context.DOWNLOAD_SERVICE);
@@ -464,8 +495,56 @@ public class expanded_screen extends AppCompatActivity {
 
         downloadManager.enqueue(request);
     }
+    private void download_with_modify(String fileName, ReceiverManager rm){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
+        StorageReference profileRef = storageReference.child("Documents/"+"promissory0.docx");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+//                Toast.makeText(expanded_screen.this, fileName+"_download_with_modify", Toast.LENGTH_SHORT).show();
+                downloadFile_with_modify(expanded_screen.this, fileName,".docx", folder, uri.toString(), rm);
+            }
+        });
+    }
 
+    private void downloadFile_with_modify(Context context, String pfileName, String fileExtension, String destinationDirectory, String url,
+    ReceiverManager rm){
+//        int idx = pfileName.indexOf('.');
+//        String fileName = pfileName.substring(0, idx);
+//        Toast.makeText(expanded_screen.this, fileName.toString()+"_downloadFile_with_modify", Toast.LENGTH_SHORT).show();
+
+        DownloadManager downloadManager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//        request.setVisibleInDownloadsUi (true);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/."+fileName+fileExtension);
+
+        long downloadID = downloadManager.enqueue(request);
+        Toast.makeText(expanded_screen.this, downloadID+"_downloadFile_with_modify", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        intent.putExtra("fileName", fileName);
+//        intent.putExtra("i_downloadID",downloadID);
+        PreferenceManager.setLong(expanded_screen.this, "r_downloadID", downloadID);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
+    }
 
     private void checkPermission(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
