@@ -1,0 +1,17 @@
+1. public interface CTInline extends XmlObject
+  1) An XML CT_Inline(@http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing). 
+     This is a complex type.
+
+
+2. Method Summary
+  1) void  setDistT(long distT)
+    (1) distT 속성을 설정한다.
+  2) void  setDistT(long distT)
+    (2) distB 속성을 설정한다.
+  3) void  setDistT(long distT)
+    (3) distL 속성을 설정한다.
+  4) void  setDistT(long distT)
+    (4) distR 속성을 설정한다.
+
+  5) CTGraphicalObject	getGraphic()
+    (1) graphic 요소를 가져온다.

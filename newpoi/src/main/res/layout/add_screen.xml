@@ -28,123 +28,102 @@
                 android:columnCount="2"
                 android:columnOrderPreserved="false"
                 android:rowCount="4">
-                <ImageButton
-                    android:id="@+id/basic_self_introduction"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/promissory0" />
-                <ImageButton
-                    android:id="@+id/self_introduction0"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/self_introduction0" />
-                <ImageButton
-                    android:id="@+id/self_introduction1"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/self_introduction1" />
-                <ImageButton
-                    android:id="@+id/self_introduction2"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
-                <ImageButton
-                    android:id="@+id/self_introduction3"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
-                <ImageButton
-                    android:id="@+id/self_introduction4"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
-                <ImageButton
-                    android:id="@+id/self_introduction5"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
-                <ImageButton
-                    android:id="@+id/self_introduction6"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/basic_self_introduction" />
-
-
-
-
-<!--                                <androidx.cardview.widget.CardView-->
-<!--                                    app:cardCornerRadius="6dp"-->
-<!--                                    android:layout_width="175dp"-->
-<!--                                    android:layout_height="210dp"-->
-<!--                                    app:cardElevation="5dp"-->
-<!--                                    android:layout_marginLeft="10dp"-->
-<!--                                    android:layout_margin="5dp"-->
-<!--                                    android:elevation="0dp">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:src="@drawable/basic_self_introduction"/>-->
-<!--                                </androidx.cardview.widget.CardView>-->
-<!--                                <androidx.cardview.widget.CardView-->
-<!--                                    app:cardCornerRadius="6dp"-->
-<!--                                    android:layout_width="175dp"-->
-<!--                                    android:layout_height="210dp"-->
-<!--                                    app:cardElevation="5dp"-->
-<!--                                    android:layout_marginLeft="10dp"-->
-<!--                                    android:layout_margin="5dp"-->
-<!--                                    android:elevation="0dp">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:src="@drawable/basic_self_introduction"/>-->
-<!--                                </androidx.cardview.widget.CardView>-->
-<!--                                <androidx.cardview.widget.CardView-->
-<!--                                    app:cardCornerRadius="6dp"-->
-<!--                                    android:layout_width="175dp"-->
-<!--                                    android:layout_height="210dp"-->
-<!--                                    app:cardElevation="5dp"-->
-<!--                                    android:layout_marginLeft="10dp"-->
-<!--                                    android:layout_margin="5dp"-->
-<!--                                    android:elevation="0dp">-->
-<!--                                    <ImageView-->
-<!--                                        android:layout_width="match_parent"-->
-<!--                                        android:layout_height="match_parent"-->
-<!--                                        android:src="@drawable/basic_self_introduction"/>-->
-<!--                                </androidx.cardview.widget.CardView>-->
-
-
+                <RelativeLayout
+                    android:id="@+id/promissory">
+                    <ImageView
+                        android:id="@+id/promissory_ImageView"
+                        android:layout_width="184dp"
+                        android:layout_height="260dp"
+                        android:padding="5sp"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/promissory0" />
+                    <TextView
+                        android:id="@+id/promissory_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/promissory_ImageView"
+                        android:layout_alignTop="@+id/promissory_ImageView"
+                        android:layout_alignRight="@+id/promissory_ImageView"
+                        android:layout_alignBottom="@+id/promissory_ImageView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="차용증"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/partTimeJobResume">
+                    <ImageView
+                        android:id="@+id/partTimeJobResume_ImageView"
+                        android:layout_width="184dp"
+                        android:layout_height="260dp"
+                        android:padding="5sp"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/parttimejob_resume0" />
+                    <TextView
+                        android:id="@+id/partTimeJobResume_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/partTimeJobResume_ImageView"
+                        android:layout_alignTop="@+id/partTimeJobResume_ImageView"
+                        android:layout_alignRight="@+id/partTimeJobResume_ImageView"
+                        android:layout_alignBottom="@+id/partTimeJobResume_ImageView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="아르바이트   이력서"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/simpleResume">
+                    <ImageView
+                        android:id="@+id/simpleResume_ImageView"
+                        android:layout_width="184dp"
+                        android:layout_height="260dp"
+                        android:padding="5sp"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/simple_resume0" />
+                    <TextView
+                        android:id="@+id/simpleResume_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/simpleResume_ImageView"
+                        android:layout_alignTop="@+id/simpleResume_ImageView"
+                        android:layout_alignRight="@+id/simpleResume_ImageView"
+                        android:layout_alignBottom="@+id/simpleResume_ImageView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="간편 이력서"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/memorandum">
+                    <ImageView
+                        android:id="@+id/memorandum_ImageView"
+                        android:layout_width="184dp"
+                        android:layout_height="260dp"
+                        android:padding="5sp"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/memorandum0" />
+                    <TextView
+                        android:id="@+id/memorandum_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/memorandum_ImageView"
+                        android:layout_alignTop="@+id/memorandum_ImageView"
+                        android:layout_alignRight="@+id/memorandum_ImageView"
+                        android:layout_alignBottom="@+id/memorandum_ImageView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="각서"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+                </RelativeLayout>
             </GridLayout>
         </LinearLayout>
     </ScrollView>

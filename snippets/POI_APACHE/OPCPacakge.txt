@@ -1,0 +1,24 @@
+1. public abstract class OPCPackage extends java.lang.Object
+  1) 여러개의 데이터 객체들을 담을 수 있는 컨테이터를 나타낸다.
+
+2. public method
+  1) static OPCPackage	open(java.io.File file)
+    (1) 읽기/쓰기 권한과 함께 패키지를 연다.
+
+  2) static OPCPackage	open(java.io.File file, PackageAccess access)
+    (1) 패키지를 연다.
+
+  3) static OPCPackage	open(java.io.InputStream in)
+    (1) 패키지를 연다.
+
+  4) static OPCPackage	open(java.lang.String path)
+    (1) 읽기/쓰기 권한과 함께 패키지를 연다.
+
+  5) static OPCPackage	open(java.lang.String path, PackageAccess access)
+    (1) 패키지를 연다.
+
+  6) static OPCPackage	open(ZipEntrySource zipEntry) 
+    (1) Open an user provided ZipEntrySource with read-only permission.(?) 
+
+  7) static OPCPackage	openOrCreate(java.io.File file)
+    (1) 패키지가 존재한다면 열고, 없다면 새로 하나 만든다.

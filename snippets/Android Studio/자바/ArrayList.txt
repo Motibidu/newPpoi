@@ -1,0 +1,20 @@
+cf) List란?
+  List 컬렉셔는 인덱스 순서로 저장이 되며, 중복된 데이터가 저장이 가능하다. 구조적으로 데이터를 일렬로
+  늘어놓은 구조를 갖는다. 데이터(객체 등)를 저장하면 인덱스가 자동으로 부여되고 부여된 인덱스를 통해
+  데이터의 검색 및 삭제가 가능하다.
+
+1. ArrayList란?
+  1) ArrayList는 List 인터페이스를 상속받은 클래스로 크기가 가변적으로 변하는 선형
+     리스트이다. 일반적인 배열과 같은 순차리스트이며 인덱스로 내부의 객체를 관리한다는 점이 유사하지만
+     한번 생성되면 크기가 변하지 않는 배열과는 달리 ArrayList는 객체들이 추가되어 저장 용량을
+     초과한다면 자동으로 부족한 크기만큼 저장 용량이 늘어난다.
+
+2. ArrayList list = new ArrayList();//타입 미설정 Object로 선언된다.
+   ArrayList<Student> members = new ArrayList<Student>();//타입설정 Student객체만 사용가능
+   ArrayList<Integer> num = new ArrayList<Integer>();//타입설정 int타입만 사용가능
+   ArrayList<Integer> num2 = new ArrayList<>();//new에서 타입 파라미터 생략가능
+   ArrayList<Integer> num3 = new ArrayList<Integer>(10);//초기 용량(capacity)지정
+   ArrayList<Integer> list2 = new ArrayList<Integer>(Arrays.asList(1,2,3));//생성시 값추가
+
+3. List<String> arrayList = Arrays.asList("a","b","C");
+   1) List를 Array로 바꾼다.

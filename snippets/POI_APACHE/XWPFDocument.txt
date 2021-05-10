@@ -1,0 +1,20 @@
+1. public class XWPFDocument extends POIXMLDocument
+	  	  	     implements Document, IBody
+  1) .docx파일의 작업을 위한 고수준 클래스이다.
+  2) 이 클래스는 기본 파일 형식의 복잡성을 일부 숨기려고 하지만 성숙하고 안정적인
+     API가 아니기 때문에 XML구조의 특정 부분이 통과된다. 
+     따라서 사용 중 특정 시점에 OOXML을 참조해야 할 수 있다.
+
+2. Public methods
+  1) java.util.List<XWPFTable> getTables()
+    (1) IBodyPart의 텍스트를 담고 있는 테이블들을 반환한다. paragraph가 사용되지 않는
+        복잡한 경우에
+
+  2) boolean  removeBodyElement(int pos)  
+    (1) bodyElements 배열리스트에서 pos번째 BodyElement를 제거한다.
+
+  3) void  setParagraph(XWPFParagraph paragraph, int pos)
+    (1) paragraphs리스트 pos번째에 사용하고자 하는 paragraph의 내용을 카피한다.
+
+  4) boolean  removeBodyElement(int pos)
+    (1) bodyElements array list에서 pos번째 Bodylement를 제거한다.

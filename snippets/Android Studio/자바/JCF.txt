@@ -1,0 +1,18 @@
+1. Java Collections Framework(JCF)
+  1) 자바에서 컬렉션이란 데이터의 집합을 의미하며
+     JCF는 이러한 데이터, 자료구조인 컬렉션과 이를 구현하는 클래스를 정의하는 인터페이스를
+     제공한다.
+  2) JCF 상속구조
+     (1) Collection
+          1/List
+            - LinkedList
+            - Stack
+            - Vector
+            - ArrayList
+          2/Set
+            - Hash
+            - SortedSet 
+  ex) ArrayList<String> arrList = new ArrayList<String>();
+      
+         
+     

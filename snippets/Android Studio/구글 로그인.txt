@@ -1,0 +1,54 @@
+1. public static final Api<GoogleSignInOptions> GOOGLE_SIGN_IN_API
+  1) Google Sign In API를 사용하기 위한 addApi(Api) 함수에 넘겨주는 토큰이다.
+
+2. public class GoogleSignInOptions extends Object
+   implements Api.ApiOptions.Optional Parcelable
+  
+  1) GoogleSignInOptions는 Auth.GOOGLE_SIGN_IN_API를 설정하기 위해 사용되는
+     옵션들을 포함한다.
+  
+  2) Field Summary
+    (1) GoogleSingInOptions.DEFAULT_SIGN_IN : 구글 로그인을 위한 기본 설정
+
+3. public static final class GoogleSignInOptions.Builder extends Object
+  1) GoogleSignInOptions를 설정하기 위한 빌더이다.
+  
+  2) Public Methods
+    (1) public GoogleSignInOptions.Builder requestIdToken (String serverClientId)
+      - 인증 된 사용자에 대한 ID 토큰이 요청되도록 지정한다. 
+        ID 토큰을 요청하려면 서버 클라이언트 ID를 지정해야 한다.
+
+    (2) public GoogleSignInOptions build ()
+      - GoogleSignInoptions 객체를 생성한다.
+        GoogleSignInOptions 인스턴스를 반환한다.
+
+    (3) public GoogleSignInOptions.Builder requestEmail ()
+      - 앱에 이메일 정보가 요청되도록 특정한다.
+
+
+4. public class GoogleSignIn extends Object
+  1) Google Sign In API를 위한 진입점이다.
+
+  2) public method 
+    (1) getClient(Context context, GoogleSignInOptions options)
+      - 새로운 GoogleSignIn 인스턴스를 생성한다.
+
+    (2) getSignedInAccountFromIntent(Intent data)
+      - 현재 결과 데이터와 연관된 getSignInIntent()를 통해 시작된
+        Activity의 GoogleSignInAccount를 반환한다.
+
+
+5. public class GoogleSignInClient extends GoogleApi<GoogleSignInOptions>
+  1) Google Sign In API와 상호작용하는 클라이언트이다.
+
+  2) public method
+    (1) getSignInIntet()
+      - startActivityForResult(Intent, int)호출에 의한 구글 로그인 시작 흐름을 위한
+        intent를 받는다.
+
+6. public abstract class Task extends Object
+  1) 비동기 작업을 나타낸다.
+ 
+  2) public method
+    (1) getResult(Class<X> exceptionType)
+      - 이미 완료된 경우 Task의 결과를 가져온다.

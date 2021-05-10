@@ -1,0 +1,10 @@
+1. public interface CTR extends XmlObject
+  1) An XML CT_R(@http://schemas.openxmlformats.org/wordprocessingml/2006/main). 
+  This is a complex type.
+
+2. public method
+  1) CTDrawing  addNewDrawing()
+    (1) 새로운 빈 xml값을 마지막 drawing 요소로 추가한 후 반환한다.
+
+  2) CTDrawing	getDrawingArray(int i)
+    (2) i번째 drawing 요소를 가져온다.

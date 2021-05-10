@@ -1,0 +1,37 @@
+1. Thread
+  1) Thread클래스를 상속한 서브클래스를 만든 다음, Thread 클래스의 run()메서드를 오버라이드한다.
+  2) class NewThread extends Thread {
+        NewThread() {
+	  //초기화 작업
+        }
+
+        public void run() {
+            // TODO : thread running codes.
+        }
+    }
+
+    NewThread nt = new NewThread() ;
+    nt.start() ;
+
+2. Runnable
+  1) Runnable 인터페이스를 구현한 클래스를 선언한 다음, run()작성한다.
+  2) class NewRunnable implements Runnable {
+        NewRunnable() {
+
+        }
+
+        public void run() {
+            // TODO : thread running codes.
+        }
+    }
+
+    NewRunnable nr = new NewRunnable() ;
+    Thread t = new Thread(nr) ;
+    t.start() ;
+
+3. Thread vs Runnable 
+  1) 항목	   ||           Runnable 인터페이스 구현	   ||         Thread 클래스 상속
+     코드            implements Runnable	                      extends Thread
+     범위	           단순히 run() 메서드만 구현하는 경우.             Thread 클래스의 기능 확장이 필요한 경우.
+     설계	            논리적으로 분리된 태스크(Task) 설계에 장점.	태스크  (Task)의 세부적인 기능 수정 및 추가에 장점.
+     상속            Runnable 인터페이스에 대한 구현이 간결.	Thread 클래스 상속에 따른 오버헤드. 

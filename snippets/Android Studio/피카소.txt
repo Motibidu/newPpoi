@@ -1,0 +1,11 @@
+1. Picasso.get()
+         .load(R.drawable.picasso_test)
+         .into(ImageView);
+  1) drawable 폴더 내 리소스에서 이미지를 로드하여 imageView에 표시한다.
+  2) Picasso.get()
+        .load("file:///android_asset/picasso_test.png")
+        .into(ImageView);
+
+  3) Picasso.get()
+        .load("http://android.example.com/picasso_test.jpg")
+        .into(ImageView);

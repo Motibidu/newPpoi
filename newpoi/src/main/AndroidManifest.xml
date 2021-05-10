@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".expanded_screen"
+        <activity android:name=".promissory_expanded_screen"
             android:theme="@style/AppTheme"
             android:parentActivityName=".add_screen">
             <intent-filter>
@@ -54,6 +54,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".promissory"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".add_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".partTimeJobResume"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".add_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".simple_resume"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".add_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".memorandum"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".add_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
         <activity
             android:name=".add_screen_newpoi">
             <intent-filter>
@@ -76,6 +107,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DocumentListActivity" />
         </activity>
+
     </application>
 
 </manifest>

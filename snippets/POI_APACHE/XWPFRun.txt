@@ -1,0 +1,15 @@
+1. public class XWPFRun extends java.lang.Object
+  1) XWPFRun 객체는 공통된 속성의 집합을 가지고 있는 텍스트 영역을 정의한다. 
+
+2. public method
+  1) void addCarriageReturn()
+    (1) 현재 위치의 run content에 캐리지 리턴이 배치되도록 지정한다.
+
+  2) XWPFRun insertNewRun(int pos)
+    (1) 모든 run들에 새로운 Run을 삽입한다.
+
+  3) org.openxmlformats.schemas.wordprocessingml.x2006.main.CTR	 getCTR()
+    (1) 최근에 사용된 CTR 객체를 가져온다.
+
+  4) XWPFPicture  addPicture(java.io.InputStream pictureData, int pictureType, java.lang.String filename, int width, int height)
+    (1) run에 사진을 더한다.

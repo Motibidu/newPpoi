@@ -1,0 +1,6 @@
+1. public static final class XmlToken.Factory extends Object
+  1) XmlToken의 인스턴스를 생성하는 메소드를 지니고 있는 클래스이다.
+
+2. Method Summary
+  1) static XmlToken  parse(String s)
+    (1) 문자열에서 XmlToken조각을 구문 분석한다.

@@ -1,0 +1,6 @@
+1. public interface WindowManager implements ViewManager
+  1) 앱들이 윈도우 매니저와 대화하는 인터페이스다.
+
+2. public method
+  1) abstract Display getDefaultDisplay()
+    - 

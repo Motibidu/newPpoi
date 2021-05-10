@@ -1,0 +1,9 @@
+1. public final class WindowMetrics extends Object
+  1) WindowInsets의 범위를 포함하는 윈도우에 관한 메트릭스이다.
+  2) 
+
+2. Public methods
+  1) Rect getBounds()
+    (1) 해당 윈도우 또는 컨텍스트의 영역의 바운드를 반환한다.
+
+   

@@ -1,0 +1,11 @@
+1. public abstract class Context extends Object
+  1) 앱 환경의 전역적인 정보를 담는 인터페이스이다.
+  2) 수행이 안드로이드 시스템에 의해 제공되는 추상 클래스이다.
+  3) 특정 어플리케이션 리소스와 클래스들에 접근 가능하게 한다.
+     액티비티를 열고, intent들을 브로드캐스팅 하고 받는 
+     어플리케이션 수준 수행의 up-call들을 제공한다.
+
+2. public method
+  1) Display getDisplay()
+    (1) 해당 컨텍스트와 연관된 display를 가져온다.
+        cf) getDefaultDisplay()대신 사용한다.

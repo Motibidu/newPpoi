@@ -1,0 +1,10 @@
+1. public interface CTDrawing extends XmlObject
+  1) An XML CT_Drawing(@http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing). 
+     This is a complex type. 
+
+2. Method Summary
+  1) CTInline	addNewInline()
+    (1) 새로운 빈 xml값을 마지막 inline요소로 추가한 후 반환한다.
+
+  2) CTInline	getInlineArray(int i)
+    (1) i번째 inline요소를 가져온다.

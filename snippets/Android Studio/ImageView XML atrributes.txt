@@ -1,0 +1,25 @@
+1. adjustViewBounds
+  1) true일 때, 이미지의 가로, 세로 비율을 지키면서 해당 뷰의 
+     크기를 조정하고 싶을 때 사용한다.
+
+2. baseline
+  1) 해당 뷰의 베이스라인
+
+3. baselineAlignBottom
+  1) true일 때 해당 이미지 뷰의 밑단을 중심으로 정렬된다.
+
+4. cropToPadding
+  1) true일 때, 해당 뷰의 패딩을 맞추기 위해 이미지가 잘린다.
+
+5. maxHeight, maxWidth
+
+6. scaleType
+  1) 이미지가 뷰의 크기에 맞춰 리사이즈 또는 이동 되는 방법을 설정한다.
+
+7. src
+
+8. tint
+  1) 이미지의 tinting 색
+
+9. tintMode
+  1) 이미지 틴트를 적용하기 위한 블렌딩 모드

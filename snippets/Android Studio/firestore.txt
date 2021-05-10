@@ -1,0 +1,28 @@
+1. public class DocumentReference extends Object
+  1) DocumentReference는 읽고, 쓸 파이어 스토어 데이터베이스의 위치를 나타낸다.
+     선언된 위치에 문서는 존재할 수도 존재하지 않을 수도 있다.
+
+  2) public method
+    (1) CollectionReference collection(String collectionPath)
+      - 해당 문서에 상대적인 지정된 경로의 하위 컬렉션을 
+        참조하는 컬렉션 참조 인스턴스를 가져온다.
+
+
+2. public class CollectionReference extends Query
+  1) CollectionReference는 문서를 추가하고, 문서 참조를 가져오고, 
+     (쿼리에서 상속된 메서드를 사용하여) 문서를 요청하는 데 사용할 수 있다.
+
+  2) public method
+    (1) DocumentReference document()
+      1) 해당 콜렉션에서 자동으로 생성된 ID와 함께 
+         새로운 문서를 가리키는 DocumentReference를 반환한다.
+   
+    (2) DocumentReference document(String documentPath)
+      1) 해당 콜렉션에서 특정된 경로로부터 DocumentReference 인스턴스를
+         가져온다.
+
+3. ListenerRegistration	addSnapshotListener(Activity activity, EventListener<DocumentSnapshot> listener)
+  1) 액티비티 범위 리스너를 사용하여 해당 DocumentReference로부터 document 참조를 
+     시작한다.
+   
+     

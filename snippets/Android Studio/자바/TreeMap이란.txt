@@ -1,0 +1,60 @@
+// https://coding-factory.tistory.com/557
+1. TreeMap이란?
+  1) TreeMap은 이진트리를 기반으로 한 Map컬렉션이다. 
+  2) 같은 Tree구조로 이루어진 TreeSet과의 차이점은 TreeSet은 그냥 값만 저장한다면 
+     TreeMap은 키와 값이 저장된 Map, Etnry를 저장한다는 점입니다.
+  3) TreeMap에 객체를 저장하면 자동으로 정렬되는데, 키는 저장과 동시에 자동 오름차순으로 정렬되고 
+     숫자 타입일 경우에는 값으로, 문자열 타입일 경우에는 유니코드로 정렬합니다.
+  4) 정렬 순서는 기본적으로 부모 키값과 비교해서 키 값이 낮은 것은 왼쪽 자식 노드에 키값이 높은 것은 오른쪽 자식 노드에 
+     Map.Etnry 객체를 저장합니다.
+  5) TreeMap은 일반적으로 Map으로써의 성능이 HashMap보다 떨어집니다. TreeMap은 데이터를 저장할 때 
+     즉시 정렬하기에 추가나 삭제가 HashMap보다 오래 걸립니다. 하지만 정렬된 상태로 Map을 유지해야 하거나 
+     정렬된 데이터를 조회해야 하는 범위 검색이 필요한 경우 TreeMap을 사용하는 것이 효율성면에서 좋습니다.
+
+2. TreeMap 선언
+  1) TreeMap<Integer,String> map1 = new TreeMap<Integer,String>();//TreeMap생성
+     TreeMap<Integer,String> map2 = new TreeMap<>();//new에서 타입 파라미터 생략가능
+     TreeMap<Integer,String> map3 = new TreeMap<>(map1);//map1의 모든 값을 가진 TreeMap생성
+     TreeMap<Integer,String> map6 = new TreeMap<Integer,String>(){{//초기값 설정
+          put(1,"a");
+     }};
+
+3. TreeMap 추가
+  1) TreeMap<Integer,String> map = new TreeMap<Integer,String>();//TreeMap생성
+     map.put(1, "사과");//값 추가
+     map.put(2, "복숭아");
+     map.put(3, "수박");
+
+4. TreeMap 값 삭제
+   TreeMap<Integer, String> map = new TreeMap<Integer,String>(){{//초기값 설정
+      put(1, "사과");//값 추가
+       put(2, "복숭아");
+       put(3, "수박");
+   }};
+   map.remove(1); //key값 1 제거
+   map.clear(); //모든 값 제거
+
+
+5. TreeMap<String, String> treemap = 
+            new TreeMap<String, String>();
+
+    // Put elements to the map
+    treemap.put("Key1", "Jack");
+    treemap.put("Key2", "Rick");
+    treemap.put("Key3", "Kate");
+    treemap.put("Key4", "Tom");
+    treemap.put("Key5", "Steve");
+    treemap.put("Key6", "Ram");
+
+    SortedMap<String, String> sortedMap = treemap.subMap("Key2","Key5");
+
+    sortedMap.remove("Key4");
+    
+    TreeMap Contains : {Key1=Jack, Key2=Rick, Key3=Kate, Key4=Tom, Key5=Steve, Key6=Ram}
+    SortedMap Contains : {Key2=Rick, Key3=Kate, Key4=Tom}
+    TreeMap Contains : {Key1=Jack, Key2=Rick, Key3=Kate, Key5=Steve, Key6=Ram}
+  
+  1) subMap()함수는 열린 괄호부터 닫힌 괄호까지 기존 TreeMap의 서브트리를 SortedMap으로 반환한다.
+  2) 서브트리인 SortedMap에서 요소를 제거하면 기존 TreeMap의 요소 ㄷ호나 제거된다.
+
+

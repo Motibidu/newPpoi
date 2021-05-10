@@ -1,0 +1,12 @@
+1. File 클래스
+   1) File(String pathname)	      입력한 pathname(파일명 포함) 경로 파일의 객체를 생성한다.
+      File(String parent, String child)  parent 디렉토리 경로의 child 파일에 대한 객체를 생성한다.
+      File(File parent, String child)    파일 객체 parent의 child 파일에 대한 객체를 생성한다.
+      File(URI uri)	              uri 경로에 대한 파일 객체를 생성한다.
+
+2. FileOutputStream 클래스
+  1) FileOutputStream(File file) : 주어진 File 객체가 가리키는 파일을 쓰기 위한 객체를 생성
+       기존의 파일이 존재할 때는 그 내용을 지우고 새로운 파일을 생성
+     FileOutputStream(String name) : 주어진 이름의 파일을 쓰기 위한 객체를 생성
+     FileOutputStream(String name, boolean append) : 주어진 append값에 따라 새로운 파일을
+       생성하거나 또는 기존의 내용에 추가

@@ -1,0 +1,32 @@
+
+1. public class XWPFParagraph extends java.lang.Object
+	                      implements IBodyElement, IRunBody, ISDTContents, Paragraph
+  1) Document, Table, Header 등등을 담는 단락이다.
+  2) paragraph는 많은 스타일링 정보를 담고 있지만 실제 텍스트는 자손인 XWPFRuns에 담겨있다.
+
+2. public method
+  1) XWPFRun createRun()
+    (1) 해당 paragraph에 새로운 run을 붙인다.
+
+  2) java.util.List<XWPFParagraph>  getParagraphs()
+    (1) 헤더 또는 푸터의 텍스트를 담는 paragraph들을 반환한다.
+
+  3) java.util.List<XWPFTable>	getTables()
+    (1) paragraph가 사용되지 않는 복잡한 경우에 IBodyPart의 텍스트를 담는 테이블들을 반환한다.
+
+  4) java.lang.String  getText()
+    (1) paragraph의 텍스트 내용(사진 및 sdt 요소을 포함)을 반환한다.
+
+  5) org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP  getCTP() 
+    (1) CTP를 반환한다.
+
+  6) ParagraphAlignment	 getAlignment()
+    (1) 해당 paragraph의 텍스트의 적용됐을 수 있는 정렬을 반환한다.
+    
+  
+
+2) XWPFHyperlinkRun createHyperlinkRun(java.lang.String uri)
+    cf) 하이퍼 링크란 이동 또는 열고자 하는 주소를 주소창에 일일이 입력하지 않고도
+        웹 문서 안에서 특정 부분을 클릭하면 다른 사이트로 넘어가거나 현재 페이지에서
+        그 사이트가 열리도록 해주는 것을 말한다.
+    (1) 해당 paragraph에 새로운 hyperlink run을 더한다.

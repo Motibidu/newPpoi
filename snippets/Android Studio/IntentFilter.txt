@@ -1,0 +1,37 @@
+1. 암시적 인텐트 수신하기
+  1) 앱에서 암시적 인텐트를 수신하려면 앱의 컴포넌트에 대해 하나 이상의 <intent-filter>를 매니페스트에
+     선언해야 한다.
+  
+
+2. Intent Filter의 하위 요소	설명
+   <action>	                name 속성에서 허용된 인텐트 작업을 선언합니다. 이 값은 문자열 값이어야 합니다.
+   <data>	                허용된 데이터 유형을 선언합니다. 이때 하나이상의 속성을 사용하여 데이터 URI와 MIME유형을 나타냅니다.
+   <category>	                name 속성에서 허용된 인텐트 카테고리를 선언합니다. 이 값은 문자열 값이어야 합니다.
+
+3. <activity android:name="MainActivity">
+      <!-- 애플리케이션의 진입 액티비티, 런처에서 나타납니다 -->
+      <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+          <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+   </activity>
+   <activity android:name="ShareActivity">
+      <!-- 이 액티비티는 텍스트데이터와 함께 SEND 액션을 수행합니다 -->
+      <intent-filter>
+          <action android:name="android.intent.action.SEND"/>
+          <category android:name="android.intent.category.DEFAULT"/>
+          <data android:mimeType="text/plain"/>
+      </intent-filter>
+     <!-- 이 액티비티는 미디어데이터와 함께 SEND와 SEND_MULTIPLE을 수행합니다-->
+     <intent-filter>
+          <action android:name="android.intent.action.SEND"/>
+         <action android:name="android.intent.action.SEND_MULTIPLE"/>
+          <category android:name="android.intent.category.DEFAULT"/>
+          <data android:mimeType="application/vnd.google.panorama360+jpg"/>
+         <data android:mimeType="image/*"/>
+          <data android:mimeType="video/*"/>
+      </intent-filter>
+   </activity>
+
+
+

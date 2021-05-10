@@ -1,0 +1,9 @@
+1. public class Resources extends Object
+  1) 어플리케이션의 리소스들에 접근하기 위한 클래스이다.
+     안드로이드 리소스 시스템은 어플리케이션과 연관된 non-code asset들의 추적을 유지한다.
+     
+  2) public method
+    (1) int getIdentifier(String name, String defType, String defPackage)
+      - 주어진 이름의 리소스 식별자를 리턴한다.
+    (2) int getDimensionPixelSize(int id)
+      - 픽셀 사이즈로써 사용될 특정 리소스 id의 사이즈를 리턴한다.

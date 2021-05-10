@@ -1,0 +1,6 @@
+1. public class ContextCompat extends Object
+  1) Context의 특징들에 접근하기 위한 헬퍼이다.
+
+2. Public method
+  1) static int	checkSelfPermission(Context context, String permission)
+    (1) 특정 권한에 승인되었는지 결정한다.
