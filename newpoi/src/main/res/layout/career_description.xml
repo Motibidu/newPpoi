@@ -16,29 +16,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topAppBar">
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:rowCount="4">
+            <ImageButton
+                android:id="@+id/careerDescription0"
+                android:layout_width="184dp"
+                android:layout_height="230dp"
+                android:padding="5sp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_bg"
+                android:src="@drawable/career_description0_page1" />
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:columnCount="2"
-                android:columnOrderPreserved="false"
-                android:rowCount="4">
-                <ImageButton
-                    android:id="@+id/simpleResume0"
-                    android:layout_width="184dp"
-                    android:layout_height="230dp"
-                    android:padding="5sp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/simple_resume0" />
-            </GridLayout>
-        </LinearLayout>
+        </GridLayout>
     </ScrollView>
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,14 +39,16 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profile_setting extends AppCompatActivity {
+public class profile_setting extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ImageButton imageButton;
-    private EditText profile_EditText_name, profile_EditText_birth, profile_EditText_phoneNumber,
-            profile_EditText_address, profile_EditText_email, profile_EditText_eame, profile_EditText_age;
+    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber,
+            profile_EditText_address, profile_EditText_email, profile_EditText_e_name, profile_EditText_age,
+            profile_EditText_ch_name, profile_EditText_SNS, profile_EditText_number;
 
-    private Button profile_picture_loadButton, complete_profile_setting_button;
-    private String userID, name, rnn, phoneNumber, address, email, eame, age;
+    private Button profile_picture_loadButton, complete_profile_setting_button, profile_menu;
+    private String userID;
+    private String name, e_name, ch_name, rrn, age, SNS, phoneNumber, number, email, address;
 
     public Uri imageUri;
     public ImageView profile_picture;
@@ -70,12 +74,17 @@ public class profile_setting extends AppCompatActivity {
         storageReference = fStorage.getReference();
 
         profile_EditText_name = (EditText)findViewById(R.id.profile_EditText_name);
-        profile_EditText_birth = (EditText)findViewById(R.id.profile_EditText_birth);
-        profile_EditText_phoneNumber = (EditText)findViewById(R.id.profile_EditText_phoneNumber);
-        profile_EditText_address = (EditText)findViewById(R.id.profile_EditText_address);
-        profile_EditText_email = findViewById(R.id.profile_EditText_email);
-        profile_EditText_eame = findViewById(R.id.profile_EditText_eame);
+        profile_EditText_e_name = findViewById(R.id.profile_EditText_e_name);
+        profile_EditText_ch_name = findViewById(R.id.profile_EditText_ch_name);
+        profile_EditText_rrn = (EditText)findViewById(R.id.profile_EditText_rrn);
         profile_EditText_age = findViewById(R.id.profile_EditText_age);
+        profile_EditText_SNS = findViewById(R.id.profile_EditText_SNS);
+        profile_EditText_phoneNumber = (EditText)findViewById(R.id.profile_EditText_phoneNumber);
+        profile_EditText_number = (EditText)findViewById(R.id.profile_EditText_number);
+        profile_EditText_email = findViewById(R.id.profile_EditText_email);
+        profile_EditText_address = (EditText)findViewById(R.id.profile_EditText_address);
+
+
 
 
         profile_picture_loadButton = (Button)findViewById(R.id.profile_picture_loadButton);
@@ -83,13 +92,15 @@ public class profile_setting extends AppCompatActivity {
 
 
 
-        imageButton = (ImageButton) findViewById(R.id.profile_setting_back_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        imageButton = (ImageButton) findViewById(R.id.profile_setting_back_button);
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+
+
         profile_picture_loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,21 +115,33 @@ public class profile_setting extends AppCompatActivity {
         documentReference.addSnapshotListener(profile_setting.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+
                 name = value.getString("name");
-                rnn = value.getString("rnn");
+                e_name = value.getString("e_name");
+                ch_name = value.getString("ch_name");
+                rrn = value.getString("rrn");
+                age = value.getString("age");
+                SNS = value.getString("SNS");
                 address = value.getString("address");
                 phoneNumber = value.getString("phoneNumber");
+                number = value.getString("number");
                 email = value.getString("email");
-                eame = value.getString("eame");
-                age = value.getString("age");
+
 
                 profile_EditText_name.setText(name);
-                profile_EditText_birth.setText(rnn);
+                profile_EditText_e_name.setText(e_name);
+                profile_EditText_ch_name .setText(ch_name);
+                profile_EditText_rrn.setText(rrn);
+                profile_EditText_age.setText(age);
+                profile_EditText_SNS.setText(SNS);
                 profile_EditText_address.setText(address);
                 profile_EditText_phoneNumber.setText(phoneNumber);
+                profile_EditText_number.setText(number);
                 profile_EditText_email.setText(email);
-                profile_EditText_eame.setText(eame);
-                profile_EditText_age.setText(age);
+
+
+
             }
         });
         StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
@@ -135,13 +158,17 @@ public class profile_setting extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(profile_setting.this, profile_screen.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
+
                 name = profile_EditText_name.getText().toString().trim();
-                rnn = profile_EditText_birth.getText().toString().trim();
-                phoneNumber = profile_EditText_phoneNumber.getText().toString().trim();
-                address = profile_EditText_address.getText().toString().trim();
-                email = profile_EditText_email.getText().toString().trim();
-                eame = profile_EditText_eame.getText().toString().trim();
+                e_name = profile_EditText_e_name.getText().toString().trim();
+                ch_name=profile_EditText_ch_name.getText().toString().trim();
+                rrn = profile_EditText_rrn.getText().toString().trim();
                 age = profile_EditText_age.getText().toString().trim();
+                SNS=profile_EditText_SNS.getText().toString().trim();
+                phoneNumber = profile_EditText_phoneNumber.getText().toString().trim();
+                number=profile_EditText_number.getText().toString().trim();
+                email = profile_EditText_email.getText().toString().trim();
+                address = profile_EditText_address.getText().toString().trim();
 
                 if(mAuth.getCurrentUser() == null){
 
@@ -152,13 +179,15 @@ public class profile_setting extends AppCompatActivity {
                         DocumentReference documentReference = fStore.collection("users").document(userID);
                         Map<String, Object> user = new HashMap<>();
                         user.put("name", name);
-                        user.put("rnn", rnn);
-                        user.put("phoneNumber", phoneNumber);
-                        user.put("address", address);
-                        user.put("email", email);
-                        user.put("eame", eame);
+                        user.put("e_name", e_name);
+                        user.put("ch_name",ch_name);
+                        user.put("rrn", rrn);
                         user.put("age", age);
-
+                        user.put("SNS",SNS);
+                        user.put("phoneNumber", phoneNumber);
+                        user.put("number",number);
+                        user.put("email", email);
+                        user.put("address", address);
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -172,6 +201,30 @@ public class profile_setting extends AppCompatActivity {
             }
         });
     }
+
+    public void showPopup(View v){
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_profile);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.simple_profile:
+                Toast.makeText(profile_setting.this,"simple profile", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.detailed_profile:
+                Toast.makeText(profile_setting.this,"simple profile", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.resume_profile:
+                Toast.makeText(profile_setting.this,"simple profile", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private void choosePicture(){
         Intent intent = new Intent();
         intent.setType("image/*");

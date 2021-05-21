@@ -43,7 +43,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_marginVertical="10dp"
-                            android:text="제목:"
+                            android:text="@string/title"
                             android:textSize="18sp"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -54,7 +54,7 @@
                             android:layout_width="130dp"
                             android:layout_height="40dp"
                             android:layout_marginVertical="10dp"
-                            android:hint="파일이름"
+                            android:hint="@string/fileTitle"
                             android:layout_toRightOf="@id/expanded_screen_file"
                             android:textSize="18sp"
                             android:textAlignment="center"
@@ -68,8 +68,7 @@
                             android:layout_toRightOf="@id/expanded_screen_name"
                             android:layout_marginStart="10dp"
                             android:layout_centerVertical="true"
-                            android:text="양식만
-                            저장"
+                            android:text="@string/save_only_template"
                             android:textColor="@color/white"
                             android:background="@drawable/btn_maintheme" />
                         <android.widget.Button
@@ -284,6 +283,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="원금(삼백만원)"
+                            app:suffixText="원"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -299,6 +299,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="원정(3,000,000)"
+                            app:suffixText="₩"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -314,6 +315,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="이자"
+                            app:suffixText="%"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -329,6 +331,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="이자 지급일"
+                            app:suffixText="일"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -343,7 +346,7 @@
                             android:id="@+id/text_input_layout14"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="원금 변제일"
+                            android:hint="원금 변제일(YYYY년 MM월 DD일)"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -373,7 +376,8 @@
                                 android:id="@+id/text_input_layout15"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="year"
+                                android:hint="YYYY"
+                                app:suffixText="년"
                                 app:hintTextColor="@color/themeColor"
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">
@@ -388,7 +392,8 @@
                                 android:id="@+id/text_input_layout16"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="month"
+                                android:hint="MM"
+                                app:suffixText="월"
                                 app:hintTextColor="@color/themeColor"
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">
@@ -403,7 +408,8 @@
                                 android:id="@+id/text_input_layout17"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="day"
+                                android:hint="DD"
+                                app:suffixText="일"
                                 app:hintTextColor="@color/themeColor"
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">

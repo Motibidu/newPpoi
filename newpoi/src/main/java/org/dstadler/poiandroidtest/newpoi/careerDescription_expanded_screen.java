@@ -44,7 +44,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class promissory_expanded_screen extends AppCompatActivity {
+public class careerDescription_expanded_screen extends AppCompatActivity {
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -75,74 +75,78 @@ public class promissory_expanded_screen extends AppCompatActivity {
     private Map<String, String> data = new HashMap<String, String>();
 
     private FirebaseStorage fStorage;
+    private Context context;
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.promissory_expanded_screen);
+        setContentView(R.layout.career_description_expanded_screen);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
 
-        pScre_name = PreferenceManager.getString(promissory_expanded_screen.this, "Scre_name");
-        pScre_add = PreferenceManager.getString(promissory_expanded_screen.this, "Scre_add");
-        pScre_rrn = PreferenceManager.getString(promissory_expanded_screen.this, "Scre_rrn");
-        pSdeb_name = PreferenceManager.getString(promissory_expanded_screen.this, "Sdeb_name");
-        pSdeb_add = PreferenceManager.getString(promissory_expanded_screen.this, "Sdeb_add");
-        pSdeb_rrn = PreferenceManager.getString(promissory_expanded_screen.this, "Sdeb_rrn");
-        pSjoi_name = PreferenceManager.getString(promissory_expanded_screen.this, "Sjoi_name");
-        pSjoi_add = PreferenceManager.getString(promissory_expanded_screen.this, "Sjoi_add");
-        pSjoi_rrn = PreferenceManager.getString(promissory_expanded_screen.this, "Sjoi_rrn");
-        pSori = PreferenceManager.getString(promissory_expanded_screen.this, "Sori");
-        pSara = PreferenceManager.getString(promissory_expanded_screen.this, "Sara");
-        pSin = PreferenceManager.getString(promissory_expanded_screen.this, "Sin");
-        pSgday = PreferenceManager.getString(promissory_expanded_screen.this, "Sgday");
-        pSpri_rep = PreferenceManager.getString(promissory_expanded_screen.this, "Spri_rep");
-        pSyear = PreferenceManager.getString(promissory_expanded_screen.this, "Syear");
-        pSmonth = PreferenceManager.getString(promissory_expanded_screen.this, "Smonth");
-        pSday = PreferenceManager.getString(promissory_expanded_screen.this, "Sday");
+        context = getApplicationContext();
 
-        cre_name = findViewById(R.id.editText0); cre_name.setText(pScre_name);
-        cre_add = findViewById(R.id.editText1); cre_add.setText(pScre_add);
-        cre_rrn = findViewById(R.id.editText2); cre_rrn.setText(pScre_rrn);
-        deb_name = findViewById(R.id.editText3); deb_name.setText(pSdeb_name);
-        deb_add = findViewById(R.id.editText4); deb_add.setText(pSdeb_add);
-        deb_rrn = findViewById(R.id.editText5); deb_rrn.setText(pSdeb_rrn);
-        joi_name = findViewById(R.id.editText6); joi_name.setText(pSjoi_name);
-        joi_add = findViewById(R.id.editText7); joi_add.setText(pSjoi_add);
-        joi_rrn = findViewById(R.id.editText8); joi_rrn.setText(pSjoi_rrn);
-        ori = findViewById(R.id.editText10); ori.setText(pSori);
-        ara = findViewById(R.id.editText11); ara.setText(pSara);
-        in = findViewById(R.id.editText12); in.setText(pSin);
-        gday = findViewById(R.id.editText13); gday.setText(pSgday);
-        pri_rep = findViewById(R.id.editText14); pri_rep.setText(pSpri_rep);
-        year = findViewById(R.id.editText15); year.setText(pSyear);
-        month = findViewById(R.id.editText16); month.setText(pSmonth);
-        day = findViewById(R.id.editText17); day.setText(pSday);
-
-        L_cre_name = findViewById(R.id.text_input_layout0);
-        L_cre_add= findViewById(R.id.text_input_layout1);
-        L_cre_rrn= findViewById(R.id.text_input_layout2);
-        L_deb_name= findViewById(R.id.text_input_layout3);
-        L_deb_add= findViewById(R.id.text_input_layout4);
-        L_deb_rrn= findViewById(R.id.text_input_layout5);
-        L_joi_name= findViewById(R.id.text_input_layout6);
-        L_joi_add= findViewById(R.id.text_input_layout7);
-        L_joi_rrn= findViewById(R.id.text_input_layout8);
-        L_ori= findViewById(R.id.text_input_layout10);
-        L_ara= findViewById(R.id.text_input_layout11);
-        L_in= findViewById(R.id.text_input_layout12);
-        L_gday= findViewById(R.id.text_input_layout13);
-        L_pri_rep= findViewById(R.id.text_input_layout14);
-        L_year= findViewById(R.id.text_input_layout15);
-        L_month= findViewById(R.id.text_input_layout16);
-        L_day= findViewById(R.id.text_input_layout17);
-
-
-
+//        pScre_name = PreferenceManager.getString(context, "Scre_name");
+//        pScre_add = PreferenceManager.getString(context, "Scre_add");
+//        pScre_rrn = PreferenceManager.getString(context, "Scre_rrn");
+//        pSdeb_name = PreferenceManager.getString(context, "Sdeb_name");
+//        pSdeb_add = PreferenceManager.getString(context, "Sdeb_add");
+//        pSdeb_rrn = PreferenceManager.getString(context, "Sdeb_rrn");
+//        pSjoi_name = PreferenceManager.getString(context, "Sjoi_name");
+//        pSjoi_add = PreferenceManager.getString(context, "Sjoi_add");
+//        pSjoi_rrn = PreferenceManager.getString(context, "Sjoi_rrn");
+//        pSori = PreferenceManager.getString(context, "Sori");
+//        pSara = PreferenceManager.getString(context, "Sara");
+//        pSin = PreferenceManager.getString(context, "Sin");
+//        pSgday = PreferenceManager.getString(context, "Sgday");
+//        pSpri_rep = PreferenceManager.getString(context, "Spri_rep");
+//        pSyear = PreferenceManager.getString(context, "Syear");
+//        pSmonth = PreferenceManager.getString(context, "Smonth");
+//        pSday = PreferenceManager.getString(context, "Sday");
+//
+//        cre_name = findViewById(R.id.editText0); cre_name.setText(pScre_name);
+//        cre_add = findViewById(R.id.editText1); cre_add.setText(pScre_add);
+//        cre_rrn = findViewById(R.id.editText2); cre_rrn.setText(pScre_rrn);
+//        deb_name = findViewById(R.id.editText3); deb_name.setText(pSdeb_name);
+//        deb_add = findViewById(R.id.editText4); deb_add.setText(pSdeb_add);
+//        deb_rrn = findViewById(R.id.editText5); deb_rrn.setText(pSdeb_rrn);
+//        joi_name = findViewById(R.id.editText6); joi_name.setText(pSjoi_name);
+//        joi_add = findViewById(R.id.editText7); joi_add.setText(pSjoi_add);
+//        joi_rrn = findViewById(R.id.editText8); joi_rrn.setText(pSjoi_rrn);
+//        ori = findViewById(R.id.editText10); ori.setText(pSori);
+//        ara = findViewById(R.id.editText11); ara.setText(pSara);
+//        in = findViewById(R.id.editText12); in.setText(pSin);
+//        gday = findViewById(R.id.editText13); gday.setText(pSgday);
+//        pri_rep = findViewById(R.id.editText14); pri_rep.setText(pSpri_rep);
+//        year = findViewById(R.id.editText15); year.setText(pSyear);
+//        month = findViewById(R.id.editText16); month.setText(pSmonth);
+//        day = findViewById(R.id.editText17); day.setText(pSday);
+//
+//        L_cre_name = findViewById(R.id.text_input_layout0);
+//        L_cre_add= findViewById(R.id.text_input_layout1);
+//        L_cre_rrn= findViewById(R.id.text_input_layout2);
+//        L_deb_name= findViewById(R.id.text_input_layout3);
+//        L_deb_add= findViewById(R.id.text_input_layout4);
+//        L_deb_rrn= findViewById(R.id.text_input_layout5);
+//        L_joi_name= findViewById(R.id.text_input_layout6);
+//        L_joi_add= findViewById(R.id.text_input_layout7);
+//        L_joi_rrn= findViewById(R.id.text_input_layout8);
+//        L_ori= findViewById(R.id.text_input_layout10);
+//        L_ara= findViewById(R.id.text_input_layout11);
+//        L_in= findViewById(R.id.text_input_layout12);
+//        L_gday= findViewById(R.id.text_input_layout13);
+//        L_pri_rep= findViewById(R.id.text_input_layout14);
+//        L_year= findViewById(R.id.text_input_layout15);
+//        L_month= findViewById(R.id.text_input_layout16);
+//        L_day= findViewById(R.id.text_input_layout17);
+//
+//
+//
         expanded_screen_backButton = findViewById(R.id.expanded_screen_backButton);
         expanded_screen_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +154,7 @@ public class promissory_expanded_screen extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+//
         expanded_screen_mainImageView = findViewById(R.id.expanded_screen_mainImageView);
         intent = getIntent();
         imgPath = intent.getStringExtra("imgPath");
@@ -164,78 +168,77 @@ public class promissory_expanded_screen extends AppCompatActivity {
         Glide.with(this).load(imgUri)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                 .apply(RequestOptions.skipMemoryCacheOf(true))
-//                .apply(RequestOptions.signatureOf(new ObjectKey(System.currentTimeMillis())))
                 .apply(RequestOptions.bitmapTransform(
                         new RoundedCornersTransformation(this, sCorner, sMargin, "#34ace0", sBorder))).into(expanded_screen_mainImageView);
-
-        if (imgName.equals("promissory1")){
-            L_cre_rrn.setVisibility(View.GONE);
-            L_joi_name.setVisibility(View.GONE);
-            L_joi_add.setVisibility(View.GONE);
-            L_joi_rrn.setVisibility(View.GONE);
-            L_cre_rrn.setVisibility(View.GONE);
-        }
-        if (imgName.equals("promissory2")){
-            L_joi_name.setVisibility(View.GONE);
-            L_joi_add.setVisibility(View.GONE);
-            L_joi_rrn.setVisibility(View.GONE);
-        }
-
-
-        expanded_screen_download_without_modify = findViewById(R.id.expanded_screen_download_without_modify);
-        expanded_screen_download_without_modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermission();
-
-                expanded_screen_name = findViewById(R.id.expanded_screen_name);
-                fileName = expanded_screen_name.getText().toString().trim();
-                imgName = intent.getStringExtra("imgName");
-
-                downloadEP = new DownloadEP(getApplicationContext());
-                downloadEP.download_without_modify(fileName, imgName);
-            }
-        });
-
-
-        create = findViewById(R.id.expanded_screen_create);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermission();
-
-                expanded_screen_name = findViewById(R.id.expanded_screen_name);
-                fileName = expanded_screen_name.getText().toString().trim();
-                imgName = intent.getStringExtra("imgName");
-
-                Scre_name = cre_name.getText().toString().trim();
-                Scre_add = cre_add.getText().toString().trim();
-                Scre_rrn = cre_rrn.getText().toString().trim();
-                Sdeb_name = deb_name.getText().toString().trim();
-                Sdeb_add = deb_add.getText().toString().trim();
-                Sdeb_rrn = deb_rrn.getText().toString().trim();
-                Sjoi_name = joi_name.getText().toString().trim();
-                Sjoi_add = joi_add.getText().toString().trim();
-                Sjoi_rrn = joi_rrn.getText().toString().trim();
-                Sori = ori.getText().toString().trim();
-                Sara = ara.getText().toString().trim();
-                Sin = in.getText().toString().trim();
-                Sgday = gday.getText().toString().trim();
-                Spri_rep = pri_rep.getText().toString().trim();
-                Syear = year.getText().toString().trim();
-                Smonth = month.getText().toString().trim();
-                Sday = day.getText().toString().trim();
-
-                downloadEP = new DownloadEP(getApplicationContext());
-                downloadEP.download_with_modify(fileName, imgName);
-//                downloadEP.download_picture();
+//
+//        if (imgName.equals("promissory1")){
+//            L_cre_rrn.setVisibility(View.GONE);
+//            L_joi_name.setVisibility(View.GONE);
+//            L_joi_add.setVisibility(View.GONE);
+//            L_joi_rrn.setVisibility(View.GONE);
+//            L_cre_rrn.setVisibility(View.GONE);
+//        }
+//        if (imgName.equals("promissory2")){
+//            L_joi_name.setVisibility(View.GONE);
+//            L_joi_add.setVisibility(View.GONE);
+//            L_joi_rrn.setVisibility(View.GONE);
+//        }
 //
 //
-//                String img_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/증명사진0.jpg";
-//                String doc_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/resume0.docx";
-//                new CustomXWPFDocument().runImg("사진",doc_path, img_path, true, 1133475, 1510665, 0, 0);//Bookmark replacement picture
-            }
-        });
+//        expanded_screen_download_without_modify = findViewById(R.id.expanded_screen_download_without_modify);
+//        expanded_screen_download_without_modify.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                checkPermission();
+//
+//                expanded_screen_name = findViewById(R.id.expanded_screen_name);
+//                fileName = expanded_screen_name.getText().toString().trim();
+//                imgName = intent.getStringExtra("imgName");
+//
+//                downloadEP = new DownloadEP(getApplicationContext());
+//                downloadEP.download_without_modify(fileName, imgName);
+//            }
+//        });
+//
+//
+//        create = findViewById(R.id.expanded_screen_create);
+//        create.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                checkPermission();
+//
+//                expanded_screen_name = findViewById(R.id.expanded_screen_name);
+//                fileName = expanded_screen_name.getText().toString().trim();
+//                imgName = intent.getStringExtra("imgName");
+//
+//                Scre_name = cre_name.getText().toString().trim();
+//                Scre_add = cre_add.getText().toString().trim();
+//                Scre_rrn = cre_rrn.getText().toString().trim();
+//                Sdeb_name = deb_name.getText().toString().trim();
+//                Sdeb_add = deb_add.getText().toString().trim();
+//                Sdeb_rrn = deb_rrn.getText().toString().trim();
+//                Sjoi_name = joi_name.getText().toString().trim();
+//                Sjoi_add = joi_add.getText().toString().trim();
+//                Sjoi_rrn = joi_rrn.getText().toString().trim();
+//                Sori = ori.getText().toString().trim();
+//                Sara = ara.getText().toString().trim();
+//                Sin = in.getText().toString().trim();
+//                Sgday = gday.getText().toString().trim();
+//                Spri_rep = pri_rep.getText().toString().trim();
+//                Syear = year.getText().toString().trim();
+//                Smonth = month.getText().toString().trim();
+//                Sday = day.getText().toString().trim();
+//
+//                downloadEP = new DownloadEP(getApplicationContext());
+//                downloadEP.download_with_modify(fileName, imgName);
+////                downloadEP.download_picture();
+////
+////
+////                String img_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/증명사진0.jpg";
+////                String doc_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/resume0.docx";
+////                new CustomXWPFDocument().runImg("사진",doc_path, img_path, true, 1133475, 1510665, 0, 0);//Bookmark replacement picture
+//            }
+//        });
 
     }
 
@@ -244,17 +247,17 @@ public class promissory_expanded_screen extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long document_downloadID = PreferenceManager.getLong(promissory_expanded_screen.this, "document_downloadID");
+            long document_downloadID = PreferenceManager.getLong(context, "document_downloadID");
             fileName = fileName+".docx";
 
 //            Toast.makeText(expanded_screen.this, completeDownloadId + "completeDownloadId", Toast.LENGTH_SHORT).show();
 //            Toast.makeText(expanded_screen.this, r_downloadID + "_i_download__broadcast", Toast.LENGTH_SHORT).show();
-//            Toast.makeText(promissory_expanded_screen.this, fileName, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, fileName, Toast.LENGTH_SHORT).show();
 
             if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (document_downloadID == completeDownloadId)) {
                 File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
                 if (f.exists()) {
-                    Toast.makeText(promissory_expanded_screen.this, "The file exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "The file exists!", Toast.LENGTH_SHORT).show();
                     try {
                         InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
                         final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName));
@@ -279,7 +282,7 @@ public class promissory_expanded_screen extends AppCompatActivity {
                         c.replace(is,data,out);
 
                         f.delete();
-                        Toast.makeText(promissory_expanded_screen.this, "Finished!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Finished!", Toast.LENGTH_SHORT).show();
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -287,7 +290,7 @@ public class promissory_expanded_screen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(promissory_expanded_screen.this, "No File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "No File!", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -310,23 +313,23 @@ public class promissory_expanded_screen extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        PreferenceManager.setString(promissory_expanded_screen.this, "Scre_name", cre_name.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Scre_add", cre_add.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Scre_rrn", cre_rrn.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sdeb_name", deb_name.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sdeb_add", deb_add.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sdeb_rrn", deb_rrn.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sjoi_name", joi_name.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sjoi_add", joi_add.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sjoi_rrn", joi_rrn.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sori", ori.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sara", ara.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sin", in.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sgday", gday.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Spri_rep", pri_rep.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Syear", year.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Smonth", month.getText().toString().trim());
-        PreferenceManager.setString(promissory_expanded_screen.this, "Sday", day.getText().toString().trim());
+        PreferenceManager.setString(context, "Scre_name", cre_name.getText().toString().trim());
+        PreferenceManager.setString(context, "Scre_add", cre_add.getText().toString().trim());
+        PreferenceManager.setString(context, "Scre_rrn", cre_rrn.getText().toString().trim());
+        PreferenceManager.setString(context, "Sdeb_name", deb_name.getText().toString().trim());
+        PreferenceManager.setString(context, "Sdeb_add", deb_add.getText().toString().trim());
+        PreferenceManager.setString(context, "Sdeb_rrn", deb_rrn.getText().toString().trim());
+        PreferenceManager.setString(context, "Sjoi_name", joi_name.getText().toString().trim());
+        PreferenceManager.setString(context, "Sjoi_add", joi_add.getText().toString().trim());
+        PreferenceManager.setString(context, "Sjoi_rrn", joi_rrn.getText().toString().trim());
+        PreferenceManager.setString(context, "Sori", ori.getText().toString().trim());
+        PreferenceManager.setString(context, "Sara", ara.getText().toString().trim());
+        PreferenceManager.setString(context, "Sin", in.getText().toString().trim());
+        PreferenceManager.setString(context, "Sgday", gday.getText().toString().trim());
+        PreferenceManager.setString(context, "Spri_rep", pri_rep.getText().toString().trim());
+        PreferenceManager.setString(context, "Syear", year.getText().toString().trim());
+        PreferenceManager.setString(context, "Smonth", month.getText().toString().trim());
+        PreferenceManager.setString(context, "Sday", day.getText().toString().trim());
         super.onPause();
     }
 
@@ -370,7 +373,7 @@ public class promissory_expanded_screen extends AppCompatActivity {
                 for (int i = 0; i < grantResults.length; i++) {
                     // grantResults[] : 허용된 권한은 0, 거부한 권한은 -1
                     if (grantResults[i] < 0) {
-                        Toast.makeText(promissory_expanded_screen.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
