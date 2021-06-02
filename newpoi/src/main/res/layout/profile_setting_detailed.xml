@@ -17,7 +17,6 @@
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:background="@drawable/btn_back"/>
 
-
     <android.widget.Button
         android:id="@+id/complete_profile_setting_button"
         android:layout_width="80dp"

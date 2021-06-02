@@ -47,10 +47,10 @@ public class account_setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_setting);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+//        Window window = this.getWindow();
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
 
         EditText_email = findViewById(R.id.EditText_email);
         EditText_password = findViewById(R.id.EditText_password);
@@ -174,7 +174,7 @@ public class account_setting extends AppCompatActivity {
     private void updateUI(FirebaseUser fUser){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        if(account != null){
+        if(isSignedIn()){
             String personName = account.getDisplayName();
             String personEmail = account.getEmail();
 
@@ -189,5 +189,8 @@ public class account_setting extends AppCompatActivity {
             btn_google.setVisibility(View.VISIBLE);
             account_setting_logout_button.setVisibility(View.INVISIBLE);
         }
+    }
+    private boolean isSignedIn() {
+        return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
     }
 }

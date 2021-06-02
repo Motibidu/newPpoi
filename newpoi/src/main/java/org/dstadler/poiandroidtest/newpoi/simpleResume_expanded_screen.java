@@ -3,7 +3,6 @@ package org.dstadler.poiandroidtest.newpoi;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,10 +33,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -45,30 +42,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.formula.functions.T;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTableCell;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class simpleResume_expanded_screen extends AppCompatActivity {
 
@@ -98,7 +79,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
     private EditText expanded_screen_name;
 
 
-    private ImageView expanded_screen_mainImageView;
+    private ImageView expanded_screen_mainImageView0, expanded_screen_mainImageView1;
     private String fileName, folder;
 
     private static final int MY_PERMISSION_STORAGE = 1111;
@@ -114,7 +95,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_resume_expanded_screen);
+        setContentView(R.layout.doc_simple_resume_expanded_screen);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -131,7 +112,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
             }
         });
 
-        expanded_screen_mainImageView = findViewById(R.id.expanded_screen_mainImageView);
+        expanded_screen_mainImageView0 = findViewById(R.id.expanded_screen_mainImageView0);
         Intent intent = getIntent();
         String imgPath = intent.getStringExtra("imgPath");
         Uri imgUri = Uri.parse(imgPath);
@@ -139,8 +120,8 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
         Glide.with(this).load(imgUri)
                 .apply(RequestOptions.bitmapTransform(
                         new RoundedCornersTransformation(
-                                this, sCorner, sMargin, "#34ace0", sBorder))).into(expanded_screen_mainImageView);
-        expanded_screen_mainImageView.setImageURI(imgUri);
+                                this, sCorner, sMargin, "#34ace0", sBorder))).into(expanded_screen_mainImageView0);
+        expanded_screen_mainImageView0.setImageURI(imgUri);
 
         name = findViewById(R.id.name);
         e_name = findViewById(R.id.e_name);
@@ -159,13 +140,18 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkPermission();
+                if(checkString(fileName)){
+                    Toast.makeText(context,"제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                expanded_screen_name = findViewById(R.id.expanded_screen_name);
-                fileName = expanded_screen_name.getText().toString().trim();
-                imgName = intent.getStringExtra("imgName");
+                    expanded_screen_name = findViewById(R.id.expanded_screen_name);
+                    fileName = expanded_screen_name.getText().toString().trim();
+                    imgName = intent.getStringExtra("imgName");
 
-                downloadEP = new DownloadEP(getApplicationContext());
-                downloadEP.download_without_modify(fileName, imgName);
+                    downloadEP = new DownloadEP(getApplicationContext());
+                    downloadEP.download_without_modify(fileName, imgName);
+                }
             }
         });
 
@@ -174,14 +160,21 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkPermission();
+                if (mAuth.getCurrentUser() == null) {
+                    Toast.makeText(simpleResume_expanded_screen.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (checkString(fileName)) {
+                        Toast.makeText(context, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        expanded_screen_name = findViewById(R.id.expanded_screen_name);
+                        fileName = expanded_screen_name.getText().toString().trim();
+                        imgName = intent.getStringExtra("imgName");
 
-                expanded_screen_name = findViewById(R.id.expanded_screen_name);
-                fileName = expanded_screen_name.getText().toString().trim();
-                imgName = intent.getStringExtra("imgName");
-
-                downloadEP = new DownloadEP(getApplicationContext());
-                Toast.makeText(context, "Downloading Document File!", Toast.LENGTH_SHORT).show();
-                downloadEP.download_with_modify(fileName, imgName);
+                        downloadEP = new DownloadEP(getApplicationContext());
+                        Toast.makeText(context, "Downloading Document File!", Toast.LENGTH_SHORT).show();
+                        downloadEP.download_with_modify(fileName, imgName);
+                    }
+                }
 
 
             }
@@ -203,10 +196,6 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
     private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -270,8 +259,6 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
                     }
                 }
             }
-
-
         }
     };
     private void checkPermission(){
@@ -330,7 +317,9 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
 //            Toast.makeText(profile_screen.this,account.toString(),Toast.LENGTH_SHORT).show();
             mAuth = FirebaseAuth.getInstance();
             storageReference = fStorage.getInstance().getReference();
-            userID = mAuth.getCurrentUser().getUid();
+            if(mAuth.getCurrentUser() != null) {
+                userID = mAuth.getCurrentUser().getUid();
+            }
             DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
             documentReference.addSnapshotListener(simpleResume_expanded_screen.this, new EventListener<DocumentSnapshot>() {
                 @Override
@@ -372,6 +361,9 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
             number.setText("");
             address.setText("");
         }
+    }
+    boolean checkString(String str) {
+        return str == null || str.length() == 0;
     }
 
 }

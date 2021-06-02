@@ -16,11 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/topAppBar">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,16 +24,30 @@
                 android:columnOrderPreserved="false"
                 android:rowCount="4">
                 <ImageButton
-                    android:id="@+id/simpleResume0"
+                    android:id="@+id/promissory0"
                     android:layout_width="184dp"
-                    android:layout_height="230dp"
+                    android:layout_height="260dp"
                     android:padding="5sp"
                     android:layout_marginLeft="5dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/btn_bg"
-                    android:src="@drawable/simple_resume0" />
+                    android:background="@drawable/btn_bg" />
+                <ImageButton
+                    android:id="@+id/promissory1"
+                    android:layout_width="184dp"
+                    android:layout_height="260dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg" />
+                <ImageButton
+                    android:id="@+id/promissory2"
+                    android:layout_width="184dp"
+                    android:layout_height="260dp"
+                    android:padding="5sp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/btn_bg" />
             </GridLayout>
-        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

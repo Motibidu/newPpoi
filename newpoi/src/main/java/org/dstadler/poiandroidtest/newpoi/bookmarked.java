@@ -15,7 +15,7 @@ public class bookmarked extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bookmarked, container, false);
+        view = inflater.inflate(R.layout.main_bookmarked, container, false);
 
         return view;
     }

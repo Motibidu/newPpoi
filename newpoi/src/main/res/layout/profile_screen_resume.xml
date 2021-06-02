@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/profile_screen_picture">
+    <TextView
+        android:id="@+id/eduBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_screen_picture"
+        android:layout_marginLeft="30dp"
+        android:text="@string/eduBack"/>
+    <TextView
+        android:id="@+id/formOfCareer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eduBack"
+        android:layout_marginLeft="30dp"
+        android:text="@string/formOfCareer"/>
+    <TextView
+        android:id="@+id/linguistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eduBack"
+        android:layout_marginLeft="30dp"
+        android:text="어학사항"/>
+    <TextView
+        android:id="@+id/selfIntroduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/awLic"
+        android:layout_marginLeft="30dp"
+        android:text="@string/selfIntroduction"/>
+    <TextView
+        android:id="@+id/lincenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eduBack"
+        android:layout_marginLeft="30dp"
+        android:text="자격증"/>
+</LinearLayout>

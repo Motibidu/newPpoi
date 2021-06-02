@@ -9,7 +9,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="18dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="@drawable/btn_back"/>
         <android.widget.Button
@@ -17,7 +17,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="18dp"
             android:text="@string/complete"
             android:textColor="@color/white"
             android:background="@drawable/radius"/>

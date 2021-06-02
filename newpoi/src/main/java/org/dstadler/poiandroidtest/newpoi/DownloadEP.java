@@ -23,7 +23,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class DownloadEP {
     private Context context;
@@ -41,11 +46,11 @@ public class DownloadEP {
         this.context = context;
     }
 
-    public void download_without_modify(String fileName, String imgName){
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+    public void download_without_modify(String fileName, String documentName){
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("Documents/"+imgName+"_ori.docx");
+        StorageReference profileRef = storageReference.child("Documents/"+documentName+"_ori.docx");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -65,12 +70,11 @@ public class DownloadEP {
         downloadManager.enqueue(request);
     }
 
-
-    public void download_with_modify(String fileName, String imgName){
+    public void download_with_modify(String fileName, String documentName){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("Documents/"+imgName+".docx");
+        StorageReference profileRef = storageReference.child("Documents/"+documentName+".docx");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -122,6 +126,24 @@ public class DownloadEP {
 
             }
         });
-
     }
+//    public void createThumbnail(String fileName, String documentName){
+//        storageReference = fStorage.getInstance().getReference();
+//
+//        StorageReference profileRef = storageReference.child("Documents/"+documentName+"_ori.docx");
+//        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+////                String path = uri.getPath();
+//                try {
+//                    CustomXWPFDocument f = new CustomXWPFDocument(OPCPackage.open(new FileInputStream(new File(uri.getPath()))));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (InvalidFormatException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
+
 }

@@ -29,7 +29,7 @@ public class recentitems extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.recentitems, container, false);
+        view = inflater.inflate(R.layout.main_recent_items, container, false);
 
         add_screen = new add_screen();
         profile_screen = new profile_screen();

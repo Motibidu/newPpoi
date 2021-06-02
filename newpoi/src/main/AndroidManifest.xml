@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".account_setting"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".profile_screen">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile_setting"
+        <activity android:name=".profile_setting_detailed"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:parentActivityName=".profile_screen">
             <intent-filter>
@@ -100,11 +100,62 @@
         </activity>
         <activity android:name=".careerDescription_expanded_screen"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".add_screen">
+            android:parentActivityName=".careerDescription">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".profile_setting_simple"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".profile_setting_resume"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_screen">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".eduBack"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_setting_resume">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".formOfCareer"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_setting_resume">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".linguistics"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_setting_resume">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".selfIntroduction"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_setting_resume">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".licenses"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile_setting_resume">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
 
     </application>

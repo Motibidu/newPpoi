@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/profile_setting_entry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/profile_setting_back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@drawable/btn_back"/>
+
+
+        <android.widget.Button
+            android:id="@+id/complete_profile_setting_button"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius"
+            android:layout_marginTop="13dp"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:text="@string/complete"/>
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="60dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_baseline_person_pin_24"
+            android:background="@drawable/btn_com"
+            android:layout_centerHorizontal="true"
+            />
+        <android.widget.Button
+            android:id="@+id/profile_picture_loadButton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/radius"
+            android:text="@string/modify"
+            android:textColor="@color/white"
+            android:layout_below="@+id/profile_picture" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/profile_picture_loadButton">
+            <TextView
+                android:id="@+id/profile_Textview_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_picture_loadButton"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/name"/>
+            <EditText
+                android:id="@+id/profile_EditText_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:hint="이름을 입력해주세요."
+                android:layout_below="@+id/profile_Textview_name"/>
+
+            <TextView
+                android:id="@+id/profile_Textview_rrn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_EditText_eame"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/rrn"/>
+            <EditText
+                android:id="@+id/profile_EditText_rrn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:hint="OOOOOO-OOOOOOO"
+                android:layout_below="@+id/profile_Textview_rrn"/>
+            <TextView
+                android:id="@+id/profile_Textview_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_EditText_rrn"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/age"/>
+            <EditText
+                android:id="@+id/profile_EditText_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:hint="나이를 입력해주세요."
+                android:layout_below="@+id/profile_Textview_age"/>
+
+            <TextView
+                android:id="@+id/profile_Textview_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_EditText_email"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/phoneNumber"/>
+            <EditText
+                android:id="@+id/profile_EditText_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:hint=""
+                android:layout_below="@+id/profile_Textview_phoneNumber"/>
+            <TextView
+                android:id="@+id/profile_Textview_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_EditText_address"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/email"/>
+            <EditText
+                android:id="@+id/profile_EditText_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@+id/profile_Textview_email"/>
+            <TextView
+                android:id="@+id/profile_Textview_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_EditText_age"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/address"/>
+            <EditText
+                android:id="@+id/profile_EditText_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="30dp"
+                android:hint="ex) OO도 OO시 OOO구 OO동 OO로12 345-6789"
+                android:layout_below="@+id/profile_Textview_address"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</ScrollView>

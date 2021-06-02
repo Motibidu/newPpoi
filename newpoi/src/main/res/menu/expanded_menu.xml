@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/expand"
+        android:title="펼치기"/>
+    <item android:id="@+id/applyToProfile"
+        android:title="프로필 적용"/>
+    <item android:id="@+id/moveToProfile"
+        android:title="프로필로 이동"/>
+    <item android:id="@+id/priview"
+        android:title="미리보기"/>
+</menu>

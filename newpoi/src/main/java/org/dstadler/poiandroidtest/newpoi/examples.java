@@ -15,7 +15,7 @@ public class examples extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.examples, container, false);
+        view = inflater.inflate(R.layout.main_examples, container, false);
 
         return view;
     }
