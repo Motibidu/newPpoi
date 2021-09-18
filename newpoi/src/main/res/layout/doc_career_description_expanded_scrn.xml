@@ -26,19 +26,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:id="@+id/expanded_screen_mainImageView0"
+                        android:id="@+id/expandedScrn_mainImageView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true" />
                     <ImageView
-                        android:id="@+id/expanded_screen_mainImageView1"
-                        android:layout_below="@+id/expanded_screen_mainImageView0"
+                        android:id="@+id/expandedScrn_mainImageView2"
+                        android:layout_below="@+id/expandedScrn_mainImageView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true" />
                     <ImageView
-                        android:id="@+id/expanded_screen_mainImageView2"
-                        android:layout_below="@+id/expanded_screen_mainImageView1"
+                        android:id="@+id/expandedScrn_mainImageView3"
+                        android:layout_below="@+id/expandedScrn_mainImageView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true" />
@@ -50,7 +50,7 @@
                     android:background="@drawable/layout_border"
                     android:layout_below="@+id/main_layout">
                     <TextView
-                        android:id="@+id/expanded_screen_file"
+                        android:id="@+id/expandedScrn_file"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginVertical="10dp"
@@ -61,22 +61,22 @@
                         android:layout_centerVertical="true"
                         android:textColor="#34495e" />
                     <EditText
-                        android:id="@+id/expanded_screen_name"
+                        android:id="@+id/expandedScrn_name"
                         android:layout_width="130dp"
                         android:layout_height="40dp"
                         android:layout_marginVertical="10dp"
                         android:hint="@string/fileTitle"
-                        android:layout_toRightOf="@id/expanded_screen_file"
+                        android:layout_toRightOf="@id/expandedScrn_file"
                         android:textSize="18sp"
                         android:textAlignment="center"
                         android:gravity="center"
                         android:layout_centerVertical="true"
                         android:textColor="#34495e" />
                     <android.widget.Button
-                        android:id="@+id/expanded_screen_download_without_modify"
+                        android:id="@+id/expandedScrn_download_without_modify"
                         android:layout_width="78dp"
                         android:layout_height="52dp"
-                        android:layout_toRightOf="@id/expanded_screen_name"
+                        android:layout_toRightOf="@id/expandedScrn_name"
                         android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
                         android:text="@string/save_only_template"
@@ -84,20 +84,20 @@
                         android:background="@drawable/btn_maintheme" />
 
                     <android.widget.Button
-                        android:id="@+id/expanded_screen_create"
+                        android:id="@+id/expandedScrn_create"
                         android:layout_width="78dp"
                         android:layout_height="52dp"
-                        android:layout_toRightOf="@+id/expanded_screen_download_without_modify"
+                        android:layout_toRightOf="@+id/expandedScrn_download_without_modify"
                         android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
                         android:text="@string/create"
                         android:background="@drawable/btn_maintheme"
                         android:textColor="@color/white"/>
                     <ImageButton
-                        android:id="@+id/expanded_screen_menu"
+                        android:id="@+id/expandedScrn_menu"
                         android:layout_width="34dp"
                         android:layout_height="52dp"
-                        android:layout_toRightOf="@+id/expanded_screen_create"
+                        android:layout_toRightOf="@+id/expandedScrn_create"
                         android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
                         android:backgroundTint="@color/themeColor"
@@ -243,7 +243,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/highschool_graIfy_Layout"
+                            android:id="@+id/highschool_graCls_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="졸업구분"
@@ -252,7 +252,7 @@
                             android:layout_weight="1"
                             app:suffixText="졸업/졸업 예정">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/highschool_graIfy_EditText"
+                                android:id="@+id/highschool_graCls_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -354,7 +354,7 @@
                             </com.google.android.material.textfield.TextInputLayout>
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_below="@+id/university_layout1"
-                                android:id="@+id/university_graIfy_Layout"
+                                android:id="@+id/university_graCls_Layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="졸업구분"
@@ -363,7 +363,7 @@
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/university_graIfy_EditText"
+                                    android:id="@+id/university_graCls_EditText"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_border"
@@ -462,7 +462,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/master_graIfy_Layout"
+                            android:id="@+id/master_graCls_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="졸업구분"
@@ -471,7 +471,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/master_graIfy_EditText"
+                                android:id="@+id/master_graCls_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -511,14 +511,14 @@
 
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/formOfCareer0"
+                    android:id="@+id/formOfCareer1"
                     android:layout_below="@+id/master"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border"
                     >
                     <TextView
-                        android:id="@+id/formOfCareer0_Textview"
+                        android:id="@+id/formOfCareer1_Textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
@@ -527,113 +527,12 @@
                         android:text="경력사항1"
                         android:gravity="center"/>
                     <LinearLayout
-                        android:id="@+id/formOfCareer0_layout"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/formOfCareer0_Textview"
-                        >
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer0_name_Layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="회사명"
-                            app:hintTextColor="@color/themeColor"
-                            app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer0_name_EditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer0_office_Layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="담당부서"
-                            app:hintTextColor="@color/themeColor"
-                            app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer0_office_EditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer0_enter_Layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="입사년월"
-                            app:suffixText="YYYY/MM"
-                            app:hintTextColor="@color/themeColor"
-                            app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer0_enter_EditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer0_resign_Layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="퇴사년월"
-                            app:suffixText="YYYY/MM"
-                            app:hintTextColor="@color/themeColor"
-                            app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer0_resign_EditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer0_task_Layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="담당업무"
-                            app:hintTextColor="@color/themeColor"
-                            app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer0_task_EditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/formOfCareer1"
-                    android:layout_below="@+id/formOfCareer0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layout_border">
-                    <TextView
-                        android:id="@+id/formOfCareer1_Textview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/profile_picture_loadButton"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="30dp"
-                        android:text="경력사항2"
-                        android:gravity="center"/>
-                    <LinearLayout
                         android:id="@+id/formOfCareer1_layout"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/formOfCareer1_Textview">
+                        android:layout_below="@+id/formOfCareer1_Textview"
+                        >
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/formOfCareer1_name_Layout"
                             android:layout_width="match_parent"
@@ -665,7 +564,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer1_enter_Layout"
+                            android:id="@+id/formOfCareer1_enterYM_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입사년월"
@@ -674,14 +573,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer1_enter_EditText"
+                                android:id="@+id/formOfCareer1_enterYM_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer1_resign_Layout"
+                            android:id="@+id/formOfCareer1_resignYM_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="퇴사년월"
@@ -690,7 +589,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer1_resign_EditText"
+                                android:id="@+id/formOfCareer1_resignYM_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -711,7 +610,6 @@
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
-
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -728,15 +626,14 @@
                         android:layout_marginTop="25dp"
                         android:layout_marginLeft="25dp"
                         android:layout_marginRight="30dp"
-                        android:text="경력사항3"
-                        android:gravity="center"
-                        />
+                        android:text="경력사항2"
+                        android:gravity="center"/>
                     <LinearLayout
                         android:id="@+id/formOfCareer2_layout"
                         android:orientation="vertical"
-                        android:layout_below="@+id/formOfCareer2_Textview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/formOfCareer2_Textview">
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/formOfCareer2_name_Layout"
                             android:layout_width="match_parent"
@@ -768,7 +665,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer2_enter_Layout"
+                            android:id="@+id/formOfCareer2_enterYM_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입사년월"
@@ -777,14 +674,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer2_enter_EditText"
+                                android:id="@+id/formOfCareer2_enterYM_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/formOfCareer2_resign_Layout"
+                            android:id="@+id/formOfCareer2_resignYM_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="퇴사년월"
@@ -793,7 +690,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/formOfCareer2_resign_EditText"
+                                android:id="@+id/formOfCareer2_resignYM_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -814,11 +711,114 @@
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/formOfCareer3"
+                    android:layout_below="@+id/formOfCareer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layout_border">
+                    <TextView
+                        android:id="@+id/formOfCareer3_Textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profile_picture_loadButton"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="30dp"
+                        android:text="경력사항3"
+                        android:gravity="center"
+                        />
+                    <LinearLayout
+                        android:id="@+id/formOfCareer3_layout"
+                        android:orientation="vertical"
+                        android:layout_below="@+id/formOfCareer3_Textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formOfCareer3_name_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="회사명"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/formOfCareer3_name_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formOfCareer3_office_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="담당부서"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/formOfCareer3_office_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formOfCareer3_enterYM_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="입사년월"
+                            app:suffixText="YYYY/MM"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/formOfCareer3_enterYM_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formOfCareer3_resignYM_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="퇴사년월"
+                            app:suffixText="YYYY/MM"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/formOfCareer3_resignYM_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formOfCareer3_task_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="담당업무"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/formOfCareer3_task_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/license1"
-                    android:layout_below="@+id/formOfCareer2"
+                    android:layout_below="@+id/formOfCareer3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border">
@@ -854,8 +854,8 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/license1_content_Layout"
-                            android:layout_below="@+id/license1_content_Layout"
+                            android:id="@+id/license1_cntnt_Layout"
+                            android:layout_below="@+id/license1_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="특수자격 및 면허"
@@ -863,7 +863,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/license1_content_Edittext"
+                                android:id="@+id/license1_cntnt_Edittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -940,7 +940,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/license2_content_Layout"
+                            android:id="@+id/license2_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="특수자격 및 면허"
@@ -948,7 +948,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/license2_content_EditText"
+                                android:id="@+id/license2_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -1025,7 +1025,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/award1_content_Layout"
+                            android:id="@+id/award1_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="수상 내역"
@@ -1033,7 +1033,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/award1_content_EditText"
+                                android:id="@+id/award1_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -1095,7 +1095,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/award2_content_Layout"
+                            android:id="@+id/award2_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="수상내역"
@@ -1103,7 +1103,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/award2_content_EditText"
+                                android:id="@+id/award2_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -1131,7 +1131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
                     <ImageButton
-                        android:id="@+id/backButton"
+                        android:id="@+id/backBtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="18dp"

@@ -9,7 +9,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/themeColor"
         app:title="새로 만들기 : "
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        app:titleTextColor="@color/white"
         />
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 <RelativeLayout
                     android:id="@+id/promissory">
                     <org.dstadler.poiandroidtest.newpoi.customImageView
-                        android:id="@+id/promissory_ImageView"
+                        android:id="@+id/promissory_customImgV"
                         android:layout_width="184dp"
                         android:layout_height="260dp"
                         android:padding="5sp"
@@ -35,10 +35,10 @@
                         android:id="@+id/prmomissory_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/promissory_ImageView"
-                        android:layout_alignTop="@+id/promissory_ImageView"
-                        android:layout_alignRight="@+id/promissory_ImageView"
-                        android:layout_alignBottom="@+id/promissory_ImageView"
+                        android:layout_alignLeft="@+id/promissory_customImgV"
+                        android:layout_alignTop="@+id/promissory_customImgV"
+                        android:layout_alignRight="@+id/promissory_customImgV"
+                        android:layout_alignBottom="@+id/promissory_customImgV"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:text="차용증"
@@ -48,7 +48,7 @@
                 <RelativeLayout
                     android:id="@+id/partTimeJobResume">
                     <org.dstadler.poiandroidtest.newpoi.customImageView
-                        android:id="@+id/partTimeJobResume_ImageView"
+                        android:id="@+id/partTimeJobResume_customImgV"
                         android:layout_width="184dp"
                         android:layout_height="260dp"
                         android:padding="5sp"
@@ -58,10 +58,10 @@
                         android:id="@+id/partTimeJobResume_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/partTimeJobResume_ImageView"
-                        android:layout_alignTop="@+id/partTimeJobResume_ImageView"
-                        android:layout_alignRight="@+id/partTimeJobResume_ImageView"
-                        android:layout_alignBottom="@+id/partTimeJobResume_ImageView"
+                        android:layout_alignLeft="@+id/partTimeJobResume_customImgV"
+                        android:layout_alignTop="@+id/partTimeJobResume_customImgV"
+                        android:layout_alignRight="@+id/partTimeJobResume_customImgV"
+                        android:layout_alignBottom="@+id/partTimeJobResume_customImgV"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:text="아르바이트   이력서"
@@ -71,7 +71,7 @@
                 <RelativeLayout
                     android:id="@+id/simpleResume">
                     <org.dstadler.poiandroidtest.newpoi.customImageView
-                        android:id="@+id/simpleResume_ImageView"
+                        android:id="@+id/simpleResume_customImgV"
                         android:layout_width="184dp"
                         android:layout_height="260dp"
                         android:padding="5sp"
@@ -81,10 +81,10 @@
                         android:id="@+id/simpleResume_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/simpleResume_ImageView"
-                        android:layout_alignTop="@+id/simpleResume_ImageView"
-                        android:layout_alignRight="@+id/simpleResume_ImageView"
-                        android:layout_alignBottom="@+id/simpleResume_ImageView"
+                        android:layout_alignLeft="@+id/simpleResume_customImgV"
+                        android:layout_alignTop="@+id/simpleResume_customImgV"
+                        android:layout_alignRight="@+id/simpleResume_customImgV"
+                        android:layout_alignBottom="@+id/simpleResume_customImgV"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:text="간편 이력서"
@@ -94,7 +94,7 @@
                 <RelativeLayout
                     android:id="@+id/carrerDescription">
                     <org.dstadler.poiandroidtest.newpoi.customImageView
-                        android:id="@+id/careerDescription_ImageView"
+                        android:id="@+id/careerDescription_customImgV"
                         android:layout_width="184dp"
                         android:layout_height="260dp"
                         android:padding="5sp"
@@ -104,10 +104,10 @@
                         android:id="@+id/carrerDescription_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/careerDescription_ImageView"
-                        android:layout_alignTop="@+id/careerDescription_ImageView"
-                        android:layout_alignRight="@+id/careerDescription_ImageView"
-                        android:layout_alignBottom="@+id/careerDescription_ImageView"
+                        android:layout_alignLeft="@+id/careerDescription_customImgV"
+                        android:layout_alignTop="@+id/careerDescription_customImgV"
+                        android:layout_alignRight="@+id/careerDescription_customImgV"
+                        android:layout_alignBottom="@+id/careerDescription_customImgV"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:text="경력 기술서"

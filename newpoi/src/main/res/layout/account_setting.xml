@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageButton
-            android:id="@+id/account_setting_back_button"
+            android:id="@+id/backBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="18dp"
@@ -13,7 +13,7 @@
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="@drawable/btn_back"/>
         <android.widget.Button
-            android:id="@+id/complete_account_setting_button"
+            android:id="@+id/cmpltBtn"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -23,50 +23,50 @@
             android:textColor="@color/white"
             android:background="@drawable/radius"/>
         <TextView
-            android:id="@+id/TextView_email"
-            android:layout_below="@+id/account_setting_back_button"
+            android:id="@+id/emailTtl"
+            android:layout_below="@+id/backBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="이메일"
+            android:text="@string/email"
             />
         <TextView
-            android:id="@+id/EditText_email"
+            android:id="@+id/emailCntnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/TextView_email"
-            android:text="None"
+            android:layout_below="@+id/emailTtl"
+            android:text="@string/none"
             android:textSize="30sp"/>
         <TextView
-            android:id="@+id/TextView_password"
+            android:id="@+id/pswdTtl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/EditText_email"
-            android:text="비밀번호"
+            android:layout_below="@+id/emailCntnt"
+            android:text="@string/password"
             />
         <TextView
-            android:id="@+id/EditText_password"
-            android:layout_below="@+id/TextView_password"
+            android:id="@+id/pswdCntnt"
+            android:layout_below="@+id/pswdTtl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="None"
+            android:text="@string/none"
             android:textSize="30dp"/>
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_google"
+            android:id="@+id/signInBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/account_setting_logout_button"/>
+            android:layout_above="@+id/signOutBtn"/>
         <android.widget.Button
-            android:id="@+id/account_setting_logout_button"
+            android:id="@+id/signOutBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/logout"

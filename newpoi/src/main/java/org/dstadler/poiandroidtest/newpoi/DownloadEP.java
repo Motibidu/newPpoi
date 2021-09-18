@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+//다운로드 진입점
 public class DownloadEP {
     private Context context;
     private AppCompatActivity activity;
@@ -46,11 +47,13 @@ public class DownloadEP {
         this.context = context;
     }
 
-    public void download_without_modify(String fileName, String documentName){
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+    //uri 불러오기
+    public void download_without_modify(String fileName, String docName){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("Documents/"+documentName+"_ori.docx");
+        //파일명에 "_ori" append
+        StorageReference profileRef = storageReference.child("Documents/"+docName+"_ori.docx");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -58,6 +61,7 @@ public class DownloadEP {
             }
         });
     }
+    //양식파일 다운로드
     public void downloadFile_without_modify(Context context, String fileName, String fileExtension, String url){
 
         DownloadManager downloadManager = (DownloadManager) context.
@@ -69,12 +73,12 @@ public class DownloadEP {
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/"+fileName+fileExtension);
         downloadManager.enqueue(request);
     }
-
-    public void download_with_modify(String fileName, String documentName){
+    //uri 불러오기
+    public void download_with_modify(String fileName, String docName){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("Documents/"+documentName+".docx");
+        StorageReference profileRef = storageReference.child("Documents/"+docName+".docx");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -83,6 +87,7 @@ public class DownloadEP {
             }
         });
     }
+    //양식파일 다운로드하고 PreferenceManager의 doc_dwnlID에 downloadID 등록
     public void downloadFile_with_modify(Context context, String fileName, String fileExtension, String url){
 
         DownloadManager downloadManager = (DownloadManager) context.
@@ -96,10 +101,10 @@ public class DownloadEP {
 
         //        Toast.makeText(promissory_expanded_screen.this, downloadID+"_downloadFile_with_modify", Toast.LENGTH_SHORT).show();
         long downloadID = downloadManager.enqueue(request);
-        Intent intent = new Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        PreferenceManager.setLong(context, "document_downloadID", downloadID);
+        PreferenceManager.setLong(context, "doc_dwnlID", downloadID);
     }
 
+    //프로필 이미지 다운로드
     public void download_picture(){
         File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
 
@@ -121,29 +126,11 @@ public class DownloadEP {
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/profile.jpg");
 
                 long downloadID = downloadManager.enqueue(request);
-                Intent intent = new Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-                PreferenceManager.setLong(context, "image_downloadID", downloadID);
+                PreferenceManager.setLong(context, "img_dwnlID", downloadID);
 
             }
         });
     }
-//    public void createThumbnail(String fileName, String documentName){
-//        storageReference = fStorage.getInstance().getReference();
-//
-//        StorageReference profileRef = storageReference.child("Documents/"+documentName+"_ori.docx");
-//        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-////                String path = uri.getPath();
-//                try {
-//                    CustomXWPFDocument f = new CustomXWPFDocument(OPCPackage.open(new FileInputStream(new File(uri.getPath()))));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } catch (InvalidFormatException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
+
 
 }

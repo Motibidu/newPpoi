@@ -88,7 +88,7 @@
                     android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/highschool_graIfy_Layout"
+                android:id="@+id/highschool_graCls_Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="졸업구분"
@@ -97,7 +97,7 @@
                 android:layout_weight="1"
                 app:suffixText="졸업/졸업 예정">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/highschool_graIfy_EditText"
+                    android:id="@+id/highschool_graCls_EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border"
@@ -199,7 +199,7 @@
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_below="@+id/university_layout1"
-                android:id="@+id/university_graIfy_Layout"
+                android:id="@+id/university_graCls_Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="졸업구분"
@@ -208,7 +208,7 @@
                 app:boxStrokeColor="@color/themeColor"
                 android:layout_weight="1">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/university_graIfy_EditText"
+                    android:id="@+id/university_graCls_EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border"
@@ -317,7 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/master_graIfy_Layout"
+                    android:id="@+id/master_graCls_Layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="졸업구분"
@@ -326,7 +326,7 @@
                     app:boxStrokeColor="@color/themeColor"
                     android:layout_weight="1">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/master_graIfy_EditText"
+                        android:id="@+id/master_graCls_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/layout_border"
@@ -369,7 +369,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageButton
-                        android:id="@+id/back_button"
+                        android:id="@+id/backBtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="18dp"
@@ -377,7 +377,7 @@
                         android:src="@drawable/ic_baseline_arrow_back_24"
                         android:background="@drawable/btn_back"/>
                     <android.widget.Button
-                        android:id="@+id/complete_button"
+                        android:id="@+id/cmpltBtn"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/radius"

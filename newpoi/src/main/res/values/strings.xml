@@ -1,7 +1,13 @@
 <resources>
+
+    <!--accountSetting-->
+    <string name="logout">Logout</string>
+    <string name="password">비밀번호</string>
+    <string name="none">None</string>
+
+
     <string name="title_document_detail">Document Detail</string>
     <string name="app_name">My Application</string>
-    <string name="logout">Logout</string>
     <string name="profile_picture">Profile Picture:</string>
     <string name="display_name">Display Name:</string>
     <string name="login_failed">Login failed.</string>

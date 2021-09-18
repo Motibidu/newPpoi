@@ -38,7 +38,7 @@ public class profile_setting_resume extends AppCompatActivity {
         eduBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, eduBack.class);
+                Intent intent = new Intent(profile_setting_resume.this, resume_eduBack.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +46,7 @@ public class profile_setting_resume extends AppCompatActivity {
         formOfCareer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, formOfCareer.class);
+                Intent intent = new Intent(profile_setting_resume.this, resume_formOfCareer.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class profile_setting_resume extends AppCompatActivity {
         linguistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, linguistics.class);
+                Intent intent = new Intent(profile_setting_resume.this, resume_linguistics.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +70,7 @@ public class profile_setting_resume extends AppCompatActivity {
         licenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, licenses.class);
+                Intent intent = new Intent(profile_setting_resume.this, resume_licenses.class);
                 startActivity(intent);
             }
         });

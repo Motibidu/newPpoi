@@ -18,10 +18,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
-public class recentitems extends Fragment {
+public class main_recentItems extends Fragment {
     private View view;
     private MaterialToolbar toolbar;
-    private add_screen add_screen;
+    private categoryScrn categoryScrn;
     private profile_screen profile_screen;
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -31,7 +31,7 @@ public class recentitems extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_recent_items, container, false);
 
-        add_screen = new add_screen();
+        categoryScrn = new categoryScrn();
         profile_screen = new profile_screen();
         toolbar = view.findViewById(R.id.topAppBar);
 
@@ -47,7 +47,7 @@ public class recentitems extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_screen: {
-                        Intent intent = new Intent(getActivity(), add_screen.class);
+                        Intent intent = new Intent(getActivity(), categoryScrn.class);
                         startActivity(intent);
                         break;
                     }

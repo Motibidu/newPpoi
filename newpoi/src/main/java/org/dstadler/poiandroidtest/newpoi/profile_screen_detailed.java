@@ -68,16 +68,17 @@ public class profile_screen_detailed extends Fragment {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getActivity());
 //        Toast.makeText(profile_screen.this,account.toString(),Toast.LENGTH_SHORT).show();
 
-        if(account != null){
+        if(account != null) {
 //            Toast.makeText(profile_screen.this,account.toString(),Toast.LENGTH_SHORT).show();
             mAuth = FirebaseAuth.getInstance();
             storageReference = FirebaseStorage.getInstance().getReference();
-            userID = mAuth.getCurrentUser().getUid();
+            if (mAuth.getCurrentUser() != null) {
+                userID = mAuth.getCurrentUser().getUid();
 
-            DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 //                    StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
 //                    profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //                        @Override
@@ -85,44 +86,44 @@ public class profile_screen_detailed extends Fragment {
 //                            Picasso.get().load(uri).into(profile_screen_picture);
 //                        }
 //                    });
-                    if(value !=null && value.exists()) {
-                        name = value.getString("name");
-                        e_name = value.getString("e_name");
-                        rrn = value.getString("rrn");
-                        age = value.getString("age");
-                        address = value.getString("address");
-                        email = value.getString("email");
-                        phoneNumber = value.getString("phoneNumber");
-                        ch_name = value.getString("ch_name");
-                        number = value.getString("number");
-                        SNS = value.getString("SNS");
+                        if (value != null && value.exists()) {
+                            name = value.getString("name");
+                            e_name = value.getString("e_name");
+                            rrn = value.getString("rrn");
+                            age = value.getString("age");
+                            address = value.getString("address");
+                            email = value.getString("email");
+                            phoneNumber = value.getString("phoneNumber");
+                            ch_name = value.getString("ch_name");
+                            number = value.getString("number");
+                            SNS = value.getString("SNS");
 
-                        profile_ch_name_content.setText(ch_name);
-                        profile_number_content.setText(number);
-                        profile_SNS_content.setText(SNS);
-                        profile_name_content.setText(name);
-                        profile_e_name_content.setText(e_name);
-                        profile_rrn_content.setText(rrn);
-                        profile_age_content.setText(age);
-                        profile_address_content.setText(address);
-                        profile_email_content.setText(email);
-                        profile_phoneNumber_content.setText(phoneNumber);
+                            profile_ch_name_content.setText(ch_name);
+                            profile_number_content.setText(number);
+                            profile_SNS_content.setText(SNS);
+                            profile_name_content.setText(name);
+                            profile_e_name_content.setText(e_name);
+                            profile_rrn_content.setText(rrn);
+                            profile_age_content.setText(age);
+                            profile_address_content.setText(address);
+                            profile_email_content.setText(email);
+                            profile_phoneNumber_content.setText(phoneNumber);
+                        }
                     }
-                }
-            });
-        }
-        else if (account == null){
-            profile_ch_name_content.setText("");
-            profile_number_content.setText("");
-            profile_SNS_content.setText("");
-            profile_name_content.setText("");
-            profile_e_name_content.setText("");
-            profile_rrn_content.setText("");
-            profile_age_content.setText("");
-            profile_address_content.setText("");
-            profile_email_content.setText("");
-            profile_phoneNumber_content.setText("");
+                });
+            } else if (account == null) {
+                profile_ch_name_content.setText("");
+                profile_number_content.setText("");
+                profile_SNS_content.setText("");
+                profile_name_content.setText("");
+                profile_e_name_content.setText("");
+                profile_rrn_content.setText("");
+                profile_age_content.setText("");
+                profile_address_content.setText("");
+                profile_email_content.setText("");
+                profile_phoneNumber_content.setText("");
 //            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

@@ -56,8 +56,8 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/license1_content_Layout"
-                            android:layout_below="@+id/license1_content_Layout"
+                            android:id="@+id/license1_cntnt_Layout"
+                            android:layout_below="@+id/license1_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="특수자격 및 면허"
@@ -65,7 +65,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/license1_content_Edittext"
+                                android:id="@+id/license1_cntnt_Edittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -142,7 +142,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/license2_content_Layout"
+                            android:id="@+id/license2_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="특수자격 및 면허"
@@ -150,7 +150,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/license2_content_EditText"
+                                android:id="@+id/license2_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -227,7 +227,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/award1_content_Layout"
+                            android:id="@+id/award1_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="수상 내역"
@@ -235,7 +235,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/award1_content_EditText"
+                                android:id="@+id/award1_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -297,7 +297,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/award2_content_Layout"
+                            android:id="@+id/award2_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="수상내역"
@@ -305,7 +305,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/award2_content_EditText"
+                                android:id="@+id/award2_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"

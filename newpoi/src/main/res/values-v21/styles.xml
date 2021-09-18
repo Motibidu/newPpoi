@@ -4,4 +4,9 @@
         <item name="android:colorPrimaryDark">@color/themeColor</item>
 <!--        <item name="android:colorPrimary">@color/themeColor  </item>-->
     </style>
+    <style name="AppTheme_material" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!--        <item name="android:colorAccent">@color/themeColor</item>-->
+        <item name="android:colorPrimaryDark">@color/themeColor</item>
+        <!--        <item name="android:colorPrimary">@color/themeColor  </item>-->
+    </style>
 </resources>

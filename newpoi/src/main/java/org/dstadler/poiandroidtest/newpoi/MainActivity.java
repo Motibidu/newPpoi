@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private recentitems recentitems;
-    private examples examples;
-    private open open;
-    private bookmarked bookmarked;
-    private add_screen add_screen;
+    private main_recentItems main_recentItems;
+    private main_examples main_examples;
+    private main_open main_open;
+    private main_bookmarked main_bookmarked;
+    private categoryScrn categoryScrn;
     MaterialToolbar toolbar;
     private long backBtnTime = 0;
 
@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        recentitems = new recentitems();
-        examples = new examples();
-        open = new open();
-        bookmarked = new bookmarked();
-        add_screen = new add_screen();
+        main_recentItems = new main_recentItems();
+        main_examples = new main_examples();
+        main_open = new main_open();
+        main_bookmarked = new main_bookmarked();
+        categoryScrn = new categoryScrn();
         setFrag(0);
 
     }
@@ -115,19 +115,19 @@ public class MainActivity extends AppCompatActivity {
         ft = fm.beginTransaction();
         switch(n) {
             case 0:
-                ft.replace(R.id.main_frame, recentitems);
+                ft.replace(R.id.main_frame, main_recentItems);
                 ft.commit();
                 break;
             case 1:
-                ft.replace(R.id.main_frame, examples);
+                ft.replace(R.id.main_frame, main_examples);
                 ft.commit();
                 break;
             case 2:
-                ft.replace(R.id.main_frame, open);
+                ft.replace(R.id.main_frame, main_open);
                 ft.commit();
                 break;
             case 3:
-                ft.replace(R.id.main_frame, bookmarked);
+                ft.replace(R.id.main_frame, main_bookmarked);
                 ft.commit();
                 break;
         }

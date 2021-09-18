@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,17 +16,16 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import static org.dstadler.poiandroidtest.newpoi.customImageView.decodeSampledBitmapFromResource;
 
-public class simpleResume extends AppCompatActivity {
+public class doc_ptjResume extends AppCompatActivity {
     public static String PACKAGE_NAME;
-
-    private ImageButton simpleResume0;
-    private Intent intent;
+    private customImageView partTimeJob0;
     private int reqWidth, reqHeight;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_simple_resume);
+        setContentView(R.layout.doc_parttimejob_resume);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -39,20 +37,21 @@ public class simpleResume extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         PACKAGE_NAME = getApplicationContext().getPackageName();
+
         reqWidth = 368;
         reqHeight = 520;
 
-        simpleResume0 = findViewById(R.id.simpleResume0);
-        simpleResume0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.simple_resume0, reqWidth, reqHeight));
-        simpleResume0.setColorFilter(Color.parseColor("#08000000"));
-        simpleResume0.setOnClickListener(new View.OnClickListener(){
+        partTimeJob0 = findViewById(R.id.partTimeJob0);
+        partTimeJob0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.parttimejob0, reqWidth, reqHeight));
+        partTimeJob0.setColorFilter(Color.parseColor("#08000000"));
+        partTimeJob0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(simpleResume.this, simpleResume_expanded_screen.class);
+                intent = new Intent(doc_ptjResume.this, doc_promissory_expandedScrn.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.simple_resume0);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.parttimejob0);
                 intent.putExtra("imgPath", imgPath.toString());
-                intent.putExtra("imgName","simple_resume0");
+                intent.putExtra("imgName","parttimejob0");
                 startActivity(intent);
             }
         });

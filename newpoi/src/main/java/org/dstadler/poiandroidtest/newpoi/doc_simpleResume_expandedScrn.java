@@ -51,7 +51,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class simpleResume_expanded_screen extends AppCompatActivity {
+public class doc_simpleResume_expandedScrn extends AppCompatActivity {
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -101,7 +101,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
-        activity = simpleResume_expanded_screen.this;
+        activity = doc_simpleResume_expandedScrn.this;
         context = getApplicationContext();
 
         expanded_screen_backButton = findViewById(R.id.expanded_screen_backButton);
@@ -161,7 +161,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
             public void onClick(View view) {
                 checkPermission();
                 if (mAuth.getCurrentUser() == null) {
-                    Toast.makeText(simpleResume_expanded_screen.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(doc_simpleResume_expandedScrn.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (checkString(fileName)) {
                         Toast.makeText(context, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
@@ -202,8 +202,8 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long document_downloadID = PreferenceManager.getLong(simpleResume_expanded_screen.this, "document_downloadID");
-            long image_downloadID = PreferenceManager.getLong(simpleResume_expanded_screen.this, "image_downloadID");
+            long document_downloadID = PreferenceManager.getLong(doc_simpleResume_expandedScrn.this, "document_downloadID");
+            long image_downloadID = PreferenceManager.getLong(doc_simpleResume_expandedScrn.this, "image_downloadID");
 
 
             if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (document_downloadID == completeDownloadId)) {
@@ -233,7 +233,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
                     new CustomXWPFDocument().runImg("사진",doc_path, img_path, true, 1133475, 1510665, 0, 0);//Bookmark replacement picture
                 }
                 else {
-                    Toast.makeText(simpleResume_expanded_screen.this, "No File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(doc_simpleResume_expandedScrn.this, "No File!", Toast.LENGTH_SHORT).show();
                 }
                 bDocument = false;
                 bImg = false;
@@ -300,7 +300,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
                 for (int i = 0; i < grantResults.length; i++) {
                     // grantResults[] : 허용된 권한은 0, 거부한 권한은 -1
                     if (grantResults[i] < 0) {
-                        Toast.makeText(simpleResume_expanded_screen.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(doc_simpleResume_expandedScrn.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -321,7 +321,7 @@ public class simpleResume_expanded_screen extends AppCompatActivity {
                 userID = mAuth.getCurrentUser().getUid();
             }
             DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-            documentReference.addSnapshotListener(simpleResume_expanded_screen.this, new EventListener<DocumentSnapshot>() {
+            documentReference.addSnapshotListener(doc_simpleResume_expandedScrn.this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 

@@ -39,7 +39,6 @@ public class customImageView extends AppCompatImageView {
 
         return inSampleSize;
     }
-
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {
 

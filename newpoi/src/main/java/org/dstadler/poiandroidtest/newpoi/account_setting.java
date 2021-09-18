@@ -32,54 +32,55 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class account_setting extends AppCompatActivity {
 
+    private ImageButton backBtn;
+    private Button signOutBtn, cmpltBtn;
+    private TextView emailCntnt, pswdCntnt;
+
     private GoogleSignInClient mGoogleSignInClient;
-    private String TAG = "account_setting";
     private FirebaseAuth mAuth;
-    private SignInButton btn_google;
-    private Button account_setting_logout_button, complete_account_setting_button;
+    private SignInButton signInBtn;
     private int RC_SIGN_IN = 1;
-    private ImageButton imageButton;
-    private TextView EditText_email, EditText_password;
-    private static int RQST_CODE = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_setting);
 
-//        Window window = this.getWindow();
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
-
-        EditText_email = findViewById(R.id.EditText_email);
-        EditText_password = findViewById(R.id.EditText_password);
-
-        mAuth = FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-        imageButton = (ImageButton) findViewById(R.id.account_setting_back_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        //뒤로가기 버튼
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-        btn_google = findViewById(R.id.btn_google);
-        btn_google.setOnClickListener(new View.OnClickListener() {
+        //이메일내용
+        emailCntnt = findViewById(R.id.emailCntnt);
+        //비밀번호내용
+        pswdCntnt = findViewById(R.id.pswdCntnt);
+        
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        
+
+
+        //로그인 버튼
+        signInBtn = findViewById(R.id.signInBtn);
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
-        account_setting_logout_button = findViewById(R.id.account_setting_logout_button);
-        account_setting_logout_button.setOnClickListener(new View.OnClickListener() {
+
+        //로그아웃 버튼
+        signOutBtn = findViewById(R.id.signOutBtn);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -91,26 +92,29 @@ public class account_setting extends AppCompatActivity {
                         }
                     }
                 });
-                Toast.makeText(account_setting.this, "You are Logged out", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(account_setting.this, "You are Logged out", Toast.LENGTH_SHORT).show();
 
-                EditText_email.setText("None");
-                EditText_password.setText("None");
-                btn_google.setVisibility(View.VISIBLE);
-                account_setting_logout_button.setVisibility(View.INVISIBLE);
+                //로그아웃 상태일 때 이메일 내용을 None으로 설정
+                emailCntnt.setText("None");
+
+                //로그아웃 상태일 때 이메일 내용을 None으로 설정
+                pswdCntnt.setText("None");
+                
+                //로그아웃 상태일 때 로그인 버튼이 보임
+                signInBtn.setVisibility(View.VISIBLE);
+                //로그아웃 상태일 때 로그아웃 버튼이 보이지 않음
+                signOutBtn.setVisibility(View.INVISIBLE);
             }
         });
 
-        complete_account_setting_button = findViewById(R.id.complete_account_setting_button);
-        complete_account_setting_button.setOnClickListener(new View.OnClickListener() {
+        //완료 버튼, 프로필화면으로 넘어감
+        cmpltBtn = findViewById(R.id.cmpltBtn);
+        cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(account_setting.this, profile_screen.class);
-
-                intent.putExtra("email", EditText_email.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
-                }
-
+                startActivity(intent);
+            }
         });
     }
 
@@ -119,6 +123,31 @@ public class account_setting extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         updateUI(user);
+    }
+    //UI업데이트
+    private void updateUI(FirebaseUser fUser){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        //로그인 상태일 때
+        if(isSignedIn()){
+            String personEmail = account.getEmail();
+
+            //로그인 버튼을 보이지 않음
+            signInBtn.setVisibility(View.INVISIBLE);
+            //로그아웃 버틍르 보임
+            signOutBtn.setVisibility(View.VISIBLE);
+            //이메일내용을 구글이메일로 설정함
+            emailCntnt.setText(personEmail);
+            //비밀번호내용을 "*********"으로 설정함
+            pswdCntnt.setText("**********");
+//            Toast.makeText(account_setting.this,personEmail, Toast.LENGTH_SHORT).show();
+        }
+        //로그아웃 상태일 때
+        else{
+            //로그인 버튼을 보임
+            signInBtn.setVisibility(View.VISIBLE);
+            //로그아웃 버튼을 보이지 않음
+            signOutBtn.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void signIn(){
@@ -171,25 +200,8 @@ public class account_setting extends AppCompatActivity {
             }
         });
     }
-    private void updateUI(FirebaseUser fUser){
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        if(isSignedIn()){
-            String personName = account.getDisplayName();
-            String personEmail = account.getEmail();
-
-            btn_google.setVisibility(View.INVISIBLE);
-            account_setting_logout_button.setVisibility(View.VISIBLE);
-            EditText_email.setText(personEmail);
-            EditText_password.setText("**********");
-
-            Toast.makeText(account_setting.this,personEmail, Toast.LENGTH_SHORT).show();
-        }
-        else{
-            btn_google.setVisibility(View.VISIBLE);
-            account_setting_logout_button.setVisibility(View.INVISIBLE);
-        }
-    }
+    //로그인 check
     private boolean isSignedIn() {
         return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
     }

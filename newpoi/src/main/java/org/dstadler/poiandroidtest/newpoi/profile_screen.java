@@ -41,9 +41,9 @@ public class profile_screen extends AppCompatActivity {
 
     int profile_screen_number;
 
-    private Button account_setting_button, profile_setting_button;//, profile_menu;
-    TextView profile_menu;
-    private ImageButton profile_screen_back_button;
+    private Button account_setting_button, profile_setting_button;//, profileMenu_TextView;
+    private TextView profileMenu_TextView;
+    private ImageButton backBtn;
     private static int ACCOUNT_RQST_CODE = 0;
     private static int PROFILE_RQST_CODE = 1;
 
@@ -57,100 +57,62 @@ public class profile_screen extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private String userID;
 
-
-
-    private Context context;
+    private Context mContext;
     private boolean b_simpleProfile, b_detailedProfile, b_resumeProfile;
 
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private LinearLayout l;
+    private LinearLayout profileMenu;
     private GoogleSignInAccount account;
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == ACCOUNT_RQST_CODE){
-//            if(resultCode==RESULT_OK){
-////                Toast.makeText(profile_screen.this,data.getStringExtra("email"), Toast.LENGTH_SHORT).show();
-////                profile_TextView_name_content = findViewById(R.id.profile_TextView_name_content);
-////                String email = data.getStringExtra("email");
-////                profile_TextView_name_content.setText(email);
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                if(user == null){
-//                    Toast.makeText(profile_screen.this,"null",Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    Toast.makeText(profile_screen.this,"not null",Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        }
-//        else if(requestCode == PROFILE_RQST_CODE){
-//            if(resultCode == RESULT_OK){
-//                Toast.makeText(profile_screen.this,"HI", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-        FirebaseUser user = mAuth.getCurrentUser();
-//        updateUI(user);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
 
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
+        mContext = getApplicationContext();
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = fStorage.getInstance().getReference();
+        
+        profileMenu_TextView = findViewById(R.id.profileMenu_TextView);
 
-        context = getApplicationContext();
-
-
-
-        profile_screen_back_button = findViewById(R.id.profile_screen_back_button);
-        profile_screen_back_button.setOnClickListener(new View.OnClickListener() {
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-
-
-        l = findViewById(R.id.profile_menu);
-        l.setOnClickListener(new View.OnClickListener() {
+        //프로필 팝업메뉴
+        profileMenu = findViewById(R.id.profileMenu);
+        profileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(profile_menu);
+                showPopup(profileMenu);
             }
         });
 
-        profile_menu = findViewById(R.id.profile_menu1);
-        profile_screen_number = PreferenceManager.getInt(context,"profile_screen_number");
-        Toast.makeText(context,Integer.toString(profile_screen_number),Toast.LENGTH_SHORT).show();
+
+        profile_screen_number = PreferenceManager.getInt(mContext,"profile_screen_number");
+//        Toast.makeText(mContext,Integer.toString(profile_screen_number),Toast.LENGTH_SHORT).show();
         if(profile_screen_number == -1 || profile_screen_number == 0){
             b_simpleProfile= true; b_detailedProfile = false; b_resumeProfile = false;
             setFrag(0);
-            profile_menu.setText("간편 프로필");
+            profileMenu_TextView.setText("간편 프로필");
         }
         else if (profile_screen_number == 1){
             b_simpleProfile= false; b_detailedProfile = true; b_resumeProfile = false;
             setFrag(profile_screen_number);
-            profile_menu.setText("세부 프로필");
+            profileMenu_TextView.setText("세부 프로필");
         }
         else if (profile_screen_number == 2){
             b_simpleProfile= false; b_detailedProfile = false; b_resumeProfile = true;
             setFrag(profile_screen_number);
-            profile_menu.setText("이력서 프로필");
+            profileMenu_TextView.setText("이력서 프로필");
         }
-
-        mAuth = FirebaseAuth.getInstance();
-        storageReference = fStorage.getInstance().getReference();
-
-
+        //계정수정 화면으로 전환
         account_setting_button = (Button)findViewById(R.id.account_setting_button);
         account_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,10 +122,12 @@ public class profile_screen extends AppCompatActivity {
             }
         });
 
+        //프로필수정 화면으로 전환
         profile_setting_button = (Button)findViewById(R.id.profile_setting_button);
         profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //로그아웃 상태일 때 "로그인 해주세요" 팝업문구를 띄운다.
                 if(mAuth.getCurrentUser() == null){
                     Toast.makeText(profile_screen.this,"로그인 해주세요", Toast.LENGTH_SHORT).show();
                 }
@@ -195,15 +159,15 @@ public class profile_screen extends AppCompatActivity {
 
 
     public void showPopup(View v) {
-        PopupMenu popupMenu = new PopupMenu(context, v);
+        PopupMenu popupMenu = new PopupMenu(mContext, v);
         popupMenu.inflate(R.menu.popup_profile);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.simple_profile:
-                        profile_menu.setText("간편 프로필");
-                        PreferenceManager.setInt(context, "profile_screen_number", 0);
+                        profileMenu_TextView.setText("간편 프로필");
+                        PreferenceManager.setInt(mContext, "profile_screen_number", 0);
                         setFrag(0);
 
                         b_simpleProfile = true;
@@ -212,8 +176,8 @@ public class profile_screen extends AppCompatActivity {
 //                        Toast.makeText(context,"simple profile", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.detailed_profile:
-                        profile_menu.setText("세부 프로필");
-                        PreferenceManager.setInt(context, "profile_screen_number", 1);
+                        profileMenu_TextView.setText("세부 프로필");
+                        PreferenceManager.setInt(mContext, "profile_screen_number", 1);
                         setFrag(1);
 
                         b_simpleProfile = false;
@@ -222,14 +186,14 @@ public class profile_screen extends AppCompatActivity {
 //                        Toast.makeText(context,"detailed profile", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.resume_profile:
-                        profile_menu.setText("이력서 프로필");
-                        PreferenceManager.setInt(context, "profile_screen_number", 2);
+                        profileMenu_TextView.setText("이력서 프로필");
+                        PreferenceManager.setInt(mContext, "profile_screen_number", 2);
                         setFrag(2);
 
                         b_simpleProfile = false;
                         b_detailedProfile = false;
                         b_resumeProfile = true;
-//                        Toast.makeText(context,"resume profile", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext,"resume profile", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         return false;
@@ -274,7 +238,6 @@ public class profile_screen extends AppCompatActivity {
                 userID = mAuth.getCurrentUser().getUid();
                 mAuth = FirebaseAuth.getInstance();
                 storageReference = FirebaseStorage.getInstance().getReference();
-                userID = mAuth.getCurrentUser().getUid();
 
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
