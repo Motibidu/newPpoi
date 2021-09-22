@@ -33,10 +33,22 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+//import com.clarifai.channel.ClarifaiChannel;
+//import com.clarifai.credentials.ClarifaiCallCredentials;
+//import com.clarifai.grpc.api.Data;
+//import com.clarifai.grpc.api.Image;
+//import com.clarifai.grpc.api.Input;
+//import com.clarifai.grpc.api.MultiInputResponse;
+//import com.clarifai.grpc.api.PostInputsRequest;
+//import com.clarifai.grpc.api.V2Grpc;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+//import com.google.api.services.vision.v1.model.AnnotateImageRequest;
+//import com.google.api.services.vision.v1.model.Feature;
+import com.google.cloud.vision.v1.AnnotateImageRequest;
+import com.google.cloud.vision.v1.Feature;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -45,13 +57,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.protobuf.ByteString;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class doc_careerDescription_expandedScrn extends AppCompatActivity {
@@ -123,6 +140,15 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
     private File imgFile, docFile;
     private Map<String, Object> user;
 
+    private Uri i;
+    public static String PACKAGE_NAME;
+
+    String filePath;
+
+    public static void detectWebDetections(String filePath) throws IOException {
+        List<AnnotateImageRequest> requests = new ArrayList<>();
+        ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+    }
 
 
     @Override
@@ -131,6 +157,11 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
         setContentView(R.layout.doc_career_description_expanded_scrn);
         mContext = getApplicationContext();
         bExpanded = false;
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+        filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
+
+
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.backBtn);
@@ -176,6 +207,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
         master_graThe_EditText = findViewById(R.id.master_graThe_EditText);
         master_LAB_EditText = findViewById(R.id.master_LAB_EditText);
         master = findViewById(R.id.master);
+
 
         //경력사항//
         //name : 이름

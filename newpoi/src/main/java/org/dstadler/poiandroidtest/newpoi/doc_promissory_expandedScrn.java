@@ -3,16 +3,21 @@ package org.dstadler.poiandroidtest.newpoi;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.usage.NetworkStats;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,18 +36,34 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.common.images.WebImage;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.api.client.util.Lists;
+import com.google.api.gax.paging.Page;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.vision.v1.AnnotateImageRequest;
+import com.google.cloud.vision.v1.AnnotateImageResponse;
+import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
+import com.google.cloud.vision.v1.Feature;
+import com.google.cloud.vision.v1.Image;
+import com.google.cloud.vision.v1.ImageAnnotatorClient;
+import com.google.cloud.vision.v1.WebDetection;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.protobuf.ByteString;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class doc_promissory_expandedScrn extends AppCompatActivity {
@@ -79,19 +100,92 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
     private FirebaseStorage fStorage;
 
     private File f;
+    public static String PACKAGE_NAME;
+
+    String filePath;
+
+    public static void detectWebDetections(AssetManager AM) throws IOException {
+        // TODO(developer): Replace these variables before running the sample.
+        Uri filePath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
+        detectWebDetections(AM, filePath.toString());
+    }
+    public static void detectWebDetections(AssetManager AM,String filePath) throws IOException {
+        new RetrieveFeedTask().execute();
+//        List<AnnotateImageRequest> requests = new ArrayList<>();
+//        ByteString imgBytes = ByteString.readFrom(new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg"));
+//
+//        Image img = Image.newBuilder().setContent(imgBytes).build();
+//        Feature feat = Feature.newBuilder().setType(Feature.Type.WEB_DETECTION).build();
+//        AnnotateImageRequest request =
+//                AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+//        requests.add(request);
+
+
+//        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+//            BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+//            List<AnnotateImageResponse> responses = response.getResponsesList();
+
+//            for (AnnotateImageResponse res : responses) {
+//                if (res.hasError()) {
+//                    System.out.format("Error: %s%n", res.getError().getMessage());
+//                    return;
+//                }
+//                // Search the web for usages of the image. You could use these signals later
+//                // for user input moderation or linking external references.
+//                // For a full list of available annotations, see http://g.co/cloud/vision/docs
+//                WebDetection annotation = res.getWebDetection();
+//                System.out.println("Entity:Id:Score");
+//                Log.d("Title","Entity:Id:Score");
+//                System.out.println("===============");
+//                for (WebDetection.WebEntity entity : annotation.getWebEntitiesList()) {
+//                    System.out.println(
+//                            entity.getDescription() + " : " + entity.getEntityId() + " : " + entity.getScore());
+//                }
+//                for (WebDetection.WebLabel label : annotation.getBestGuessLabelsList()) {
+//                    System.out.format("%nBest guess label: %s", label.getLabel());
+//                }
+//                System.out.println("%nPages with matching images: Score%n==");
+//                for (WebDetection.WebPage page : annotation.getPagesWithMatchingImagesList()) {
+//                    System.out.println(page.getUrl() + " : " + page.getScore());
+//                }
+//                System.out.println("%nPages with partially matching images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getPartialMatchingImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//                System.out.println("%nPages with fully matching images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getFullMatchingImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//                System.out.println("%nPages with visually similar images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getVisuallySimilarImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//            }
+//        }
+    }
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doc_promissory_expanded_screen);
-
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
-
+        AssetManager AM;
+        AM = getAssets();
         mAuth= FirebaseAuth.getInstance();
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+
+        try {
+            detectWebDetections(AM);
+        } catch (IOException e) {
+            Log.d("xml","XML");
+            e.printStackTrace();
+        }
 
         pScre_name = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Scre_name");
         pScre_add = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Scre_add");
