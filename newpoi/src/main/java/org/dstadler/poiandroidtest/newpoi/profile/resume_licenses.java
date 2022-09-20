@@ -115,7 +115,7 @@ public class resume_licenses extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_licenses.this, profile_screen.class);
+                Intent intent = new Intent(resume_licenses.this, ProfileScreenActivity.class);
                 license1_date = license1_date_EditText.getText().toString().trim();
                 license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
                 license1_grade = license1_grade_EditText.getText().toString().trim();

@@ -20,13 +20,13 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn;
-import org.dstadler.poiandroidtest.newpoi.profile.profile_screen;
+import org.dstadler.poiandroidtest.newpoi.profile.ProfileScreenActivity;
 
 public class main_recentItems extends Fragment {
     private View view;
     private MaterialToolbar toolbar;
     private org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn categoryScrn;
-    private org.dstadler.poiandroidtest.newpoi.profile.profile_screen profile_screen;
+    private ProfileScreenActivity ProfileScreenActivity;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -36,13 +36,13 @@ public class main_recentItems extends Fragment {
         view = inflater.inflate(R.layout.main_recent_items, container, false);
 
         categoryScrn = new categoryScrn();
-        profile_screen = new profile_screen();
+        ProfileScreenActivity = new ProfileScreenActivity();
         toolbar = view.findViewById(R.id.topAppBar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), profile_screen.class);
+                Intent intent = new Intent(getActivity(), ProfileScreenActivity.class);
                 startActivity(intent);
             }
         });

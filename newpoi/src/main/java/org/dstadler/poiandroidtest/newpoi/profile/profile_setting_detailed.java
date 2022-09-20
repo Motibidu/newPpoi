@@ -152,7 +152,7 @@ public class profile_setting_detailed extends AppCompatActivity{
         complete_profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profile_setting_detailed.this, profile_screen.class);
+                Intent intent = new Intent(profile_setting_detailed.this, ProfileScreenActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
                 name = profile_EditText_name.getText().toString().trim();

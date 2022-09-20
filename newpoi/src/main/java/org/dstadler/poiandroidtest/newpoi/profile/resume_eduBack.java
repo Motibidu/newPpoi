@@ -137,7 +137,7 @@ public class resume_eduBack extends AppCompatActivity {
         cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_eduBack.this, profile_screen.class);
+                Intent intent = new Intent(resume_eduBack.this, ProfileScreenActivity.class);
 
                 highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
                 highschool_graYM = highschool_graYM_EditText.getText().toString().trim();

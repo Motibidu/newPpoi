@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class profile_screen_detailed extends Fragment {
+public class DetailProfileFragment extends Fragment {
     private View view;
     private Activity activity;
 

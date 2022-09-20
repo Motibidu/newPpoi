@@ -63,7 +63,7 @@ import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RoundedCornersTransformation;
-import org.dstadler.poiandroidtest.newpoi.profile.profile_screen;
+import org.dstadler.poiandroidtest.newpoi.profile.ProfileScreenActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -885,7 +885,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                         return true;
                         //프로필로 이동
                     case R.id.moveToProfile:
-                        moveProfile = new Intent(mContext, profile_screen.class);
+                        moveProfile = new Intent(mContext, ProfileScreenActivity.class);
                         mContext.startActivity(moveProfile);
 
                         return true;

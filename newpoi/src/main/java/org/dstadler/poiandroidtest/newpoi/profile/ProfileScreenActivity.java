@@ -36,34 +36,33 @@ import com.squareup.picasso.Picasso;
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
-public class profile_screen extends AppCompatActivity {
+public class ProfileScreenActivity extends AppCompatActivity {
 
     int profile_screen_number;
-
-    private Button account_setting_button, profile_setting_button;//, profileMenu_TextView;
-    private TextView profileMenu_TextView;
-    private ImageButton backBtn;
     private static int ACCOUNT_RQST_CODE = 0;
-    private static int PROFILE_RQST_CODE = 1;
-
-    private FirebaseStorage fStorage;
-    private FirebaseAuth mAuth;
-    private StorageReference storageReference;
-
-    private Uri imageUri;
-    private ImageView profile_screen_picture;
-
-    private GoogleSignInClient mGoogleSignInClient;
     private String userID;
 
+    //for UI
+    private Button account_setting_button, profile_setting_button;
+    private TextView profileMenu_TextView, profileEdit_TextView;
+    private ImageButton backBtn;
+    private ImageView profile_screen_picture;
+    private LinearLayout profileMenu, profileEditMenu;
     private Context mContext;
-    private boolean b_simpleProfile, b_detailedProfile, b_resumeProfile;
 
+    //for firebase Google auth
+    private FirebaseAuth mAuth;
+    private GoogleSignInAccount account;
+    private GoogleSignInClient mGoogleSignInClient;
+
+    //for firebase storage
+    private FirebaseStorage fStorage;
+    private StorageReference storageReference;
+
+    //for frag management
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private LinearLayout profileMenu;
-    private GoogleSignInAccount account;
-
+    private boolean b_simpleProfile, b_detailedProfile, b_resumeProfile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +74,7 @@ public class profile_screen extends AppCompatActivity {
         storageReference = fStorage.getInstance().getReference();
         
         profileMenu_TextView = findViewById(R.id.profileMenu_TextView);
+        profileEdit_TextView = findViewById(R.id.profileEdit_TextView);
 
         backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +90,14 @@ public class profile_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showPopup(profileMenu);
+            }
+        });
+
+        profileEditMenu = findViewById(R.id.profile_edit_button);
+        profileEditMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup2(profileEditMenu);
             }
         });
 
@@ -116,13 +124,13 @@ public class profile_screen extends AppCompatActivity {
         account_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profile_screen.this, account_setting.class);
+                Intent intent = new Intent(ProfileScreenActivity.this, AcctSetAcitivity.class);
                 startActivityForResult(intent, ACCOUNT_RQST_CODE);
             }
         });
 
         //프로필수정 화면으로 전환
-        profile_setting_button = (Button)findViewById(R.id.profile_setting_button);
+        /*profile_setting_button = (Button)findViewById(R.id.profile_setting_button);
         profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +154,7 @@ public class profile_screen extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -164,7 +172,7 @@ public class profile_screen extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.simple_profile:
+                    case R.id.menu_profile_simple:
                         profileMenu_TextView.setText("간편 프로필");
                         PreferenceManager.setInt(mContext, "profile_screen_number", 0);
                         setFrag(0);
@@ -174,7 +182,7 @@ public class profile_screen extends AppCompatActivity {
                         b_resumeProfile = false;
 //                        Toast.makeText(context,"simple profile", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.detailed_profile:
+                    case R.id.menu_profile_detail:
                         profileMenu_TextView.setText("세부 프로필");
                         PreferenceManager.setInt(mContext, "profile_screen_number", 1);
                         setFrag(1);
@@ -184,7 +192,7 @@ public class profile_screen extends AppCompatActivity {
                         b_resumeProfile = false;
 //                        Toast.makeText(context,"detailed profile", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.resume_profile:
+                    case R.id.menu_profile_resume:
                         profileMenu_TextView.setText("이력서 프로필");
                         PreferenceManager.setInt(mContext, "profile_screen_number", 2);
                         setFrag(2);
@@ -193,6 +201,44 @@ public class profile_screen extends AppCompatActivity {
                         b_detailedProfile = false;
                         b_resumeProfile = true;
 //                        Toast.makeText(mContext,"resume profile", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        popupMenu.show();
+    }
+    public void showPopup2(View v) {
+        PopupMenu popupMenu = new PopupMenu(mContext, v);
+        popupMenu.inflate(R.menu.popup_profile_edit);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_profileEdit_personally:
+                        if(mAuth.getCurrentUser() == null){
+                            Toast.makeText(ProfileScreenActivity.this,"로그인 해주세요", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            if (b_simpleProfile){
+                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_simple.class);
+                                startActivity(intent);
+                            }
+                            else if (b_detailedProfile){
+                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_detailed.class);
+                                startActivity(intent);
+                            }
+                            else if (b_resumeProfile){
+                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_resume.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                        return true;
+                    case R.id.menu_profileEdit_scan:
+                        Intent intent = new Intent(ProfileScreenActivity.this, ScanActivity.class);
+                        startActivity(intent);
                         return true;
                     default:
                         return false;
@@ -207,7 +253,7 @@ public class profile_screen extends AppCompatActivity {
         ft = fm.beginTransaction();
 
         profile_screen_simple profile_screen_simple = new profile_screen_simple();
-        profile_screen_detailed profile_screen_detailed = new profile_screen_detailed();
+        DetailProfileFragment DetailProfileFragment = new DetailProfileFragment();
         profile_screen_resume profile_screen_resume = new profile_screen_resume();
 
         switch(n) {
@@ -216,7 +262,7 @@ public class profile_screen extends AppCompatActivity {
                 ft.commitNow();
                 break;
             case 1:
-                ft.replace(R.id.content, profile_screen_detailed);
+                ft.replace(R.id.content, DetailProfileFragment);
                 ft.commitNow();
                 break;
             case 2:

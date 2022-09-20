@@ -126,7 +126,7 @@ public class resume_formOfCareer extends AppCompatActivity {
         cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_formOfCareer.this, profile_screen.class);
+                Intent intent = new Intent(resume_formOfCareer.this, ProfileScreenActivity.class);
 
                 formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
                 formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();

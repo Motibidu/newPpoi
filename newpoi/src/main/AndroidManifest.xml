@@ -3,6 +3,7 @@
     package="org.dstadler.poiandroidtest.newpoi" >
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -11,9 +12,9 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".profile.account_setting"
+        <activity android:name=".profile.AcctSetAcitivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.profile_screen">
+            android:parentActivityName=".profile.ProfileScreenActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -64,7 +65,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.profile_screen"
+        <activity android:name=".profile.ProfileScreenActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".main.MainActivity">
             <intent-filter>
@@ -74,7 +75,7 @@
 
         <activity android:name=".profile.profile_setting_detailed"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:parentActivityName=".profile.profile_screen">
+            android:parentActivityName=".profile.ProfileScreenActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -112,7 +113,7 @@
 
         <activity android:name=".profile.profile_setting_simple"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.profile_screen">
+            android:parentActivityName=".profile.ProfileScreenActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -120,7 +121,7 @@
 
         <activity android:name=".profile.profile_setting_resume"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.profile_screen">
+            android:parentActivityName=".profile.ProfileScreenActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -160,6 +161,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".profile.ScanActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile.ProfileScreenActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
 
 
