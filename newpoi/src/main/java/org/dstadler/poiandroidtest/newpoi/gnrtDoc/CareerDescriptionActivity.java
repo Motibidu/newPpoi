@@ -63,7 +63,7 @@ import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RoundedCornersTransformation;
-import org.dstadler.poiandroidtest.newpoi.profile.ProfileScreenActivity;
+import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -73,7 +73,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class doc_careerDescription_expandedScrn extends AppCompatActivity {
+public class CareerDescriptionActivity extends AppCompatActivity {
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -146,11 +146,6 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
     public static String PACKAGE_NAME;
 
     String filePath;
-
-//    public static void detectWebDetections(String filePath) throws IOException {
-//        List<AnnotateImageRequest> requests = new ArrayList<>();
-//        ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
-//    }
 
 
     @Override
@@ -274,14 +269,14 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
 
         //로그인 해있지 않은 경우 기본사항(고등학교, 경력사항1, 자격증1, 수상1)만 디스플레이하고 나머지 항목을 생략한다.
         //나머지 항목은 팝업 메뉴에 '펼치기'기능을 통해 디스플레이한다.
-        if(mAuth.getCurrentUser() == null){
+        //if(mAuth.getCurrentUser() == null){
             formOfCareer2.setVisibility(View.GONE);
             formOfCareer3.setVisibility(View.GONE);
             university.setVisibility(View.GONE);
             master.setVisibility(View.GONE);
             license2.setVisibility(View.GONE);
             award2.setVisibility(View.GONE);
-        }
+        //}
         
         expandedScrn_mainImageView1 = findViewById(R.id.expandedScrn_mainImageView1);
         expandedScrn_mainImageView2 = findViewById(R.id.expandedScrn_mainImageView2);
@@ -361,7 +356,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                 //로그인 상태인 경우 문서 처리 작업을 수행하고,
                 //로그아웃 상태인 경우 "로그인 해주세요!" 팝업 문구를 띄운다.
                 if (mAuth.getCurrentUser() == null) {
-                    Toast.makeText(doc_careerDescription_expandedScrn.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CareerDescriptionActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
                 } else {
                     //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
                     //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 수정작업 한 후 다운로드한다.
@@ -459,8 +454,8 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long cmpltDwnlID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long doc_dwnlID = PreferenceManager.getLong(doc_careerDescription_expandedScrn.this, "doc_dwnlID");
-            long img_dwnlID = PreferenceManager.getLong(doc_careerDescription_expandedScrn.this, "img_dwnlID");
+            long doc_dwnlID = PreferenceManager.getLong(CareerDescriptionActivity.this, "doc_dwnlID");
+            long img_dwnlID = PreferenceManager.getLong(CareerDescriptionActivity.this, "img_dwnlID");
             //DownloadManager.ACTION_DOWNLOAD_COMPLETE 이벤트를 수신했으며,
             //DownloadManager의 최신 다운로드로부터 반환받은 long타입 값,
             // 그리고 downloadFile_with_modify()메소드를 수행하면서 PreferenceManager에 등록한
@@ -509,7 +504,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                             1133475, 1510665, 0, 0);//Bookmark replacement picture
                 }
                 else {
-                    Toast.makeText(doc_careerDescription_expandedScrn.this, "No Image File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CareerDescriptionActivity.this, "No Image File!", Toast.LENGTH_SHORT).show();
                 }
                 //RUNIMG_CMPLT 이벤트를 발생시킨다.
                 documentProcess = new Intent(RUNIMG_CMPLT);
@@ -596,14 +591,14 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                         //임시파일을 삭제한다.
                         docFile.delete();
 
-                        Toast.makeText(doc_careerDescription_expandedScrn.this, "Finished!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CareerDescriptionActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(doc_careerDescription_expandedScrn.this, "No Document File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CareerDescriptionActivity.this, "No Document File!", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -615,7 +610,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
         Menu menuOpts = popupMenu.getMenu();
 
         //PreferenceManager에 등록된 bExpanded가 true일 때(펼쳐져 있을때) "숨기기"를 디스플레이 한다.
-        //false일 때(숨겨져 있을 때) "펼치기"를 디스플레이한다.
+        //PreferenceManager에 등록된 bExpanded가 false일 때(숨겨져 있을 때) "펼치기"를 디스플레이한다.
         bExpanded = PreferenceManager.getBoolean(mContext, "careerbExpanded");
         if(bExpanded){
             menuOpts.getItem(0).setTitle("숨기기");
@@ -633,91 +628,92 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                         bExpanded = PreferenceManager.getBoolean(mContext, "careerbExpanded");
                         //bExpanded가 false일 때(숨겨져 있을 때) "펼치기"를 누르면
                         //대학교, 대학원, 경력사항2, 경력사항3, 자격증2, 수상2를 디스플레이 한다.
-                         if(bExpanded == false) {
-                            PreferenceManager.setBoolean(mContext, "careerbExpanded", true);
-                            university.setVisibility(View.VISIBLE);
-                            master.setVisibility(View.VISIBLE);
-                            formOfCareer2.setVisibility(View.VISIBLE);
-                            formOfCareer3.setVisibility(View.VISIBLE);
-//                            license1.setVisibility(View.VISIBLE);
-                            license2.setVisibility(View.VISIBLE);
-//                            award1.setVisibility(View.VISIBLE);
-                            award2.setVisibility(View.VISIBLE);
-                            Toast.makeText(doc_careerDescription_expandedScrn.this, "모든 항목이 펼쳐 졌습니다.", Toast.LENGTH_SHORT).show();
+                         if(bExpanded) {
+                             university_enterYM = university_enterYM_EditText.getText().toString().trim();
+                             university_graYM = university_graYM_EditText.getText().toString().trim();
+                             university_graCls = university_graCls_EditText.getText().toString().trim();
+                             university_name = university_name_EditText.getText().toString().trim();
+                             university_major = university_major_EditText.getText().toString().trim();
+
+                             master_enterYM = master_enterYM_EditText.getText().toString().trim();
+                             master_graYM = master_graYM_EditText.getText().toString().trim();
+                             master_graCls = master_graCls_EditText.getText().toString().trim();
+                             master_name = master_name_EditText.getText().toString().trim();
+                             master_major = master_major_EditText.getText().toString().trim();
+                             master_graThe = master_graThe_EditText.getText().toString().trim();
+                             master_LAB = master_LAB_EditText.getText().toString().trim();
+
+                             formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
+                             formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
+                             formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
+                             formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
+                             formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+
+                             formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
+                             formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
+                             formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
+                             formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
+                             formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+
+                             license1_date = license1_date_EditText.getText().toString().trim();
+                             license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
+                             license1_grade = license1_grade_EditText.getText().toString().trim();
+                             license1_publication = license1_publication_EditText.getText().toString().trim();
+
+                             license2_date = license2_date_EditText.getText().toString().trim();
+                             license2_cntnt = license2_cntnt_EditText.getText().toString().trim();
+                             license2_grade = license2_grade_EditText.getText().toString().trim();
+                             license2_publication = license2_publication_EditText.getText().toString().trim();
+
+                             award1_date = award1_date_EditText.getText().toString().trim();
+                             award1_cntnt = award1_cntnt_EditText.getText().toString().trim();
+                             award1_publication = award1_publication_EditText.getText().toString().trim();
+
+                             award2_date = award2_date_EditText.getText().toString().trim();
+                             award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
+                             award2_publication = award2_publication_EditText.getText().toString().trim();
+
+                             PreferenceManager.setBoolean(mContext, "careerbExpanded", false);
+
+                             if (checkString(formOfCareer2_name) && checkString(formOfCareer2_enterYM) && checkString(formOfCareer2_resignYM) && checkString(formOfCareer2_office) &&
+                                     checkString(formOfCareer2_task)) {
+                                 formOfCareer2.setVisibility(View.GONE);
+                             }
+                             if (checkString(formOfCareer3_name) && checkString(formOfCareer3_enterYM) && checkString(formOfCareer3_resignYM) && checkString(formOfCareer3_office) &&
+                                     checkString(formOfCareer3_task)) {
+                                 formOfCareer3.setVisibility(View.GONE);
+                             }
+                             if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
+                                     checkString(university_major)) {
+                                 university.setVisibility(View.GONE);
+                             }
+                             if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
+                                     checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
+                                 master.setVisibility(View.GONE);
+                             }
+                             if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
+                                 license2.setVisibility(View.GONE);
+                             }
+                             if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
+                                 award2.setVisibility(View.GONE);
+                             }
+                             Toast.makeText(CareerDescriptionActivity.this, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
                         }
                          //bExpanded가 true일 때(펼쳐져 있을 때) "숨기기"를 누르면
                          //대학교, 대학원, 경력사항2, 경력사항3, 자격증2, 수상2의 모든 하위 항목을 검사하고
                          //모든 하위 항목이 비어있는 항목은 숨긴다.
-                        else if(bExpanded = true) {
-                            university_enterYM = university_enterYM_EditText.getText().toString().trim();
-                            university_graYM = university_graYM_EditText.getText().toString().trim();
-                            university_graCls = university_graCls_EditText.getText().toString().trim();
-                            university_name = university_name_EditText.getText().toString().trim();
-                            university_major = university_major_EditText.getText().toString().trim();
+                        else{
+                             PreferenceManager.setBoolean(mContext, "careerbExpanded", true);
+                             university.setVisibility(View.VISIBLE);
+                             master.setVisibility(View.VISIBLE);
+                             formOfCareer2.setVisibility(View.VISIBLE);
+                             formOfCareer3.setVisibility(View.VISIBLE);
+//                            license1.setVisibility(View.VISIBLE);
+                             license2.setVisibility(View.VISIBLE);
+//                            award1.setVisibility(View.VISIBLE);
+                             award2.setVisibility(View.VISIBLE);
+                             Toast.makeText(CareerDescriptionActivity.this, "모든 항목이 펼쳐 졌습니다.", Toast.LENGTH_SHORT).show();
 
-                            master_enterYM = master_enterYM_EditText.getText().toString().trim();
-                            master_graYM = master_graYM_EditText.getText().toString().trim();
-                            master_graCls = master_graCls_EditText.getText().toString().trim();
-                            master_name = master_name_EditText.getText().toString().trim();
-                            master_major = master_major_EditText.getText().toString().trim();
-                            master_graThe = master_graThe_EditText.getText().toString().trim();
-                            master_LAB = master_LAB_EditText.getText().toString().trim();
-
-                            formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
-                            formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
-                            formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
-                            formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
-                            formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
-
-                            formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
-                            formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
-                            formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
-                            formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
-                            formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
-
-                            license1_date = license1_date_EditText.getText().toString().trim();
-                            license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
-                            license1_grade = license1_grade_EditText.getText().toString().trim();
-                            license1_publication = license1_publication_EditText.getText().toString().trim();
-
-                            license2_date = license2_date_EditText.getText().toString().trim();
-                            license2_cntnt = license2_cntnt_EditText.getText().toString().trim();
-                            license2_grade = license2_grade_EditText.getText().toString().trim();
-                            license2_publication = license2_publication_EditText.getText().toString().trim();
-
-                            award1_date = award1_date_EditText.getText().toString().trim();
-                            award1_cntnt = award1_cntnt_EditText.getText().toString().trim();
-                            award1_publication = award1_publication_EditText.getText().toString().trim();
-
-                            award2_date = award2_date_EditText.getText().toString().trim();
-                            award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
-                            award2_publication = award2_publication_EditText.getText().toString().trim();
-
-                            PreferenceManager.setBoolean(mContext, "careerbExpanded", false);
-
-                            if (checkString(formOfCareer2_name) && checkString(formOfCareer2_enterYM) && checkString(formOfCareer2_resignYM) && checkString(formOfCareer2_office) &&
-                                    checkString(formOfCareer2_task)) {
-                                formOfCareer2.setVisibility(View.GONE);
-                            }
-                            if (checkString(formOfCareer3_name) && checkString(formOfCareer3_enterYM) && checkString(formOfCareer3_resignYM) && checkString(formOfCareer3_office) &&
-                                    checkString(formOfCareer3_task)) {
-                                formOfCareer3.setVisibility(View.GONE);
-                            }
-                            if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
-                                    checkString(university_major)) {
-                                university.setVisibility(View.GONE);
-                            }
-                            if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
-                                    checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
-                                master.setVisibility(View.GONE);
-                            }
-                            if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
-                                license2.setVisibility(View.GONE);
-                            }
-                            if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
-                                award2.setVisibility(View.GONE);
-                            }
-                            Toast.makeText(doc_careerDescription_expandedScrn.this, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                         
@@ -885,7 +881,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
                         return true;
                         //프로필로 이동
                     case R.id.moveToProfile:
-                        moveProfile = new Intent(mContext, ProfileScreenActivity.class);
+                        moveProfile = new Intent(mContext, ProfileScrnActivity.class);
                         mContext.startActivity(moveProfile);
 
                         return true;
@@ -910,7 +906,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
             //FirebaseFirestore의 collection("users").document(userID)에서 이름, 이메일, 휴대전화, 주소를 가져오고
             //EditText에 적용한다.
             documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-            documentReference.addSnapshotListener(doc_careerDescription_expandedScrn.this, new EventListener<DocumentSnapshot>() {
+            documentReference.addSnapshotListener(CareerDescriptionActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
@@ -930,7 +926,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
             //FirebaseFirestore의 collection("users").document(userID).collection("profiles").document("eduBack")에서 사용자가 프로필에 설정한 학력사항을 가져오고
             //EditText에 적용한다.
             documentReference = FirebaseFirestore.getInstance().collection("users").document(userID).collection("profiles").document("eduBack");
-            documentReference.addSnapshotListener(doc_careerDescription_expandedScrn.this, new EventListener<DocumentSnapshot>() {
+            documentReference.addSnapshotListener(CareerDescriptionActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
@@ -1035,7 +1031,7 @@ public class doc_careerDescription_expandedScrn extends AppCompatActivity {
             //FirebaseFirestore의 collection("users").document(userID).collection("profiles").document("formOfCareer")에서 사용자가 프로필에 설정한 경력사항을 가져오고
             //EditText에 적용한다.
             documentReference = FirebaseFirestore.getInstance().collection("users").document(userID).collection("profiles").document("formOfCareer");
-            documentReference.addSnapshotListener(doc_careerDescription_expandedScrn.this, new EventListener<DocumentSnapshot>() {
+            documentReference.addSnapshotListener(CareerDescriptionActivity.this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {

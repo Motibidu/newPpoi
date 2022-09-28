@@ -21,18 +21,18 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn;
+import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainScrnActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private main_recentItems main_recentItems;
+    private MainRecentItemsFragment MainRecentItemsFragment;
     private main_examples main_examples;
     private main_open main_open;
     private main_bookmarked main_bookmarked;
-    private org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn categoryScrn;
+    private DocCatActivity categoryScrn;
     MaterialToolbar toolbar;
     private long backBtnTime = 0;
 
@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        main_recentItems = new main_recentItems();
+        MainRecentItemsFragment = new MainRecentItemsFragment();
         main_examples = new main_examples();
         main_open = new main_open();
         main_bookmarked = new main_bookmarked();
-        categoryScrn = new categoryScrn();
+        categoryScrn = new DocCatActivity();
         setFrag(0);
 
     }
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         ft = fm.beginTransaction();
         switch(n) {
             case 0:
-                ft.replace(R.id.main_frame, main_recentItems);
+                ft.replace(R.id.main_frame, MainRecentItemsFragment);
                 ft.commit();
                 break;
             case 1:

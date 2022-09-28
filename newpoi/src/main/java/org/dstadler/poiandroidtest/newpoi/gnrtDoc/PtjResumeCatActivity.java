@@ -19,7 +19,7 @@ import static org.dstadler.poiandroidtest.newpoi.cls.customImageView.decodeSampl
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
-public class doc_ptjResume extends AppCompatActivity {
+public class PtjResumeCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
     private customImageView partTimeJob0;
     private int reqWidth, reqHeight;
@@ -50,7 +50,7 @@ public class doc_ptjResume extends AppCompatActivity {
         partTimeJob0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(doc_ptjResume.this, doc_promissory_expandedScrn.class);
+                intent = new Intent(PtjResumeCatActivity.this, PromissoryActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.parttimejob0);
                 intent.putExtra("imgPath", imgPath.toString());

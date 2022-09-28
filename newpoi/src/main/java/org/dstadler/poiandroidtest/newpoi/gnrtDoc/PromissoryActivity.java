@@ -55,7 +55,7 @@ import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RoundedCornersTransformation;
-import org.dstadler.poiandroidtest.newpoi.main.MainActivity;
+import org.dstadler.poiandroidtest.newpoi.main.MainScrnActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class doc_promissory_expandedScrn extends AppCompatActivity {
+public class PromissoryActivity extends AppCompatActivity {
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -100,7 +100,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
 
     private File f;
     public static String PACKAGE_NAME;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainScrnActivity.class.getSimpleName();
 
     String filePath;
 
@@ -255,23 +255,23 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-        pScre_name = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Scre_name");
-        pScre_add = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Scre_add");
-        pScre_rrn = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Scre_rrn");
-        pSdeb_name = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sdeb_name");
-        pSdeb_add = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sdeb_add");
-        pSdeb_rrn = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sdeb_rrn");
-        pSjoi_name = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sjoi_name");
-        pSjoi_add = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sjoi_add");
-        pSjoi_rrn = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sjoi_rrn");
-        pSori = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sori");
-        pSara = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sara");
-        pSin = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sin");
-        pSgday = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sgday");
-        pSpri_rep = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Spri_rep");
-        pSyear = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Syear");
-        pSmonth = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Smonth");
-        pSday = PreferenceManager.getString(doc_promissory_expandedScrn.this, "Sday");
+        pScre_name = PreferenceManager.getString(PromissoryActivity.this, "Scre_name");
+        pScre_add = PreferenceManager.getString(PromissoryActivity.this, "Scre_add");
+        pScre_rrn = PreferenceManager.getString(PromissoryActivity.this, "Scre_rrn");
+        pSdeb_name = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_name");
+        pSdeb_add = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_add");
+        pSdeb_rrn = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_rrn");
+        pSjoi_name = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_name");
+        pSjoi_add = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_add");
+        pSjoi_rrn = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_rrn");
+        pSori = PreferenceManager.getString(PromissoryActivity.this, "Sori");
+        pSara = PreferenceManager.getString(PromissoryActivity.this, "Sara");
+        pSin = PreferenceManager.getString(PromissoryActivity.this, "Sin");
+        pSgday = PreferenceManager.getString(PromissoryActivity.this, "Sgday");
+        pSpri_rep = PreferenceManager.getString(PromissoryActivity.this, "Spri_rep");
+        pSyear = PreferenceManager.getString(PromissoryActivity.this, "Syear");
+        pSmonth = PreferenceManager.getString(PromissoryActivity.this, "Smonth");
+        pSday = PreferenceManager.getString(PromissoryActivity.this, "Sday");
 
         cre_name = findViewById(R.id.editText0); cre_name.setText(pScre_name);
         cre_add = findViewById(R.id.editText1); cre_add.setText(pScre_add);
@@ -359,7 +359,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
                     fileName = expanded_screen_name.getText().toString().trim();
 
                     if (checkString(fileName)) {
-                        Toast.makeText(doc_promissory_expandedScrn.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     } else {
                         imgName = intent.getStringExtra("imgName");
 
@@ -376,12 +376,12 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
             public void onClick(View view) {
                 checkPermission();
                 if (mAuth.getCurrentUser() == null) {
-                    Toast.makeText(doc_promissory_expandedScrn.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PromissoryActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
                 } else {
                     expanded_screen_name = findViewById(R.id.expanded_screen_name);
                     fileName = expanded_screen_name.getText().toString().trim();
                     if (checkString(fileName)) {
-                        Toast.makeText(doc_promissory_expandedScrn.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     } else {
                         expanded_screen_name = findViewById(R.id.expanded_screen_name);
                         fileName = expanded_screen_name.getText().toString().trim();
@@ -425,7 +425,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long document_downloadID = PreferenceManager.getLong(doc_promissory_expandedScrn.this, "document_downloadID");
+            long document_downloadID = PreferenceManager.getLong(PromissoryActivity.this, "document_downloadID");
 
 
 //            Toast.makeText(expanded_screen.this, completeDownloadId + "completeDownloadId", Toast.LENGTH_SHORT).show();
@@ -466,7 +466,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
                         Intent i = new Intent(DOCUMENT_PROCESS_COMPLETE);
                         sendBroadcast(i);
 
-                        Toast.makeText(doc_promissory_expandedScrn.this, "Finished!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PromissoryActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -474,7 +474,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(doc_promissory_expandedScrn.this, "No File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PromissoryActivity.this, "No File!", Toast.LENGTH_SHORT).show();
                 }
             }
 //            if(intent.getAction().equals(DOCUMENT_PROCESS_COMPLETE)){
@@ -557,23 +557,23 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Scre_name", cre_name.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Scre_add", cre_add.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Scre_rrn", cre_rrn.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sdeb_name", deb_name.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sdeb_add", deb_add.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sdeb_rrn", deb_rrn.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sjoi_name", joi_name.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sjoi_add", joi_add.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sjoi_rrn", joi_rrn.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sori", ori.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sara", ara.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sin", in.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sgday", gday.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Spri_rep", pri_rep.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Syear", year.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Smonth", month.getText().toString().trim());
-        PreferenceManager.setString(doc_promissory_expandedScrn.this, "Sday", day.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Scre_name", cre_name.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Scre_add", cre_add.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Scre_rrn", cre_rrn.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_name", deb_name.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_add", deb_add.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_rrn", deb_rrn.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_name", joi_name.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_add", joi_add.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_rrn", joi_rrn.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sori", ori.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sara", ara.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sin", in.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sgday", gday.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Spri_rep", pri_rep.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Syear", year.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Smonth", month.getText().toString().trim());
+        PreferenceManager.setString(PromissoryActivity.this, "Sday", day.getText().toString().trim());
         super.onPause();
     }
 
@@ -617,7 +617,7 @@ public class doc_promissory_expandedScrn extends AppCompatActivity {
                 for (int i = 0; i < grantResults.length; i++) {
                     // grantResults[] : 허용된 권한은 0, 거부한 권한은 -1
                     if (grantResults[i] < 0) {
-                        Toast.makeText(doc_promissory_expandedScrn.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PromissoryActivity.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

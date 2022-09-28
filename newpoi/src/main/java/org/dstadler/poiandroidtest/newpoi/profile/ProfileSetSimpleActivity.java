@@ -40,7 +40,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profile_setting_simple extends AppCompatActivity{
+public class ProfileSetSimpleActivity extends AppCompatActivity{
 
     private Context context;
     private AppCompatActivity activity;
@@ -111,7 +111,7 @@ public class profile_setting_simple extends AppCompatActivity{
 
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-        documentReference.addSnapshotListener(profile_setting_simple.this, new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(ProfileSetSimpleActivity.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 name = value.getString("name");
@@ -143,7 +143,7 @@ public class profile_setting_simple extends AppCompatActivity{
         complete_profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProfileScreenActivity.class);
+                Intent intent = new Intent(context, ProfileScrnActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
                 name = profile_EditText_name.getText().toString().trim();
@@ -170,7 +170,7 @@ public class profile_setting_simple extends AppCompatActivity{
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(profile_setting_simple.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileSetSimpleActivity.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

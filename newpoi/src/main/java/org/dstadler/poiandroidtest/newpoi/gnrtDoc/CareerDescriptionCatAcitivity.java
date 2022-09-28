@@ -17,7 +17,7 @@ import static org.dstadler.poiandroidtest.newpoi.cls.customImageView.decodeSampl
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
-public class doc_careerDescription extends AppCompatActivity {
+public class CareerDescriptionCatAcitivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
     private int reqWidth, reqHeight;
     private customImageView careerDescription0;
@@ -50,7 +50,7 @@ public class doc_careerDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //careerDescription_expanded_screen으로 이동
-                intent = new Intent(mContext, doc_careerDescription_expandedScrn.class);
+                intent = new Intent(mContext, CareerDescriptionActivity.class);
                 //첫번째 페이지, 이미지 URI
                 imgPath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1);
                 //두번째 페이지, 이미지 URI

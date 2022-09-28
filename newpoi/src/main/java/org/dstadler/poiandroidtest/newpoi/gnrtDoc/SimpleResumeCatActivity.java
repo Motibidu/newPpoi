@@ -19,7 +19,7 @@ import static org.dstadler.poiandroidtest.newpoi.cls.customImageView.decodeSampl
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class doc_simpleResume extends AppCompatActivity {
+public class SimpleResumeCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
 
     private ImageButton simpleResume0;
@@ -50,7 +50,7 @@ public class doc_simpleResume extends AppCompatActivity {
         simpleResume0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(doc_simpleResume.this, doc_simpleResume_expandedScrn.class);
+                intent = new Intent(SimpleResumeCatActivity.this, SimpleResumeActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.simple_resume0);
                 intent.putExtra("imgPath", imgPath.toString());

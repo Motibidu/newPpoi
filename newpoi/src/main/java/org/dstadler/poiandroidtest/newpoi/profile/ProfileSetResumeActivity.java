@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class profile_setting_resume extends AppCompatActivity {
+public class ProfileSetResumeActivity extends AppCompatActivity {
 
    private Context context;
    private ImageButton back_button;
@@ -40,7 +40,7 @@ public class profile_setting_resume extends AppCompatActivity {
         eduBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, resume_eduBack.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeEcubackActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +48,7 @@ public class profile_setting_resume extends AppCompatActivity {
         formOfCareer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, resume_formOfCareer.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeCareerActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +56,7 @@ public class profile_setting_resume extends AppCompatActivity {
         linguistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, resume_linguistics.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeLinguisticsActivity.class);
                 startActivity(intent);
             }
         });
@@ -64,7 +64,7 @@ public class profile_setting_resume extends AppCompatActivity {
         selfIntroduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, org.dstadler.poiandroidtest.newpoi.selfIntroduction.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, org.dstadler.poiandroidtest.newpoi.selfIntroduction.class);
                 startActivity(intent);
             }
         });
@@ -72,7 +72,7 @@ public class profile_setting_resume extends AppCompatActivity {
         licenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profile_setting_resume.this, resume_licenses.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeLicActivity.class);
                 startActivity(intent);
             }
         });

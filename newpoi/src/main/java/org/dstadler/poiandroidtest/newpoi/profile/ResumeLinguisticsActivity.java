@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class resume_linguistics extends AppCompatActivity {
+public class ResumeLinguisticsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

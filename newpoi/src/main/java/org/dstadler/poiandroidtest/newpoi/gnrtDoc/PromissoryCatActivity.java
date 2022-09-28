@@ -16,7 +16,7 @@ import static org.dstadler.poiandroidtest.newpoi.cls.customImageView.decodeSampl
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class doc_promissory extends AppCompatActivity {
+public class PromissoryCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
 
     private ImageButton promissory0, promissory1, promissory2;
@@ -45,7 +45,7 @@ public class doc_promissory extends AppCompatActivity {
         promissory0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(doc_promissory.this, doc_promissory_expandedScrn.class);
+                intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
                 intent.putExtra("imgPath", imgPath.toString());
@@ -60,7 +60,7 @@ public class doc_promissory extends AppCompatActivity {
         promissory1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(doc_promissory.this, doc_promissory_expandedScrn.class);
+                intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory1_page1);
                 intent.putExtra("imgPath", imgPath.toString());
@@ -75,7 +75,7 @@ public class doc_promissory extends AppCompatActivity {
         promissory2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(doc_promissory.this, doc_promissory_expandedScrn.class);
+                intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory2);
                 intent.putExtra("imgPath", imgPath.toString());

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class profile_screen_resume extends Fragment {
+public class ProfileScrnResumeFragment extends Fragment {
 
     private View view;
 

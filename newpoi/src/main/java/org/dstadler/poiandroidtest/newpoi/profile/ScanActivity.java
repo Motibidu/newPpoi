@@ -2,14 +2,11 @@ package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Instrumentation;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.InetAddresses;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,16 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,57 +35,108 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.imageview.ShapeableImageView;
+import com.google.api.LogDescriptor;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.TextRecognizerOptionsInterface;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.main.MainActivity;
+import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
+import org.junit.Test;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import strman.Strman;
 
 public class ScanActivity extends AppCompatActivity {
-
-    //UI Views
-    private LinearLayout inputImg;
-    private Button recognizeText;
-    private EditText recognizedTextEt;
-    private ImageView importedImg;
-
-    private static final String TAG = "MAIN_TAG";
-
-    private Uri imageUri = null;
-
+    //static vars
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 101;
+    private static final String TAG = "MAIN_TAG";
 
+    //widgets
+
+    private ImageButton backBtn;
+
+    private LinearLayout inputImg;
+    private Button recognizeText;
+    private ImageView importedImg;
+
+    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNum,
+            profile_EditText_addr, profile_EditText_email, profile_EditText_age;
+    private ImageButton imageButton_name, imageButton_rrn, imageButton_phoneNum,
+            imageButton_addr, imageButton_email, imageButton_age;
+
+    //contents
+    private Context mContext;
+
+    //Permissions
     private String[] cameraPermissions;
     private String[] storagePermissions;
+
+    //vars
+    private String p;
+    private Uri imageUri = null;
+
+
+    //apps
     private ProgressDialog progressDialog;
-    private Context mContext;
 
     //TextRecognizer
     private TextRecognizer textRecognizer;
+
+    //ArrayList<String>
+    List<String> rnn = new ArrayList<String>();
+    List<String> email = new ArrayList<String>();
+    List<String> addr = new ArrayList<String>();
+    List<String> phoneNum = new ArrayList<String>();
+    List<String> url = new ArrayList<String>();
+    List<String> schl = new ArrayList<String>();
+    List<String> name = new ArrayList<String>();
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        mContext = getApplicationContext();
+        //뒤로가기 버튼
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+
+        //widgets
         inputImg = findViewById(R.id.inputImg);
         recognizeText = findViewById(R.id.button_recognizeText);
         importedImg = findViewById(R.id.image_importedImg);
-        recognizedTextEt = findViewById(R.id.recognizeTextEt);
 
+        profile_EditText_name = findViewById(R.id.profile_EditText_name);
+        profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
+        profile_EditText_age = findViewById(R.id.profile_EditText_age);
+        profile_EditText_phoneNum = findViewById(R.id.profile_EditText_phoneNum);
+        profile_EditText_email = findViewById(R.id.profile_EditText_email);
+        profile_EditText_addr = findViewById(R.id.profile_EditText_addr);
+
+        //contents
+        mContext = getApplicationContext();
+
+        //permissions
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+        //apps
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -115,7 +162,75 @@ public class ScanActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imageButton_name = findViewById(R.id.imagebutton_name);
+        imageButton_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, profile_EditText_name, name);
+            }
+        });
+        imageButton_rrn = findViewById(R.id.imagebutton_rrn);
+        imageButton_rrn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, profile_EditText_rrn, rnn);
+            }
+        });
+//        imageButton_age = findViewById(R.id.imagebutton_age);
+//        imageButton_age.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setNameMenu(view, profile_EditText_age, age);
+//            }
+//        });
+        imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
+        imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, profile_EditText_phoneNum, phoneNum);
+            }
+        });
+        imageButton_email = findViewById(R.id.imagebutton_email);
+        imageButton_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, profile_EditText_email, email);
+            }
+        });
+        imageButton_addr = findViewById(R.id.imagebutton_addr);
+        imageButton_addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, profile_EditText_addr, addr);
+            }
+        });
     }
+
+    private void setNameMenu(View view, EditText editText,List<String> list){
+        PopupMenu menu = new PopupMenu(mContext, view);
+        for(int i=0; i< list.size();i++){
+            //menu.getMenu().add(name.get(i));
+            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
+        }
+        menu.show();
+
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                //int i = menuItem.getItemId();
+                editText.setText(menuItem.getTitle());
+                return true;
+//                switch (i) {
+//                    case 0: profile_EditText_name.setText(menuItem.getTitle());
+//                    case 1: profile_EditText_name.setText(menuItem.getTitle());
+//                    case 2: profile_EditText_name.setText(menuItem.getTitle());
+//                }
+//                return false;
+            }
+        });
+    }
+
     private void recognizeTextFromImage(){
         Log.d(TAG, "recognizeTextFromImage: ");
         progressDialog.setMessage("Preparing image...");
@@ -131,11 +246,10 @@ public class ScanActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Text text) {
                             progressDialog.dismiss();;
-
                             String recognizedText = text.getText();
-                            Log.d(TAG, "onSucess: recognizedText: "+recognizedText);
-                            //set the recognized text to edit text
-                            recognizedTextEt.setText(recognizedText);
+                            List<Text.TextBlock> recognizedTextBlock = text.getTextBlocks();
+
+                            stringProcess(recognizedText);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -153,6 +267,202 @@ public class ScanActivity extends AppCompatActivity {
             Toast.makeText(ScanActivity.this,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private void stringProcess(String str){
+
+        //clear Arraylist
+//        rnn.clear();
+//        email.clear();
+//        addr.clear();
+//        phoneNum.clear();
+//        url.clear();
+//        schl.clear();
+//        name.clear();
+        //split string by a space
+        String[] splitStr_n = str.split("\\n+");
+        String[] splitStr_s = str.split("\\s+");
+
+        //regexes
+        //주민번호 앞자리
+        // (.*)\d{2}                    : 00 ~ 99 (출생년도)
+        // (0[1-9]|1[0-2])              : 01 ~ 12(월)
+        // (0[1-9]|[12][0-9]|[3][01])   : 01 ~ 31 (일)
+        //주민번호 뒷자리
+        // [1-4]                        : 1~4 (첫자리)
+        // [0-9]{6}                     : (나머지 6자리)
+
+        //rnn_regx1 테스트 :
+        //1987년 01월 01일 (만 00세)
+        //1999.10,
+        //1999년 10월 06일,
+        //90.01.01
+
+        customMatcher cus = new customMatcher();
+
+        int i = 0;
+        String sp;
+
+
+        i=0;
+        for (String s: splitStr_n) {
+            i++;
+            Log.d(TAG, i + " : " +s);
+        }
+        Log.d(TAG, "Fi===========ni===========sh");
+        int j = 0;
+        for (String s: splitStr_n){
+            j++;
+            cus.set_splitStr(s);
+
+            cus.set_name();
+            if(cus.find()){
+                sp = cus.group();
+                if(!(sp.equals("이메일")||sp.equals("주소")||sp.equals("지원분야")||
+                        sp.equals("이력서")||sp.equals("이수")||sp.equals("전공명")||
+                        sp.equals("이름")||sp.equals("주민번호")||sp.equals("이수날짜")||
+                        sp.equals("성과관리")||sp.equals("전공"))) {
+                    Log.d(TAG, j+":name_regx : " + sp);
+
+                    if(!name.contains(sp)){name.add(sp);}
+                    continue;
+                }
+            }
+
+            cus.set_rnn1();
+            if(cus.find()) {
+                sp = cus.group();
+                //rnn.add(sp);
+                if(!rnn.contains(sp)) {rnn.add(sp);}
+                Log.d(TAG, j+":rnn_regx1 : "+sp);
+            }
+
+            cus.set_rnn2();
+            if(cus.find()) {
+                sp = cus.group();
+                //rnn.add(sp);
+                if(!rnn.contains(sp)) {rnn.add(sp);}
+                Log.d(TAG, j+":rnn_regx2 : "+sp);
+            }
+
+            cus.set_rnn3();
+            if(cus.find()) {
+                sp = cus.group();
+                //rnn.add(sp);
+                if(!rnn.contains(sp)) {rnn.add(sp);}
+                Log.d(TAG, j+":rnn_regx3 : "+sp);
+                continue;
+            }
+
+            cus.set_phoneNum();
+            if(cus.find()){
+                sp = cus.group();
+                Log.d(TAG, j+":phoneNum_regx : "+sp);
+                //phoneNum.add(sp);
+                if(!rnn.contains(sp)) {phoneNum.add(sp);}
+                continue;
+            }
+            cus.set_email();
+            if(cus.find()){
+                sp = cus.group();
+                Log.d(TAG, j+":email_regx : "+sp);
+                //email.add(sp);
+                if(!rnn.contains(sp)) {email.add(sp);}
+                continue;
+            }
+
+            cus.set_addr();
+            if(cus.find()){
+                sp = cus.group();
+                Log.d(TAG, j+":addr_regx : "+sp);
+                //addr.add(sp);
+                if(!rnn.contains(sp)) {addr.add(sp);}
+                continue;
+            }
+
+        }
+        Log.d(TAG, "Fi===========ni===========sh");
+
+        //profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber, profile_EditText_addr, profile_EditText_email, profile_EditText_age
+        if (name.size() != 0){
+            profile_EditText_name.setText(name.get(name.size()-1));
+        }
+        else{
+            profile_EditText_name.setText("");
+        }
+
+        if (rnn.size() != 0){
+            profile_EditText_rrn.setText(rnn.get(rnn.size()-1));
+        }
+        else{
+            profile_EditText_rrn.setText("");
+        }
+
+        if (phoneNum.size() != 0){
+            profile_EditText_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
+        }
+        else{
+            profile_EditText_phoneNum.setText("");
+        }
+
+        if (email.size() != 0){
+            profile_EditText_email.setText(email.get(email.size()-1));
+        }
+        else{
+            profile_EditText_email.setText("");
+        }
+
+        if (addr.size() != 0){
+            profile_EditText_addr.setText(addr.get(addr.size()-1));
+        }
+        else{
+            profile_EditText_addr.setText("");
+        }
+
+        String prrn = profile_EditText_rrn.getText().toString();
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String[] splitprrn = new String[3];
+
+        if(prrn.length()>0) {
+            //String[] splitprrn = prrn.split(".");
+            if(prrn.contains(".")){
+                splitprrn = prrn.split("\\.");
+                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+            }
+            else  if(prrn.contains("년")){
+                splitprrn = prrn.split("년");
+                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+            }
+            else if(prrn.contains(" ")){
+                splitprrn = prrn.split("\\s");
+                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+            }
+
+
+            if(splitprrn[0].length() == 2){
+                String firstChar = Character.toString(splitprrn[0].charAt(0));
+                Log.d(TAG, "firshChar : "+ firstChar);
+                //68, 71, 86, 92
+                if(firstChar.equals("6")||firstChar.equals("7")||firstChar.equals("8") || firstChar.equals("9")) {
+                    Log.d(TAG, "condition1 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
+                    profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
+                }
+                //05, 12, 13, 21
+                else if(firstChar.equals("0")||firstChar.equals("1")|firstChar.equals("2")) {
+                    Log.d(TAG, "condition2 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
+                    profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
+                }
+            }
+            else if(splitprrn[0].length() == 4){
+                Log.d(TAG, "condition3 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1 ));
+                profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
+
+            }
+
+        }
+
+    }
+
 
     private void showInputImageDialog(View v) {
         //Toast.makeText(ScanActivity.this,"Take Image Clicked",Toast.LENGTH_SHORT).show();
@@ -186,8 +496,7 @@ public class ScanActivity extends AppCompatActivity {
                     }
 
             }
-//        popupMenu.getMenu().add(Menu.NONE, 1, 1, "CAMERA");
-//        popupMenu.getMenu().add(Menu.NONE, 2, 2, "GALLERY");
+
 
         });
         popupMenu.show();

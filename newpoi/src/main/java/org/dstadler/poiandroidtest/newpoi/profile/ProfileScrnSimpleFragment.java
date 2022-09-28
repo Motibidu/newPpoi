@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class profile_screen_simple extends Fragment {
+public class ProfileScrnSimpleFragment extends Fragment {
     private View view;
     private Activity activity;
 

@@ -23,7 +23,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class resume_licenses extends AppCompatActivity {
+public class ResumeLicActivity extends AppCompatActivity {
     private TextInputEditText license1_date_EditText, license1_cntnt_EditText, license1_grade_EditText, license1_publication_EditText,
             license2_date_EditText, license2_cntnt_EditText, license2_grade_EditText, license2_publication_EditText,
             award1_date_EditText, award1_cntnt_EditText, award1_publication_EditText,
@@ -115,7 +115,7 @@ public class resume_licenses extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_licenses.this, ProfileScreenActivity.class);
+                Intent intent = new Intent(ResumeLicActivity.this, ProfileScrnActivity.class);
                 license1_date = license1_date_EditText.getText().toString().trim();
                 license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
                 license1_grade = license1_grade_EditText.getText().toString().trim();

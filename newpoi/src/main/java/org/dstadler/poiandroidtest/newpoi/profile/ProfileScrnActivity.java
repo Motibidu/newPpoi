@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso;
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
-public class ProfileScreenActivity extends AppCompatActivity {
+public class ProfileScrnActivity extends AppCompatActivity {
 
     int profile_screen_number;
     private static int ACCOUNT_RQST_CODE = 0;
@@ -124,7 +124,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
         account_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileScreenActivity.this, AcctSetAcitivity.class);
+                Intent intent = new Intent(ProfileScrnActivity.this, AcctSetAcitivity.class);
                 startActivityForResult(intent, ACCOUNT_RQST_CODE);
             }
         });
@@ -218,26 +218,26 @@ public class ProfileScreenActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.menu_profileEdit_personally:
                         if(mAuth.getCurrentUser() == null){
-                            Toast.makeText(ProfileScreenActivity.this,"로그인 해주세요", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileScrnActivity.this,"로그인 해주세요", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             if (b_simpleProfile){
-                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_simple.class);
+                                Intent intent = new Intent(ProfileScrnActivity.this, ProfileSetSimpleActivity.class);
                                 startActivity(intent);
                             }
                             else if (b_detailedProfile){
-                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_detailed.class);
+                                Intent intent = new Intent(ProfileScrnActivity.this, ProfileSetDetailActivity.class);
                                 startActivity(intent);
                             }
                             else if (b_resumeProfile){
-                                Intent intent = new Intent(ProfileScreenActivity.this, profile_setting_resume.class);
+                                Intent intent = new Intent(ProfileScrnActivity.this, ProfileSetResumeActivity.class);
                                 startActivity(intent);
                             }
 
                         }
                         return true;
                     case R.id.menu_profileEdit_scan:
-                        Intent intent = new Intent(ProfileScreenActivity.this, ScanActivity.class);
+                        Intent intent = new Intent(ProfileScrnActivity.this, ScanActivity.class);
                         startActivity(intent);
                         return true;
                     default:
@@ -252,21 +252,21 @@ public class ProfileScreenActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
-        profile_screen_simple profile_screen_simple = new profile_screen_simple();
-        DetailProfileFragment DetailProfileFragment = new DetailProfileFragment();
-        profile_screen_resume profile_screen_resume = new profile_screen_resume();
+        ProfileScrnSimpleFragment ProfileScrnSimpleFragment = new ProfileScrnSimpleFragment();
+        ProfileDetailFragment ProfileDetailFragment = new ProfileDetailFragment();
+        ProfileScrnResumeFragment ProfileScrnResumeFragment = new ProfileScrnResumeFragment();
 
         switch(n) {
             case 0:
-                ft.replace(R.id.content, profile_screen_simple);
+                ft.replace(R.id.content, ProfileScrnSimpleFragment);
                 ft.commitNow();
                 break;
             case 1:
-                ft.replace(R.id.content, DetailProfileFragment);
+                ft.replace(R.id.content, ProfileDetailFragment);
                 ft.commitNow();
                 break;
             case 2:
-                ft.replace(R.id.content, profile_screen_resume);
+                ft.replace(R.id.content, ProfileScrnResumeFragment);
                 ft.commitNow();
                 break;
             default:

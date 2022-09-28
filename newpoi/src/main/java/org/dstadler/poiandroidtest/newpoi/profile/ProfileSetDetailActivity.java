@@ -39,7 +39,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profile_setting_detailed extends AppCompatActivity{
+public class ProfileSetDetailActivity extends AppCompatActivity{
 
     private ImageButton imageButton;
     private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber,
@@ -110,7 +110,7 @@ public class profile_setting_detailed extends AppCompatActivity{
 
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-        documentReference.addSnapshotListener(profile_setting_detailed.this, new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(ProfileSetDetailActivity.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 name = value.getString("name");
@@ -152,7 +152,7 @@ public class profile_setting_detailed extends AppCompatActivity{
         complete_profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profile_setting_detailed.this, ProfileScreenActivity.class);
+                Intent intent = new Intent(ProfileSetDetailActivity.this, ProfileScrnActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
                 name = profile_EditText_name.getText().toString().trim();
@@ -187,7 +187,7 @@ public class profile_setting_detailed extends AppCompatActivity{
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(profile_setting_detailed.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileSetDetailActivity.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -229,7 +229,7 @@ public class profile_setting_detailed extends AppCompatActivity{
                             @Override
                             public void onSuccess(Uri uri) {
                                 Glide
-                                    .with(profile_setting_detailed.this)
+                                    .with(ProfileSetDetailActivity.this)
                                     .load(uri)
                                     .into(profile_picture);
                                 pd.dismiss();
@@ -244,7 +244,7 @@ public class profile_setting_detailed extends AppCompatActivity{
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(profile_setting_detailed.this,"Failed Upload", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileSetDetailActivity.this,"Failed Upload", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

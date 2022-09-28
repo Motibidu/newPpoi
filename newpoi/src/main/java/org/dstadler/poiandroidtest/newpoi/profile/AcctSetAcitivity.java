@@ -115,8 +115,7 @@ public class AcctSetAcitivity extends AppCompatActivity {
         cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AcctSetAcitivity.this, ProfileScreenActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
     }

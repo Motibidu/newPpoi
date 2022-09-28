@@ -19,14 +19,14 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn;
-import org.dstadler.poiandroidtest.newpoi.profile.ProfileScreenActivity;
+import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
+import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
 
-public class main_recentItems extends Fragment {
+public class MainRecentItemsFragment extends Fragment {
     private View view;
     private MaterialToolbar toolbar;
-    private org.dstadler.poiandroidtest.newpoi.gnrtDoc.categoryScrn categoryScrn;
-    private ProfileScreenActivity ProfileScreenActivity;
+    private DocCatActivity categoryScrn;
+    private ProfileScrnActivity ProfileScrnActivity;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -35,14 +35,14 @@ public class main_recentItems extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_recent_items, container, false);
 
-        categoryScrn = new categoryScrn();
-        ProfileScreenActivity = new ProfileScreenActivity();
+        categoryScrn = new DocCatActivity();
+        ProfileScrnActivity = new ProfileScrnActivity();
         toolbar = view.findViewById(R.id.topAppBar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileScreenActivity.class);
+                Intent intent = new Intent(getActivity(), ProfileScrnActivity.class);
                 startActivity(intent);
             }
         });
@@ -51,7 +51,7 @@ public class main_recentItems extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.add_screen: {
-                        Intent intent = new Intent(getActivity(), categoryScrn.class);
+                        Intent intent = new Intent(getActivity(), DocCatActivity.class);
                         startActivity(intent);
                         break;
                     }

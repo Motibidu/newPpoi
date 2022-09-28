@@ -26,7 +26,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class resume_formOfCareer extends AppCompatActivity {
+public class ResumeCareerActivity extends AppCompatActivity {
     private TextInputEditText formOfCareer1_name_EditText, formOfCareer1_enterYM_EditText ,formOfCareer1_office_EditText  ,formOfCareer1_task_EditText ,formOfCareer1_resignYM_EditText
             ,formOfCareer2_name_EditText, formOfCareer2_enterYM_EditText , formOfCareer2_office_EditText, formOfCareer2_task_EditText, formOfCareer2_resignYM_EditText
             ,formOfCareer3_name_EditText, formOfCareer3_enterYM_EditText, formOfCareer3_office_EditText, formOfCareer3_task_EditText, formOfCareer3_resignYM_EditText;
@@ -126,7 +126,7 @@ public class resume_formOfCareer extends AppCompatActivity {
         cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_formOfCareer.this, ProfileScreenActivity.class);
+                Intent intent = new Intent(ResumeCareerActivity.this, ProfileScrnActivity.class);
 
                 formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
                 formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();

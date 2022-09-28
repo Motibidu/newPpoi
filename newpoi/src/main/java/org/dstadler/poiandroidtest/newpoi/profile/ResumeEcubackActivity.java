@@ -27,7 +27,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class resume_eduBack extends AppCompatActivity {
+public class ResumeEcubackActivity extends AppCompatActivity {
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
             master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText;
@@ -137,7 +137,7 @@ public class resume_eduBack extends AppCompatActivity {
         cmpltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(resume_eduBack.this, ProfileScreenActivity.class);
+                Intent intent = new Intent(ResumeEcubackActivity.this, ProfileScrnActivity.class);
 
                 highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
                 highschool_graYM = highschool_graYM_EditText.getText().toString().trim();

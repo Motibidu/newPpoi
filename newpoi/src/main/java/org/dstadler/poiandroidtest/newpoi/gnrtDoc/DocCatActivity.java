@@ -17,7 +17,7 @@ import static org.dstadler.poiandroidtest.newpoi.cls.customImageView.decodeSampl
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
-public class categoryScrn extends AppCompatActivity {
+public class DocCatActivity extends AppCompatActivity {
 
     private customImageView promissory_customImgV, partTimeJobResume_customImgV, simpleResume_customImgV, memorandum_customImgV, careerDescription_customImgV;
     private Intent intent;
@@ -52,7 +52,7 @@ public class categoryScrn extends AppCompatActivity {
         promissory_customImgV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(categoryScrn.this, doc_promissory.class);
+                intent = new Intent(DocCatActivity.this, PromissoryCatActivity.class);
                 //어플리케이션 내 "R.drawble.promissory0" URI
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
                 intent.putExtra("imgPath", imgPath.toString());
@@ -67,7 +67,7 @@ public class categoryScrn extends AppCompatActivity {
         partTimeJobResume_customImgV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(categoryScrn.this, doc_ptjResume.class);
+                intent = new Intent(DocCatActivity.this, PtjResumeCatActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.parttimejob0);
                 intent.putExtra("imgPath", imgPath.toString());
@@ -82,7 +82,7 @@ public class categoryScrn extends AppCompatActivity {
         simpleResume_customImgV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(categoryScrn.this, doc_simpleResume.class);
+                intent = new Intent(DocCatActivity.this, SimpleResumeCatActivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.simple_resume0);
                 intent.putExtra("imgPath", imgPath.toString());
@@ -96,7 +96,7 @@ public class categoryScrn extends AppCompatActivity {
         careerDescription_customImgV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent = new Intent(categoryScrn.this, doc_careerDescription.class);
+                intent = new Intent(DocCatActivity.this, CareerDescriptionCatAcitivity.class);
 
                 Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1);
                 intent.putExtra("imgPath", imgPath.toString());

@@ -14,50 +14,67 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".profile.AcctSetAcitivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.ProfileScreenActivity">
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.categoryScrn"
+        <activity android:name=".gnrtDoc.DocCatActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".main.MainActivity">
+            android:parentActivityName=".main.MainScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.doc_careerDescription"
+
+        <activity android:name=".gnrtDoc.CareerDescriptionActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.doc_careerDescription_expandedScrn"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.doc_careerDescription">
+            android:parentActivityName=".gnrtDoc.CareerDescriptionCatAcitivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
 
-        <activity android:name=".gnrtDoc.doc_promissory"
+
+        <activity android:name=".gnrtDoc.PromissoryActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.doc_promissory_expandedScrn"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.MainActivity"
+        <activity android:name=".gnrtDoc.PromissoryCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.CareerDescriptionCatAcitivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.SimpleResumeCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.PtjResumeCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".main.MainScrnActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,39 +82,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.ProfileScreenActivity"
+        <activity android:name=".profile.ProfileScrnActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".main.MainActivity">
+            android:parentActivityName=".main.MainScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".profile.profile_setting_detailed"
+        <activity android:name=".profile.ProfileSetDetailActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:parentActivityName=".profile.ProfileScreenActivity">
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".gnrtDoc.doc_ptjResume"
+
+        <activity android:name=".gnrtDoc.SimpleResumeActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.doc_simpleResume"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.doc_simpleResume_expandedScrn"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="org.dstadler.poiandroidtest.newpoi.runImgComplete"/>
@@ -105,65 +109,65 @@
         </activity>
         <activity android:name=".memorandum"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".gnrtDoc.categoryScrn">
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".profile.profile_setting_simple"
+        <activity android:name=".profile.ProfileSetSimpleActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.ProfileScreenActivity">
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".profile.profile_setting_resume"
+        <activity android:name=".profile.ProfileSetResumeActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.ProfileScreenActivity">
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.resume_eduBack"
+        <activity android:name=".profile.ResumeEcubackActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".profile.profile_setting_resume">
+            android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.resume_formOfCareer"
+        <activity android:name=".profile.ResumeCareerActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".profile.profile_setting_resume">
+            android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.resume_linguistics"
+        <activity android:name=".profile.ResumeLinguisticsActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".profile.profile_setting_resume">
+            android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".selfIntroduction"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.profile_setting_resume">
+            android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.resume_licenses"
+        <activity android:name=".profile.ResumeLicActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".profile.profile_setting_resume">
+            android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".profile.ScanActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.ProfileScreenActivity">
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
