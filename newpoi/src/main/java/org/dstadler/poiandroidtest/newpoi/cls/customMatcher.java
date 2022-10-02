@@ -16,8 +16,20 @@ public class customMatcher {
     // name_regx 테스트
     // 후보군 첫번째에 로그인에서 이름을 불러온다.
     String name_regx
-            = "^(김|이|박|최|정|강|조|윤|장|임|한|오|서|신|권|황|안|송|류|전|홍|고|문|양|손|배|조|백|허|유|남|심|노|정|하|곽|성|차|주|우|구|신|임|라|전|민|유|진|지|엄)[가-힣]{1,3}";
+            = "^(김|이|박|최|정|강|조|윤|장|임|한|오|" +
+            "서|신|권|황|안|송|류|전|홍|고|문|양|손|" +
+            "배|조|백|허|유|남|" +
+            "심|노|정|하|곽|성|차|주|우|구|신|임|라|전|민|유|진|지|엄)[가-힣]{1,3}";
 
+    String engName_regx
+            = "(Kim|Gim|Lee|Pak|Bak|Park|Choe|Choi|Kang|Gang|Khang|Cho|Jo|Joe|Yun|Yoon|Youn|Chang|Jang|Im|Lim|Yim|Rim|Han|O|Oh|" +
+            "Seo|Sin|Shin|Gwon|Kwon|Kwun|Hwang|An|Ahn|Ann|Song|Ryu|Jeon|Jun|Hong|Ko|Go|Kho|Gho|Mun|Moon|Moun|Muhn|Yang|Ryang|Yhang|Son|Sohn|Shon|" +
+            "Bae|Bai|Pai|Cho|Jo|Joe|Joh|Jho|Jou|Zo|Paek|Baek|Back|Baik|Paik|Beak|Baeg|Heo|Huh|Hu|Yu|Yoo|You|Ryu|Ryoo|Lyu|Nam|Nahm|Nham|" +
+            "Sim|Shim|Sym|Seem|Sihm|No|Noh|Nho|Ro|Rho)(\\s|\\,|\\-)?[a-zA-Z\\s,\\-]{0,}";
+    // engName_regex without annotation for test
+    //(Kim|Gim|Lee|Pak|Bak|Park|Choe|Choi|Kang|Gang|Khang|Cho|Jo|Joe|Yun|Yoon|Youn|Chang|Jang|Im|Lim|Yim|Rim|Han|O|Oh|Seo|Sin|Shin|Gwon|Kwon|Kwun|Hwang|An|Ahn|Ann|Song|Ryu|Jeon|Jun|Hong|Ko|Go|Kho|Gho|Mun|Moon|Moun|Muhn|Yang|Ryang|Yhang|Son|Sohn|Shon|Bae|Bai|Pai|Cho|Jo|Joe|Joh|Jho|Jou|Zo|Paek|Baek|Back|Baik|Paik|Beak|Baeg|Heo|Huh|Hu|Yu|Yoo|You|Ryu|Ryoo|Lyu|Nam|Nahm|Nham|Sim|Shim|Sym|Seem|Sihm|No|Noh|Nho|Ro|Rho)(\s)?[a-zA-Z\s]{0,}
+    String chName_regx
+            = "[一-龥]{2,4}";
 
     // rnn_regx1 테스트
     //
@@ -67,8 +79,11 @@ public class customMatcher {
 
     //period 테스트
     //
-    String period //19?? | 20??
-            = "(19|20)[0-9]{2}";
+    String period_regx1
+            = "(6|7|8|9)\\d(\\.|\\s|년)(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)(\\s)?";
+    String period_regx2
+            = "(19|20)\\d{2}(\\.|\\s|년)(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)";
+
 
 
 
@@ -83,6 +98,14 @@ public class customMatcher {
 
     public void set_name(){
         pat = Pattern.compile(name_regx);
+        mat = pat.matcher(splitStr);
+    }
+    public void set_engName(){
+        pat = Pattern.compile(engName_regx);
+        mat = pat.matcher(splitStr);
+    }
+    public void set_chName(){
+        pat = Pattern.compile(chName_regx);
         mat = pat.matcher(splitStr);
     }
 

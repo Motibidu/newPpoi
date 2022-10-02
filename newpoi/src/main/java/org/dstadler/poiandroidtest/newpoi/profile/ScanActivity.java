@@ -68,10 +68,10 @@ public class ScanActivity extends AppCompatActivity {
     private Button recognizeText;
     private ImageView importedImg;
 
-    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNum,
-            profile_EditText_addr, profile_EditText_email, profile_EditText_age;
-    private ImageButton imageButton_name, imageButton_rrn, imageButton_phoneNum,
-            imageButton_addr, imageButton_email, imageButton_age;
+    private EditText edit_name, edit_engName, edit_chName, edit_rrn, edit_phoneNum,
+            edit_addr, edit_email, edit_age;
+    private ImageButton imageButton_name, imageButton_engName, imageButton_chName, imageButton_rrn, imageButton_phoneNum,
+            imageButton_addr, imageButton_email;
 
     //contents
     private Context mContext;
@@ -92,13 +92,17 @@ public class ScanActivity extends AppCompatActivity {
     private TextRecognizer textRecognizer;
 
     //ArrayList<String>
+    List<String> name = new ArrayList<String>();
+    List<String> engName = new ArrayList<String>();
+    List<String> chName = new ArrayList<String>();
+
     List<String> rnn = new ArrayList<String>();
     List<String> email = new ArrayList<String>();
     List<String> addr = new ArrayList<String>();
     List<String> phoneNum = new ArrayList<String>();
     List<String> url = new ArrayList<String>();
     List<String> schl = new ArrayList<String>();
-    List<String> name = new ArrayList<String>();
+
 
 
 
@@ -108,7 +112,7 @@ public class ScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan);
 
         //뒤로가기 버튼
-        backBtn = findViewById(R.id.backBtn);
+        backBtn = findViewById(R.id.imagebutton_back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,12 +126,14 @@ public class ScanActivity extends AppCompatActivity {
         recognizeText = findViewById(R.id.button_recognizeText);
         importedImg = findViewById(R.id.image_importedImg);
 
-        profile_EditText_name = findViewById(R.id.profile_EditText_name);
-        profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
-        profile_EditText_age = findViewById(R.id.profile_EditText_age);
-        profile_EditText_phoneNum = findViewById(R.id.profile_EditText_phoneNum);
-        profile_EditText_email = findViewById(R.id.profile_EditText_email);
-        profile_EditText_addr = findViewById(R.id.profile_EditText_addr);
+        edit_name = findViewById(R.id.edit_name);
+        edit_engName = findViewById(R.id.edit_engName);
+        edit_chName = findViewById(R.id.edit_chName);
+        edit_rrn = findViewById(R.id.edit_rrn);
+        edit_age = findViewById(R.id.edit_age);
+        edit_phoneNum = findViewById(R.id.edit_phoneNum);
+        edit_email = findViewById(R.id.edit_email);
+        edit_addr = findViewById(R.id.edit_addr);
 
         //contents
         mContext = getApplicationContext();
@@ -167,42 +173,50 @@ public class ScanActivity extends AppCompatActivity {
         imageButton_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNameMenu(view, profile_EditText_name, name);
+                setNameMenu(view, edit_name, name);
+            }
+        });
+        imageButton_engName = findViewById(R.id.imagebutton_engName);
+        imageButton_engName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_engName, engName);
+            }
+        });
+        imageButton_chName = findViewById(R.id.imagebutton_chName);
+        imageButton_chName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_chName, chName);
             }
         });
         imageButton_rrn = findViewById(R.id.imagebutton_rrn);
         imageButton_rrn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNameMenu(view, profile_EditText_rrn, rnn);
+                setNameMenu(view, edit_rrn, rnn);
             }
         });
-//        imageButton_age = findViewById(R.id.imagebutton_age);
-//        imageButton_age.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, profile_EditText_age, age);
-//            }
-//        });
+
         imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
         imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNameMenu(view, profile_EditText_phoneNum, phoneNum);
+                setNameMenu(view, edit_phoneNum, phoneNum);
             }
         });
         imageButton_email = findViewById(R.id.imagebutton_email);
         imageButton_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNameMenu(view, profile_EditText_email, email);
+                setNameMenu(view, edit_email, email);
             }
         });
         imageButton_addr = findViewById(R.id.imagebutton_addr);
         imageButton_addr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setNameMenu(view, profile_EditText_addr, addr);
+                setNameMenu(view, edit_addr, addr);
             }
         });
     }
@@ -210,25 +224,29 @@ public class ScanActivity extends AppCompatActivity {
     private void setNameMenu(View view, EditText editText,List<String> list){
         PopupMenu menu = new PopupMenu(mContext, view);
         for(int i=0; i< list.size();i++){
-            //menu.getMenu().add(name.get(i));
             menu.getMenu().add(Menu.NONE, i, i, list.get(i));
         }
         menu.show();
+        if(view.getId() == R.id.imagebutton_rrn) {
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    editText.setText(menuItem.getTitle());
+                    setAge();
+                    return true;
+                }
+            });
+        }
+        else{
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    editText.setText(menuItem.getTitle());
+                    return true;
+                }
+            });
 
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                //int i = menuItem.getItemId();
-                editText.setText(menuItem.getTitle());
-                return true;
-//                switch (i) {
-//                    case 0: profile_EditText_name.setText(menuItem.getTitle());
-//                    case 1: profile_EditText_name.setText(menuItem.getTitle());
-//                    case 2: profile_EditText_name.setText(menuItem.getTitle());
-//                }
-//                return false;
-            }
-        });
+        }
     }
 
     private void recognizeTextFromImage(){
@@ -318,31 +336,40 @@ public class ScanActivity extends AppCompatActivity {
             cus.set_name();
             if(cus.find()){
                 sp = cus.group();
-                if(!(sp.equals("이메일")||sp.equals("주소")||sp.equals("지원분야")||
-                        sp.equals("이력서")||sp.equals("이수")||sp.equals("전공명")||
-                        sp.equals("이름")||sp.equals("주민번호")||sp.equals("이수날짜")||
-                        sp.equals("성과관리")||sp.equals("전공"))) {
-                    Log.d(TAG, j+":name_regx : " + sp);
-
+                if(!(sp.contains("이메일")||sp.contains("주소")||sp.contains("분야")||
+                        sp.contains("이력서")||sp.contains("이수")||sp.contains("전공명")||
+                        sp.contains("이름")||sp.contains("주민번호")||sp.contains("날짜")||
+                        sp.contains("관리")||sp.contains("전공")||sp.contains("서울"))) {
+                    Log.d(TAG, j+":name : " + sp);
                     if(!name.contains(sp)){name.add(sp);}
-                    continue;
                 }
+            }
+            cus.set_engName();
+            if(cus.find()) {
+                sp = cus.group();
+                if(!engName.contains(sp)) {engName.add(sp);}
+                Log.d(TAG, j+":engName : "+sp);
+            }
+            cus.set_chName();
+            if(cus.find()) {
+                sp = cus.group();
+                if(!chName.contains(sp)) {chName.add(sp);}
+                Log.d(TAG, j+":chName : "+sp);
+                continue;
             }
 
             cus.set_rnn1();
             if(cus.find()) {
                 sp = cus.group();
-                //rnn.add(sp);
                 if(!rnn.contains(sp)) {rnn.add(sp);}
-                Log.d(TAG, j+":rnn_regx1 : "+sp);
+                Log.d(TAG, j+":rnn1 : "+sp);
             }
 
             cus.set_rnn2();
             if(cus.find()) {
                 sp = cus.group();
-                //rnn.add(sp);
                 if(!rnn.contains(sp)) {rnn.add(sp);}
-                Log.d(TAG, j+":rnn_regx2 : "+sp);
+                Log.d(TAG, j+":rnn2 : "+sp);
             }
 
             cus.set_rnn3();
@@ -350,76 +377,100 @@ public class ScanActivity extends AppCompatActivity {
                 sp = cus.group();
                 //rnn.add(sp);
                 if(!rnn.contains(sp)) {rnn.add(sp);}
-                Log.d(TAG, j+":rnn_regx3 : "+sp);
+                Log.d(TAG, j+":rnn3 : "+sp);
                 continue;
             }
 
             cus.set_phoneNum();
             if(cus.find()){
                 sp = cus.group();
-                Log.d(TAG, j+":phoneNum_regx : "+sp);
+                Log.d(TAG, j+":phoneNum : "+sp);
                 //phoneNum.add(sp);
-                if(!rnn.contains(sp)) {phoneNum.add(sp);}
+                if(!phoneNum.contains(sp)) {phoneNum.add(sp);}
                 continue;
             }
             cus.set_email();
             if(cus.find()){
                 sp = cus.group();
-                Log.d(TAG, j+":email_regx : "+sp);
+                Log.d(TAG, j+":email : "+sp);
                 //email.add(sp);
-                if(!rnn.contains(sp)) {email.add(sp);}
+                if(!email.contains(sp)) {email.add(sp);}
                 continue;
             }
 
             cus.set_addr();
             if(cus.find()){
                 sp = cus.group();
-                Log.d(TAG, j+":addr_regx : "+sp);
+                Log.d(TAG, j+":addr : "+sp);
                 //addr.add(sp);
-                if(!rnn.contains(sp)) {addr.add(sp);}
+                if(!addr.contains(sp)) {addr.add(sp);}
                 continue;
             }
 
         }
         Log.d(TAG, "Fi===========ni===========sh");
 
-        //profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber, profile_EditText_addr, profile_EditText_email, profile_EditText_age
+        //edit_name, edit_rrn, edit_phoneNumber, edit_addr, edit_email, edit_age
         if (name.size() != 0){
-            profile_EditText_name.setText(name.get(name.size()-1));
+            edit_name.setText(name.get(name.size()-1));
+            Log.d(TAG, "edit_name : " + name.get(name.size()-1));
         }
         else{
-            profile_EditText_name.setText("");
+            edit_name.setText("");
+        }
+        if (engName.size() != 0){
+            edit_engName.setText(engName.get(engName.size()-1));
+            Log.d(TAG, name.get(name.size()-1));
+        }
+        else{
+            edit_engName.setText("");
+        }
+        if (chName.size() != 0){
+            edit_chName.setText(chName.get(chName.size()-1));
+            Log.d(TAG, name.get(chName.size()-1));
+        }
+        else{
+            edit_chName.setText("");
         }
 
         if (rnn.size() != 0){
-            profile_EditText_rrn.setText(rnn.get(rnn.size()-1));
+            edit_rrn.setText(rnn.get(rnn.size()-1));
+            Log.d(TAG, rnn.get(rnn.size()-1));
         }
         else{
-            profile_EditText_rrn.setText("");
+            edit_rrn.setText("");
         }
 
         if (phoneNum.size() != 0){
-            profile_EditText_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
+            edit_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
+            Log.d(TAG, phoneNum.get(phoneNum.size()-1));
         }
         else{
-            profile_EditText_phoneNum.setText("");
+            edit_phoneNum.setText("");
         }
 
         if (email.size() != 0){
-            profile_EditText_email.setText(email.get(email.size()-1));
+            edit_email.setText(email.get(email.size()-1));
+            Log.d(TAG, email.get(email.size()-1));
         }
         else{
-            profile_EditText_email.setText("");
+            edit_email.setText("");
         }
 
         if (addr.size() != 0){
-            profile_EditText_addr.setText(addr.get(addr.size()-1));
+            edit_addr.setText(addr.get(addr.size()-1));
+            Log.d(TAG, addr.get(addr.size()-1));
         }
         else{
-            profile_EditText_addr.setText("");
+            edit_addr.setText("");
         }
+        setAge();
 
-        String prrn = profile_EditText_rrn.getText().toString();
+
+    }
+
+    private void setAge(){
+        String prrn = edit_rrn.getText().toString();
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String[] splitprrn = new String[3];
 
@@ -437,7 +488,10 @@ public class ScanActivity extends AppCompatActivity {
                 splitprrn = prrn.split("\\s");
                 Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
             }
-
+            else if(prrn.contains(",")){
+                splitprrn = prrn.split(",");
+                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+            }
 
             if(splitprrn[0].length() == 2){
                 String firstChar = Character.toString(splitprrn[0].charAt(0));
@@ -445,22 +499,19 @@ public class ScanActivity extends AppCompatActivity {
                 //68, 71, 86, 92
                 if(firstChar.equals("6")||firstChar.equals("7")||firstChar.equals("8") || firstChar.equals("9")) {
                     Log.d(TAG, "condition1 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
-                    profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
+                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
                 }
                 //05, 12, 13, 21
                 else if(firstChar.equals("0")||firstChar.equals("1")|firstChar.equals("2")) {
                     Log.d(TAG, "condition2 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
-                    profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
+                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
                 }
             }
             else if(splitprrn[0].length() == 4){
                 Log.d(TAG, "condition3 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1 ));
-                profile_EditText_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
-
+                edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
             }
-
         }
-
     }
 
 

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageButton
-            android:id="@+id/backBtn"
+            android:id="@+id/imagebutton_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="18dp"
@@ -61,7 +61,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/image_importedImg"
@@ -70,23 +69,13 @@
                 android:src="@drawable/ic_baseline_search_24"
                 android:adjustViewBounds="true"
                 app:strokeWidth="2dp"/>
-            <!--<TextView
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recognized Text : "/>
-            <EditText
-                android:id="@+id/recognizeTextEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"/>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/profile_picture_loadButton">
                 <TextView
-                    android:id="@+id/profile_Textview_name"
+                    android:id="@+id/text_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_picture_loadButton"
@@ -98,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_name"
+                        android:id="@+id/edit_name"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
@@ -109,13 +98,67 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/profile_EditText_name"
+                        android:layout_toRightOf="@+id/edit_name"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:background="@drawable/btn_back"/>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_engName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_picture_loadButton"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/e_name"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/edit_engName"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginRight="0dp"
+                        android:hint="이름을 입력해주세요." />
+                    <ImageButton
+                        android:id="@+id/imagebutton_engName"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toRightOf="@+id/edit_engName"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:background="@drawable/btn_back"/>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_chName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_picture_loadButton"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="30dp"
+                    android:text="한문"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/edit_chName"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginRight="0dp"
+                        android:hint="이름을 입력해주세요." />
+                    <ImageButton
+                        android:id="@+id/imagebutton_chName"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toRightOf="@+id/edit_chName"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:background="@drawable/btn_back"/>
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/profile_Textview_rrn"
+                    android:id="@+id/text_rrn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_EditText_eame"
@@ -126,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_rrn"
+                        android:id="@+id/edit_rrn"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
@@ -136,14 +179,14 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/profile_EditText_rrn"
+                        android:layout_toRightOf="@+id/edit_rrn"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:background="@drawable/btn_back"/>
                 </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/profile_Textview_age"
+                    android:id="@+id/text_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_EditText_rrn"
@@ -154,27 +197,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_age"
+                        android:id="@+id/edit_age"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
                         android:hint="나이를 입력해주세요." />
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/imagebutton_age"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_marginTop="0dp"-->
-<!--                        android:layout_toRightOf="@+id/profile_EditText_age"-->
-<!--                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"-->
-<!--                        android:background="@drawable/btn_back"/>-->
                 </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/profile_Textview_phoneNumber"
+                    android:id="@+id/text_phoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_EditText_email"
+                    android:layout_below="@+id/edit_email"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="30dp"
                     android:text="@string/phoneNumber"/>
@@ -182,7 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_phoneNum"
+                        android:id="@+id/edit_phoneNum"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
@@ -192,14 +227,14 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/profile_EditText_phoneNum"
+                        android:layout_toRightOf="@+id/edit_phoneNum"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:background="@drawable/btn_back"/>
                 </RelativeLayout>
 
 
                 <TextView
-                    android:id="@+id/profile_Textview_email"
+                    android:id="@+id/text_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profile_EditText_addr"
@@ -210,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_email"
+                        android:id="@+id/edit_email"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
@@ -220,15 +255,15 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/profile_EditText_email"
+                        android:layout_toRightOf="@+id/edit_email"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:background="@drawable/btn_back"/>
                 </RelativeLayout>
                 <TextView
-                    android:id="@+id/profile_Textview_addr"
+                    android:id="@+id/text_addr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_EditText_age"
+                    android:layout_below="@+id/edit_age"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="30dp"
                     android:text="@string/address"/>
@@ -236,7 +271,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/profile_EditText_addr"
+                        android:id="@+id/edit_addr"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="23dp"
@@ -246,7 +281,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/profile_EditText_addr"
+                        android:layout_toRightOf="@+id/edit_addr"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:background="@drawable/btn_back"/>
                 </RelativeLayout>
