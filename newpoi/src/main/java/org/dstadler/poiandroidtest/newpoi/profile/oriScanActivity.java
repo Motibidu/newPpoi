@@ -31,13 +31,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -45,21 +42,13 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.cls.VPAdapter;
 import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ScanActivity extends AppCompatActivity {
-
-    VPAdapter VPAdapter;
-    TabLayout tablayout;
-    ViewPager2 viewpager;
-
-    private String[] fmTitles = new String[]{"프로필", "학력사항", "어학사항", "자격증"};
-
+public class oriScanActivity extends AppCompatActivity {
     //static vars
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 101;
@@ -108,17 +97,13 @@ public class ScanActivity extends AppCompatActivity {
     List<String> url = new ArrayList<String>();
     List<String> schl = new ArrayList<String>();
 
-    int channel;
 
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
-
-
-
+        setContentView(R.layout.oriactivity_scan);
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.imagebutton_back);
@@ -135,26 +120,14 @@ public class ScanActivity extends AppCompatActivity {
         recognizeText = findViewById(R.id.button_recognizeText);
         importedImg = findViewById(R.id.image_importedImg);
 
-//        edit_name = findViewById(R.id.edit_name);
-//        edit_engName = findViewById(R.id.edit_engName);
-//        edit_chName = findViewById(R.id.edit_chName);
-//        edit_rrn = findViewById(R.id.edit_rrn);
-//        edit_age = findViewById(R.id.edit_age);
-//        edit_phoneNum = findViewById(R.id.edit_phoneNum);
-//        edit_email = findViewById(R.id.edit_email);
-//        edit_addr = findViewById(R.id.edit_addr);
-
-//        imageButton_name = findViewById(R.id.imagebutton_name);
-//        imageButton_engName = findViewById(R.id.imagebutton_engName);
-//        imageButton_chName = findViewById(R.id.imagebutton_chName);
-//        imageButton_rrn = findViewById(R.id.imagebutton_rrn);
-//        imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
-//        imageButton_email = findViewById(R.id.imagebutton_email);
-//        imageButton_addr = findViewById(R.id.imagebutton_addr);
-
-        viewpager = findViewById(R.id.viewpager);
-        tablayout = findViewById(R.id.tablayout);
-
+        edit_name = findViewById(R.id.edit_name);
+        edit_engName = findViewById(R.id.edit_engName);
+        edit_chName = findViewById(R.id.edit_chName);
+        edit_rrn = findViewById(R.id.edit_rrn);
+        edit_age = findViewById(R.id.edit_age);
+        edit_phoneNum = findViewById(R.id.edit_phoneNum);
+        edit_email = findViewById(R.id.edit_email);
+        edit_addr = findViewById(R.id.edit_addr);
 
         //contents
         mContext = getApplicationContext();
@@ -171,16 +144,6 @@ public class ScanActivity extends AppCompatActivity {
         //init TextRecognizer
         textRecognizer = TextRecognition.getClient(new KoreanTextRecognizerOptions.Builder().build());
 
-        //init ViewPagerFragmentAdapter
-        VPAdapter = new VPAdapter(this);
-
-        //fm Manager
-        viewpager.setAdapter(VPAdapter);
-        new TabLayoutMediator(tablayout, viewpager,
-                ((tab, position) -> tab.setText(fmTitles[position]))).attach();
-
-
-        //setting ImageView
         inputImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,7 +151,6 @@ public class ScanActivity extends AppCompatActivity {
             }
         });
 
-        //recognizing Text
         recognizeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,52 +163,85 @@ public class ScanActivity extends AppCompatActivity {
             }
         });
 
-//        imageButton_name.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_name, name);
-//            }
-//        });
-//        imageButton_engName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_engName, engName);
-//            }
-//        });
-//        imageButton_chName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_chName, chName);
-//            }
-//        });
-//        imageButton_rrn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_rrn, rnn);
-//            }
-//        });
-//
-//        imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_phoneNum, phoneNum);
-//            }
-//        });
-//        imageButton_email.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_email, email);
-//            }
-//        });
-//        imageButton_addr.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_addr, addr);
-//            }
-//        });
+        imageButton_name = findViewById(R.id.imagebutton_name);
+        imageButton_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_name, name);
+            }
+        });
+        imageButton_engName = findViewById(R.id.imagebutton_engName);
+        imageButton_engName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_engName, engName);
+            }
+        });
+        imageButton_chName = findViewById(R.id.imagebutton_chName);
+        imageButton_chName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_chName, chName);
+            }
+        });
+        imageButton_rrn = findViewById(R.id.imagebutton_rrn);
+        imageButton_rrn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_rrn, rnn);
+            }
+        });
+
+        imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
+        imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_phoneNum, phoneNum);
+            }
+        });
+        imageButton_email = findViewById(R.id.imagebutton_email);
+        imageButton_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_email, email);
+            }
+        });
+        imageButton_addr = findViewById(R.id.imagebutton_addr);
+        imageButton_addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNameMenu(view, edit_addr, addr);
+            }
+        });
     }
 
+    private void setNameMenu(View view, EditText editText,List<String> list){
+        PopupMenu menu = new PopupMenu(mContext, view);
+        for(int i=0; i< list.size();i++){
+            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
+        }
+        menu.show();
+        if(view.getId() == R.id.imagebutton_rrn) {
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    editText.setText(menuItem.getTitle());
+                    setAge();
+                    return true;
+                }
+            });
+        }
+        else{
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    editText.setText(menuItem.getTitle());
+                    return true;
+                }
+            });
 
+        }
+    }
 
     private void recognizeTextFromImage(){
         Log.d(TAG, "recognizeTextFromImage: ");
@@ -264,24 +259,7 @@ public class ScanActivity extends AppCompatActivity {
                         public void onSuccess(Text text) {
                             progressDialog.dismiss();;
                             String recognizedText = text.getText();
-                            //List<Text.TextBlock> recognizedTextBlock = text.getTextBlocks();
-
-                            Bundle bundle = new Bundle();
-                            bundle.putString("Text", recognizedText);
-
-//                            channel = VPAdapter.getChannel();
-//                            if(channel == 0){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 1){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 2){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 3){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
+                            List<Text.TextBlock> recognizedTextBlock = text.getTextBlocks();
 
                             stringProcess(recognizedText);
                         }
@@ -291,18 +269,16 @@ public class ScanActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure : ", e);
-                            Toast.makeText(ScanActivity.this,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(oriScanActivity.this,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
             //Exception occurred while preparing InputImage, dismiss dialog, show reason in Toast
             progressDialog.dismiss();
             Log.e(TAG,"recognizeTextFromImage : ", e);
-            Toast.makeText(ScanActivity.this,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(oriScanActivity.this,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 
     private void stringProcess(String str){
@@ -315,25 +291,37 @@ public class ScanActivity extends AppCompatActivity {
 //        url.clear();
 //        schl.clear();
 //        name.clear();
-
         //split string by a space
         String[] splitStr_n = str.split("\\n+");
         String[] splitStr_s = str.split("\\s+");
 
-        //init customMatcher
+        //regexes
+        //주민번호 앞자리
+        // (.*)\d{2}                    : 00 ~ 99 (출생년도)
+        // (0[1-9]|1[0-2])              : 01 ~ 12(월)
+        // (0[1-9]|[12][0-9]|[3][01])   : 01 ~ 31 (일)
+        //주민번호 뒷자리
+        // [1-4]                        : 1~4 (첫자리)
+        // [0-9]{6}                     : (나머지 6자리)
+
+        //rnn_regx1 테스트 :
+        //1987년 01월 01일 (만 00세)
+        //1999.10,
+        //1999년 10월 06일,
+        //90.01.01
+
         customMatcher cus = new customMatcher();
 
         int i = 0;
         String sp;
 
-        //print strings splitted by enter
+
+        i=0;
         for (String s: splitStr_n) {
             i++;
             Log.d(TAG, i + " : " +s);
         }
         Log.d(TAG, "Fi===========ni===========sh");
-
-
         int j = 0;
         for (String s: splitStr_n){
             j++;
@@ -475,34 +463,6 @@ public class ScanActivity extends AppCompatActivity {
 
     }
 
-    private void setNameMenu(View view, EditText editText,List<String> list){
-        PopupMenu menu = new PopupMenu(mContext, view);
-        for(int i=0; i< list.size();i++){
-            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
-        }
-        menu.show();
-        if(view.getId() == R.id.imagebutton_rrn) {
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    setAge();
-                    return true;
-                }
-            });
-        }
-        else{
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    return true;
-                }
-            });
-
-        }
-    }
-
     private void setAge(){
         String prrn = edit_rrn.getText().toString();
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -607,7 +567,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: ");
-                        Toast.makeText(ScanActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(oriScanActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -639,7 +599,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: cancelled");
-                        Toast.makeText(ScanActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(oriScanActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
 
                 }

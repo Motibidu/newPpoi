@@ -54,10 +54,11 @@
             android:textColor="@color/white"
             android:text="텍스트인식" />
     </LinearLayout>
-    <ScrollView
+    <com.amar.library.ui.StickyScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttons">
+        android:layout_below="@+id/buttons"
+        app:stickyHeader="@id/tablayout">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,226 +70,36 @@
                 android:src="@drawable/ic_baseline_search_24"
                 android:adjustViewBounds="true"
                 app:strokeWidth="2dp"/>
-            <LinearLayout
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/profile_picture_loadButton">
-                <TextView
-                    android:id="@+id/text_name"
+                android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_picture_loadButton"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/name"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_name"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginRight="0dp"
-                        android:hint="이름을 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_name"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_name"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/text_engName"
+                    android:text="프로필"/>
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_picture_loadButton"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/e_name"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_engName"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginRight="0dp"
-                        android:hint="이름을 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_engName"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_engName"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/text_chName"
+                    android:text="학력사항"/>
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_picture_loadButton"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="한문"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_chName"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:layout_marginRight="0dp"
-                        android:hint="이름을 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_chName"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_chName"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/text_rrn"
+                    android:text="경력사항"/>
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_EditText_eame"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/rrn"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_rrn"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:hint="OOOOOO-OOOOOOO" />
-                    <ImageButton
-                        android:id="@+id/imagebutton_rrn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_rrn"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/text_age"
+                    android:text="어학사항"/>
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_EditText_rrn"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/age"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_age"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:hint="나이를 입력해주세요." />
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/text_phoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/edit_email"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/phoneNumber"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_phoneNum"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:hint="나이를 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_phoneNum"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_phoneNum"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/text_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_EditText_addr"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/email"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_email"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:hint="이메일을 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_email"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_email"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/text_addr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/edit_age"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="30dp"
-                    android:text="@string/address"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edit_addr"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="23dp"
-                        android:hint="나이를 입력해주세요." />
-                    <ImageButton
-                        android:id="@+id/imagebutton_addr"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_toRightOf="@+id/edit_addr"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:background="@drawable/btn_back"/>
-                </RelativeLayout>
-            </LinearLayout>
-
+                    android:text="자격증"/>
+            </com.google.android.material.tabs.TabLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </ScrollView>
-
-
+    </com.amar.library.ui.StickyScrollView>
 </RelativeLayout>
