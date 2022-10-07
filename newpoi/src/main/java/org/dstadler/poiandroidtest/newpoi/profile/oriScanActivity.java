@@ -103,7 +103,7 @@ public class oriScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.oriactivity_scan);
+        setContentView(R.layout.activity_ori_scan);
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.imagebutton_back);

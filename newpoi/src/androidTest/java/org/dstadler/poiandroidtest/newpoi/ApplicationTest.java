@@ -1,6 +1,5 @@
 package org.dstadler.poiandroidtest.newpoi;
 
-import org.dstadler.poiandroidtest.newpoi.dummy.DummyContent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,6 +13,5 @@ public class ApplicationTest {
     @Test
     public void test() {
         // just some very simple things to verify that testing works basically
-        DummyContent.addItem(new DummyContent.DummyItem("1", "bla", "some text"));
     }
 }

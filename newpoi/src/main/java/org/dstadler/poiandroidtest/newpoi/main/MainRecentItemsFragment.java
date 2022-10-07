@@ -1,71 +1,70 @@
 package org.dstadler.poiandroidtest.newpoi.main;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.appbar.MaterialToolbar;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
-import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
+import org.dstadler.poiandroidtest.newpoi.cls.Method;
+import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
+import org.dstadler.poiandroidtest.newpoi.cls.StorageUtil;
+
+import java.io.File;
 
 public class MainRecentItemsFragment extends Fragment {
-    private View view;
-    private MaterialToolbar toolbar;
-    private DocCatActivity categoryScrn;
-    private ProfileScrnActivity ProfileScrnActivity;
-    private FragmentManager fm;
-    private FragmentTransaction ft;
+
+    //View
+    private View v;
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
+
+    //contents
+    private Context mContext;
+
+
+    //Document Items
+    private String[] allPath;
+    private File storage;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_recent_items, container, false);
+        v = inflater.inflate(R.layout.fragment_main_recent_items, container, false);
+        mContext = getActivity();
 
-        categoryScrn = new DocCatActivity();
-        ProfileScrnActivity = new ProfileScrnActivity();
-        toolbar = view.findViewById(R.id.topAppBar);
+//        allPath = StorageUtil.getStorageDirectories(mContext);
+//
+//        for (String path: allPath){
+//            storage = new File(path);
+//            Method.load_Directory_Files(storage);
+//        }
+        //recyclerView
+        recyclerView = v.findViewById(R.id.recyclerView);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileScrnActivity.class);
-                startActivity(intent);
-            }
-        });
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.add_screen: {
-                        Intent intent = new Intent(getActivity(), DocCatActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                }
-                return false;
-            }
-        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        return view;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        recyclerViewAdapter = new RecyclerViewAdapter(mContext);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+        return v;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.top_app_bar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 }
