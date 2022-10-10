@@ -15,10 +15,11 @@ public class Method {
                 }
                 else {
                     String name = fileList[i].getName().toLowerCase();
-                    for (String extension: Constant.wordExtensions){
+                    for (String extension: Constant.fileExtensions){
                         //check the type of file and if allWordList doesn't contain now file, add the file in allWordList
-                        if(name.endsWith(extension) && !Constant.allWordList.contains(fileList[i])) {
-                            Constant.allWordList.add(fileList[i]);
+                        if(name.endsWith(extension) && !Constant.allFileList.contains(fileList[i])) {
+                            Constant.allFileList.add(fileList[i]);
+                            Constant.allDirectoryList.add(fileList[i].getAbsolutePath());
                             //when we found file
                             break;
                         }

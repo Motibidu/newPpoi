@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Constant {
-    public static String[] wordExtensions = {".docx", ".doc"};
+    public static String[] fileExtensions = {".docx", ".doc"};
 
-    public static ArrayList<File> allWordList = new ArrayList<>();
+    public static ArrayList<File> allFileList = new ArrayList<>();
+    public static ArrayList<String> allDirectoryList = new ArrayList<>();
 }
