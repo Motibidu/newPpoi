@@ -4,14 +4,17 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,6 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.Method;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
-import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
 import org.dstadler.poiandroidtest.newpoi.cls.StorageUtil;
 import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
 import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
@@ -64,6 +66,9 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
     private final String TAG = "MAINSCRNACTIVITY";
 
+    private String absolutePath, parentPath, fileName, fileNameWithoutExt;
+
+    private ProgressBar progressBar;
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
@@ -82,7 +87,10 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_scrn);
+
+        progressBar= findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         //require read_external_storage permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -211,15 +219,34 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 break;
         }
     }
-
-
     @Override
-    public void convertToPDF() {
+    public void convertToPDF() throws Exception {
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 3000);
+
+
         int i = PreferenceManager.getInt(getApplicationContext(),"filePosition");
-        String fileDirectory = Constant.allDirectoryList.get(i);
+
+        fileName = Constant.allFileList.get(i).getName();
+        fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+        absolutePath = Constant.allAbsolutePathList.get(i);
+        parentPath = Constant.allParentPathList.get(i);
+
+        Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+        Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
+        //convert [.docx|.doc] file to [.pdf] file
+        Document doc = new Document(absolutePath);
+        doc.save(parentPath+"/"+fileNameWithoutExt+".pdf");
 
 
-        Log.d(TAG, "filePosition :"+i+", fileDirectory: "+fileDirectory);
+        Toast.makeText(mContext,"Converting word to pdf is completed",Toast.LENGTH_SHORT).show();
+
     }
-
 }

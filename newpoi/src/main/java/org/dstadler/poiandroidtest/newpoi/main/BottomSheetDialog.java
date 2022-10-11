@@ -1,5 +1,6 @@
 package org.dstadler.poiandroidtest.newpoi.main;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     private Context mContext;
 
     public interface bottomSheetListener{
-        void convertToPDF();
+        void convertToPDF() throws Exception;
     }
 
     private bottomSheetListener listener;
@@ -46,15 +48,20 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         text_fileTitle = v.findViewById(R.id.text_fileTitle);
         layout_convertToPDF = v.findViewById(R.id.layout_convertToPDF);
 
+
         setBottomSheetTitle();
 
         layout_convertToPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+                    dismiss();
                     listener.convertToPDF();
+
                 }catch (NullPointerException e){
                     Log.d(TAG, e.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

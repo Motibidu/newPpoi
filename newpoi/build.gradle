@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta5'
     implementation 'com.shekhargulati:strman:0.4.0'
 
+
+
 }
 
 android {
