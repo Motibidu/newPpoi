@@ -339,7 +339,8 @@ public class Scan2Activity extends AppCompatActivity {
                 if(!(sp.contains("이메일")||sp.contains("주소")||sp.contains("분야")||
                         sp.contains("이력서")||sp.contains("이수")||sp.contains("전공명")||
                         sp.contains("이름")||sp.contains("주민번호")||sp.contains("날짜")||
-                        sp.contains("관리")||sp.contains("전공")||sp.contains("서울"))) {
+                        sp.contains("관리")||sp.contains("전공")||sp.contains("서울")||
+                        sp.contains("대학"))) {
                     Log.d(TAG, j+":name : " + sp);
                     if(!name.contains(sp)){name.add(sp);}
                 }
@@ -355,7 +356,7 @@ public class Scan2Activity extends AppCompatActivity {
                 sp = cus.group();
                 if(!chName.contains(sp)) {chName.add(sp);}
                 Log.d(TAG, j+":chName : "+sp);
-                continue;
+                //continue;
             }
 
             cus.set_rnn1();
@@ -378,7 +379,7 @@ public class Scan2Activity extends AppCompatActivity {
                 //rnn.add(sp);
                 if(!rnn.contains(sp)) {rnn.add(sp);}
                 Log.d(TAG, j+":rnn3 : "+sp);
-                continue;
+                //continue;
             }
 
             cus.set_phoneNum();
@@ -387,7 +388,7 @@ public class Scan2Activity extends AppCompatActivity {
                 Log.d(TAG, j+":phoneNum : "+sp);
                 //phoneNum.add(sp);
                 if(!phoneNum.contains(sp)) {phoneNum.add(sp);}
-                continue;
+                //continue;
             }
             cus.set_email();
             if(cus.find()){
@@ -395,7 +396,7 @@ public class Scan2Activity extends AppCompatActivity {
                 Log.d(TAG, j+":email : "+sp);
                 //email.add(sp);
                 if(!email.contains(sp)) {email.add(sp);}
-                continue;
+                //continue;
             }
 
             cus.set_addr();
@@ -404,7 +405,7 @@ public class Scan2Activity extends AppCompatActivity {
                 Log.d(TAG, j+":addr : "+sp);
                 //addr.add(sp);
                 if(!addr.contains(sp)) {addr.add(sp);}
-                continue;
+                //continue;
             }
 
         }

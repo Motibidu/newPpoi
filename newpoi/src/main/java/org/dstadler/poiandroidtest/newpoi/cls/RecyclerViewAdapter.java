@@ -13,14 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
+import java.util.ArrayList;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Context mContext;
     public clickListener listener;
+    public ArrayList<CharSequence> list;
 
 
     public RecyclerViewAdapter(Context mContext, clickListener listener){
         this.mContext = mContext;
         this.listener = listener;
+    }
+    public RecyclerViewAdapter(Context mContext, clickListener listener, ArrayList<CharSequence> list){
+        this.mContext = mContext;
+        this.listener = listener;
+        this.list = list;
     }
 
     public interface clickListener{

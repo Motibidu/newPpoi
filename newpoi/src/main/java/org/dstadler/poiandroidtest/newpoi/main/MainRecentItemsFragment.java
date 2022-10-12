@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+import org.dstadler.poiandroidtest.newpoi.cls.Method;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
+import org.dstadler.poiandroidtest.newpoi.cls.StorageUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainRecentItemsFragment extends Fragment implements RecyclerViewAdapter.clickListener{
 
@@ -43,31 +45,69 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
 
     private BottomSheetDialog.bottomSheetListener listener;
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        ArrayList<CharSequence> list = new ArrayList<CharSequence>();
+
+        for(File f:Constant.allFileList){
+            list.add(f.getName());
+        }
+
+//        outState.putCharSequenceArrayList("list", list);
+        outState.putCharSequence("list", "HANDLE");
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main_recent_items, container, false);
-
         mContext = getContext();
 
 
-        //recyclerView
+
         recyclerView = v.findViewById(R.id.recyclerView);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setNestedScrollingEnabled(false);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        //recyclerView
+        if(savedInstanceState != null){
+            ArrayList<CharSequence> list = new ArrayList<CharSequence>();
+            list = savedInstanceState.getCharSequenceArrayList("list");
+            for(CharSequence s:list){
+                Log.d(TAG, "savedInstanceState is not null"+s);
+            }
+            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }else{
+            Log.d(TAG, "savedInstanceState is null");
+            //init allPath
+            allPath = StorageUtil.getStorageDirectories(mContext);
+
+            //load allFileList
+            //     allAbsolutePathList
+            //     allParentPathList on Constant
+            for (String path : allPath) {
+                storage = new File(path);
+                Method.load_Directory_Files(storage);
+            }
+
+            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
+
+
 
         return v;
     }
+
+
 
     @Override
     public void onIconMoreClick(int position) {

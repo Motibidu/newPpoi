@@ -167,15 +167,13 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                         break;
                     }
                     case R.id.search: {
-                        //init allPath
-                        allPath = StorageUtil.getStorageDirectories(mContext);
-//                        allPath2 = StorageUtil.getAvailablePhysicalPaths();
-
-                        for (String path : allPath) {
-                            storage = new File(path);
-                            Method.load_Directory_Files(storage);
-                        }
-//                        for (String path : allPath2) {
+//                        //init allPath
+//                        allPath = StorageUtil.getStorageDirectories(mContext);
+//
+//                        //load allFileList
+//                        //     allAbsolutePathList
+//                        //     allParentPathList on Constant
+//                        for (String path : allPath) {
 //                            storage = new File(path);
 //                            Method.load_Directory_Files(storage);
 //                        }
@@ -390,8 +388,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 try {
                     f = new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg");
 
-
-
                     convertComplete = true;
                 }catch (NullPointerException e){
                     Log.d(TAG, "Converting is not completed yet");
@@ -405,18 +401,16 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                        final Uri contentUri = Uri.fromFile(new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
-                        scanIntent.setData(contentUri);
-                        sendBroadcast(scanIntent);
-                    } else {
-                        final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
-                        sendBroadcast(intent);
-                    }
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                        final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                        final Uri contentUri = Uri.fromFile(new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
+//                        scanIntent.setData(contentUri);
+//                        sendBroadcast(scanIntent);
+//                    } else {
+//                        final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
+//                        sendBroadcast(intent);
+//                    }
                     Toast.makeText(mContext,"Converting word to jpg is completed",Toast.LENGTH_SHORT).show();
-
-
 
                 }
             });
