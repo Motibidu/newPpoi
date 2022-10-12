@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,6 +70,14 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     private String absolutePath, parentPath, fileName, fileNameWithoutExt;
 
     private ProgressBar progressBar;
+
+//    private fileHandler handler = new fileHandler();
+
+    private Handler handler1, handler2;
+
+
+
+
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
@@ -91,6 +100,9 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
         progressBar= findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        handler1 = new Handler();
+        handler2 = new Handler();
 
         //require read_external_storage permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -221,32 +233,83 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     }
     @Override
     public void convertToPDF() throws Exception {
+        //convert word file to pdf file, progressbar Start.
+        convertThread convertThread = new convertThread();
+        convertThread.start();
 
-        progressBar.setVisibility(View.VISIBLE);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        }, 3000);
-
-
-        int i = PreferenceManager.getInt(getApplicationContext(),"filePosition");
-
-        fileName = Constant.allFileList.get(i).getName();
-        fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
-        absolutePath = Constant.allAbsolutePathList.get(i);
-        parentPath = Constant.allParentPathList.get(i);
-
-        Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
-        Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
-        //convert [.docx|.doc] file to [.pdf] file
-        Document doc = new Document(absolutePath);
-        doc.save(parentPath+"/"+fileNameWithoutExt+".pdf");
-
-
-        Toast.makeText(mContext,"Converting word to pdf is completed",Toast.LENGTH_SHORT).show();
-
+        //every 0.5seconds try to make File object. if File object is not null, stop progressbar
+        checkingThread checkingThread = new checkingThread();
+        checkingThread.start();
     }
+
+    class convertThread extends Thread{
+        private String fileName;
+        private String fileNameWithoutExt;
+        private String absolutePath;
+        private String parentPath;
+
+        private int i;
+
+        public convertThread(){
+            i = PreferenceManager.getInt(mContext,"filePosition");
+
+            fileName = Constant.allFileList.get(i).getName();
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = Constant.allAbsolutePathList.get(i);
+            parentPath = Constant.allParentPathList.get(i);
+        }
+
+        public void run() {
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+
+            Document doc = null;
+            try {
+                doc = new Document(absolutePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                doc.save(parentPath+"/"+fileNameWithoutExt+".pdf");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class checkingThread extends Thread{
+        boolean convertComplete = false;
+
+        public void run() {
+            while(!convertComplete) {
+                //if can make File object, jump out of a loop
+                try {
+                    File f = new File(parentPath + "/" + fileNameWithoutExt + ".pdf");
+                    convertComplete = true;
+                }catch (NullPointerException e){
+                    Log.d(TAG, "Converting is not completed yet");
+                }
+
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mContext,"Converting word to pdf is completed",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
 }
+

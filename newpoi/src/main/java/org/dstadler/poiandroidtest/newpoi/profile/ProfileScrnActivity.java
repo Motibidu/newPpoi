@@ -67,16 +67,26 @@ public class ProfileScrnActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_screen);
+        setContentView(R.layout.activity_profile_scrn);
 
+        //content
         mContext = getApplicationContext();
-        mAuth = FirebaseAuth.getInstance();
-        storageReference = fStorage.getInstance().getReference();
-        
+
+        //widget
+        backBtn = findViewById(R.id.backBtn);
         profileMenu_TextView = findViewById(R.id.profileMenu_TextView);
         profileEdit_TextView = findViewById(R.id.profileEdit_TextView);
+        profileMenu = findViewById(R.id.profileMenu);
+        profileEditMenu = findViewById(R.id.profile_edit_button);
+        account_setting_button = (Button)findViewById(R.id.account_setting_button);
 
-        backBtn = findViewById(R.id.backBtn);
+        //firebase
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = fStorage.getInstance().getReference();
+
+
+
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +95,6 @@ public class ProfileScrnActivity extends AppCompatActivity {
         });
 
         //프로필 팝업메뉴
-        profileMenu = findViewById(R.id.profileMenu);
         profileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +102,7 @@ public class ProfileScrnActivity extends AppCompatActivity {
             }
         });
 
-        profileEditMenu = findViewById(R.id.profile_edit_button);
+
         profileEditMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +129,7 @@ public class ProfileScrnActivity extends AppCompatActivity {
             profileMenu_TextView.setText("이력서 프로필");
         }
         //계정수정 화면으로 전환
-        account_setting_button = (Button)findViewById(R.id.account_setting_button);
+
         account_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

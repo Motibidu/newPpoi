@@ -46,7 +46,7 @@ public class AcctSetAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_setting);
+        setContentView(R.layout.acitivity_acct_set);
         mAuth = FirebaseAuth.getInstance();
 
         //뒤로가기 버튼

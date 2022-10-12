@@ -3,6 +3,7 @@ package org.dstadler.poiandroidtest.newpoi.main;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +56,11 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 try {
-                    dismiss();
                     listener.convertToPDF();
+
+                    //if sleep doesn't exist, ripple effect dismisses
+                    Thread.sleep(100);
+                    dismiss();
 
                 }catch (NullPointerException e){
                     Log.d(TAG, e.toString());
