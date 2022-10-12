@@ -25,13 +25,14 @@ import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 public class BottomSheetDialog extends BottomSheetDialogFragment {
 
     private TextView text_fileTitle;
-    private LinearLayout layout_convertToPDF;
+    private LinearLayout layout_convertToPDF, layout_convertToJPG;
     private int filePosition;
     private Fragment mFragment;
     private Context mContext;
 
     public interface bottomSheetListener{
         void convertToPDF() throws Exception;
+        void convertToJPG() throws Exception;
     }
 
     private bottomSheetListener listener;
@@ -48,6 +49,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
 
         text_fileTitle = v.findViewById(R.id.text_fileTitle);
         layout_convertToPDF = v.findViewById(R.id.layout_convertToPDF);
+        layout_convertToJPG = v.findViewById(R.id.layout_convertToJPG);
 
 
         setBottomSheetTitle();
@@ -70,11 +72,29 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             }
         });
 
+        layout_convertToJPG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    listener.convertToJPG();
+
+                    //if sleep doesn't exist, ripple effect dismisses
+                    Thread.sleep(100);
+                    dismiss();
+
+                }catch (NullPointerException e){
+                    Log.d(TAG, e.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         return v;
     }
 
     private void setBottomSheetTitle() {
-        text_fileTitle.setText(Constant.allFileList.get(filePosition).getName());
+        text_fileTitle.setText(Constant.allAbsolutePathList.get(filePosition));
     }
 
     public void setFilePosition(int position) {

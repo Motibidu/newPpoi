@@ -10,7 +10,7 @@ public class Method {
     public static void load_Directory_Files(File directory){
 
         File[] fileList = directory.listFiles();
-        List<Constant> fileInfos = new ArrayList<>();
+//        List<Constant> fileInfos = new ArrayList<>();
         if(fileList != null && fileList.length > 0){
             for (int i = 0; i< fileList.length; i++){
                 if(fileList[i].isDirectory()){
@@ -19,9 +19,10 @@ public class Method {
                 else {
                     String name = fileList[i].getName().toLowerCase();
                     for (String extension: Constant.fileExtensions){
-                        //check the type of file and if allWordList doesn't contain now file, add the file in allWordList
-//                        if(name.endsWith(extension) && !Constant.allFileList.contains(fileList[i])) {
-                        if(name.endsWith(extension)){
+                        //check the type of file
+                        //except file which is from ".Trash"
+                        //except duplicate
+                        if(name.endsWith(extension) && !fileList[i].getAbsolutePath().contains(".Trash") && !Constant.allFileList.contains(fileList[i])){
                             Constant.allFileList.add(fileList[i]);
                             Constant.allAbsolutePathList.add(fileList[i].getAbsolutePath());
                             Constant.allParentPathList.add(fileList[i].getParent());

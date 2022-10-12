@@ -148,7 +148,7 @@ public class StorageUtil {
      *
      * @return List of available physical paths from current device
      */
-    private static List<String> getAvailablePhysicalPaths() {
+    public static List<String> getAvailablePhysicalPaths() {
         List<String> availablePhysicalPaths = new ArrayList<>();
         for (String physicalPath : KNOWN_PHYSICAL_PATHS) {
             File file = new File(physicalPath);

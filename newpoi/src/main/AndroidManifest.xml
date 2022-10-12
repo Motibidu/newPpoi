@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MEDIA"/>
+    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -161,6 +163,20 @@
         <activity android:name=".profile.ResumeLicActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".profile.ProfileSetResumeActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".profile.ScanActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile.ProfileScrnActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".profile.Scan2Activity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".profile.ProfileScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

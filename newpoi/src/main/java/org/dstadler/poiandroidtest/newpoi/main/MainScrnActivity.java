@@ -1,15 +1,19 @@
 package org.dstadler.poiandroidtest.newpoi.main;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.pdf.PdfDocument;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +33,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.aspose.words.Document;
+import com.aspose.words.DocumentBuilder;
+import com.aspose.words.ImageSaveOptions;
+import com.aspose.words.SaveFormat;
+import com.aspose.words.SaveOptions;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -41,6 +49,7 @@ import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
 import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
 
 import java.io.File;
+import java.util.List;
 
 public class MainScrnActivity extends AppCompatActivity implements BottomSheetDialog.bottomSheetListener {
 
@@ -58,6 +67,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     private Context mContext;
 
     private String[] allPath;
+    private List<String> allPath2;
     private File storage;
     private BottomSheetDialog bottomSheetDialog;
 
@@ -159,12 +169,16 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                     case R.id.search: {
                         //init allPath
                         allPath = StorageUtil.getStorageDirectories(mContext);
+//                        allPath2 = StorageUtil.getAvailablePhysicalPaths();
 
                         for (String path : allPath) {
                             storage = new File(path);
                             Method.load_Directory_Files(storage);
                         }
-
+//                        for (String path : allPath2) {
+//                            storage = new File(path);
+//                            Method.load_Directory_Files(storage);
+//                        }
                         Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
                         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.detach(frg);
@@ -234,15 +248,25 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     @Override
     public void convertToPDF() throws Exception {
         //convert word file to pdf file, progressbar Start.
-        convertThread convertThread = new convertThread();
-        convertThread.start();
+        convert2PDFThread convert2PDFThread = new convert2PDFThread();
+        convert2PDFThread.start();
 
         //every 0.5seconds try to make File object. if File object is not null, stop progressbar
-        checkingThread checkingThread = new checkingThread();
-        checkingThread.start();
+        checking2PDFThread checking2PDFThread = new checking2PDFThread();
+        checking2PDFThread.start();
+    }
+    @Override
+    public void convertToJPG() throws Exception {
+        //convert word file to pdf file, progressbar Start.
+        convert2JPGThread convert2JPGThread = new convert2JPGThread();
+        convert2JPGThread.start();
+
+        //every 0.5seconds try to make File object. if File object is not null, stop progressbar
+        checking2JPGThread checking2JPGThread = new checking2JPGThread();
+        checking2JPGThread.start();
     }
 
-    class convertThread extends Thread{
+    class convert2PDFThread extends Thread{
         private String fileName;
         private String fileNameWithoutExt;
         private String absolutePath;
@@ -250,7 +274,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
         private int i;
 
-        public convertThread(){
+        public convert2PDFThread(){
             i = PreferenceManager.getInt(mContext,"filePosition");
 
             fileName = Constant.allFileList.get(i).getName();
@@ -263,8 +287,8 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             handler1.post(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
-                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
+//                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+//                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -283,7 +307,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         }
     }
 
-    class checkingThread extends Thread{
+    class checking2PDFThread extends Thread{
         boolean convertComplete = false;
 
         public void run() {
@@ -295,7 +319,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 }catch (NullPointerException e){
                     Log.d(TAG, "Converting is not completed yet");
                 }
-
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
@@ -306,10 +329,102 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(mContext,"Converting word to pdf is completed",Toast.LENGTH_SHORT).show();
+
                 }
             });
         }
     }
+
+    class convert2JPGThread extends Thread{
+        private String fileName;
+        private String fileNameWithoutExt;
+        private String absolutePath;
+        private String parentPath;
+        private SaveOptions saveOptions;
+
+        private int i;
+
+        public convert2JPGThread(){
+            i = PreferenceManager.getInt(mContext,"filePosition");
+
+            fileName = Constant.allFileList.get(i).getName();
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = Constant.allAbsolutePathList.get(i);
+            parentPath = Constant.allParentPathList.get(i);
+
+        }
+
+        public void run() {
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+                    Log.d(TAG, "/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".pdf");
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+
+            Document doc = null;
+            try {
+                doc = new Document(absolutePath);
+                DocumentBuilder builder = new DocumentBuilder(doc);
+                saveOptions = new ImageSaveOptions(SaveFormat.JPEG);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                doc.save("/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".jpg", saveOptions);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class checking2JPGThread extends Thread{
+        boolean convertComplete = false;
+        private File f;
+
+        public void run() {
+            while(!convertComplete) {
+                //if can make File object, jump out of a loop
+                try {
+                    f = new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg");
+
+
+
+                    convertComplete = true;
+                }catch (NullPointerException e){
+                    Log.d(TAG, "Converting is not completed yet");
+                }
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                        final Uri contentUri = Uri.fromFile(new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
+                        scanIntent.setData(contentUri);
+                        sendBroadcast(scanIntent);
+                    } else {
+                        final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
+                        sendBroadcast(intent);
+                    }
+                    Toast.makeText(mContext,"Converting word to jpg is completed",Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            });
+        }
+    }
+
+
+
 
 }
 

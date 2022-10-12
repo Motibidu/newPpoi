@@ -1,4 +1,4 @@
-package org.dstadler.poiandroidtest.newpoi.cls;
+package org.dstadler.poiandroidtest.newpoi.profile;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,13 +10,25 @@ import org.dstadler.poiandroidtest.newpoi.profile.ScanLangFragment;
 import org.dstadler.poiandroidtest.newpoi.profile.ScanLicFragment;
 import org.dstadler.poiandroidtest.newpoi.profile.ScanProfileFragment;
 
-public class VPAdapter extends FragmentStateAdapter {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class ViewPagerAdapter extends FragmentStateAdapter {
 
     private int channel;
+    private boolean isReplace;
     private String[] fmTitles = new String[]{"프로필", "학력사항", "어학사항", "자격증"};
+    private Map<String, ArrayList<String>> map;
 
-    public VPAdapter(@NonNull FragmentActivity fragmentActivity) {
+
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+    }
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Boolean isReplace, Map<String, ArrayList<String>> map) {
+        super(fragmentActivity);
+        this.isReplace = isReplace;
+        this.map = map;
     }
 
 
@@ -27,7 +39,12 @@ public class VPAdapter extends FragmentStateAdapter {
         {
             case 0:
                 setChannel(0);
-                return new ScanProfileFragment();
+                if(!isReplace) {
+                    return new ScanProfileFragment();
+                }
+                else if(isReplace){
+                    return new ScanProfile2Fragment(map);
+                }
             case 1:
                 setChannel(1);
                 return new ScanEduFragment();

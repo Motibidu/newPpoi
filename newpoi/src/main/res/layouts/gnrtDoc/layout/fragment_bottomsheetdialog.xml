@@ -44,6 +44,29 @@
                 android:layout_marginLeft="15dp"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_convertToJPG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/btn_bg">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icons8_microsoft_word_2019"
+                android:background="@android:color/transparent"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="jpg로 변환"
+                android:textSize="20sp"
+                android:layout_marginLeft="15dp"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
 
@@ -70,11 +71,23 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
 
     @Override
     public void onIconMoreClick(int position) {
+        String fileName;
+        String fileNameWithoutExt;
+        String absolutePath;
+        String parentPath;
         //Toast.makeText(mContext,"Open Bottom Sheat Dialog",Toast.LENGTH_SHORT).show();
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog();
         PreferenceManager.setInt(getContext(),"filePosition", position);
         bottomSheetDialog.setFilePosition(position);
         bottomSheetDialog.show(getParentFragmentManager(), bottomSheetDialog.getTag());
+
+
+        fileName = Constant.allFileList.get(position).getName();
+        fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+        absolutePath = Constant.allAbsolutePathList.get(position);
+        parentPath = Constant.allParentPathList.get(position);
+        Log.d(TAG, "^filePosition :"+position+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+        Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
     }
 }

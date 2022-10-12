@@ -51,9 +51,11 @@ import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ScanActivity extends AppCompatActivity {
+public class Scan2Activity extends AppCompatActivity {
 
     ViewPagerAdapter ViewPagerAdapter;
     TabLayout tablayout;
@@ -98,16 +100,16 @@ public class ScanActivity extends AppCompatActivity {
     private TextRecognizer textRecognizer;
 
     //ArrayList<String>
-    List<String> name = new ArrayList<String>();
-    List<String> engName = new ArrayList<String>();
-    List<String> chName = new ArrayList<String>();
+    ArrayList<String> name = new ArrayList<String>();
+    ArrayList<String> engName = new ArrayList<String>();
+    ArrayList<String> chName = new ArrayList<String>();
 
-    List<String> rnn = new ArrayList<String>();
-    List<String> email = new ArrayList<String>();
-    List<String> addr = new ArrayList<String>();
-    List<String> phoneNum = new ArrayList<String>();
-    List<String> url = new ArrayList<String>();
-    List<String> schl = new ArrayList<String>();
+    ArrayList<String> rnn = new ArrayList<String>();
+    ArrayList<String> email = new ArrayList<String>();
+    ArrayList<String> addr = new ArrayList<String>();
+    ArrayList<String> phoneNum = new ArrayList<String>();
+    ArrayList<String> url = new ArrayList<String>();
+    ArrayList<String> schl = new ArrayList<String>();
 
     int channel;
 
@@ -117,9 +119,6 @@ public class ScanActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
-
-
-
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.imagebutton_back);
@@ -136,22 +135,6 @@ public class ScanActivity extends AppCompatActivity {
         recognizeText = findViewById(R.id.button_recognizeText);
         importedImg = findViewById(R.id.image_importedImg);
 
-//        edit_name = findViewById(R.id.edit_name);
-//        edit_engName = findViewById(R.id.edit_engName);
-//        edit_chName = findViewById(R.id.edit_chName);
-//        edit_rrn = findViewById(R.id.edit_rrn);
-//        edit_age = findViewById(R.id.edit_age);
-//        edit_phoneNum = findViewById(R.id.edit_phoneNum);
-//        edit_email = findViewById(R.id.edit_email);
-//        edit_addr = findViewById(R.id.edit_addr);
-//
-//        imageButton_name = findViewById(R.id.imagebutton_name);
-//        imageButton_engName = findViewById(R.id.imagebutton_engName);
-//        imageButton_chName = findViewById(R.id.imagebutton_chName);
-//        imageButton_rrn = findViewById(R.id.imagebutton_rrn);
-//        imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
-//        imageButton_email = findViewById(R.id.imagebutton_email);
-//        imageButton_addr = findViewById(R.id.imagebutton_addr);
 
         viewpager = findViewById(R.id.viewpager);
         tablayout = findViewById(R.id.tablayout);
@@ -203,11 +186,11 @@ public class ScanActivity extends AppCompatActivity {
 //                    ft.detach(frg);
 //                    ft.attach(frg);
 //                    ft.commit();
-                    Fragment fragment = ViewPagerAdapter.createFragment(ViewPagerAdapter.getChannel());
-                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.detach(fragment);
-                    ft.attach(fragment);
-                    ft.commit();
+//                    Fragment fragment = ViewPagerAdapter.createFragment(ViewPagerAdapter.getChannel());
+//                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    ft.detach(fragment);
+//                    ft.attach(fragment);
+//                    ft.commit();
                 }
             }
         });
@@ -277,8 +260,8 @@ public class ScanActivity extends AppCompatActivity {
                             String recognizedText = text.getText();
                             //List<Text.TextBlock> recognizedTextBlock = text.getTextBlocks();
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString("Text", recognizedText);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString("Text", recognizedText);
 
 //                            channel = VPAdapter.getChannel();
 //                            if(channel == 0){
@@ -302,17 +285,16 @@ public class ScanActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure : ", e);
-                            Toast.makeText(ScanActivity.this,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
             //Exception occurred while preparing InputImage, dismiss dialog, show reason in Toast
             progressDialog.dismiss();
             Log.e(TAG,"recognizeTextFromImage : ", e);
-            Toast.makeText(ScanActivity.this,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
 
@@ -330,6 +312,7 @@ public class ScanActivity extends AppCompatActivity {
         //split string by a space
         String[] splitStr_n = str.split("\\n+");
         String[] splitStr_s = str.split("\\s+");
+        Map<String,ArrayList<String>> m = new HashMap<String, ArrayList<String>>();
 
         //init customMatcher
         customMatcher cus = new customMatcher();
@@ -425,139 +408,162 @@ public class ScanActivity extends AppCompatActivity {
             }
 
         }
+        m.put("name",name);
+        m.put("engName",engName);
+        m.put("chName",chName);
+        m.put("rnn",rnn);
+        m.put("phoneNum",phoneNum);
+        m.put("email",email);
+        m.put("addr",addr);
+
+
+        int channel = ViewPagerAdapter.getChannel();
+        switch(channel){
+            case 0:
+                viewpager.setAdapter(new ViewPagerAdapter(this, true, m));
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
         Log.d(TAG, "Fi===========ni===========sh");
 
         //edit_name, edit_rrn, edit_phoneNumber, edit_addr, edit_email, edit_age
-        if (name.size() != 0){
-            edit_name.setText(name.get(name.size()-1));
-            Log.d(TAG, "edit_name : " + name.get(name.size()-1));
-        }
-        else{
-            edit_name.setText("");
-        }
-        if (engName.size() != 0){
-            edit_engName.setText(engName.get(engName.size()-1));
-            Log.d(TAG, name.get(name.size()-1));
-        }
-        else{
-            edit_engName.setText("");
-        }
-        if (chName.size() != 0){
-            edit_chName.setText(chName.get(chName.size()-1));
-            Log.d(TAG, name.get(chName.size()-1));
-        }
-        else{
-            edit_chName.setText("");
-        }
-
-        if (rnn.size() != 0){
-            edit_rrn.setText(rnn.get(rnn.size()-1));
-            Log.d(TAG, rnn.get(rnn.size()-1));
-        }
-        else{
-            edit_rrn.setText("");
-        }
-
-        if (phoneNum.size() != 0){
-            edit_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
-            Log.d(TAG, phoneNum.get(phoneNum.size()-1));
-        }
-        else{
-            edit_phoneNum.setText("");
-        }
-
-        if (email.size() != 0){
-            edit_email.setText(email.get(email.size()-1));
-            Log.d(TAG, email.get(email.size()-1));
-        }
-        else{
-            edit_email.setText("");
-        }
-
-        if (addr.size() != 0){
-            edit_addr.setText(addr.get(addr.size()-1));
-            Log.d(TAG, addr.get(addr.size()-1));
-        }
-        else{
-            edit_addr.setText("");
-        }
-        setAge();
+//        if (name.size() != 0){
+//            edit_name.setText(name.get(name.size()-1));
+//            Log.d(TAG, "edit_name : " + name.get(name.size()-1));
+//        }
+//        else{
+//            edit_name.setText("");
+//        }
+//        if (engName.size() != 0){
+//            edit_engName.setText(engName.get(engName.size()-1));
+//            Log.d(TAG, name.get(name.size()-1));
+//        }
+//        else{
+//            edit_engName.setText("");
+//        }
+//        if (chName.size() != 0){
+//            edit_chName.setText(chName.get(chName.size()-1));
+//            Log.d(TAG, name.get(chName.size()-1));
+//        }
+//        else{
+//            edit_chName.setText("");
+//        }
+//
+//        if (rnn.size() != 0){
+//            edit_rrn.setText(rnn.get(rnn.size()-1));
+//            Log.d(TAG, rnn.get(rnn.size()-1));
+//        }
+//        else{
+//            edit_rrn.setText("");
+//        }
+//
+//        if (phoneNum.size() != 0){
+//            edit_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
+//            Log.d(TAG, phoneNum.get(phoneNum.size()-1));
+//        }
+//        else{
+//            edit_phoneNum.setText("");
+//        }
+//
+//        if (email.size() != 0){
+//            edit_email.setText(email.get(email.size()-1));
+//            Log.d(TAG, email.get(email.size()-1));
+//        }
+//        else{
+//            edit_email.setText("");
+//        }
+//
+//        if (addr.size() != 0){
+//            edit_addr.setText(addr.get(addr.size()-1));
+//            Log.d(TAG, addr.get(addr.size()-1));
+//        }
+//        else{
+//            edit_addr.setText("");
+//        }
+//        setAge();
 
 
     }
 
-    private void setNameMenu(View view, EditText editText,List<String> list){
-        PopupMenu menu = new PopupMenu(mContext, view);
-        for(int i=0; i< list.size();i++){
-            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
-        }
-        menu.show();
-        if(view.getId() == R.id.imagebutton_rrn) {
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    setAge();
-                    return true;
-                }
-            });
-        }
-        else{
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    return true;
-                }
-            });
+//    private void setNameMenu(View view, EditText editText,List<String> list){
+//        PopupMenu menu = new PopupMenu(mContext, view);
+//        for(int i=0; i< list.size();i++){
+//            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
+//        }
+//        menu.show();
+//        if(view.getId() == R.id.imagebutton_rrn) {
+//            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem menuItem) {
+//                    editText.setText(menuItem.getTitle());
+//                    setAge();
+//                    return true;
+//                }
+//            });
+//        }
+//        else{
+//            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem menuItem) {
+//                    editText.setText(menuItem.getTitle());
+//                    return true;
+//                }
+//            });
+//
+//        }
+//    }
 
-        }
-    }
-
-    private void setAge(){
-        String prrn = edit_rrn.getText().toString();
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String[] splitprrn = new String[3];
-
-        if(prrn.length()>0) {
-            //String[] splitprrn = prrn.split(".");
-            if(prrn.contains(".")){
-                splitprrn = prrn.split("\\.");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else  if(prrn.contains("년")){
-                splitprrn = prrn.split("년");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else if(prrn.contains(" ")){
-                splitprrn = prrn.split("\\s");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else if(prrn.contains(",")){
-                splitprrn = prrn.split(",");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-
-            if(splitprrn[0].length() == 2){
-                String firstChar = Character.toString(splitprrn[0].charAt(0));
-                Log.d(TAG, "firshChar : "+ firstChar);
-                //68, 71, 86, 92
-                if(firstChar.equals("6")||firstChar.equals("7")||firstChar.equals("8") || firstChar.equals("9")) {
-                    Log.d(TAG, "condition1 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
-                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
-                }
-                //05, 12, 13, 21
-                else if(firstChar.equals("0")||firstChar.equals("1")|firstChar.equals("2")) {
-                    Log.d(TAG, "condition2 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
-                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
-                }
-            }
-            else if(splitprrn[0].length() == 4){
-                Log.d(TAG, "condition3 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1 ));
-                edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
-            }
-        }
-    }
+//    private void setAge(){
+//        String prrn = edit_rrn.getText().toString();
+//        int year = Calendar.getInstance().get(Calendar.YEAR);
+//        String[] splitprrn = new String[3];
+//
+//        if(prrn.length()>0) {
+//            //String[] splitprrn = prrn.split(".");
+//            if(prrn.contains(".")){
+//                splitprrn = prrn.split("\\.");
+//                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+//            }
+//            else  if(prrn.contains("년")){
+//                splitprrn = prrn.split("년");
+//                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+//            }
+//            else if(prrn.contains(" ")){
+//                splitprrn = prrn.split("\\s");
+//                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+//            }
+//            else if(prrn.contains(",")){
+//                splitprrn = prrn.split(",");
+//                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
+//            }
+//
+//            if(splitprrn[0].length() == 2){
+//                String firstChar = Character.toString(splitprrn[0].charAt(0));
+//                Log.d(TAG, "firshChar : "+ firstChar);
+//                //68, 71, 86, 92
+//                if(firstChar.equals("6")||firstChar.equals("7")||firstChar.equals("8") || firstChar.equals("9")) {
+//                    Log.d(TAG, "condition1 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
+//                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
+//                }
+//                //05, 12, 13, 21
+//                else if(firstChar.equals("0")||firstChar.equals("1")|firstChar.equals("2")) {
+//                    Log.d(TAG, "condition2 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
+//                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
+//                }
+//            }
+//            else if(splitprrn[0].length() == 4){
+//                Log.d(TAG, "condition3 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1 ));
+//                edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
+//            }
+//        }
+//    }
 
 
     private void showInputImageDialog(View v) {
@@ -589,7 +595,7 @@ public class ScanActivity extends AppCompatActivity {
                         return true;
                     default:
                         return false;
-                    }
+                }
 
             }
 
@@ -618,7 +624,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: ");
-                        Toast.makeText(ScanActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Cancelled...", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -650,7 +656,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: cancelled");
-                        Toast.makeText(ScanActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
 
                 }

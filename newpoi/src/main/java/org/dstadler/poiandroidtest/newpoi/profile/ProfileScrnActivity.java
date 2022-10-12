@@ -246,7 +246,7 @@ public class ProfileScrnActivity extends AppCompatActivity {
                         }
                         return true;
                     case R.id.menu_profileEdit_scan:
-                        Intent intent = new Intent(ProfileScrnActivity.this, oriScanActivity.class);
+                        Intent intent = new Intent(ProfileScrnActivity.this, Scan2Activity.class);
                         startActivity(intent);
                         return true;
                     default:
