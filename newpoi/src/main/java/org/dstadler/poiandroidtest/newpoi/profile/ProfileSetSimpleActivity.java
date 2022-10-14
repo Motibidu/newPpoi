@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,8 +44,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileSetSimpleActivity extends AppCompatActivity{
+    private static final String TAG = "PROFILESETSIMPLEACTIVITY";
 
-    private Context context;
+
+    private Context mContext;
     private AppCompatActivity activity;
 
 
@@ -60,25 +65,37 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
 
     private FirebaseFirestore fStore;
     private FirebaseAuth mAuth;
-    private FirebaseStorage fStorage;
     private StorageReference storageReference;
+    private DocumentReference documentReference;
+    private GoogleSignInAccount account;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_setting_simple);
+        //firebase
+
+
+
+        mContext = getApplicationContext();
+        account = GoogleSignIn.getLastSignedInAccount(mContext);
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        fStore = FirebaseFirestore.getInstance();
+
+//        updateUI(account);
+
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
 
-        context = getApplicationContext();
 
-        mAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        fStorage = FirebaseStorage.getInstance();
-        storageReference = fStorage.getReference();
+
+
+
 
         profile_EditText_name = findViewById(R.id.profile_EditText_name);
         profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
@@ -110,27 +127,35 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
 
 
         userID = mAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-        documentReference.addSnapshotListener(ProfileSetSimpleActivity.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                name = value.getString("name");
-                rrn = value.getString("rrn");
-                age = value.getString("age");
-                address = value.getString("address");
-                phoneNumber = value.getString("phoneNumber");
-                email = value.getString("email");
 
+//        documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+//        if(documentReference != null && mAuth.getCurrentUser() != null) {
+//            documentReference.addSnapshotListener(ProfileSetSimpleActivity.this, new EventListener<DocumentSnapshot>() {
+//                @Override
+//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                    try {
+//                        name = value.getString("name");
+//                        rrn = value.getString("rrn");
+//                        age = value.getString("age");
+//                        address = value.getString("address");
+//                        phoneNumber = value.getString("phoneNumber");
+//                        email = value.getString("email");
+//
+//
+//                        profile_EditText_name.setText(name);
+//                        profile_EditText_rrn.setText(rrn);
+//                        profile_EditText_age.setText(age);
+//                        profile_EditText_address.setText(address);
+//                        profile_EditText_phoneNumber.setText(phoneNumber);
+//                        profile_EditText_email.setText(email);
+//                    } catch (NullPointerException e) {
+//                        Log.d(TAG, "onEvent: " + e.toString());
+//                    }
+//                }
+//
+//            });
+//        }
 
-                profile_EditText_name.setText(name);
-                profile_EditText_rrn.setText(rrn);
-                profile_EditText_age.setText(age);
-                profile_EditText_address.setText(address);
-                profile_EditText_phoneNumber.setText(phoneNumber);
-                profile_EditText_email.setText(email);
-
-            }
-        });
         StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -143,7 +168,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         complete_profile_setting_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProfileScrnActivity.class);
+                Intent intent = new Intent(mContext, ProfileScrnActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
                 name = profile_EditText_name.getText().toString().trim();
@@ -179,6 +204,18 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                 }
             }
         });
+        updateUI(account);
+    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        updateUI(account);
+//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+//        updateUI(account);
     }
 
     private void choosePicture(){
@@ -212,7 +249,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                             @Override
                             public void onSuccess(Uri uri) {
                                 Glide
-                                        .with(context)
+                                        .with(mContext)
                                         .load(uri)
                                         .into(profile_picture);
                                 pd.dismiss();
@@ -227,7 +264,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(context,"Failed Upload", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Failed Upload", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -238,5 +275,52 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                     }
                 });
 
+    }
+    private void updateUI(GoogleSignInAccount account){
+        if(account != null) {
+            if (mAuth.getCurrentUser() != null) {
+                userID = mAuth.getCurrentUser().getUid();
+                Log.d(TAG, "userID: "+userID);
+
+                documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                if(documentReference != null && mAuth.getCurrentUser() != null) {
+                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (value != null && value.exists()) {
+
+                                name = value.getString("name");
+                                rrn = value.getString("rrn");
+                                age = value.getString("age");
+                                address = value.getString("address");
+                                phoneNumber = value.getString("phoneNumber");
+                                email = value.getString("email");
+
+
+                                profile_EditText_name.setText(name);
+                                profile_EditText_rrn.setText(rrn);
+                                profile_EditText_age.setText(age);
+                                profile_EditText_address.setText(address);
+                                profile_EditText_phoneNumber.setText(phoneNumber);
+                                profile_EditText_email.setText(email);
+                            }
+                            else{
+                                Log.d(TAG, "onEvent error: "+error);
+                            }
+                        }
+
+                    });
+                }
+            }
+        }
+        else if (account == null){
+            profile_EditText_name.setText("");
+            profile_EditText_rrn.setText("");
+            profile_EditText_age.setText("");
+            profile_EditText_address.setText("");
+            profile_EditText_phoneNumber.setText("");
+            profile_EditText_email.setText("");
+//            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -137,33 +137,6 @@ public class ProfileScrnActivity extends AppCompatActivity {
                 startActivityForResult(intent, ACCOUNT_RQST_CODE);
             }
         });
-
-        //프로필수정 화면으로 전환
-        /*profile_setting_button = (Button)findViewById(R.id.profile_setting_button);
-        profile_setting_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //로그아웃 상태일 때 "로그인 해주세요" 팝업문구를 띄운다.
-                if(mAuth.getCurrentUser() == null){
-                    Toast.makeText(profile_screen.this,"로그인 해주세요", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if (b_simpleProfile){
-                        Intent intent = new Intent(profile_screen.this, profile_setting_simple.class);
-                        startActivity(intent);
-                    }
-                    else if (b_detailedProfile){
-                        Intent intent = new Intent(profile_screen.this, profile_setting_detailed.class);
-                        startActivity(intent);
-                    }
-                    else if (b_resumeProfile){
-                        Intent intent = new Intent(profile_screen.this, profile_setting_resume.class);
-                        startActivity(intent);
-                    }
-
-                }
-            }
-        });*/
     }
 
     @Override

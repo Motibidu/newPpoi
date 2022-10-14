@@ -50,8 +50,8 @@ public class ProfileScrnSimpleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        account = GoogleSignIn.getLastSignedInAccount(getActivity());
         activity = getActivity();
+        account = GoogleSignIn.getLastSignedInAccount(getActivity());
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
     }

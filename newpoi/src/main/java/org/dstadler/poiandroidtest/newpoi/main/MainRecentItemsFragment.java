@@ -45,20 +45,6 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
 
     private BottomSheetDialog.bottomSheetListener listener;
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        ArrayList<CharSequence> list = new ArrayList<CharSequence>();
-
-        for(File f:Constant.allFileList){
-            list.add(f.getName());
-        }
-
-//        outState.putCharSequenceArrayList("list", list);
-        outState.putCharSequence("list", "HANDLE");
-
-    }
 
     @Nullable
     @Override
@@ -77,30 +63,33 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setNestedScrollingEnabled(false);
 
         //recyclerView
-        if(savedInstanceState != null){
-            ArrayList<CharSequence> list = new ArrayList<CharSequence>();
-            list = savedInstanceState.getCharSequenceArrayList("list");
-            for(CharSequence s:list){
-                Log.d(TAG, "savedInstanceState is not null"+s);
-            }
-            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }else{
-            Log.d(TAG, "savedInstanceState is null");
-            //init allPath
-            allPath = StorageUtil.getStorageDirectories(mContext);
+//        if(savedInstanceState != null){
+//            ArrayList<CharSequence> list = new ArrayList<CharSequence>();
+//            list = savedInstanceState.getCharSequenceArrayList("list");
+//            for(CharSequence s:list){
+//                Log.d(TAG, "savedInstanceState is not null"+s);
+//            }
+//            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
+//            recyclerView.setAdapter(recyclerViewAdapter);
+//        }else{
+//            Log.d(TAG, "savedInstanceState is null");
+//            //init allPath
+//            allPath = StorageUtil.getStorageDirectories(mContext);
+//
+//            //load allFileList
+//            //     allAbsolutePathList
+//            //     allParentPathList on Constant
+//            for (String path : allPath) {
+//                storage = new File(path);
+//                Method.load_Directory_Files(storage);
+//            }
+//
+//            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
+//            recyclerView.setAdapter(recyclerViewAdapter);
+//        }
 
-            //load allFileList
-            //     allAbsolutePathList
-            //     allParentPathList on Constant
-            for (String path : allPath) {
-                storage = new File(path);
-                Method.load_Directory_Files(storage);
-            }
-
-            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }
+        recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
+        recyclerView.setAdapter(recyclerViewAdapter);
 
 
 

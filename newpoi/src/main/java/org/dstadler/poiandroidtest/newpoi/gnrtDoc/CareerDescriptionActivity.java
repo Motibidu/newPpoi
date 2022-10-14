@@ -33,26 +33,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.aspose.words.Document;
+import com.aspose.words.Run;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-//import com.clarifai.channel.ClarifaiChannel;
-//import com.clarifai.credentials.ClarifaiCallCredentials;
-//import com.clarifai.grpc.api.Data;
-//import com.clarifai.grpc.api.Image;
-//import com.clarifai.grpc.api.Input;
-//import com.clarifai.grpc.api.MultiInputResponse;
-//import com.clarifai.grpc.api.PostInputsRequest;
-//import com.clarifai.grpc.api.V2Grpc;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-//import com.google.api.services.vision.v1.model.AnnotateImageRequest;
-//import com.google.api.services.vision.v1.model.Feature;
-//import com.google.cloud.vision.v1.AnnotateImageRequest;
-//import com.google.cloud.vision.v1.Feature;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,16 +70,42 @@ import java.util.Map;
 
 public class CareerDescriptionActivity extends AppCompatActivity {
 
-    private final String TAG = "CAREERDESCRIPTIONACTIVITY";
 
+    //final vars
+    private final String TAG = "CAREERDESCRIPTIONACTIVITY";
+    private final String themeColor = "#34ace0";
+    private final String RUNIMG_CMPLT = "org.dstadler.poiandroidtest.newpoi.RUNIMG_CMPLT";
+    private final String DOC_DWNL_CMPLT = "org.dstadler.poiandroidtest.newpoi.DOC_DWNL_CMPLT";
+    private static final int MY_PERMISSION_STORAGE = 1111;
+
+    //image arguments
     public static int sCorner = 80;
     public static int sMargin = 1;
     public static int sBorder = 0;
 
+    // vars
     private boolean bExpanded;
+    private String docName;
+    private String imgPath1, imgPath2, imgPath3;
+
+
+    //widgets
     private ImageButton backBtn, expandedScrn_menu;
     private Button expandedScrn_download_without_modify, create, expand;
-    private String themeColor = "#34ace0";
+
+    //firebase
+    private StorageReference storageReference;
+    private FirebaseStorage fStorage;
+    private FirebaseFirestore fStore;
+    private FirebaseAuth mAuth;
+    private DocumentReference documentReference;
+
+
+
+
+
+    private String name, email, phoneNumber, address;
+
 
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
@@ -116,36 +132,35 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
     private RelativeLayout master, university, formOfCareer1, formOfCareer2, formOfCareer3, license2, award2,license1, award1;
 
-    private String name, email, phoneNumber, address;
 
-    private String docName;
+
+
     private Intent intent, moveProfile, documentProcess;
     private EditText expandedScrn_name;
 
     private DownloadEP downloadEP;
     private CustomXWPFDocument customXWPFDocument;
 
-    private String imgPath1, imgPath2, imgPath3;
+
     private Uri imgUri1, imgUri2, imgUri3;
 
 
     private ImageView expandedScrn_mainImageView1, expandedScrn_mainImageView2, expandedScrn_mainImageView3;
     private String fileName, folder;
-    private StorageReference storageReference;
 
-    private static final int MY_PERMISSION_STORAGE = 1111;
+
+
 
     private Map<String, String> data = new HashMap<String, String>();
 
-    private FirebaseStorage fStorage;
-    private Context mContext;
-    private FirebaseFirestore fStore;
-    private FirebaseAuth mAuth;
-    private String userID;
-    private DocumentReference documentReference;
 
-    final String RUNIMG_CMPLT = "org.dstadler.poiandroidtest.newpoi.RUNIMG_CMPLT";
-    final String DOC_DWNL_CMPLT = "org.dstadler.poiandroidtest.newpoi.DOC_DWNL_CMPLT";
+    private Context mContext;
+
+
+    private String userID;
+
+
+
     private File imgFile, docFile;
     private Map<String, Object> user;
 
@@ -163,15 +178,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doc_career_description_expanded_scrn);
-        mContext = getApplicationContext();
-        bExpanded = false;
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
         filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
-
-        progressBar = findViewById(R.id.progressBar);
-
-
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.backBtn);
@@ -182,14 +191,33 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         });
 
+
+        //firebase
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+
+        //Content
+        mContext = getApplicationContext();
+        progressBar = findViewById(R.id.progressBar);
+
+        //var
+
+
+        bExpanded = false;
+
+
+
+
+
+
         expandedScrn_name = findViewById(R.id.expandedScrn_name);
 
         name_EditText = findViewById(R.id.name_EditText);                   //이름
         email_EditText = findViewById(R.id.email_EditText);                 //이메일
         phoneNumber_EditText = findViewById(R.id.phoneNumber_EditText);     //휴대폰
         address_EditText = findViewById(R.id.address_EditText);             //주소
+
+        expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
 
         //학력사항//
         //enterYM => enterYearMonth : 입학년월
@@ -301,7 +329,10 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         imgPath2 = intent.getStringExtra("imgPath2");
         imgPath3 = intent.getStringExtra("imgPath3");
 
-        //imgPath1에 값이 있을 때 첫번째 mainImageView에 rounded처리된 imgUri1의 이미지를 설정한다.
+        //find widgets;
+        expandedScrn_name = findViewById(R.id.expandedScrn_name);
+
+        //첫번째, 두번째, 세번째 페이지를 설정한다.
         if(!checkString(imgPath1)) {
             imgUri1 = Uri.parse(imgPath1);
             Glide.with(this).load(imgUri1)
@@ -330,36 +361,24 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         }
 
 
-        //수정없이 다운로드 버튼
-        expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
-        //권한이 없을 경우 저장소 권한 요청을 하고 파이어베이스에서 docName의 문서를 수정없이 다운로드한다.
+        //양식만 저장
         expandedScrn_download_without_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    //권한을 요청 한다.
-                    checkPermission();
-                //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
-                fileName = expandedScrn_name.getText().toString().trim();
-                //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
-                //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
-                if(checkString(fileName)){
-                    //careerDescription.class에서 보내온 docName을 불러온다.
-                    docName = intent.getStringExtra("docName");
-                    //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
-                    //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
-                    //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
-                    downloadEP = new DownloadEP(getApplicationContext());
-                    downloadEP.download_without_modify(docName, docName);
-                }
-                else{
-                    //careerDescription.class에서 보내온 docName을 불러온다.
-                    docName = intent.getStringExtra("docName");
-                    //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
-                    //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
-                    //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
-                    downloadEP = new DownloadEP(getApplicationContext());
-                    downloadEP.download_without_modify(fileName, docName);
-                }
+
+                //권한을 요청 한다.
+                checkPermission();
+
+                //handler1
+                handler1 = new Handler();
+                
+                //start downloading template, start progressbar
+                downloadTmpltThread downloadTmpltThread = new downloadTmpltThread();
+                downloadTmpltThread.start();
+
+                //if downloading is finished,stop progressbar
+                checkingDownloadThread checkingDownloadThread = new checkingDownloadThread();
+                checkingDownloadThread.start();
             }
         });
 
@@ -368,95 +387,114 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //권한을 요청 한다.
+                //checkPermission();
                 checkPermission();
-                //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
-                fileName = expandedScrn_name.getText().toString().trim();
-                //로그인 상태인 경우 문서 처리 작업을 수행하고,
-                //로그아웃 상태인 경우 "로그인 해주세요!" 팝업 문구를 띄운다.
+
+                //handler2
+                handler2 = new Handler();
+
+                //if user is logged off
                 if (mAuth.getCurrentUser() == null) {
-                    Toast.makeText(CareerDescriptionActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
-                } else {
-                    //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
-                    //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 수정작업 한 후 다운로드한다.
-                    if (checkString(fileName)) {
-                        Toast.makeText(mContext, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CareerDescriptionActivity.this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                }else{
+                    //start template processing, start progressbar
+                    tmpltProcessThread tmpltProcessThread = new tmpltProcessThread();
+                    tmpltProcessThread.start();
 
-                        expandedScrn_name = findViewById(R.id.expandedScrn_name);
-                        fileName = expandedScrn_name.getText().toString().trim();
-                        docName = intent.getStringExtra("docName");
-
-                        highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
-                        highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
-                        highschool_name = highschool_name_EditText.getText().toString().trim();
-                        highschool_graCls = highschool_graCls_EditText.getText().toString().trim();
-
-                        university_enterYM = university_enterYM_EditText.getText().toString().trim();
-                        university_graYM = university_graYM_EditText.getText().toString().trim();
-                        university_graCls = university_graCls_EditText.getText().toString().trim();
-                        university_name = university_name_EditText.getText().toString().trim();
-                        university_major = university_major_EditText.getText().toString().trim();
-
-                        master_enterYM = master_enterYM_EditText.getText().toString().trim();
-                        master_graYM = master_graYM_EditText.getText().toString().trim();
-                        master_graCls = master_graCls_EditText.getText().toString().trim();
-                        master_name = master_name_EditText.getText().toString().trim();
-                        master_major = master_major_EditText.getText().toString().trim();
-                        master_graThe = master_graThe_EditText.getText().toString().trim();
-                        master_LAB = master_LAB_EditText.getText().toString().trim();
-
-
-                        name = name_EditText.getText().toString().trim();
-                        email = email_EditText.getText().toString().trim();
-                        phoneNumber = phoneNumber_EditText.getText().toString().trim();
-                        address = address_EditText.getText().toString().trim();
-
-                        formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
-                        formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();
-                        formOfCareer1_resignYM = formOfCareer1_resignYM_EditText.getText().toString().trim();
-                        formOfCareer1_office = formOfCareer1_office_EditText.getText().toString().trim();
-                        formOfCareer1_task = formOfCareer1_task_EditText.getText().toString().trim();
-
-                        formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
-                        formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
-                        formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
-                        formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
-                        formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
-
-                        formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
-                        formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
-                        formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
-                        formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
-                        formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
-
-                        license1_date = license1_date_EditText.getText().toString().trim();
-                        license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
-                        license1_grade = license1_grade_EditText.getText().toString().trim();
-                        license1_publication = license1_publication_EditText.getText().toString().trim();
-
-                        license2_date = license2_date_EditText.getText().toString().trim();
-                        license2_cntnt = license2_cntnt_EditText.getText().toString().trim();
-                        license2_grade = license2_grade_EditText.getText().toString().trim();
-                        license2_publication = license2_publication_EditText.getText().toString().trim();
-
-                        award1_date = award1_date_EditText.getText().toString().trim();
-                        award1_cntnt = award1_cntnt_EditText.getText().toString().trim();
-                        award1_publication = award1_publication_EditText.getText().toString().trim();
-
-                        award2_date = award2_date_EditText.getText().toString().trim();
-                        award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
-                        award2_publication = award2_publication_EditText.getText().toString().trim();
-
-                        //사용자가 인터페이스에 기록한 모든 내용을 불러오고 downloadEP클래스의 download_with_modify메소드를 호출한다.
-                        //download_with_modify메소드는 Firebase Storage로부터 uri를 성공적으로 불러오면 해당 uri를 downloadFile_with_modify메소드에게 전달한다.
-                        //downloadFile_with_modify메소드는 전달받은 uri를 통해 DownloadManager클래스 long enqueue(Uri uri)메소드를 호출한다.
-                        //enqueue메소드로부터 반환받은 long타입의 값을 PreferenceManager의 키 "doc_dwnlID"의 대응값으로 저장한다.
-                        downloadEP = new DownloadEP(getApplicationContext());
-                        downloadEP.download_with_modify(fileName, docName);
-                    }
+                    //if processing is finished,stop progressbar
+                    checkingProcessThread checkingProcessThread = new checkingProcessThread();
+                    checkingProcessThread.start();
                 }
+//                //get fileName
+//                fileName = expandedScrn_name.getText().toString().trim();
+//
+//                //if user is logged off
+//                if (mAuth.getCurrentUser() == null) {
+//                    Toast.makeText(CareerDescriptionActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+//                } else {//if user is logged in
+//                    //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
+//                    //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 수정작업 한 후 다운로드한다.
+//
+//                    if (checkString(fileName)) {
+//                        Toast.makeText(mContext, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
+//
+//
+//                        docName = intent.getStringExtra("docName");
+//                        fileName = expandedScrn_name.getText().toString().trim();
+//
+//
+//
+//                        //get texts;
+//                        name = name_EditText.getText().toString().trim();
+//                        email = email_EditText.getText().toString().trim();
+//                        phoneNumber = phoneNumber_EditText.getText().toString().trim();
+//                        address = address_EditText.getText().toString().trim();
+//
+//                        highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
+//                        highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
+//                        highschool_name = highschool_name_EditText.getText().toString().trim();
+//                        highschool_graCls = highschool_graCls_EditText.getText().toString().trim();
+//
+//                        university_enterYM = university_enterYM_EditText.getText().toString().trim();
+//                        university_graYM = university_graYM_EditText.getText().toString().trim();
+//                        university_graCls = university_graCls_EditText.getText().toString().trim();
+//                        university_name = university_name_EditText.getText().toString().trim();
+//                        university_major = university_major_EditText.getText().toString().trim();
+//
+//                        master_enterYM = master_enterYM_EditText.getText().toString().trim();
+//                        master_graYM = master_graYM_EditText.getText().toString().trim();
+//                        master_graCls = master_graCls_EditText.getText().toString().trim();
+//                        master_name = master_name_EditText.getText().toString().trim();
+//                        master_major = master_major_EditText.getText().toString().trim();
+//                        master_graThe = master_graThe_EditText.getText().toString().trim();
+//                        master_LAB = master_LAB_EditText.getText().toString().trim();
+//
+//                        formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
+//                        formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();
+//                        formOfCareer1_resignYM = formOfCareer1_resignYM_EditText.getText().toString().trim();
+//                        formOfCareer1_office = formOfCareer1_office_EditText.getText().toString().trim();
+//                        formOfCareer1_task = formOfCareer1_task_EditText.getText().toString().trim();
+//
+//                        formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
+//                        formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
+//                        formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
+//                        formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
+//                        formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+//
+//                        formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
+//                        formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
+//                        formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
+//                        formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
+//                        formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+//
+//                        license1_date = license1_date_EditText.getText().toString().trim();
+//                        license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
+//                        license1_grade = license1_grade_EditText.getText().toString().trim();
+//                        license1_publication = license1_publication_EditText.getText().toString().trim();
+//
+//                        license2_date = license2_date_EditText.getText().toString().trim();
+//                        license2_cntnt = license2_cntnt_EditText.getText().toString().trim();
+//                        license2_grade = license2_grade_EditText.getText().toString().trim();
+//                        license2_publication = license2_publication_EditText.getText().toString().trim();
+//
+//                        award1_date = award1_date_EditText.getText().toString().trim();
+//                        award1_cntnt = award1_cntnt_EditText.getText().toString().trim();
+//                        award1_publication = award1_publication_EditText.getText().toString().trim();
+//
+//                        award2_date = award2_date_EditText.getText().toString().trim();
+//                        award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
+//                        award2_publication = award2_publication_EditText.getText().toString().trim();
+//
+//                        //사용자가 인터페이스에 기록한 모든 내용을 불러오고 downloadEP클래스의 download_with_modify메소드를 호출한다.
+//                        //download_with_modify메소드는 Firebase Storage로부터 uri를 성공적으로 불러오면 해당 uri를 downloadFile_with_modify메소드에게 전달한다.
+//                        //downloadFile_with_modify메소드는 전달받은 uri를 통해 DownloadManager클래스 long enqueue(Uri uri)메소드를 호출한다.
+//                        //enqueue메소드로부터 반환받은 long타입의 값을 PreferenceManager의 키 "doc_dwnlID"의 대응값으로 저장한다.
+//                        downloadEP = new DownloadEP(getApplicationContext());
+//                        downloadEP.download_with_modify(fileName, docName);
+//                    }
+//                }
             }
         });
 
@@ -1165,6 +1203,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -1182,46 +1221,30 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 break;
         }
     }
-    boolean checkString(String str) {
-        return str == null || str.length() == 0;
-    }
+
     private boolean isSignedIn() {
         return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
     }
+
+
     class downloadTmpltThread extends Thread{
-        private String fileName;
-        private String fileNameWithoutExt;
-        private String absolutePath;
-        private String parentPath;
-
-        private int i;
-
-        public downloadTmpltThread(){
-            i = PreferenceManager.getInt(mContext,"filePosition");
-
-            fileName = Constant.allFileList.get(i).getName();
-            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
-            absolutePath = Constant.allAbsolutePathList.get(i);
-            parentPath = Constant.allParentPathList.get(i);
-        }
-
         public void run() {
             handler1.post(new Runnable() {
                 @Override
                 public void run() {
-//                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
-//                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
 
             //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
-            fileName = expandedScrn_name.getText().toString().trim();
+
             //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
             //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
             if(checkString(fileName)){
-                //careerDescription.class에서 보내온 docName을 불러온다.
+                //get titles
                 docName = intent.getStringExtra("docName");
+                fileName = expandedScrn_name.getText().toString().trim();
+
                 //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
                 //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
                 //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
@@ -1239,21 +1262,150 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         }
     }
-
     class checkingDownloadThread extends Thread{
         boolean downloadComplete = false;
+        File f;
 
         public void run() {
             while(!downloadComplete) {
                 //if can make File object, jump out of a loop
                 try {
                     if(docName == docName) {
-                        File f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
                     }
                     else{
-                        File f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
                     }
+
                     downloadComplete = true;
+
+                }catch (NullPointerException e){
+                    Log.d(TAG, "Download is not completed yet");
+                }
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mContext,"성공적으로 문서가 다운되었습니다.",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+
+    class tmpltProcessThread extends Thread{
+        @Override
+        public void run() {
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+            if (checkString(fileName)) {
+                Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
+                downloadEP = new DownloadEP(getApplicationContext());
+                downloadEP.download_with_modify(fileName, fileName);
+            } else {
+                Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
+
+                //get titles;
+                docName = intent.getStringExtra("docName");
+                fileName = expandedScrn_name.getText().toString().trim();
+
+                //get texts;
+                name = name_EditText.getText().toString().trim();
+                email = email_EditText.getText().toString().trim();
+                phoneNumber = phoneNumber_EditText.getText().toString().trim();
+                address = address_EditText.getText().toString().trim();
+
+                highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
+                highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
+                highschool_name = highschool_name_EditText.getText().toString().trim();
+                highschool_graCls = highschool_graCls_EditText.getText().toString().trim();
+
+                university_enterYM = university_enterYM_EditText.getText().toString().trim();
+                university_graYM = university_graYM_EditText.getText().toString().trim();
+                university_graCls = university_graCls_EditText.getText().toString().trim();
+                university_name = university_name_EditText.getText().toString().trim();
+                university_major = university_major_EditText.getText().toString().trim();
+
+                master_enterYM = master_enterYM_EditText.getText().toString().trim();
+                master_graYM = master_graYM_EditText.getText().toString().trim();
+                master_graCls = master_graCls_EditText.getText().toString().trim();
+                master_name = master_name_EditText.getText().toString().trim();
+                master_major = master_major_EditText.getText().toString().trim();
+                master_graThe = master_graThe_EditText.getText().toString().trim();
+                master_LAB = master_LAB_EditText.getText().toString().trim();
+
+                formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
+                formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();
+                formOfCareer1_resignYM = formOfCareer1_resignYM_EditText.getText().toString().trim();
+                formOfCareer1_office = formOfCareer1_office_EditText.getText().toString().trim();
+                formOfCareer1_task = formOfCareer1_task_EditText.getText().toString().trim();
+
+                formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
+                formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
+                formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
+                formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
+                formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+
+                formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
+                formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
+                formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
+                formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
+                formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+
+                license1_date = license1_date_EditText.getText().toString().trim();
+                license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
+                license1_grade = license1_grade_EditText.getText().toString().trim();
+                license1_publication = license1_publication_EditText.getText().toString().trim();
+
+                license2_date = license2_date_EditText.getText().toString().trim();
+                license2_cntnt = license2_cntnt_EditText.getText().toString().trim();
+                license2_grade = license2_grade_EditText.getText().toString().trim();
+                license2_publication = license2_publication_EditText.getText().toString().trim();
+
+                award1_date = award1_date_EditText.getText().toString().trim();
+                award1_cntnt = award1_cntnt_EditText.getText().toString().trim();
+                award1_publication = award1_publication_EditText.getText().toString().trim();
+
+                award2_date = award2_date_EditText.getText().toString().trim();
+                award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
+                award2_publication = award2_publication_EditText.getText().toString().trim();
+
+                //사용자가 인터페이스에 기록한 모든 내용을 불러오고 downloadEP클래스의 download_with_modify메소드를 호출한다.
+                //download_with_modify메소드는 Firebase Storage로부터 uri를 성공적으로 불러오면 해당 uri를 downloadFile_with_modify메소드에게 전달한다.
+                //downloadFile_with_modify메소드는 전달받은 uri를 통해 DownloadManager클래스 long enqueue(Uri uri)메소드를 호출한다.
+                //enqueue메소드로부터 반환받은 long타입의 값을 PreferenceManager의 키 "doc_dwnlID"의 대응값으로 저장한다.
+                downloadEP = new DownloadEP(getApplicationContext());
+                downloadEP.download_with_modify(fileName, docName);
+            }
+        }
+    }
+    class checkingProcessThread extends Thread{
+
+        boolean downloadComplete = false;
+        File f;
+
+        public void run() {
+            while(!downloadComplete) {
+                //if can make File object, jump out of a loop
+                try {
+                    if(docName == docName) {
+                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+                    }
+                    else{
+                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+                    }
+
+                    downloadComplete = true;
+
                 }catch (NullPointerException e){
                     Log.d(TAG, "Download is not completed yet");
                 }
@@ -1266,11 +1418,15 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(mContext,"Downloading is completed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"성공적으로 문서가 생성되었습니다.",Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
+    boolean checkString(String str) {
+        return str == null || str.length() == 0;
+    }
+
 
 
 }
