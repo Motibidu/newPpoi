@@ -47,6 +47,7 @@ dependencies {
 
 
     //파이어베이스//
+    //파이어베이스//
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'com.google.firebase:firebase-auth:21.0.8' //파이어베이스 인증
     implementation 'com.google.firebase:firebase-firestore:21.4.0'

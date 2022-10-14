@@ -2,6 +2,7 @@ package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,6 +34,7 @@ import org.dstadler.poiandroidtest.newpoi.R;
 
 public class AcctSetAcitivity extends AppCompatActivity {
 
+    private final String TAG = "ACCTSETACTIVITY";
     private ImageButton backBtn;
     private Button signOutBtn, cmpltBtn;
     private TextView emailCntnt, pswdCntnt;
@@ -162,13 +164,16 @@ public class AcctSetAcitivity extends AppCompatActivity {
             if (requestCode == RC_SIGN_IN) {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try{
-                    Toast.makeText(AcctSetAcitivity.this,"Signed In Successfully", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AcctSetAcitivity.this,"Signed In Successfully", Toast.LENGTH_SHORT).show();
                     GoogleSignInAccount acc = task.getResult(ApiException.class);
 
                     FirebaseGoogleAuth(acc);
+                    Log.d(TAG, "onActivityResult: Signed In Successfully");
                 }
                 catch(ApiException e){
-                    Toast.makeText(AcctSetAcitivity.this,"Sign In Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AcctSetAcitivity.this,"Sign In Failed", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onActivityResult: "+e.toString());
+                    Log.d(TAG, "onActivityResult: Sign In Failed");
 //            FirebaseGoogleAuth(null);
 
                 }
@@ -180,11 +185,13 @@ public class AcctSetAcitivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
         try{
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(AcctSetAcitivity.this,"Signed In Successfully", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AcctSetAcitivity.this,"Signed In Successfully", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "handleSignInResult: Signed In Successfully");
             FirebaseGoogleAuth(acc);
         }
         catch(ApiException e){
-            Toast.makeText(AcctSetAcitivity.this,"Sign In Failed", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AcctSetAcitivity.this,"Sign In Failed", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "handleSignInResult: SSign In Failed");
 //            FirebaseGoogleAuth(null);
 
         }

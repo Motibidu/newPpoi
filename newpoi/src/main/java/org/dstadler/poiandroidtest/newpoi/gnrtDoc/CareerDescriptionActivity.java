@@ -12,7 +12,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.aspose.words.Document;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -59,6 +63,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
@@ -74,6 +79,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CareerDescriptionActivity extends AppCompatActivity {
+
+    private final String TAG = "CAREERDESCRIPTIONACTIVITY";
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -145,6 +152,10 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     private Uri i;
     public static String PACKAGE_NAME;
 
+    private Handler handler1, handler2;
+
+    private ProgressBar progressBar;
+
     String filePath;
 
 
@@ -157,6 +168,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
         filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
+
+        progressBar = findViewById(R.id.progressBar);
 
 
 
@@ -323,14 +336,20 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         expandedScrn_download_without_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //권한을 요청 한다.
-                checkPermission();
+                    //권한을 요청 한다.
+                    checkPermission();
                 //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
                 fileName = expandedScrn_name.getText().toString().trim();
                 //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
                 //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
                 if(checkString(fileName)){
-                    Toast.makeText(mContext,"제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                    //careerDescription.class에서 보내온 docName을 불러온다.
+                    docName = intent.getStringExtra("docName");
+                    //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
+                    //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
+                    //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
+                    downloadEP = new DownloadEP(getApplicationContext());
+                    downloadEP.download_without_modify(docName, docName);
                 }
                 else{
                     //careerDescription.class에서 보내온 docName을 불러온다.
@@ -1148,6 +1167,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         switch (requestCode) {
             case MY_PERMISSION_STORAGE:
                 for (int i = 0; i < grantResults.length; i++) {
@@ -1166,6 +1187,89 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     }
     private boolean isSignedIn() {
         return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
+    }
+    class downloadTmpltThread extends Thread{
+        private String fileName;
+        private String fileNameWithoutExt;
+        private String absolutePath;
+        private String parentPath;
+
+        private int i;
+
+        public downloadTmpltThread(){
+            i = PreferenceManager.getInt(mContext,"filePosition");
+
+            fileName = Constant.allFileList.get(i).getName();
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = Constant.allAbsolutePathList.get(i);
+            parentPath = Constant.allParentPathList.get(i);
+        }
+
+        public void run() {
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+//                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+//                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+
+            //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
+            fileName = expandedScrn_name.getText().toString().trim();
+            //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
+            //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
+            if(checkString(fileName)){
+                //careerDescription.class에서 보내온 docName을 불러온다.
+                docName = intent.getStringExtra("docName");
+                //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
+                //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
+                //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
+                downloadEP = new DownloadEP(getApplicationContext());
+                downloadEP.download_without_modify(docName, docName);
+            }
+            else{
+                //careerDescription.class에서 보내온 docName을 불러온다.
+                docName = intent.getStringExtra("docName");
+                //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
+                //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
+                //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
+                downloadEP = new DownloadEP(getApplicationContext());
+                downloadEP.download_without_modify(fileName, docName);
+            }
+        }
+    }
+
+    class checkingDownloadThread extends Thread{
+        boolean downloadComplete = false;
+
+        public void run() {
+            while(!downloadComplete) {
+                //if can make File object, jump out of a loop
+                try {
+                    if(docName == docName) {
+                        File f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+                    }
+                    else{
+                        File f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+                    }
+                    downloadComplete = true;
+                }catch (NullPointerException e){
+                    Log.d(TAG, "Download is not completed yet");
+                }
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mContext,"Downloading is completed",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 

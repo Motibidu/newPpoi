@@ -1141,7 +1141,13 @@
                 </RelativeLayout>
 
             </RelativeLayout>
+
         </FrameLayout>
     </com.amar.library.ui.StickyScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

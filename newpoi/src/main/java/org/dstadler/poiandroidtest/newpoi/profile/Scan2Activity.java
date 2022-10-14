@@ -35,6 +35,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.aspose.words.Document;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,8 +48,11 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -725,4 +729,5 @@ public class Scan2Activity extends AppCompatActivity {
             break;
         }
     }
+
 }
