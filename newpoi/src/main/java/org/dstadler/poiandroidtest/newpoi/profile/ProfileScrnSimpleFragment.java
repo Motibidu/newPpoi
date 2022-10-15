@@ -50,10 +50,13 @@ public class ProfileScrnSimpleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activity = getActivity();
         account = GoogleSignIn.getLastSignedInAccount(getActivity());
+        activity = getActivity();
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
+        updateUI(account);
     }
 
     @Nullable
@@ -74,8 +77,7 @@ public class ProfileScrnSimpleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
-        updateUI(account);
+
     }
 
     @Override

@@ -104,6 +104,66 @@ public class PromissoryActivity extends AppCompatActivity {
 
     String filePath;
 
+//    public static void detectWebDetections(AssetManager AM) throws IOException {
+//        TODO(developer): Replace these variables before running the sample.
+//        Uri filePath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
+//        detectWebDetections(AM, filePath.toString());
+//    }
+//    public static void detectWebDetections(AssetManager AM,String filePath) throws IOException {
+//        new RetrieveFeedTask().execute();
+//        List<AnnotateImageRequest> requests = new ArrayList<>();
+//        ByteString imgBytes = ByteString.readFrom(new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg"));
+//
+//        Image img = Image.newBuilder().setContent(imgBytes).build();
+//        Feature feat = Feature.newBuilder().setType(Feature.Type.WEB_DETECTION).build();
+//        AnnotateImageRequest request =
+//                AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+//        requests.add(request);
+
+
+//        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+//            BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+//            List<AnnotateImageResponse> responses = response.getResponsesList();
+
+//            for (AnnotateImageResponse res : responses) {
+//                if (res.hasError()) {
+//                    System.out.format("Error: %s%n", res.getError().getMessage());
+//                    return;
+//                }
+//                // Search the web for usages of the image. You could use these signals later
+//                // for user input moderation or linking external references.
+//                // For a full list of available annotations, see http://g.co/cloud/vision/docs
+//                WebDetection annotation = res.getWebDetection();
+//                System.out.println("Entity:Id:Score");
+//                Log.d("Title","Entity:Id:Score");
+//                System.out.println("===============");
+//                for (WebDetection.WebEntity entity : annotation.getWebEntitiesList()) {
+//                    System.out.println(
+//                            entity.getDescription() + " : " + entity.getEntityId() + " : " + entity.getScore());
+//                }
+//                for (WebDetection.WebLabel label : annotation.getBestGuessLabelsList()) {
+//                    System.out.format("%nBest guess label: %s", label.getLabel());
+//                }
+//                System.out.println("%nPages with matching images: Score%n==");
+//                for (WebDetection.WebPage page : annotation.getPagesWithMatchingImagesList()) {
+//                    System.out.println(page.getUrl() + " : " + page.getScore());
+//                }
+//                System.out.println("%nPages with partially matching images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getPartialMatchingImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//                System.out.println("%nPages with fully matching images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getFullMatchingImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//                System.out.println("%nPages with visually similar images: Score%n==");
+//                for (WebDetection.WebImage image : annotation.getVisuallySimilarImagesList()) {
+//                    System.out.println(image.getUrl() + " : " + image.getScore());
+//                }
+//            }
+//        }
+//    }
+
 
     private Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
 
@@ -125,6 +185,52 @@ public class PromissoryActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }
 
+//    private void callCloudVision(final Bitmap bitmap) {
+//        // Switch text to loading
+////        mImageDetails.setText(R.string.loading_message);
+//
+//        // Do the real work in an async task, because we need to use the network anyway
+//        try {
+//            AsyncTask<Object, Void, String> labelDetectionTask = new WebDetectionTask(this, prepareAnnotationRequest(bitmap));
+//            WebDetectionTask.execute();
+//        } catch (IOException e) {
+//            Log.d("Error: ", "failed to make API request because of other IOException " +
+//                    e.getMessage());
+//        }
+//    }
+//    private static class WebDetectionTask extends AsyncTask<Object, Void, String> {
+//        private final WeakReference<MainActivity> mActivityWeakReference;
+//        private Vision.Images.Annotate mRequest;
+//
+//        WebDetectionTask(MainActivity activity, Vision.Images.Annotate annotate) {
+//            mActivityWeakReference = new WeakReference<>(activity);
+//            mRequest = annotate;
+//        }
+//
+//        @Override
+//        protected String doInBackground(Object... params) {
+//            try {
+//                Log.d(TAG, "created Cloud Vision request object, sending request");
+//                BatchAnnotateImagesResponse response = mRequest.execute();
+//                return convertResponseToString(response);
+//
+//            } catch (GoogleJsonResponseException e) {
+//                Log.d(TAG, "failed to make API request because " + e.getContent());
+//            } catch (IOException e) {
+//                Log.d(TAG, "failed to make API request because of other IOException " +
+//                        e.getMessage());
+//            }
+//            return "Cloud Vision API request failed. Check logs for details.";
+//        }
+//
+//        protected void onPostExecute(String result) {
+//            MainActivity activity = mActivityWeakReference.get();
+//            if (activity != null && !activity.isFinishing()) {
+//                TextView imageDetail = activity.findViewById(R.id.image_details);
+//                imageDetail.setText(result);
+//            }
+//        }
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -371,7 +477,63 @@ public class PromissoryActivity extends AppCompatActivity {
                     Toast.makeText(PromissoryActivity.this, "No File!", Toast.LENGTH_SHORT).show();
                 }
             }
+//            if(intent.getAction().equals(DOCUMENT_PROCESS_COMPLETE)){
+//                Toast.makeText(promissory_expanded_screen.this, fileName, Toast.LENGTH_SHORT).show();
+//                Log.i("fileName : ", fileName);
+//                f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName);
+//                if(f.exists()) {
+//                    Log.e("thumbNail","file to create thumbnail exists");
+//                    InputStream ios = null;
+//                    try {
+//                        ios = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    CustomXWPFDocument wordDocument = null;
+//                    try {
+//                        wordDocument = new CustomXWPFDocument(ios);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+////                    ArrayList<PackagePart> packageParts= wordDocument.getPackage().getPartsByRelationshipType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+////                    PackagePart packagePart = packageParts.get(0);
+////                    FileOutputStream fos = null;
+////                    try {
+////                        fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + "thumbnail.jpeg");
+////                    } catch (FileNotFoundException e) {
+////                        e.printStackTrace();
+////                    }
+////                    try {
+////                        IOUtils.copy(packagePart.getInputStream(), fos);
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+////                    POIXMLProperties props = wordDocument.getProperties();
+//                    POIXMLProperties props = wordDocument.getProperties();
+//                    String thumbnail = props.getThumbnailFilename();
+//                    if (thumbnail == null) {
+//                        Log.i("thumbnail exists : ", "no thumbnail");
+//                    } else {
+//                        Log.i("thumbnail exists : ", "yes thumbnail");
+//                    }
+//                    FileOutputStream fos = null;
+//                    try {
+//                        fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + "thumbnail.jpeg");
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    try {
+//                        IOUtils.copy(props.getThumbnailImage(), fos);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                else{
+//                    Log.e("thumbNailError","file to create thumbnail doesn't exists");
+//                }
 //
+//                Toast.makeText(promissory_expanded_screen.this, "thumbnailFinish", Toast.LENGTH_SHORT).show();
+//            }
         }
     };
 

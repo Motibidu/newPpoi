@@ -198,6 +198,12 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                                 Toast.makeText(ProfileSetSimpleActivity.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
                             }
                         });
+                        documentReference.set(user).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "onFailure: "+e.toString());
+                            }
+                        });
                     }
                     setResult(RESULT_OK, intent);
                     finish();
@@ -280,9 +286,11 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         if(account != null) {
             if (mAuth.getCurrentUser() != null) {
                 userID = mAuth.getCurrentUser().getUid();
+                mAuth = FirebaseAuth.getInstance();
+                storageReference = FirebaseStorage.getInstance().getReference();
                 Log.d(TAG, "userID: "+userID);
 
-                documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
                 if(documentReference != null && mAuth.getCurrentUser() != null) {
                     documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
