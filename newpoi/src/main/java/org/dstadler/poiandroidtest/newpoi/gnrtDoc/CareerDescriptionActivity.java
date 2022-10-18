@@ -33,7 +33,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.aspose.words.Run;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -53,7 +52,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
@@ -92,6 +90,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     //widgets
     private ImageButton backBtn, expandedScrn_menu;
     private Button expandedScrn_download_without_modify, create, expand;
+
 
     //firebase
     private StorageReference storageReference;
@@ -177,10 +176,14 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_career_description_expanded_scrn);
+        setContentView(R.layout.activity_career_description);
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
         filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
+
+        //handler1
+        handler1 = new Handler();
+        handler2 = new Handler();
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.backBtn);
@@ -206,7 +209,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         bExpanded = false;
 
 
-
+        //widgets
+        progressBar = findViewById(R.id.progressBar);
 
 
 
@@ -369,9 +373,10 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 //권한을 요청 한다.
                 checkPermission();
 
-                //handler1
-                handler1 = new Handler();
-                
+
+
+
+
                 //start downloading template, start progressbar
                 downloadTmpltThread downloadTmpltThread = new downloadTmpltThread();
                 downloadTmpltThread.start();
@@ -391,7 +396,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 checkPermission();
 
                 //handler2
-                handler2 = new Handler();
+
 
                 //if user is logged off
                 if (mAuth.getCurrentUser() == null) {
@@ -1032,6 +1037,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         master_graThe_EditText.setText(master_graThe);
                         master_LAB_EditText.setText(master_LAB);
                     }
+                    else{
+                        Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             //FirebaseFirestore의 collection("users").document(userID).collection("profiles").document("licenses")에서 사용자가 프로필에 설정한 자격증사항을
@@ -1082,6 +1090,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         award2_date_EditText.setText(award2_date);
                         award2_cntnt_EditText.setText(award2_cntnt);
                         award2_publication_EditText.setText(award2_publication);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -1139,6 +1150,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         formOfCareer3_resignYM_EditText.setText(formOfCareer3_resignYM);
                         formOfCareer3_office_EditText.setText(formOfCareer3_office);
                         formOfCareer3_task_EditText.setText(formOfCareer3_task);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -1287,7 +1301,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     Thread.sleep(500);
                 } catch (Exception e) {}
             }
-            handler1.post(new Runnable() {
+            handler2.post(new Runnable() {
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
@@ -1310,7 +1324,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             if (checkString(fileName)) {
                 Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
                 downloadEP = new DownloadEP(getApplicationContext());
-                downloadEP.download_with_modify(fileName, fileName);
+                downloadEP.download_with_modify(docName, docName);
             } else {
                 Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
 

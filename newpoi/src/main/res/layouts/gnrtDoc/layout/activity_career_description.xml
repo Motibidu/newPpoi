@@ -7,7 +7,6 @@
     android:background="@color/themeColor">
 
     <com.amar.library.ui.StickyScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:stickyHeader="@+id/headerLayout"
@@ -1056,75 +1055,85 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/award2"
-                    android:layout_below="@+id/award1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/award1"
                     android:background="@drawable/layout_border">
+
                     <TextView
                         android:id="@+id/award2_Textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
                         android:layout_marginLeft="25dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginRight="30dp"
-                        android:text="수상2"
                         android:gravity="center"
-                        />
+                        android:text="수상2" />
+
                     <LinearLayout
                         android:id="@+id/award2_layout0"
-                        android:orientation="vertical"
-                        android:layout_below="@+id/award2_Textview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/award2_Textview"
+                        android:orientation="vertical">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/award2_date_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:hint="수상일자"
-                            app:suffixText="YYYY/MM"
-                            app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
+                            app:hintTextColor="@color/themeColor"
+                            app:suffixText="YYYY/MM">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/award2_date_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/award2_cntnt_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:hint="수상내역"
-                            app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
+                            app:hintTextColor="@color/themeColor">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/award2_cntnt_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/award2_publication_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:hint="발행처"
-                            app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1">
+                            app:hintTextColor="@color/themeColor">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/award2_publication_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
+
+
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/headerLayout"
@@ -1143,5 +1152,11 @@
             </RelativeLayout>
         </FrameLayout>
     </com.amar.library.ui.StickyScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>

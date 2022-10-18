@@ -56,7 +56,7 @@ public class ProfileScrnSimpleFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
-        updateUI(account);
+
     }
 
     @Nullable
@@ -70,28 +70,16 @@ public class ProfileScrnSimpleFragment extends Fragment {
         profile_address_content = view.findViewById(R.id.profile_address_content);
         profile_email_content = view.findViewById(R.id.profile_email_content);
         profile_phoneNumber_content = view.findViewById(R.id.profile_phoneNumber_content);
+        updateUI(account);
 
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
+    public void onResume() {
+        super.onResume();
+        updateUI(account);
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(mContext);
-
-    }
-
-    //    @Override
-//    public void onResume() {
-//        super.onResume();
-//        updateUI(account);
-//    }
 
     @Override
     public void onAttach(@NonNull Context context) {

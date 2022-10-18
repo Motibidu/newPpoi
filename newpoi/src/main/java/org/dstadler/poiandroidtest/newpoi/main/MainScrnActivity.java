@@ -124,15 +124,10 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             }
         }
 
-        //Do these only at first open
-        boolean first_open = PreferenceManager.getBoolean(getApplicationContext(), "firstOpen");
-        if (first_open) {
-            System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
-            System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
-            System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
-            PreferenceManager.setBoolean(getApplicationContext(),"firstOpen", true);
-        }
 
         bottomSheetDialog = new BottomSheetDialog();
 

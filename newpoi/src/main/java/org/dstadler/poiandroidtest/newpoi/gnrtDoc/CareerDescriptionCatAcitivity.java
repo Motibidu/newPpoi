@@ -28,7 +28,7 @@ public class CareerDescriptionCatAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_career_description);
+        setContentView(R.layout.activity_career_description_category);
         mContext = getApplicationContext();
         
         //툴바 뒤로가기 버튼
