@@ -59,7 +59,8 @@ public class DownloadEP {
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/"+fileName+fileExtension);
         downloadManager.enqueue(request);
     }
-    //uri 불러오기
+    //fileName : 사용자가 입력한 제목
+    //docName  : 서버에 등록된 제목
     public void download_with_modify(String fileName, String docName){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();

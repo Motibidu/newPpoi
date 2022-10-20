@@ -53,6 +53,16 @@
             android:background="@drawable/radius"
             android:textColor="@color/white"
             android:text="텍스트인식" />
+        <android.widget.Button
+            android:id="@+id/button_complete"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/button_recognizeText"
+            android:background="@drawable/radius"
+            android:textColor="@color/white"
+            android:text="완료" />
     </LinearLayout>
     <com.amar.library.ui.StickyScrollView
         android:layout_width="match_parent"

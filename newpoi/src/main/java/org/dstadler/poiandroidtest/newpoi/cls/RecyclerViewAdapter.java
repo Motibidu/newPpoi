@@ -1,6 +1,7 @@
 package org.dstadler.poiandroidtest.newpoi.cls;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +18,14 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Context mContext;
-    public clickListener listener;
+    public clickListener clickListener;
     public ArrayList<CharSequence> list;
+    private static final String TAG = "RECYCLERVIEWADAPTER";
 
 
-    public RecyclerViewAdapter(Context mContext, clickListener listener){
+    public RecyclerViewAdapter(Context mContext, clickListener clickListener){
         this.mContext = mContext;
-        this.listener = listener;
-    }
-    public RecyclerViewAdapter(Context mContext, clickListener listener, ArrayList<CharSequence> list){
-        this.mContext = mContext;
-        this.listener = listener;
-        this.list = list;
+        this.clickListener = clickListener;
     }
 
     public interface clickListener{
@@ -42,13 +39,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.filelist, parent, false);
 
-        return new FileLayoutHolder(view, listener);
+        return new FileLayoutHolder(view, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((FileLayoutHolder)holder).title.setText(Constant.allFileList.get(position).getName());
-        ((FileLayoutHolder)holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
+        ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
+        ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
+
     }
 
     @Override
@@ -62,7 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView title;
         ImageView ic_more_vert;
 
-        public FileLayoutHolder(View itemView, clickListener listener){
+        public FileLayoutHolder(View itemView, clickListener clickListener){
             super(itemView);
 
             thumbnail = itemView.findViewById(R.id.thumbnail);
@@ -73,12 +71,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View view) {
                     if(getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        listener.onIconMoreClick(getAdapterPosition());
+                        clickListener.onIconMoreClick(getAdapterPosition());
                     }
                 }
             });
         }
     }
-
-
 }

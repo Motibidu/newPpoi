@@ -174,13 +174,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".profile.Scan2Activity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".profile.ProfileScrnActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".profile.oriScanActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".profile.ProfileScrnActivity">

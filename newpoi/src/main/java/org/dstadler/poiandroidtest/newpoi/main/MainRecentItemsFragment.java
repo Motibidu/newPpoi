@@ -52,8 +52,6 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         v = inflater.inflate(R.layout.fragment_main_recent_items, container, false);
         mContext = getContext();
 
-
-
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setHasFixedSize(true);
@@ -62,40 +60,9 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setNestedScrollingEnabled(false);
 
-//        for (String path : allPath) {
-//            storage = new File(path);
-//            Method.load_Directory_Files(storage);
-//        }
-
-        //recyclerView
-        if(savedInstanceState != null){
-            ArrayList<CharSequence> list = new ArrayList<CharSequence>();
-            list = savedInstanceState.getCharSequenceArrayList("list");
-            for(CharSequence s:list){
-                Log.d(TAG, "savedInstanceState is not null"+s);
-            }
-            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }else{
-            Log.d(TAG, "savedInstanceState is null");
-            //init allPath
-            allPath = StorageUtil.getStorageDirectories(mContext);
-
-            //load allFileList
-            //     allAbsolutePathList
-            //     allParentPathList on Constant
-            for (String path : allPath) {
-                storage = new File(path);
-                Method.load_Directory_Files(storage);
-            }
-
-            recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }
 
         recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
         recyclerView.setAdapter(recyclerViewAdapter);
-
 
 
         return v;

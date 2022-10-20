@@ -57,13 +57,14 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
             profile_EditText_address, profile_EditText_email, profile_EditText_age;
 
     private Button profile_picture_loadButton, complete_profile_setting_button, profile_menu;
-    private String userID;
+
     private String name, rrn, age, phoneNumber, email, address;
 
     public Uri imageUri;
     public ImageView profile_picture;
 
     private FirebaseFirestore fStore;
+    private String userID;
     private FirebaseAuth mAuth;
     private StorageReference storageReference;
     private DocumentReference documentReference;
@@ -91,10 +92,6 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
-
-
-
-
 
 
         profile_EditText_name = findViewById(R.id.profile_EditText_name);
@@ -128,33 +125,6 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
 
         userID = mAuth.getCurrentUser().getUid();
 
-//        documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-//        if(documentReference != null && mAuth.getCurrentUser() != null) {
-//            documentReference.addSnapshotListener(ProfileSetSimpleActivity.this, new EventListener<DocumentSnapshot>() {
-//                @Override
-//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                    try {
-//                        name = value.getString("name");
-//                        rrn = value.getString("rrn");
-//                        age = value.getString("age");
-//                        address = value.getString("address");
-//                        phoneNumber = value.getString("phoneNumber");
-//                        email = value.getString("email");
-//
-//
-//                        profile_EditText_name.setText(name);
-//                        profile_EditText_rrn.setText(rrn);
-//                        profile_EditText_age.setText(age);
-//                        profile_EditText_address.setText(address);
-//                        profile_EditText_phoneNumber.setText(phoneNumber);
-//                        profile_EditText_email.setText(email);
-//                    } catch (NullPointerException e) {
-//                        Log.d(TAG, "onEvent: " + e.toString());
-//                    }
-//                }
-//
-//            });
-//        }
 
         StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -171,6 +141,8 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                 Intent intent = new Intent(mContext, ProfileScrnActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
+                name = profile_EditText_name.getText().toString().trim();
+                name = profile_EditText_name.getText().toString().trim();
                 name = profile_EditText_name.getText().toString().trim();
                 rrn = profile_EditText_rrn.getText().toString().trim();
                 age = profile_EditText_age.getText().toString().trim();
@@ -213,16 +185,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         updateUI(account);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        updateUI(account);
-//    }
-    @Override
-    public void onResume() {
-        super.onResume();
-//        updateUI(account);
-    }
+
 
     private void choosePicture(){
         Intent intent = new Intent();
@@ -236,7 +199,6 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode==RESULT_OK && data!=null&&data.getData()!=null){
             imageUri = data.getData();
-//            profile_picture.setImageURI(imageUri);
             uploadPicture(imageUri);
         }
     }

@@ -1,5 +1,7 @@
 package org.dstadler.poiandroidtest.newpoi.cls;
 
+import android.content.Context;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class Method {
                         //except duplicate
                         if(name.endsWith(extension) && !fileList[i].getAbsolutePath().contains(".Trash") && !Constant.allFileList.contains(fileList[i])){
                             Constant.allFileList.add(fileList[i]);
+                            Constant.allFileNameList.add(fileList[i].getName());
                             Constant.allAbsolutePathList.add(fileList[i].getAbsolutePath());
                             Constant.allParentPathList.add(fileList[i].getParent());
                             //when we found file
@@ -34,5 +37,11 @@ public class Method {
 
             }
         }
+    }
+
+    public static void loadInfoFromPref(Context mContext){
+        ArrayList<String> pref_allFilNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFilNameList"));
+        ArrayList<String> allFileNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFileNameList"));
+
     }
 }

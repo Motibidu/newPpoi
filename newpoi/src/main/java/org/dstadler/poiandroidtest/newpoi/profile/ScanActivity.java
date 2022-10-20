@@ -40,6 +40,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -47,13 +50,16 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity{
 
     ViewPagerAdapter ViewPagerAdapter;
     TabLayout tablayout;
@@ -71,7 +77,7 @@ public class ScanActivity extends AppCompatActivity {
     private ImageButton backBtn;
 
     private LinearLayout inputImg;
-    private Button recognizeText;
+    private Button recognizeText, complete;
     private ImageView importedImg;
 
     private EditText edit_name, edit_engName, edit_chName, edit_rrn, edit_phoneNum,
@@ -97,29 +103,33 @@ public class ScanActivity extends AppCompatActivity {
     //TextRecognizer
     private TextRecognizer textRecognizer;
 
+
+
     //ArrayList<String>
-    List<String> name = new ArrayList<String>();
-    List<String> engName = new ArrayList<String>();
-    List<String> chName = new ArrayList<String>();
+    ArrayList<String> name = new ArrayList<String>();
+    ArrayList<String> engName = new ArrayList<String>();
+    ArrayList<String> chName = new ArrayList<String>();
 
-    List<String> rnn = new ArrayList<String>();
-    List<String> email = new ArrayList<String>();
-    List<String> addr = new ArrayList<String>();
-    List<String> phoneNum = new ArrayList<String>();
-    List<String> url = new ArrayList<String>();
-    List<String> schl = new ArrayList<String>();
+    ArrayList<String> rnn = new ArrayList<String>();
+    ArrayList<String> email = new ArrayList<String>();
+    ArrayList<String> addr = new ArrayList<String>();
+    ArrayList<String> phoneNum = new ArrayList<String>();
+    ArrayList<String> url = new ArrayList<String>();
+    ArrayList<String> schl = new ArrayList<String>();
 
-    int channel;
+    public buttonCompleteListener buttonCompleteListener;
 
 
+    public interface buttonCompleteListener{
+        void buttonCompleteListen();
+    }
 
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-
-
+        //setButtonCompleteListener();
+        buttonCompleteListener = (buttonCompleteListener)mContext;
 
         //뒤로가기 버튼
         backBtn = findViewById(R.id.imagebutton_back);
@@ -135,26 +145,21 @@ public class ScanActivity extends AppCompatActivity {
         inputImg = findViewById(R.id.inputImg);
         recognizeText = findViewById(R.id.button_recognizeText);
         importedImg = findViewById(R.id.image_importedImg);
-
-//        edit_name = findViewById(R.id.edit_name);
-//        edit_engName = findViewById(R.id.edit_engName);
-//        edit_chName = findViewById(R.id.edit_chName);
-//        edit_rrn = findViewById(R.id.edit_rrn);
-//        edit_age = findViewById(R.id.edit_age);
-//        edit_phoneNum = findViewById(R.id.edit_phoneNum);
-//        edit_email = findViewById(R.id.edit_email);
-//        edit_addr = findViewById(R.id.edit_addr);
-//
-//        imageButton_name = findViewById(R.id.imagebutton_name);
-//        imageButton_engName = findViewById(R.id.imagebutton_engName);
-//        imageButton_chName = findViewById(R.id.imagebutton_chName);
-//        imageButton_rrn = findViewById(R.id.imagebutton_rrn);
-//        imageButton_phoneNum = findViewById(R.id.imagebutton_phoneNum);
-//        imageButton_email = findViewById(R.id.imagebutton_email);
-//        imageButton_addr = findViewById(R.id.imagebutton_addr);
-
+        complete = findViewById(R.id.button_complete);
         viewpager = findViewById(R.id.viewpager);
         tablayout = findViewById(R.id.tablayout);
+
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.viewpager);
+
+        //EditText
+        edit_name = findViewById(R.id.edit_name);
+        edit_engName = findViewById(R.id.edit_engName);
+        edit_chName = findViewById(R.id.edit_chName);
+        edit_rrn = findViewById(R.id.edit_rrn);
+        edit_age = findViewById(R.id.edit_age);
+        edit_phoneNum = findViewById(R.id.edit_phoneNum);
+        edit_email = findViewById(R.id.edit_email);
+        edit_addr = findViewById(R.id.edit_addr);
 
 
         //contents
@@ -180,6 +185,8 @@ public class ScanActivity extends AppCompatActivity {
         new TabLayoutMediator(tablayout, viewpager,
                 ((tab, position) -> tab.setText(fmTitles[position]))).attach();
 
+        //add listener
+        //setButtonCompleteListener((ScanProfile2Fragment)getSupportFragmentManager().findFragmentById(R.id.viewpager));
 
         //setting ImageView
         inputImg.setOnClickListener(new View.OnClickListener() {
@@ -193,68 +200,69 @@ public class ScanActivity extends AppCompatActivity {
         recognizeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageUri == null){
-                    Toast.makeText(mContext,"Pick image first...",Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (imageUri == null) {
+                    Toast.makeText(mContext, "Pick image first...", Toast.LENGTH_SHORT).show();
+                } else {
                     recognizeTextFromImage();
-//                    Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
-//                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                    ft.detach(frg);
-//                    ft.attach(frg);
-//                    ft.commit();
-                    Fragment fragment = ViewPagerAdapter.createFragment(ViewPagerAdapter.getChannel());
-                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.detach(fragment);
-                    ft.attach(fragment);
-                    ft.commit();
                 }
             }
         });
 
-//        imageButton_name.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_name, name);
-//            }
-//        });
-//        imageButton_engName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_engName, engName);
-//            }
-//        });
-//        imageButton_chName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_chName, chName);
-//            }
-//        });
-//        imageButton_rrn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_rrn, rnn);
-//            }
-//        });
-//
-//        imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_phoneNum, phoneNum);
-//            }
-//        });
-//        imageButton_email.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_email, email);
-//            }
-//        });
-//        imageButton_addr.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setNameMenu(view, edit_addr, addr);
-//            }
-//        });
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonCompleteListen();
+
+            }
+        });
+    }
+    public void buttonCompleteListen() {
+        FirebaseAuth mAuth;
+        FirebaseFirestore fStore;
+
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
+        String name = Constant.scanInfo.get("name");
+        String engName = Constant.scanInfo.get("engName");
+        String chName = Constant.scanInfo.get("chName");
+        String rrn = Constant.scanInfo.get("rrn");
+        String email = Constant.scanInfo.get("email");
+        String addr = Constant.scanInfo.get("addr");
+        String phoneNum = Constant.scanInfo.get("phoneNum");
+        String age = Constant.scanInfo.get("age");
+
+        if (mAuth.getCurrentUser() == null) {
+
+        }
+        else {
+            String userID = mAuth.getCurrentUser().getUid();
+            if (userID != null) {
+                DocumentReference documentReference = fStore.collection("users").document(userID);
+                Map<String, Object> user = new HashMap<>();
+                user.put("name", name);
+                user.put("engName", engName);
+                user.put("chName", chName);
+                user.put("rrn", rrn);
+                user.put("age", age);
+                user.put("phoneNumber", phoneNum);
+                user.put("email", email);
+                user.put("address", addr);
+
+                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(mContext,"완료했습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                documentReference.set(user).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e.toString());
+                    }
+                });
+            }
+        }
     }
 
 
@@ -275,25 +283,6 @@ public class ScanActivity extends AppCompatActivity {
                         public void onSuccess(Text text) {
                             progressDialog.dismiss();;
                             String recognizedText = text.getText();
-                            //List<Text.TextBlock> recognizedTextBlock = text.getTextBlocks();
-
-                            Bundle bundle = new Bundle();
-                            bundle.putString("Text", recognizedText);
-
-//                            channel = VPAdapter.getChannel();
-//                            if(channel == 0){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 1){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 2){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-//                            else if(channel == 3){
-//                                Log.d(TAG, "Channel: "+channel);
-//                            }
-
                             stringProcess(recognizedText);
                         }
                     })
@@ -302,34 +291,26 @@ public class ScanActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure : ", e);
-                            Toast.makeText(ScanActivity.this,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,"Failed recognizing text due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
             //Exception occurred while preparing InputImage, dismiss dialog, show reason in Toast
             progressDialog.dismiss();
             Log.e(TAG,"recognizeTextFromImage : ", e);
-            Toast.makeText(ScanActivity.this,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"Failed preparing image due to "+e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
 
 
 
-
     private void stringProcess(String str){
 
-        //clear Arraylist
-//        rnn.clear();
-//        email.clear();
-//        addr.clear();
-//        phoneNum.clear();
-//        url.clear();
-//        schl.clear();
-//        name.clear();
 
         //split string by a space
         String[] splitStr_n = str.split("\\n+");
         String[] splitStr_s = str.split("\\s+");
+        Map<String,ArrayList<String>> m = new HashMap<String, ArrayList<String>>();
 
         //init customMatcher
         customMatcher cus = new customMatcher();
@@ -356,7 +337,8 @@ public class ScanActivity extends AppCompatActivity {
                 if(!(sp.contains("이메일")||sp.contains("주소")||sp.contains("분야")||
                         sp.contains("이력서")||sp.contains("이수")||sp.contains("전공명")||
                         sp.contains("이름")||sp.contains("주민번호")||sp.contains("날짜")||
-                        sp.contains("관리")||sp.contains("전공")||sp.contains("서울"))) {
+                        sp.contains("관리")||sp.contains("전공")||sp.contains("서울")||
+                        sp.contains("대학"))) {
                     Log.d(TAG, j+":name : " + sp);
                     if(!name.contains(sp)){name.add(sp);}
                 }
@@ -372,7 +354,7 @@ public class ScanActivity extends AppCompatActivity {
                 sp = cus.group();
                 if(!chName.contains(sp)) {chName.add(sp);}
                 Log.d(TAG, j+":chName : "+sp);
-                continue;
+                //continue;
             }
 
             cus.set_rnn1();
@@ -395,7 +377,7 @@ public class ScanActivity extends AppCompatActivity {
                 //rnn.add(sp);
                 if(!rnn.contains(sp)) {rnn.add(sp);}
                 Log.d(TAG, j+":rnn3 : "+sp);
-                continue;
+                //continue;
             }
 
             cus.set_phoneNum();
@@ -404,7 +386,7 @@ public class ScanActivity extends AppCompatActivity {
                 Log.d(TAG, j+":phoneNum : "+sp);
                 //phoneNum.add(sp);
                 if(!phoneNum.contains(sp)) {phoneNum.add(sp);}
-                continue;
+                //continue;
             }
             cus.set_email();
             if(cus.find()){
@@ -412,7 +394,7 @@ public class ScanActivity extends AppCompatActivity {
                 Log.d(TAG, j+":email : "+sp);
                 //email.add(sp);
                 if(!email.contains(sp)) {email.add(sp);}
-                continue;
+                //continue;
             }
 
             cus.set_addr();
@@ -421,142 +403,36 @@ public class ScanActivity extends AppCompatActivity {
                 Log.d(TAG, j+":addr : "+sp);
                 //addr.add(sp);
                 if(!addr.contains(sp)) {addr.add(sp);}
-                continue;
+                //continue;
             }
 
+        }
+        m.put("name",name);
+        m.put("engName",engName);
+        m.put("chName",chName);
+        m.put("rnn",rnn);
+        m.put("phoneNum",phoneNum);
+        m.put("email",email);
+        m.put("addr",addr);
+
+
+        int channel = ViewPagerAdapter.getChannel();
+        switch(channel){
+            case 0:
+                viewpager.setAdapter(new ViewPagerAdapter(this, true, m));
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
         }
         Log.d(TAG, "Fi===========ni===========sh");
 
-        //edit_name, edit_rrn, edit_phoneNumber, edit_addr, edit_email, edit_age
-        if (name.size() != 0){
-            edit_name.setText(name.get(name.size()-1));
-            Log.d(TAG, "edit_name : " + name.get(name.size()-1));
-        }
-        else{
-            edit_name.setText("");
-        }
-        if (engName.size() != 0){
-            edit_engName.setText(engName.get(engName.size()-1));
-            Log.d(TAG, name.get(name.size()-1));
-        }
-        else{
-            edit_engName.setText("");
-        }
-        if (chName.size() != 0){
-            edit_chName.setText(chName.get(chName.size()-1));
-            Log.d(TAG, name.get(chName.size()-1));
-        }
-        else{
-            edit_chName.setText("");
-        }
 
-        if (rnn.size() != 0){
-            edit_rrn.setText(rnn.get(rnn.size()-1));
-            Log.d(TAG, rnn.get(rnn.size()-1));
-        }
-        else{
-            edit_rrn.setText("");
-        }
-
-        if (phoneNum.size() != 0){
-            edit_phoneNum.setText(phoneNum.get(phoneNum.size()-1));
-            Log.d(TAG, phoneNum.get(phoneNum.size()-1));
-        }
-        else{
-            edit_phoneNum.setText("");
-        }
-
-        if (email.size() != 0){
-            edit_email.setText(email.get(email.size()-1));
-            Log.d(TAG, email.get(email.size()-1));
-        }
-        else{
-            edit_email.setText("");
-        }
-
-        if (addr.size() != 0){
-            edit_addr.setText(addr.get(addr.size()-1));
-            Log.d(TAG, addr.get(addr.size()-1));
-        }
-        else{
-            edit_addr.setText("");
-        }
-        setAge();
-
-
-    }
-
-    private void setNameMenu(View view, EditText editText,List<String> list){
-        PopupMenu menu = new PopupMenu(mContext, view);
-        for(int i=0; i< list.size();i++){
-            menu.getMenu().add(Menu.NONE, i, i, list.get(i));
-        }
-        menu.show();
-        if(view.getId() == R.id.imagebutton_rrn) {
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    setAge();
-                    return true;
-                }
-            });
-        }
-        else{
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    editText.setText(menuItem.getTitle());
-                    return true;
-                }
-            });
-
-        }
-    }
-
-    private void setAge(){
-        String prrn = edit_rrn.getText().toString();
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String[] splitprrn = new String[3];
-
-        if(prrn.length()>0) {
-            //String[] splitprrn = prrn.split(".");
-            if(prrn.contains(".")){
-                splitprrn = prrn.split("\\.");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else  if(prrn.contains("년")){
-                splitprrn = prrn.split("년");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else if(prrn.contains(" ")){
-                splitprrn = prrn.split("\\s");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-            else if(prrn.contains(",")){
-                splitprrn = prrn.split(",");
-                Log.d(TAG, "splitrrn[0] : "+ splitprrn[0]);
-            }
-
-            if(splitprrn[0].length() == 2){
-                String firstChar = Character.toString(splitprrn[0].charAt(0));
-                Log.d(TAG, "firshChar : "+ firstChar);
-                //68, 71, 86, 92
-                if(firstChar.equals("6")||firstChar.equals("7")||firstChar.equals("8") || firstChar.equals("9")) {
-                    Log.d(TAG, "condition1 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
-                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
-                }
-                //05, 12, 13, 21
-                else if(firstChar.equals("0")||firstChar.equals("1")|firstChar.equals("2")) {
-                    Log.d(TAG, "condition2 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
-                    edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1999));
-                }
-            }
-            else if(splitprrn[0].length() == 4){
-                Log.d(TAG, "condition3 : "+ Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1 ));
-                edit_age.setText(Integer.toString(year - Integer.parseInt(splitprrn[0]) + 1));
-            }
-        }
     }
 
 
@@ -589,7 +465,7 @@ public class ScanActivity extends AppCompatActivity {
                         return true;
                     default:
                         return false;
-                    }
+                }
 
             }
 
@@ -618,7 +494,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: ");
-                        Toast.makeText(ScanActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Cancelled...", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -650,7 +526,7 @@ public class ScanActivity extends AppCompatActivity {
                         importedImg.setImageURI(imageUri);
                     } else {
                         Log.d(TAG, "onActivityResult: cancelled");
-                        Toast.makeText(ScanActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -718,4 +594,6 @@ public class ScanActivity extends AppCompatActivity {
             break;
         }
     }
+
+
 }

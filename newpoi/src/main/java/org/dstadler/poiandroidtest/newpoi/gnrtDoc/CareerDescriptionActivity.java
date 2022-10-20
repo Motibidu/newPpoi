@@ -1254,10 +1254,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
             //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
             //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
+            //get titles
+            docName = intent.getStringExtra("docName");
+            fileName = expandedScrn_name.getText().toString().trim();
+
             if(checkString(fileName)){
-                //get titles
-                docName = intent.getStringExtra("docName");
-                fileName = expandedScrn_name.getText().toString().trim();
 
                 //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
                 //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
@@ -1321,12 +1322,17 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
+
+            docName = intent.getStringExtra("docName");
+            fileName = expandedScrn_name.getText().toString().trim();
             if (checkString(fileName)) {
+//                Toast.makeText(mContext, "파일 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
+
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_with_modify(docName, docName);
             } else {
-                Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
 
                 //get titles;
                 docName = intent.getStringExtra("docName");
@@ -1397,6 +1403,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 //download_with_modify메소드는 Firebase Storage로부터 uri를 성공적으로 불러오면 해당 uri를 downloadFile_with_modify메소드에게 전달한다.
                 //downloadFile_with_modify메소드는 전달받은 uri를 통해 DownloadManager클래스 long enqueue(Uri uri)메소드를 호출한다.
                 //enqueue메소드로부터 반환받은 long타입의 값을 PreferenceManager의 키 "doc_dwnlID"의 대응값으로 저장한다.
+
+                //fileName : 사용자 입력사항
+                //docName : 파이어베이스 문서 이름
+
+                Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_with_modify(fileName, docName);
             }

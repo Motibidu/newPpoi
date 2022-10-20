@@ -1,10 +1,13 @@
 package org.dstadler.poiandroidtest.newpoi.profile;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
 import org.dstadler.poiandroidtest.newpoi.profile.ScanEduFragment;
 import org.dstadler.poiandroidtest.newpoi.profile.ScanLangFragment;
 import org.dstadler.poiandroidtest.newpoi.profile.ScanLicFragment;
@@ -21,6 +24,19 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     private String[] fmTitles = new String[]{"프로필", "학력사항", "어학사항", "자격증"};
     private Map<String, ArrayList<String>> map;
 
+    private Context mContext;
+    public buttonCompleteListener buttonCompleteListener;
+
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Context mContext, buttonCompleteListener buttonCompleteListener){
+        super(fragmentActivity);
+        this.mContext = mContext;
+        this.buttonCompleteListener = buttonCompleteListener;
+    }
+
+
+    public interface buttonCompleteListener{
+        void buttonCompleteListen();
+    }
 
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

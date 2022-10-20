@@ -49,6 +49,7 @@ import org.dstadler.poiandroidtest.newpoi.gnrtDoc.DocCatActivity;
 import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainScrnActivity extends AppCompatActivity implements BottomSheetDialog.bottomSheetListener {
@@ -164,16 +165,17 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                         break;
                     }
                     case R.id.search: {
-//                        //init allPath
-//                        allPath = StorageUtil.getStorageDirectories(mContext);
-//
-//                        //load allFileList
-//                        //     allAbsolutePathList
-//                        //     allParentPathList on Constant
-//                        for (String path : allPath) {
-//                            storage = new File(path);
-//                            Method.load_Directory_Files(storage);
-//                        }
+                        allPath = StorageUtil.getStorageDirectories(mContext);
+
+                        for (String path : allPath) {
+                            storage = new File(path);
+                            Method.load_Directory_Files(storage);
+                        }
+
+                        PreferenceManager.setStringArrayPref(mContext, "pref_allFileNameList", Constant.allFileNameList);
+                        PreferenceManager.setStringArrayPref(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+
+
                         Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
                         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.detach(frg);
@@ -354,7 +356,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 @Override
                 public void run() {
                     Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
-                    Log.d(TAG, "/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".pdf");
+//                    Log.d(TAG, "/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".pdf");
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -369,6 +371,8 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             }
             try {
                 doc.save("/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".jpg", saveOptions);
+
+                MediaScannerConnection.scanFile(mContext, new String[] { "/storage/emulated/0/DCIM/Screenshots/"+fileNameWithoutExt+".jpg" }, new String[] { "image/jpeg" }, null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
