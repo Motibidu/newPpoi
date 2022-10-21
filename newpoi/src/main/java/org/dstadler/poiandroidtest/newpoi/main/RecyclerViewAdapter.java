@@ -1,4 +1,4 @@
-package org.dstadler.poiandroidtest.newpoi.cls;
+package org.dstadler.poiandroidtest.newpoi.main;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
 import java.util.ArrayList;
 
@@ -21,11 +23,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public clickListener clickListener;
     public ArrayList<CharSequence> list;
     private static final String TAG = "RECYCLERVIEWADAPTER";
+    private ArrayList<String> a;
+
 
 
     public RecyclerViewAdapter(Context mContext, clickListener clickListener){
         this.mContext = mContext;
         this.clickListener = clickListener;
+        this.a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+
     }
 
     public interface clickListener{
@@ -39,14 +45,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.filelist, parent, false);
 
+
+
         return new FileLayoutHolder(view, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//        if (a.isEmpty() || a.size() == 0){
+//            Log.d(TAG, "onBindViewHolder: a is empty");
+//            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
+//
+//        }else{
+//            Log.d(TAG, "onBindViewHolder: a is not empty");
+//            ((FileLayoutHolder) holder).title.setText(a.get(position));
+//        }
+//        ((FileLayoutHolder) holder).title.setText(a.get(position));
         ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
         ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
-
     }
 
     @Override
@@ -75,6 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 }
             });
+
         }
     }
 }

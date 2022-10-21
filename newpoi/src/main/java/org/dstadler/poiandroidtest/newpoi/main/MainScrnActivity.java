@@ -107,6 +107,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_scrn);
 
         progressBar= findViewById(R.id.progressBar);
@@ -128,6 +129,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
+
 
 
         bottomSheetDialog = new BottomSheetDialog();
@@ -152,6 +154,10 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProfileScrnActivity.class);
                 startActivity(intent);
+                ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+//                for(int i = 0; i<a.size()-1; i++){
+//                    Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
+//                }
             }
         });
 
@@ -171,9 +177,13 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                         loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
                         loadDirectoryChecking.start();
 
-                        PreferenceManager.setStringArrayPref(mContext, "pref_allFileNameList", Constant.allFileNameList);
-                        PreferenceManager.setStringArrayPref(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+
+
+
+
                     }
+
+
                 }
                 return false;
             }
@@ -415,25 +425,28 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             handler1.post(new Runnable() {
                 @Override
                 public void run() {
-//                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
-//                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
                     progressBar.setVisibility(View.VISIBLE);
+                    PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", false);
                 }
             });
+
             allPath = StorageUtil.getStorageDirectories(mContext);
 
             for (String path : allPath) {
                 storage = new File(path);
                 Method.load_Directory_Files(storage);
             }
+            PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", true);
         }
     }
 
     class loadDirectoryChecking extends Thread{
-        boolean loadDirectoryComplete = false;
+        boolean loadDirectoryComplete;
 
         public void run() {
-            while(!Method.loadDirectoryComplete) {
+//            loadDirectoryComplete = PreferenceManager.getBoolean(mContext,"loadDirectoryComplete");
+            while(!PreferenceManager.getBoolean(mContext,"loadDirectoryComplete")) {
+//                loadDirectoryComplete = PreferenceManager.getBoolean(mContext,"loadDirectoryComplete");
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
@@ -443,7 +456,12 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
-                    Method.loadDirectoryComplete = false;
+                    PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
+                    PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+                    ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+                    for(int i = 0; i<a.size()-1; i++){
+                        Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
+                    }
 
 
                     Fragment frg = getSupportFragmentManager().findFragmentByTag("0");

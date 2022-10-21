@@ -7,14 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
-import org.dstadler.poiandroidtest.newpoi.profile.ScanEduFragment;
-import org.dstadler.poiandroidtest.newpoi.profile.ScanLangFragment;
-import org.dstadler.poiandroidtest.newpoi.profile.ScanLicFragment;
-import org.dstadler.poiandroidtest.newpoi.profile.ScanProfileFragment;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {

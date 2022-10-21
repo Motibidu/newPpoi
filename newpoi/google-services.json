@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "15864660441-2sete0pp16jj1ccboi3voelrg4qhh2ej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.dstadler.poiandroidtest.newpoi",
+            "certificate_hash": "0039633caa859fb772bceac42e7293e07f613373"
+          }
+        },
+        {
           "client_id": "15864660441-itv8ljmn5b30fouj13d4ishon3ho4icu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

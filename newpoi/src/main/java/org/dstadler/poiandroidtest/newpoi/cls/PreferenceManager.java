@@ -4,9 +4,14 @@ import android.content.Context;
 
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -87,6 +92,46 @@ public class PreferenceManager {
             editor.putString(key, null);
         }
         editor.apply();
+    }
+    public static void saveData(Context context, String key, ArrayList<String> values) {
+        SharedPreferences prefs = getPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(values);
+        editor.putString(key, json);
+
+        editor.apply();
+
+        // after saving data we are displaying a toast message.
+//        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
+    }
+    public static ArrayList<String> loadData(Context context, String key) {
+        // method to load arraylist from shared prefs
+        // initializing our shared prefs with name as
+        // shared preferences.
+        SharedPreferences sharedPreferences = getPreferences(context);
+        // creating a variable for gson.
+        Gson gson = new Gson();
+
+        // below line is to get to string present from our
+        // shared prefs if not present setting it as null.
+        String json = sharedPreferences.getString(key, null);
+
+        // below line is to get the type of our array list.
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+
+        // in below line we are getting data from gson
+        // and saving it to our array list
+        ArrayList<String> stringArrayList = gson.fromJson(json, type);
+
+        // checking below if the array list is empty or not
+        if (stringArrayList == null) {
+            return new ArrayList<String>();
+        }
+        else{
+            return stringArrayList;
+        }
     }
 
 /* ======================================== set =======================================*/

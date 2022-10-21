@@ -17,10 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
-import org.dstadler.poiandroidtest.newpoi.cls.Method;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
-import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
-import org.dstadler.poiandroidtest.newpoi.cls.StorageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,6 +56,7 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setNestedScrollingEnabled(false);
+
 
 
         recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);

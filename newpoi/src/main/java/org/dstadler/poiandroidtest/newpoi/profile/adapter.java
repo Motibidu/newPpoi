@@ -2,7 +2,7 @@ package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.content.Context;
 
-import org.dstadler.poiandroidtest.newpoi.cls.RecyclerViewAdapter;
+import org.dstadler.poiandroidtest.newpoi.main.RecyclerViewAdapter;
 
 public class adapter {
     private Context mContext;

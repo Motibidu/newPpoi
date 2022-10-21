@@ -15,20 +15,18 @@ public class Method {
 
         File[] fileList = directory.listFiles();
 
-
 //        List<Constant> fileInfos = new ArrayList<>();
-        if(fileList != null && fileList.length > 0){
-            for (int i = 0; i< fileList.length; i++){
-                if(fileList[i].isDirectory()){
+        if(fileList != null && fileList.length > 0) {
+            for (int i = 0; i < fileList.length; i++) {
+                if (fileList[i].isDirectory()) {
                     load_Directory_Files(fileList[i]);
-                }
-                else {
+                } else {
                     String name = fileList[i].getName().toLowerCase();
-                    for (String extension: Constant.fileExtensions){
+                    for (String extension : Constant.fileExtensions) {
                         //check the type of file
                         //except file which is from ".Trash"
                         //except duplicate
-                        if(name.endsWith(extension) && !fileList[i].getAbsolutePath().contains(".Trash") && !Constant.allFileList.contains(fileList[i])){
+                        if (name.endsWith(extension) && !fileList[i].getAbsolutePath().contains(".Trash") && !Constant.allFileList.contains(fileList[i])) {
                             Constant.allFileList.add(fileList[i]);
                             Constant.allFileNameList.add(fileList[i].getName());
                             Constant.allAbsolutePathList.add(fileList[i].getAbsolutePath());
@@ -39,14 +37,13 @@ public class Method {
                     }
                 }
             }
-            loadDirectoryComplete = true;
         }
 
     }
 
-    public static void loadInfoFromPref(Context mContext){
-        ArrayList<String> pref_allFilNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFilNameList"));
-        ArrayList<String> allFileNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFileNameList"));
-
-    }
+//    public static void loadInfoFromPref(Context mContext){
+//        ArrayList<String> pref_allFilNameList = new ArrayList(PreferenceManager.load(mContext, "pref_allFilNameList"));
+//        ArrayList<String> allFileNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFileNameList"));
+//
+//    }
 }
