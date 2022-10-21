@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class Method {
+    public static boolean loadDirectoryComplete = false;
+
 
     public static void load_Directory_Files(File directory){
 
         File[] fileList = directory.listFiles();
+
+
 //        List<Constant> fileInfos = new ArrayList<>();
         if(fileList != null && fileList.length > 0){
             for (int i = 0; i< fileList.length; i++){
@@ -34,9 +38,10 @@ public class Method {
                         }
                     }
                 }
-
             }
+            loadDirectoryComplete = true;
         }
+
     }
 
     public static void loadInfoFromPref(Context mContext){

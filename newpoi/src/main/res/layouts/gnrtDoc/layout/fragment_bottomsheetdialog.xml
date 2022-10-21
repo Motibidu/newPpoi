@@ -20,7 +20,32 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
              />
-
+        <LinearLayout
+            android:id="@+id/layout_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/btn_bg">
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_open_in_new_24"
+                android:tint="@color/themeColor"
+                android:background="@android:color/transparent"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="열기"
+                android:textSize="20sp"
+                android:layout_marginLeft="15dp"
+                />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/layout_convertToPDF"
             android:layout_width="match_parent"

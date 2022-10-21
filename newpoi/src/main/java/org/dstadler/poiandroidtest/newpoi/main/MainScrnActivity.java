@@ -165,22 +165,14 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                         break;
                     }
                     case R.id.search: {
-                        allPath = StorageUtil.getStorageDirectories(mContext);
+                        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
+                        loadDirectoryThread.start();
 
-                        for (String path : allPath) {
-                            storage = new File(path);
-                            Method.load_Directory_Files(storage);
-                        }
+                        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
+                        loadDirectoryChecking.start();
 
                         PreferenceManager.setStringArrayPref(mContext, "pref_allFileNameList", Constant.allFileNameList);
                         PreferenceManager.setStringArrayPref(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
-
-
-                        Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
-                        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();
                     }
                 }
                 return false;
@@ -413,6 +405,54 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 //                    }
                     Toast.makeText(mContext,"Converting word to jpg is completed",Toast.LENGTH_SHORT).show();
 
+                }
+            });
+        }
+    }
+
+    class loadDirectoryThread extends Thread{
+        public void run() {
+            handler1.post(new Runnable() {
+                @Override
+                public void run() {
+//                    Log.d(TAG, "^filePosition :"+i+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
+//                    Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            });
+            allPath = StorageUtil.getStorageDirectories(mContext);
+
+            for (String path : allPath) {
+                storage = new File(path);
+                Method.load_Directory_Files(storage);
+            }
+        }
+    }
+
+    class loadDirectoryChecking extends Thread{
+        boolean loadDirectoryComplete = false;
+
+        public void run() {
+            while(!Method.loadDirectoryComplete) {
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+            handler2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Method.loadDirectoryComplete = false;
+
+
+                    Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
+                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+
+                    Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();
                 }
             });
         }

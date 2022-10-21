@@ -122,7 +122,7 @@ public class ProfileScrnSimpleFragment extends Fragment {
 //            Toast.makeText(profile_screen_simple.this, userID, Toast.LENGTH_SHORT).show();
             }
         }
-        else if (account == null){
+        else {
             profile_name_content.setText("");
             profile_rrn_content.setText("");
             profile_age_content.setText("");

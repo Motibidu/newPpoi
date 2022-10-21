@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -144,8 +145,19 @@ public class ProfileScrnActivity extends AppCompatActivity {
         super.onStart();
         account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         updateUI(account);
+
+        Fragment frg = getSupportFragmentManager().findFragmentByTag(PreferenceManager.getString(mContext,"fragmentTag_ProfileScrnActivity"));
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PreferenceManager.setInt(mContext, "profile_screen_number", 0);
+    }
 
     public void showPopup(View v) {
         PopupMenu popupMenu = new PopupMenu(mContext, v);
@@ -240,15 +252,18 @@ public class ProfileScrnActivity extends AppCompatActivity {
 
         switch(n) {
             case 0:
-                ft.replace(R.id.content, ProfileScrnSimpleFragment);
+                ft.replace(R.id.content, ProfileScrnSimpleFragment, "0");
+                PreferenceManager.setString(mContext, "fragmentTag_ProfileScrnActivity", "0");
                 ft.commitNow();
                 break;
             case 1:
-                ft.replace(R.id.content, ProfileDetailFragment);
+                ft.replace(R.id.content, ProfileDetailFragment, "1");
+                PreferenceManager.setString(mContext, "fragmentTag_ProfileScrnActivity", "1");
                 ft.commitNow();
                 break;
             case 2:
-                ft.replace(R.id.content, ProfileScrnResumeFragment);
+                ft.replace(R.id.content, ProfileScrnResumeFragment, "2");
+                PreferenceManager.setString(mContext, "fragmentTag_ProfileScrnActivity", "2");
                 ft.commitNow();
                 break;
             default:
