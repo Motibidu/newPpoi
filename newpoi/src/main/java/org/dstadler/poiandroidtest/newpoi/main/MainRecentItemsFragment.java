@@ -57,11 +57,8 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setNestedScrollingEnabled(false);
 
-
-
         recyclerViewAdapter = new RecyclerViewAdapter(mContext, this);
         recyclerView.setAdapter(recyclerViewAdapter);
-
 
         return v;
     }
@@ -81,11 +78,26 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         bottomSheetDialog.setFilePosition(position);
         bottomSheetDialog.show(getParentFragmentManager(), bottomSheetDialog.getTag());
 
+        ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext,"pref_allFileNameList");
+        ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext,"pref_allAbsolutePathList");
+        ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext,"pref_allParentPathList");
 
-        fileName = Constant.allFileList.get(position).getName();
+        if (pref_allFileNameList.isEmpty() || pref_allFileNameList.size() == 0){
+            fileName = Constant.allFileList.get(position).getName();
+            absolutePath = Constant.allAbsolutePathList.get(position);
+            parentPath = Constant.allParentPathList.get(position);
+
+        }else{
+            fileName = pref_allFileNameList.get(position);
+            absolutePath = pref_allAbsolutePathList.get(position);
+            parentPath = pref_allParentPathList.get(position);
+        }
+
+//        fileName = Constant.allFileList.get(position).getName();
+//        absolutePath = Constant.allAbsolutePathList.get(position);
+//        parentPath = Constant.allParentPathList.get(position);
         fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
-        absolutePath = Constant.allAbsolutePathList.get(position);
-        parentPath = Constant.allParentPathList.get(position);
+
         Log.d(TAG, "^filePosition :"+position+", ^absolutePath: "+absolutePath+", ^parentPath: "+ parentPath + ", ^fileNameWithoutExt:" + fileNameWithoutExt);
         Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
     }

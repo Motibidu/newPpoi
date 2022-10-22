@@ -154,7 +154,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProfileScrnActivity.class);
                 startActivity(intent);
-                ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+//                ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
 //                for(int i = 0; i<a.size()-1; i++){
 //                    Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
 //                }
@@ -176,14 +176,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
                         loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
                         loadDirectoryChecking.start();
-
-
-
-
-
                     }
-
-
                 }
                 return false;
             }
@@ -218,8 +211,14 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         main_open = new main_open();
         main_bookmarked = new main_bookmarked();
         categoryScrn = new DocCatActivity();
+
         setFrag(0);
 
+//        Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
+//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
     }
 
     private void setFrag(int n) {
@@ -426,10 +425,11 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.VISIBLE);
-                    PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", false);
+
+
                 }
             });
-
+            PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", false);
             allPath = StorageUtil.getStorageDirectories(mContext);
 
             for (String path : allPath) {
@@ -444,9 +444,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         boolean loadDirectoryComplete;
 
         public void run() {
-//            loadDirectoryComplete = PreferenceManager.getBoolean(mContext,"loadDirectoryComplete");
             while(!PreferenceManager.getBoolean(mContext,"loadDirectoryComplete")) {
-//                loadDirectoryComplete = PreferenceManager.getBoolean(mContext,"loadDirectoryComplete");
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
@@ -455,9 +453,10 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    progressBar.setVisibility(View.INVISIBLE);
                     PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
                     PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+                    PreferenceManager.saveData(mContext, "pref_allParentPathList", Constant.allParentPathList);
+
                     ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
                     for(int i = 0; i<a.size()-1; i++){
                         Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
@@ -470,14 +469,18 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                     ft.attach(frg);
                     ft.commit();
 
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "run: loadDirectory is completed");
                     Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 }
 

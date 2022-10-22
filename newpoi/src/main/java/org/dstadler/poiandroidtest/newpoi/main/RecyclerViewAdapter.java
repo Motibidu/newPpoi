@@ -32,6 +32,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.clickListener = clickListener;
         this.a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
 
+        if (a.isEmpty() || a.size() == 0){
+            Log.d(TAG, "empty/onBindViewHolder: Constant.size(): "+Constant.allFileList.size());
+        }else{
+            Log.d(TAG, "not empty/onBindViewHolder: a.size(): "+a.size());
+        }
     }
 
     public interface clickListener{
@@ -45,29 +50,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.filelist, parent, false);
 
-
-
         return new FileLayoutHolder(view, clickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        if (a.isEmpty() || a.size() == 0){
-//            Log.d(TAG, "onBindViewHolder: a is empty");
-//            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
-//
-//        }else{
-//            Log.d(TAG, "onBindViewHolder: a is not empty");
-//            ((FileLayoutHolder) holder).title.setText(a.get(position));
-//        }
-//        ((FileLayoutHolder) holder).title.setText(a.get(position));
-        ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
+
+        if (a.isEmpty() || a.size() == 0){
+            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
+        }else{
+            ((FileLayoutHolder) holder).title.setText(a.get(position));
+        }
         ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
     }
 
     @Override
     public int getItemCount() {
-        return Constant.allFileList.size();
+        if (a.isEmpty() || a.size() == 0){
+            return Constant.allFileList.size();
+
+        }else{
+            return a.size();
+        }
     }
 
     class FileLayoutHolder extends RecyclerView.ViewHolder{
@@ -82,7 +86,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             thumbnail = itemView.findViewById(R.id.thumbnail);
             title = itemView.findViewById(R.id.title);
             ic_more_vert = itemView.findViewById(R.id.ic_more_vert);
-
             ic_more_vert.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
