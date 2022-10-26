@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_name">홍길동</string>
+    <string name="hint_engName">Hong Gil Dong</string>
+    <string name="hint_chName">한문이름</string>
+    <string name="hint_rrn">68****-203****</string>
+    <string name="hint_age">54세</string>
+    <string name="hint_phoneNum">010-****-****</string>
+    <string name="hint_num">031-***-****</string>
+    <string name="hint_email">gildong@naver.com</string>
+    <string name="hint_SNS">SNS</string>
+    <string name="hint_addr">길동로12</string>
+</resources>

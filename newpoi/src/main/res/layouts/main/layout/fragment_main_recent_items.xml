@@ -7,10 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".main.MainScrnActivity">
 
+    <androidx.appcompat.widget.SearchView
+        app:layout_constraintTop_toTopOf="@+id/layout_MainRecentItems"
+        android:id="@+id/SearchView_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@+id/SearchView_search"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"/>
 
 
 

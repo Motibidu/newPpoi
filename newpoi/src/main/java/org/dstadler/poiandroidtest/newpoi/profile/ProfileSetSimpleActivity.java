@@ -1,19 +1,29 @@
 package org.dstadler.poiandroidtest.newpoi.profile;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import android.app.ProgressDialog;
+
+
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+
+
+
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,131 +56,132 @@ import java.util.Map;
 public class ProfileSetSimpleActivity extends AppCompatActivity{
     private static final String TAG = "PROFILESETSIMPLEACTIVITY";
 
-
+    //contents
     private Context mContext;
-    private AppCompatActivity activity;
 
-
-
-    private ImageButton imageButton;
-    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber,
-            profile_EditText_address, profile_EditText_email, profile_EditText_age;
-
+    //widgets
+    private ImageButton imageButton_back;
+    private EditText editText_name, editText_rrn, editText_age, editText_phoneNum, editText_email, editText_addr;
     private Button profile_picture_loadButton, complete_profile_setting_button, profile_menu;
+    private Button button_complete, button_clear;
+    private Button button_pictureLoad;
 
-    private String name, rrn, age, phoneNumber, email, address;
+    public ImageView image_picture;
+
+
+    //firebase
+    private FirebaseFirestore fStore;
+    private FirebaseAuth mAuth;
+    private StorageReference storageRef, profileRef;
+    private GoogleSignInAccount account;
+    private DocumentReference documentRef;
+
+    //String
+    private String userID;
+    private String name, rrn, age, phoneNum, email, addr;
+
 
     public Uri imageUri;
-    public ImageView profile_picture;
 
-    private FirebaseFirestore fStore;
-    private String userID;
-    private FirebaseAuth mAuth;
-    private StorageReference storageReference;
-    private DocumentReference documentReference;
-    private GoogleSignInAccount account;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_setting_simple);
-        //firebase
-
-
-
-        mContext = getApplicationContext();
-        account = GoogleSignIn.getLastSignedInAccount(mContext);
-        mAuth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
-        fStore = FirebaseFirestore.getInstance();
-
-//        updateUI(account);
-
-
+        setContentView(R.layout.activity_profile_setting_simple);
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this ,R.color.themeColor));
 
+        //initiate
+        //contents
+        mContext = getApplicationContext();
 
-        profile_EditText_name = findViewById(R.id.profile_EditText_name);
-        profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
-        profile_EditText_age = findViewById(R.id.profile_EditText_age);
-        profile_EditText_phoneNumber = findViewById(R.id.profile_EditText_phoneNumber);
-        profile_EditText_email = findViewById(R.id.profile_EditText_email);
-        profile_EditText_address = findViewById(R.id.profile_EditText_address);
-
-        profile_picture_loadButton = findViewById(R.id.profile_picture_loadButton);
-        profile_picture = findViewById(R.id.profile_picture);
+        //firebase instances
+        account = GoogleSignIn.getLastSignedInAccount(mContext);
+        mAuth = FirebaseAuth.getInstance();
+        storageRef = FirebaseStorage.getInstance().getReference();
+        fStore = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
 
 
-        imageButton = findViewById(R.id.profile_setting_back_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        //widgets
+        imageButton_back = findViewById(R.id.imageButton_back);
+        button_clear = findViewById(R.id.button_clear);
+        button_complete = findViewById(R.id.button_complete);
+
+        image_picture = findViewById(R.id.image_picture);
+        button_pictureLoad = findViewById(R.id.button_pictureLoad);
+
+        editText_name = findViewById(R.id.editText_name);
+        editText_rrn = findViewById(R.id.editText_rrn);
+        editText_age = findViewById(R.id.editText_age);
+        editText_phoneNum = findViewById(R.id.editText_phoneNum);
+        editText_email = findViewById(R.id.editText_email);
+        editText_addr = findViewById(R.id.editText_addr);
+
+
+
+
+
+        //functions
+        //뒤로가기
+        imageButton_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-
-        profile_picture_loadButton.setOnClickListener(new View.OnClickListener() {
+        button_clear.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                choosePicture();
+            public void onClick(View view) {
+                editText_name.setText("");
+                editText_rrn.setText("");
+                editText_age.setText("");
+                editText_addr.setText("");
+                editText_phoneNum.setText("");
+                editText_email.setText("");
+                editText_addr.setText("");
+                image_picture.setImageResource(0);
             }
         });
 
-
-
-        userID = mAuth.getCurrentUser().getUid();
-
-
-        StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profile_picture);
-            }
-        });
-
-        complete_profile_setting_button = (Button)findViewById(R.id.complete_profile_setting_button);
-        complete_profile_setting_button.setOnClickListener(new View.OnClickListener() {
+        //완료버튼, 파이어베이스 업로드
+        button_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProfileScrnActivity.class);
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
-                name = profile_EditText_name.getText().toString().trim();
-                name = profile_EditText_name.getText().toString().trim();
-                name = profile_EditText_name.getText().toString().trim();
-                rrn = profile_EditText_rrn.getText().toString().trim();
-                age = profile_EditText_age.getText().toString().trim();
-                phoneNumber = profile_EditText_phoneNumber.getText().toString().trim();
-                email = profile_EditText_email.getText().toString().trim();
-                address = profile_EditText_address.getText().toString().trim();
+                name = editText_name.getText().toString().trim();
+                rrn = editText_rrn.getText().toString().trim();
+                age = editText_age.getText().toString().trim();
+                phoneNum = editText_phoneNum.getText().toString().trim();
+                email = editText_email.getText().toString().trim();
+                addr = editText_addr.getText().toString().trim();
 
                 if(mAuth.getCurrentUser() == null){
 
                 }
                 else{
-                    userID = mAuth.getCurrentUser().getUid();
                     if(userID != null) {
-                        DocumentReference documentReference = fStore.collection("users").document(userID);
+                        documentRef = fStore.collection("users").document(userID);
                         Map<String, Object> user = new HashMap<>();
                         user.put("name", name);
                         user.put("rrn", rrn);
                         user.put("age", age);
-                        user.put("phoneNumber", phoneNumber);
+                        user.put("phoneNum", phoneNum);
                         user.put("email", email);
-                        user.put("address", address);
-                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        user.put("addr", addr);
+                        documentRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(ProfileSetSimpleActivity.this, "onSuccess : user Profile is created for " + name, Toast.LENGTH_SHORT).show();
                             }
                         });
-                        documentReference.set(user).addOnFailureListener(new OnFailureListener() {
+                        documentRef.set(user).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.d(TAG, "onFailure: "+e.toString());
@@ -182,9 +193,27 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                 }
             }
         });
+
+        //프로필 사진 선택하기
+        button_pictureLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
+
+        //이미지 불러오기
+        profileRef = storageRef.child("users/"+userID+"/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(image_picture);
+            }
+        });
+
+
         updateUI(account);
     }
-
 
 
     private void choosePicture(){
@@ -207,8 +236,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
         pd.setTitle("Uploading Image...");
         pd.show();
 
-//        imageKey = UUID.randomUUID().toString();
-        StorageReference riversRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference riversRef = storageRef.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
         riversRef.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -219,7 +247,7 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                                 Glide
                                         .with(mContext)
                                         .load(uri)
-                                        .into(profile_picture);
+                                        .into(image_picture);
                                 pd.dismiss();
                                 Snackbar.make(findViewById(R.id.profile_setting_entry),"Image uploaded", Snackbar.LENGTH_SHORT).show();
                             }
@@ -242,54 +270,51 @@ public class ProfileSetSimpleActivity extends AppCompatActivity{
                         pd.setMessage("Progress: " + (int)progressPercent+"%");
                     }
                 });
-
     }
     private void updateUI(GoogleSignInAccount account){
         if(account != null) {
             if (mAuth.getCurrentUser() != null) {
-                userID = mAuth.getCurrentUser().getUid();
-                mAuth = FirebaseAuth.getInstance();
-                storageReference = FirebaseStorage.getInstance().getReference();
-                Log.d(TAG, "userID: "+userID);
+//                userID = mAuth.getCurrentUser().getUid();
+//                mAuth = FirebaseAuth.getInstance();
+//                storageRef = FirebaseStorage.getInstance().getReference();
+//                Log.d(TAG, "userID: "+userID);
 
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-                if(documentReference != null && mAuth.getCurrentUser() != null) {
-                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                documentRef = FirebaseFirestore.getInstance().collection("users").document(userID);
+                if(documentRef != null && mAuth.getCurrentUser() != null) {
+                    documentRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                             if (value != null && value.exists()) {
-
                                 name = value.getString("name");
                                 rrn = value.getString("rrn");
                                 age = value.getString("age");
-                                address = value.getString("address");
-                                phoneNumber = value.getString("phoneNumber");
+                                phoneNum = value.getString("phoneNum");
                                 email = value.getString("email");
+                                addr = value.getString("addr");
 
-
-                                profile_EditText_name.setText(name);
-                                profile_EditText_rrn.setText(rrn);
-                                profile_EditText_age.setText(age);
-                                profile_EditText_address.setText(address);
-                                profile_EditText_phoneNumber.setText(phoneNumber);
-                                profile_EditText_email.setText(email);
+                                editText_name.setText(name);
+                                editText_rrn.setText(rrn);
+                                editText_age.setText(age);
+                                editText_phoneNum.setText(phoneNum);
+                                editText_email.setText(email);
+                                editText_addr.setText(addr);
                             }
                             else{
                                 Log.d(TAG, "onEvent error: "+error);
                             }
                         }
-
                     });
                 }
             }
         }
-        else if (account == null){
-            profile_EditText_name.setText("");
-            profile_EditText_rrn.setText("");
-            profile_EditText_age.setText("");
-            profile_EditText_address.setText("");
-            profile_EditText_phoneNumber.setText("");
-            profile_EditText_email.setText("");
+        else{
+            editText_name.setText("");
+            editText_rrn.setText("");
+            editText_age.setText("");
+            editText_addr.setText("");
+            editText_phoneNum.setText("");
+            editText_email.setText("");
+            editText_addr.setText("");
 //            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
         }
     }

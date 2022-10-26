@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="simpleProfile">간편프로필</string>
+    <string name="detailProfile">상세프로필</string>
+    <string name="resumeProfile">이력서프로필</string>
+
+    <string name="recentItem">최근항목</string>
+    <string name="examples">예시</string>
+    <string name="open">열기</string>
+    <string name="saved">저장됨</string>
+
+</resources>

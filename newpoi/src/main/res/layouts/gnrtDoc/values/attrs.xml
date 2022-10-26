@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name">이름</string>
+    <string name="engName">영문이름</string>
+    <string name="chName">한문이름</string>
+    <string name="rrn">주민번호</string>
+    <string name="age">나이</string>
+    <string name="phoneNum">휴대폰</string>
+    <string name="num">전화번호</string>
+    <string name="email">E-mail</string>
+    <string name="SNS">SNS</string>
+    <string name="addr">주소</string>
+
+</resources>

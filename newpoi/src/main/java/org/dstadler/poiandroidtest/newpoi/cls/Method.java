@@ -2,6 +2,8 @@ package org.dstadler.poiandroidtest.newpoi.cls;
 
 import android.content.Context;
 
+import org.dstadler.poiandroidtest.newpoi.main.RecyclerViewAdapter;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

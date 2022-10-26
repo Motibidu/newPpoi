@@ -12,9 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/themeColor"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/top_app_bar_menu"
-        app:navigationIcon="@drawable/ic_baseline_person_24"
-        app:title="최근항목" />
+        app:navigationIcon="@drawable/ic_baseline_person_pin_24" />
 
     <FrameLayout
         android:id="@+id/main_frame"

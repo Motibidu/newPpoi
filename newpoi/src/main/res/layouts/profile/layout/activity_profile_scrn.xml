@@ -66,18 +66,6 @@
                 android:src="@drawable/ic_baseline_keyboard_arrow_down_24"/>
         </LinearLayout>
 
-
-<!--            <android.widget.Button-->
-<!--                android:id="@+id/profile_setting_button"-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="13dp"-->
-<!--                android:layout_toRightOf="@id/profileMenu"-->
-<!--                android:layout_marginLeft="30dp"-->
-<!--                android:background="@drawable/radius"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:text="프로필수정" />-->
-
             <android.widget.Button
                 android:id="@+id/account_setting_button"
                 android:layout_width="70dp"

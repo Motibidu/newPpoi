@@ -117,7 +117,7 @@
                             android:id="@+id/text_input_layout1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/e_name"
+                            android:hint="@string/engName"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -132,7 +132,7 @@
                             android:id="@+id/text_input_layout2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/ch_name"
+                            android:hint="@string/chName"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -234,7 +234,7 @@
                             android:id="@+id/text_input_layout0234"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/phoneNumber"
+                            android:hint="@string/phoneNum"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -249,7 +249,7 @@
                             android:id="@+id/text_input_layout23243"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/number"
+                            android:hint="@string/num"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -273,7 +273,7 @@
                             android:id="@+id/text_input_layout01324"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/address"
+                            android:hint="@string/addr"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">

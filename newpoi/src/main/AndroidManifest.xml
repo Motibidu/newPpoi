@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.MEDIA"/>
     <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +15,15 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
         <activity android:name=".profile.AcctSetAcitivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".profile.ProfileScrnActivity">
@@ -36,9 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity android:name=".gnrtDoc.PromissoryActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">

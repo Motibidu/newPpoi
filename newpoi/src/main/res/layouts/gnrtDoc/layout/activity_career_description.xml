@@ -145,7 +145,7 @@
                             android:id="@+id/phoneNumber_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/phoneNumber"
+                            android:hint="@string/phoneNum"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -160,7 +160,7 @@
                             android:id="@+id/address_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/address"
+                            android:hint="@string/addr"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">

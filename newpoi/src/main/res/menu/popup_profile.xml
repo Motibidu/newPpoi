@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_profile_simple"
-        android:title="간편 프로필"/>
+        android:title="@string/simpleProfile"/>
     <item android:id="@+id/menu_profile_detail"
-        android:title="세부 프로필"/>
+        android:title="@string/detailProfile"/>
     <item android:id="@+id/menu_profile_resume"
-        android:title="이력서 프로필"/>
+        android:title="@string/resumeProfile"/>
 </menu>

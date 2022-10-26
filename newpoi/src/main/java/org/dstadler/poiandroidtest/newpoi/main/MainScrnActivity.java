@@ -1,11 +1,9 @@
 package org.dstadler.poiandroidtest.newpoi.main;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.pdf.PdfDocument;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -15,19 +13,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -65,6 +68,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     MaterialToolbar toolbar;
     private long backBtnTime = 0;
 
+
     private Context mContext;
 
     private String[] allPath;
@@ -85,8 +89,15 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 //    private fileHandler handler = new fileHandler();
 
     private Handler handler1, handler2;
+    private File f;
+    private Uri photoURI;
 
+    public filterListener filterListener;
 
+    public interface filterListener{
+        //position is the same position of file in arrayList
+        void filtering();
+    }
 
 
     @Override
@@ -105,16 +116,37 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main_scrn);
 
-        progressBar= findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+        //initiation
+        //contents
+        mContext = getApplicationContext();
 
+        //widgets
+        progressBar= findViewById(R.id.progressBar);
+        toolbar = findViewById(R.id.topAppBar);
+
+        //materials
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        //os
         handler1 = new Handler();
         handler2 = new Handler();
+
+        //instances
+        bottomSheetDialog = new BottomSheetDialog();
+        MainRecentItemsFragment = new MainRecentItemsFragment();
+        main_examples = new main_examples();
+        main_open = new main_open();
+        main_bookmarked = new main_bookmarked();
+        categoryScrn = new DocCatActivity();
+
+        //change statusbar's color
+        Window window = this.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
 
         //require read_external_storage permissions
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -126,63 +158,50 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             }
         }
 
+
+
+
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
 
-
-        bottomSheetDialog = new BottomSheetDialog();
-
-
-        mContext = getApplicationContext();
-
-
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.themeColor));
-
-
-        toolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProfileScrnActivity.class);
                 startActivity(intent);
-//                ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
-//                for(int i = 0; i<a.size()-1; i++){
-//                    Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
+            }
+        });
+
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.add_screen: {
+//                        Intent intent = new Intent(mContext, DocCatActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    }
+//                    case R.id.search: {
+//
+//                        break;
 //                }
-            }
-        });
+//                    case R.id.refresh: {
+//                        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
+//                        loadDirectoryThread.start();
+//
+//                        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
+//                        loadDirectoryChecking.start();
+//                        break;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.add_screen: {
-                        Intent intent = new Intent(mContext, DocCatActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.search: {
-                        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
-                        loadDirectoryThread.start();
 
-                        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
-                        loadDirectoryChecking.start();
-                    }
-                }
-                return false;
-            }
-        });
-
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -206,19 +225,31 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 return true;
             }
         });
-        MainRecentItemsFragment = new MainRecentItemsFragment();
-        main_examples = new main_examples();
-        main_open = new main_open();
-        main_bookmarked = new main_bookmarked();
-        categoryScrn = new DocCatActivity();
-
         setFrag(0);
+    }
 
-//        Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
-//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.detach(frg);
-//        ft.attach(frg);
-//        ft.commit();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.add_screen){
+            Intent intent = new Intent(mContext, DocCatActivity.class);
+            startActivity(intent);
+        }
+
+        else if(item.getItemId() == R.id.refresh){
+            loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
+            loadDirectoryThread.start();
+
+            loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
+            loadDirectoryChecking.start();
+        }
+        return false;
     }
 
     private void setFrag(int n) {
@@ -264,6 +295,44 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         checking2JPGThread.start();
     }
 
+    @Override
+    public void open() {
+        ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+        ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
+        ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
+        int i =PreferenceManager.getInt(mContext,"filePosition");
+
+        if (pref_allFileNameList.isEmpty()){
+            fileName = Constant.allFileList.get(i).getName();
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = Constant.allAbsolutePathList.get(i);
+            parentPath = Constant.allParentPathList.get(i);
+        }else{
+            fileName = pref_allFileNameList.get(i);
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = pref_allAbsolutePathList.get(i);
+            parentPath = pref_allParentPathList.get(i);
+        }
+
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setAction(Intent.ACTION_VIEW);
+        String type = "application/msword";
+
+        if(fileName.endsWith(".doc")) {
+            f = new File(parentPath + "/" + fileNameWithoutExt + ".doc");
+        }else{
+            f = new File(parentPath + "/" + fileNameWithoutExt + ".docx");
+        }
+
+//        intent.setDataAndType(Uri.fromFile(f), type);
+        photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", f);
+        intent.setDataAndType(photoURI, type);
+        startActivity(intent);
+    }
+
+
     class convert2PDFThread extends Thread{
         private String fileName;
         private String fileNameWithoutExt;
@@ -273,12 +342,22 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         private int i;
 
         public convert2PDFThread(){
-            i = PreferenceManager.getInt(mContext,"filePosition");
+            ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+            ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
+            ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
+            int i =PreferenceManager.getInt(mContext,"filePosition");
 
-            fileName = Constant.allFileList.get(i).getName();
-            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
-            absolutePath = Constant.allAbsolutePathList.get(i);
-            parentPath = Constant.allParentPathList.get(i);
+            if (pref_allFileNameList.isEmpty()){
+                fileName = Constant.allFileList.get(i).getName();
+                fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+                absolutePath = Constant.allAbsolutePathList.get(i);
+                parentPath = Constant.allParentPathList.get(i);
+            }else{
+                fileName = pref_allFileNameList.get(i);
+                fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+                absolutePath = pref_allAbsolutePathList.get(i);
+                parentPath = pref_allParentPathList.get(i);
+            }
         }
 
         public void run() {
@@ -343,12 +422,22 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         private int i;
 
         public convert2JPGThread(){
-            i = PreferenceManager.getInt(mContext,"filePosition");
+            ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+            ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
+            ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
+            int i =PreferenceManager.getInt(mContext,"filePosition");
 
-            fileName = Constant.allFileList.get(i).getName();
-            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
-            absolutePath = Constant.allAbsolutePathList.get(i);
-            parentPath = Constant.allParentPathList.get(i);
+            if (pref_allFileNameList.isEmpty()){
+                fileName = Constant.allFileList.get(i).getName();
+                fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+                absolutePath = Constant.allAbsolutePathList.get(i);
+                parentPath = Constant.allParentPathList.get(i);
+            }else{
+                fileName = pref_allFileNameList.get(i);
+                fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+                absolutePath = pref_allAbsolutePathList.get(i);
+                parentPath = pref_allParentPathList.get(i);
+            }
 
         }
 
@@ -403,15 +492,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                        final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//                        final Uri contentUri = Uri.fromFile(new File("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
-//                        scanIntent.setData(contentUri);
-//                        sendBroadcast(scanIntent);
-//                    } else {
-//                        final Intent intent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("/storage/emulated/0/DCIM/Screenshots/" + fileNameWithoutExt + ".jpg"));
-//                        sendBroadcast(intent);
-//                    }
                     Toast.makeText(mContext,"Converting word to jpg is completed",Toast.LENGTH_SHORT).show();
 
                 }
@@ -421,47 +501,42 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
     class loadDirectoryThread extends Thread{
         public void run() {
+
             handler1.post(new Runnable() {
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.VISIBLE);
-
-
                 }
             });
-            PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", false);
-            allPath = StorageUtil.getStorageDirectories(mContext);
 
+            allPath = StorageUtil.getStorageDirectories(mContext);
             for (String path : allPath) {
                 storage = new File(path);
                 Method.load_Directory_Files(storage);
             }
+
+            PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
+            PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+            PreferenceManager.saveData(mContext, "pref_allParentPathList", Constant.allParentPathList);
+
             PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", true);
         }
     }
 
     class loadDirectoryChecking extends Thread{
-        boolean loadDirectoryComplete;
-
         public void run() {
+            PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", false);
             while(!PreferenceManager.getBoolean(mContext,"loadDirectoryComplete")) {
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
                 } catch (Exception e) {}
             }
+
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
-                    PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
-                    PreferenceManager.saveData(mContext, "pref_allParentPathList", Constant.allParentPathList);
-
-                    ArrayList<String> a = PreferenceManager.loadData(mContext, "pref_allFileNameList");
-                    for(int i = 0; i<a.size()-1; i++){
-                        Log.d(TAG, "PreferenceManager/pref_allFileNameList/"+i+": "+a.get(i));
-                    }
-
+                    progressBar.setVisibility(View.INVISIBLE);
 
                     Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -469,7 +544,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                     ft.attach(frg);
                     ft.commit();
 
-                    progressBar.setVisibility(View.INVISIBLE);
                     Log.d(TAG, "run: loadDirectory is completed");
                     Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();
                 }

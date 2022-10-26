@@ -45,7 +45,7 @@
             android:layout_below="@+id/profile_picture_loadButton"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="30dp"
-            android:text="@string/e_name"/>
+            android:text="@string/engName"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -148,7 +148,7 @@
             android:layout_below="@+id/edit_email"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="30dp"
-            android:text="@string/phoneNumber"/>
+            android:text="@string/phoneNum"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -202,7 +202,7 @@
             android:layout_below="@+id/edit_age"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="30dp"
-            android:text="@string/address"/>
+            android:text="@string/addr"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

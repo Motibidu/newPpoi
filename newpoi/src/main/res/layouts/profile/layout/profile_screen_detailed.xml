@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_name_content"
         android:layout_marginLeft="30dp"
-        android:text="@string/e_name"/>
+        android:text="@string/engName"/>
     <TextView
         android:id="@+id/profile_e_name_content"
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_name_content"
         android:layout_marginLeft="30dp"
-        android:text="@string/ch_name"/>
+        android:text="@string/chName"/>
     <TextView
         android:id="@+id/profile_ch_name_content"
         android:layout_width="match_parent"
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_email_content"
         android:layout_marginLeft="30dp"
-        android:text="@string/phoneNumber"/>
+        android:text="@string/phoneNum"/>
     <TextView
         android:id="@+id/profile_phoneNumber_content"
         android:layout_width="match_parent"
@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_age_content"
         android:layout_marginLeft="30dp"
-        android:text="@string/address"/>
+        android:text="@string/addr"/>
     <TextView
         android:id="@+id/profile_address_content"
         android:layout_width="match_parent"
