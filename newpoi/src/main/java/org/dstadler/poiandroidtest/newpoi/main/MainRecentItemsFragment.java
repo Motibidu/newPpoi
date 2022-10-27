@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -34,14 +35,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainRecentItemsFragment extends Fragment implements RecyclerViewAdapter.clickListener, TextWatcher {
-
+//public class MainRecentItemsFragment extends Fragment implements RecyclerViewAdapter.clickListener, TextWatcher {
+public class MainRecentItemsFragment extends Fragment implements RecyclerViewAdapter.clickListener {
 
     private static final String TAG = "MAINRECENTITEM_TAG";
 
     private View v;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    private EditText editText;
 
     //contents
     private Context mContext;
@@ -72,8 +74,13 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         pref_allAbsolutePathList = PreferenceManager.loadData(mContext,"pref_allAbsolutePathList");
         pref_allParentPathList = PreferenceManager.loadData(mContext,"pref_allParentPathList");
 
-        searchView = v.findViewById(R.id.SearchView_search);
         recyclerView = v.findViewById(R.id.recyclerView);
+
+        searchView = v.findViewById(R.id.SearchView_search);
+
+
+//        editText = v.findViewById(R.id.editText_search);
+//        editText.addTextChangedListener(this);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20);
@@ -82,18 +89,18 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setNestedScrollingEnabled(false);
 
 
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                recyclerViewAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recyclerViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         recyclerViewAdapter = new RecyclerViewAdapter(mContext, this, pref_allFileNameList);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -140,20 +147,18 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         Log.d(TAG, "absolutePath that pdf File will be saved: "+parentPath+"/"+fileNameWithoutExt+".pdf");
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                recyclerViewAdapter.getFilter().filter(charSequence);
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
-    }
+//    @Override
+//    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//    }
+//
+//    @Override
+//    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//        recyclerViewAdapter.getFilter().filter(charSequence);
+//    }
+//
+//    @Override
+//    public void afterTextChanged(Editable editable) {
+//
+//    }
 }

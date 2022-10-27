@@ -1,15 +1,12 @@
 package org.dstadler.poiandroidtest.newpoi.main;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +20,13 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {
 
     private TextView text_fileTitle;
-    private LinearLayout layout_convertToPDF, layout_convertToJPG, layout_open;
+    private LinearLayout layout_convertToPDF, layout_convertToJPG, layout_open, layout_delete;
     private int filePosition;
     private Fragment mFragment;
     private Context mContext;
@@ -36,6 +34,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
 
     public interface bottomSheetListener{
         void open();
+        File delete();
         void convertToPDF() throws Exception;
         void convertToJPG() throws Exception;
     }
@@ -56,6 +55,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         layout_convertToPDF = v.findViewById(R.id.layout_convertToPDF);
         layout_convertToJPG = v.findViewById(R.id.layout_convertToJPG);
         layout_open = v.findViewById(R.id.layout_open);
+        layout_delete = v.findViewById(R.id.layout_delete);
 
 
         setBottomSheetTitle();
@@ -100,6 +100,20 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 listener.open();
+            }
+        });
+        layout_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+
+                File f= listener.delete();
+                if(f.exists()){
+                    Toast.makeText(mContext,"파일이 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(mContext,"파일이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -10,24 +10,18 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -92,12 +86,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
     private File f;
     private Uri photoURI;
 
-    public filterListener filterListener;
-
-    public interface filterListener{
-        //position is the same position of file in arrayList
-        void filtering();
-    }
 
 
     @Override
@@ -174,32 +162,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 startActivity(intent);
             }
         });
-
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.add_screen: {
-//                        Intent intent = new Intent(mContext, DocCatActivity.class);
-//                        startActivity(intent);
-//                        break;
-//                    }
-//                    case R.id.search: {
-//
-//                        break;
-//                }
-//                    case R.id.refresh: {
-//                        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
-//                        loadDirectoryThread.start();
-//
-//                        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
-//                        loadDirectoryChecking.start();
-//                        break;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -332,6 +294,34 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         startActivity(intent);
     }
 
+    @Override
+    public File delete() {
+        ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+        ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
+        ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
+        int i =PreferenceManager.getInt(mContext,"filePosition");
+
+        if (pref_allFileNameList.isEmpty()){
+            fileName = Constant.allFileList.get(i).getName();
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = Constant.allAbsolutePathList.get(i);
+            parentPath = Constant.allParentPathList.get(i);
+        }else{
+            fileName = pref_allFileNameList.get(i);
+            fileNameWithoutExt = fileName.replaceFirst("[.][^.]+$", "");
+            absolutePath = pref_allAbsolutePathList.get(i);
+            parentPath = pref_allParentPathList.get(i);
+        }
+
+        if(fileName.endsWith(".doc")) {
+            f = new File(parentPath + "/" + fileNameWithoutExt + ".doc");
+        }else{
+            f = new File(parentPath + "/" + fileNameWithoutExt + ".docx");
+        }
+        f.delete();
+
+        return f;
+    }
 
     class convert2PDFThread extends Thread{
         private String fileName;

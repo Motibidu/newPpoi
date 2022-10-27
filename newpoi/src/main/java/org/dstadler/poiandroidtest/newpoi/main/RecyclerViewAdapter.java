@@ -46,12 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<String> r, filteredList, unFilteredList;
 
+    private int i;
+
 
     public RecyclerViewAdapter(Context mContext, clickListener clickListener, ArrayList<String> items){
         this.mContext = mContext;
         listener = (BottomSheetDialog.bottomSheetListener)mContext;
         this.clickListener = clickListener;
 
+        i = items.size();
         this.filteredList = items;
         this.unFilteredList = items;
 
@@ -100,6 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             filteredList = (ArrayList<String>)filterResults.values;
+
             notifyDataSetChanged();
         }
     };
@@ -120,21 +124,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        if (pref_allFileNameList.isEmpty() || pref_allFileNameList.size() == 0){
-            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
-//            ((FileLayoutHolder) holder).title.setText(Constant.allAbsolutePathList.get(position));
-        }else{
-            ((FileLayoutHolder) holder).title.setText(pref_allFileNameList.get(position));
-//            ((FileLayoutHolder) holder).title.setText(pref_allAbsolutePathList.get(position));
+//        if (pref_allFileNameList.isEmpty() || pref_allFileNameList.size() == 0){
+//            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
+////            ((FileLayoutHolder) holder).title.setText(Constant.allAbsolutePathList.get(position));
+//        }else{
+//            ((FileLayoutHolder) holder).title.setText(pref_allFileNameList.get(position));
+////            ((FileLayoutHolder) holder).title.setText(pref_allAbsolutePathList.get(position));
+//        }
+        Log.d(TAG, "onBindViewHolder: position : "+Integer.toString(position));
+        Log.d(TAG, "onBindViewHolder: size :"+filteredList.size());
+        for(String s : filteredList){
+            Log.d(TAG, "onBindViewHolder: string : "+s);
         }
-        ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
-    }
+        ((FileLayoutHolder) holder).title.setText(filteredList.get(position));
+            ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
+        }
+
 
     @Override
     public int getItemCount() {
+        if(getFilter() != null){
+            return filteredList.size();
+        }
         if (pref_allFileNameList.isEmpty() || pref_allFileNameList.size() == 0){
             return Constant.allFileList.size();
-
         }else{
             return pref_allFileNameList.size();
         }
@@ -164,7 +177,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 public void onClick(View view) {
                     builder = new AlertDialog.Builder(mContext);
                     if (pref_allFileNameList.isEmpty()){
-
                         builder.setTitle(Constant.allAbsolutePathList.get(getAdapterPosition()))
                                 .setMessage("파일을 여시겠습니까?")
                                 .setCancelable(true)
@@ -182,7 +194,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 })
                                 .show();
                     }else{
-
                         builder.setTitle(pref_allAbsolutePathList.get(getAdapterPosition()))
                                 .setMessage("파일을 여시겠습니까?")
                                 .setCancelable(true)
@@ -200,7 +211,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 })
                                 .show();
                     }
-
                 }
             });
 
