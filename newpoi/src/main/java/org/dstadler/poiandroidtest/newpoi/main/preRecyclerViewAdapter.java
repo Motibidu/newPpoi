@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,12 +20,10 @@ import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+public class preRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     //static vars
     private static final String TAG = "RECYCLERVIEWADAPTER";
 
@@ -49,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private int i;
 
 
-    public RecyclerViewAdapter(Context mContext, clickListener clickListener, ArrayList<String> items){
+    public preRecyclerViewAdapter(Context mContext, clickListener clickListener, ArrayList<String> items){
         this.mContext = mContext;
         listener = (BottomSheetDialog.bottomSheetListener)mContext;
         this.clickListener = clickListener;

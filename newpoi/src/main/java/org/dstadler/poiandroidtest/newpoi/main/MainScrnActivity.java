@@ -146,12 +146,11 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             }
         }
 
+        setPropertyThread setPropertyThread = new setPropertyThread();
+        setPropertyThread.start();
 
 
 
-        System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
-        System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
-        System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
 
         setSupportActionBar(toolbar);
@@ -263,6 +262,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
         ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
         int i =PreferenceManager.getInt(mContext,"filePosition");
+        Log.d(TAG, "open()/filePosition : "+ Integer.toString(i));
 
         if (pref_allFileNameList.isEmpty()){
             fileName = Constant.allFileList.get(i).getName();
@@ -300,6 +300,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
         ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
         int i =PreferenceManager.getInt(mContext,"filePosition");
+        Log.d(TAG, "delete()/filePosition : "+ Integer.toString(i));
 
         if (pref_allFileNameList.isEmpty()){
             fileName = Constant.allFileList.get(i).getName();
@@ -312,6 +313,18 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             absolutePath = pref_allAbsolutePathList.get(i);
             parentPath = pref_allParentPathList.get(i);
         }
+
+//        pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
+        pref_allFileNameList.remove(PreferenceManager.getInt(mContext,"filePosition"));
+        PreferenceManager.saveData(mContext,"pref_allFileNameList",pref_allFileNameList);
+
+//        pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
+        pref_allAbsolutePathList.remove(PreferenceManager.getInt(mContext,"filePosition"));
+        PreferenceManager.saveData(mContext,"pref_allAbsolutePathList",pref_allAbsolutePathList);
+
+//        pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
+        pref_allParentPathList.remove(PreferenceManager.getInt(mContext,"filePosition"));
+        PreferenceManager.saveData(mContext,"pref_allFileNameList",pref_allParentPathList);
 
         if(fileName.endsWith(".doc")) {
             f = new File(parentPath + "/" + fileNameWithoutExt + ".doc");
@@ -538,6 +551,15 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                     Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+    }
+
+    static class setPropertyThread extends Thread{
+        @Override
+        public void run() {
+            System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
+            System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
+            System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
         }
     }
 
