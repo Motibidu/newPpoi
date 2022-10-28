@@ -1,18 +1,32 @@
 package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.dstadler.poiandroidtest.newpoi.R;
+import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class ScanProfileFragment extends Fragment {
+public class ScanProfileFragment extends Fragment{
+    private static final String TAG = "SCANPROFILEFRAGMENT";
     private View v;
     private EditText edit_name, edit_engName, edit_chName, edit_rrn, edit_phoneNum,
             edit_addr, edit_email, edit_age;
@@ -46,4 +60,5 @@ public class ScanProfileFragment extends Fragment {
 
         return v;
     }
+
 }

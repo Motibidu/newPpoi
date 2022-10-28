@@ -51,6 +51,7 @@ import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.customMatcher;
 
 import java.util.ArrayList;
@@ -149,6 +150,7 @@ public class ScanActivity extends AppCompatActivity{
         viewpager = findViewById(R.id.viewpager);
         tablayout = findViewById(R.id.tablayout);
 
+
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.viewpager);
 
         //EditText
@@ -212,11 +214,12 @@ public class ScanActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 buttonCompleteListen();
-
             }
         });
     }
     public void buttonCompleteListen() {
+
+
         FirebaseAuth mAuth;
         FirebaseFirestore fStore;
 
@@ -232,6 +235,9 @@ public class ScanActivity extends AppCompatActivity{
         String phoneNum = Constant.scanInfo.get("phoneNum");
         String age = Constant.scanInfo.get("age");
 
+
+
+
         if (mAuth.getCurrentUser() == null) {
 
         }
@@ -240,14 +246,22 @@ public class ScanActivity extends AppCompatActivity{
             if (userID != null) {
                 DocumentReference documentReference = fStore.collection("users").document(userID);
                 Map<String, Object> user = new HashMap<>();
-                user.put("name", name);
-                user.put("engName", engName);
-                user.put("chName", chName);
-                user.put("rrn", rrn);
-                user.put("age", age);
-                user.put("phoneNumber", phoneNum);
-                user.put("email", email);
-                user.put("address", addr);
+//                user.put("name", name);
+//                user.put("engName", engName);
+//                user.put("chName", chName);
+//                user.put("rrn", rrn);
+//                user.put("age", age);
+//                user.put("phoneNumber", phoneNum);
+//                user.put("email", email);
+//                user.put("address", addr);
+                user.put("name", PreferenceManager.getString(mContext,"edit_name"));
+                user.put("engName", PreferenceManager.getString(mContext,"edit_engName"));
+                user.put("chName", PreferenceManager.getString(mContext,"edit_chName"));
+                user.put("rrn", PreferenceManager.getString(mContext,"edit_rrn"));
+                user.put("age", PreferenceManager.getString(mContext,"edit_age"));
+                user.put("phoneNumber", PreferenceManager.getString(mContext,"edit_phoneNum"));
+                user.put("email", PreferenceManager.getString(mContext,"edit_email"));
+                user.put("address", PreferenceManager.getString(mContext,"edit_addr"));
 
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

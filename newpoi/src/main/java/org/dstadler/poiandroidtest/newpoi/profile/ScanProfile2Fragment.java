@@ -2,20 +2,26 @@ package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.Constant;
+import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +50,8 @@ public class ScanProfile2Fragment extends Fragment{
     private ArrayList<String> addr = new ArrayList<String>();
     private ArrayList<String> phoneNum = new ArrayList<String>();
     private ArrayList<String> age = new ArrayList<String>();
+
+    private String result;
 
     private buttonCompleteListener buttonCompleteListener;
 
@@ -119,6 +127,121 @@ public class ScanProfile2Fragment extends Fragment{
         edit_email = v.findViewById(R.id.edit_email);
         edit_addr = v.findViewById(R.id.edit_addr);
 
+        edit_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_name", edit_name.getText().toString());
+            }
+        });
+        edit_engName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_engName", edit_engName.getText().toString());
+            }
+        });
+        edit_chName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_chName", edit_chName.getText().toString());
+            }
+        });
+        edit_rrn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_rrn", edit_rrn.getText().toString());
+            }
+        });
+
+        edit_phoneNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_phoneNum", edit_phoneNum.getText().toString());
+            }
+        });
+        edit_email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_email", edit_email.getText().toString());
+            }
+        });
+        edit_addr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                PreferenceManager.setString(mContext,"edit_addr", edit_addr.getText().toString());
+            }
+        });
+
+
         //ImageButton
         imageButton_name = v.findViewById(R.id.imagebutton_name);
         imageButton_engName = v.findViewById(R.id.imagebutton_engName);
@@ -138,24 +261,28 @@ public class ScanProfile2Fragment extends Fragment{
         imageButton_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_name", setNameMenu(view, edit_name, name));
                 setNameMenu(view, edit_name, name);
             }
         });
         imageButton_engName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_engName", setNameMenu(view, edit_engName, engName));
                 setNameMenu(view, edit_engName, engName);
             }
         });
         imageButton_chName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_chName", setNameMenu(view, edit_chName, chName));
                 setNameMenu(view, edit_chName, chName);
             }
         });
         imageButton_rrn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_rrn", setNameMenu(view, edit_rrn, rnn));
                 setNameMenu(view, edit_rrn, rnn);
             }
         });
@@ -163,67 +290,84 @@ public class ScanProfile2Fragment extends Fragment{
         imageButton_phoneNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_phoneNum", setNameMenu(view, edit_phoneNum, phoneNum));
                 setNameMenu(view, edit_phoneNum, phoneNum);
             }
         });
         imageButton_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_email", setNameMenu(view, edit_email, email));
                 setNameMenu(view, edit_email, email);
             }
         });
         imageButton_addr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                PreferenceManager.setString(mContext,"edit_addr", setNameMenu(view, edit_addr, addr));
                 setNameMenu(view, edit_addr, addr);
             }
         });
 
         if (name.size() != 0) {
             edit_name.setText(name.get(name.size() - 1));
+            PreferenceManager.setString(mContext,"edit_name", name.get(name.size() - 1));
             Log.d(TAG, "edit_name : " + name.get(name.size() - 1));
         } else {
             edit_name.setText("");
+            PreferenceManager.setString(mContext,"edit_name", "");
         }
         if (engName.size() != 0) {
             edit_engName.setText(engName.get(engName.size() - 1));
+            PreferenceManager.setString(mContext,"edit_engName", engName.get(engName.size() - 1));
             Log.d(TAG, engName.get(engName.size() - 1));
         } else {
             edit_engName.setText("");
+            PreferenceManager.setString(mContext,"edit_engName", "");
         }
         if (chName.size() != 0) {
             edit_chName.setText(chName.get(chName.size() - 1));
+            PreferenceManager.setString(mContext,"edit_chName", chName.get(chName.size() - 1));
             Log.d(TAG, chName.get(chName.size() - 1));
         } else {
             edit_chName.setText("");
+            PreferenceManager.setString(mContext,"edit_chName", "");
         }
 
         if (rnn.size() != 0) {
             edit_rrn.setText(rnn.get(rnn.size() - 1));
+            PreferenceManager.setString(mContext,"edit_rrn", rnn.get(rnn.size() - 1));
             Log.d(TAG, rnn.get(rnn.size() - 1));
         } else {
             edit_rrn.setText("");
+            PreferenceManager.setString(mContext,"edit_rrn", "");
         }
 
         if (phoneNum.size() != 0) {
             edit_phoneNum.setText(phoneNum.get(phoneNum.size() - 1));
+            PreferenceManager.setString(mContext,"edit_phoneNum", phoneNum.get(phoneNum.size() - 1));
             Log.d(TAG, phoneNum.get(phoneNum.size() - 1));
         } else {
             edit_phoneNum.setText("");
+            PreferenceManager.setString(mContext,"edit_phoneNum", "");
         }
 
         if (email.size() != 0) {
             edit_email.setText(email.get(email.size() - 1));
+            PreferenceManager.setString(mContext,"edit_email", email.get(email.size() - 1));
             Log.d(TAG, email.get(email.size() - 1));
         } else {
             edit_email.setText("");
+            PreferenceManager.setString(mContext,"edit_email", "");
         }
 
         if (addr.size() != 0) {
             edit_addr.setText(addr.get(addr.size() - 1));
+            PreferenceManager.setString(mContext,"edit_addr", addr.get(addr.size() - 1));
             Log.d(TAG, addr.get(addr.size() - 1));
         } else {
             edit_addr.setText("");
+            PreferenceManager.setString(mContext,"edit_addr", "");
         }
         setAge();
 
@@ -315,8 +459,9 @@ public class ScanProfile2Fragment extends Fragment{
         return prrn;
     }
 
-    private void setNameMenu(View view, EditText editText, List<String> list) {
+    private String setNameMenu(View view, EditText editText, List<String> list) {
         PopupMenu menu = new PopupMenu(mContext, view);
+        final String[] r = new String[1];
         for (int i = 0; i < list.size(); i++) {
             menu.getMenu().add(Menu.NONE, i, i, list.get(i));
         }
@@ -326,6 +471,7 @@ public class ScanProfile2Fragment extends Fragment{
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     editText.setText(menuItem.getTitle());
+                    r[0] = (String) menuItem.getTitle();
                     setAge();
                     return true;
                 }
@@ -335,11 +481,12 @@ public class ScanProfile2Fragment extends Fragment{
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     editText.setText(menuItem.getTitle());
+                    r[0] = (String) menuItem.getTitle();
                     return true;
                 }
             });
-
         }
+        return r[0];
     }
 
 }

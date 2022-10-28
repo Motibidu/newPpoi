@@ -14,8 +14,8 @@ public class Method {
 
 
     public static void load_Directory_Files(File directory){
-
         File[] fileList = directory.listFiles();
+
 
 //        List<Constant> fileInfos = new ArrayList<>();
         if(fileList != null && fileList.length > 0) {

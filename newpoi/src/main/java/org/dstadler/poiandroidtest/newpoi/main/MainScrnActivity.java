@@ -150,9 +150,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         setPropertyThread.start();
 
 
-
-
-
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,6 +255,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
     @Override
     public void open() {
+
         ArrayList<String> pref_allFileNameList = PreferenceManager.loadData(mContext, "pref_allFileNameList");
         ArrayList<String> pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
         ArrayList<String> pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
@@ -332,6 +330,11 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
             f = new File(parentPath + "/" + fileNameWithoutExt + ".docx");
         }
         f.delete();
+        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
+        loadDirectoryThread.start();
+
+        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
+        loadDirectoryChecking.start();
 
         return f;
     }
@@ -504,7 +507,10 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
     class loadDirectoryThread extends Thread{
         public void run() {
-
+            Constant.allFileList.clear();
+            Constant.allFileNameList.clear();
+            Constant.allAbsolutePathList.clear();
+            Constant.allParentPathList.clear();
             handler1.post(new Runnable() {
                 @Override
                 public void run() {
@@ -517,10 +523,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 storage = new File(path);
                 Method.load_Directory_Files(storage);
             }
-
-            PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
-            PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
-            PreferenceManager.saveData(mContext, "pref_allParentPathList", Constant.allParentPathList);
 
             PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", true);
         }
@@ -541,11 +543,21 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                 public void run() {
                     progressBar.setVisibility(View.INVISIBLE);
 
+                    PreferenceManager.saveData(mContext, "pref_allFileNameList", Constant.allFileNameList);
+                    PreferenceManager.saveData(mContext, "pref_allAbsolutePathList", Constant.allAbsolutePathList);
+                    PreferenceManager.saveData(mContext, "pref_allParentPathList", Constant.allParentPathList);
+                    for(String fileName : Constant.allFileNameList){
+                        Log.d(TAG, "run/fileName "+fileName);
+                    }
+
+
                     Fragment frg = getSupportFragmentManager().findFragmentByTag("0");
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.detach(frg);
                     ft.attach(frg);
                     ft.commit();
+
+
 
                     Log.d(TAG, "run: loadDirectory is completed");
                     Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();

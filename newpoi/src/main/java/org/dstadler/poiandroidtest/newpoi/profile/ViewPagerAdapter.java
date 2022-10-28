@@ -49,7 +49,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 setChannel(0);
                 if(!isReplace) {
-                    return new ScanProfileFragment();
+                    return new ScanProfile2Fragment();
                 }
                 else if(isReplace){
                     return new ScanProfile2Fragment(map);
@@ -65,7 +65,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return new ScanLicFragment();
         }
         setChannel(0);
-        return new ScanProfileFragment();
+        return new ScanProfile2Fragment();
     }
 
     @Override

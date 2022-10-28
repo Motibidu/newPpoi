@@ -35,11 +35,12 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
 
     //views
     //widgets
+    private SearchView searchView;
     //contents
     private Context mContext;
 
     //newpoi classes
-    private RecyclerViewAdapter recyclerViewAdapter;
+//    private RecyclerViewAdapter recyclerViewAdapter;
 
 
     @Nullable
@@ -51,7 +52,7 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         View v = inflater.inflate(R.layout.fragment_main_recent_items, container, false);
 
         //widgets
-        SearchView searchView = v.findViewById(R.id.SearchView_search);
+        searchView = v.findViewById(R.id.SearchView_search);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
 
         //contents
@@ -64,7 +65,7 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setNestedScrollingEnabled(false);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(mContext, this, PreferenceManager.loadData(mContext,"pref_allFileNameList"));
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mContext, this, PreferenceManager.loadData(mContext,"pref_allFileNameList"));
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(recyclerViewAdapter);
 
@@ -84,6 +85,30 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //돌아왔을 때, 텍스트를 다 지우면 원상태로 돌아갈 수 있지만, 클릭했을 때 원상태와 바인딩됨
+//        PreferenceManager.saveData(mContext,"pref_allFileNameList", Constant.allFileNameList);
+//        PreferenceManager.saveData(mContext,"pref_allParentPathList", Constant.allParentPathList);
+//        PreferenceManager.saveData(mContext,"pref_allAbsolutePathList", Constant.allAbsolutePathList);
+
+        //돌아왔을 때, 텍스트를 다 지우면 원상태로 돌아갈 수 없지만, 클릭했을 때 보이는 ui와 바인딩됨
+        PreferenceManager.saveData(mContext,"pref_allFileNameList", PreferenceManager.loadData(mContext,"pref_allFileNameList"));
+        PreferenceManager.saveData(mContext,"pref_allParentPathList", PreferenceManager.loadData(mContext,"pref_allFileNameList"));
+        PreferenceManager.saveData(mContext,"pref_allAbsolutePathList", PreferenceManager.loadData(mContext,"pref_allFileNameList"));
+        //돌아왔을 때, 텍스트를 지울 때
+        //돌아왔을 때, 텍스트를 지우지 않을 때
+
+        //돌아왔을 때, 텍스트를 다 지우면 원상태로 돌아가고, 텍스트를 다 지우지 않았을 때 현재 보이는 ui와 바인딩된다.
+
+
+    }
 
     @Override
     public void onIconMoreClick(int position) {
