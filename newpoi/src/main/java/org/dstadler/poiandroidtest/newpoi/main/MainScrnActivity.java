@@ -287,6 +287,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         }
 
 //        intent.setDataAndType(Uri.fromFile(f), type);
+        Log.d(TAG, "open/parentPath/fileNameWithoutExt/.doc : " +parentPath + "/" + fileNameWithoutExt + ".doc");
         photoURI = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".provider", f);
         intent.setDataAndType(photoURI, type);
         startActivity(intent);
@@ -322,7 +323,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
 
 //        pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
         pref_allParentPathList.remove(PreferenceManager.getInt(mContext,"filePosition"));
-        PreferenceManager.saveData(mContext,"pref_allFileNameList",pref_allParentPathList);
+        PreferenceManager.saveData(mContext,"pref_allParentPathList",pref_allParentPathList);
 
         if(fileName.endsWith(".doc")) {
             f = new File(parentPath + "/" + fileNameWithoutExt + ".doc");
