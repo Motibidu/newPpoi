@@ -106,8 +106,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".gnrtDoc.SimpleResumeActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".gnrtDoc.DocCatActivity">

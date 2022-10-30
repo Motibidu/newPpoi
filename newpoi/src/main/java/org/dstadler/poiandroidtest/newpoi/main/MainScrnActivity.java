@@ -130,7 +130,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         main_bookmarked = new main_bookmarked();
         categoryScrn = new DocCatActivity();
 
-        //change statusbar's color
+        //setStatusBarColor by themeColor
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -145,9 +145,18 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                         1);
             }
         }
-
+        //setProperty for duplicate classes
         setPropertyThread setPropertyThread = new setPropertyThread();
         setPropertyThread.start();
+
+
+        //initialization recentItems
+        loadDirectoryThread loadDirectoryThread = new loadDirectoryThread();
+        loadDirectoryThread.start();
+        loadDirectoryChecking loadDirectoryChecking = new loadDirectoryChecking();
+        loadDirectoryChecking.start();
+
+
 
 
         setSupportActionBar(toolbar);
@@ -198,6 +207,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         if(item.getItemId() == R.id.add_screen){
             Intent intent = new Intent(mContext, DocCatActivity.class);
             startActivity(intent);
+
         }
 
         else if(item.getItemId() == R.id.refresh){

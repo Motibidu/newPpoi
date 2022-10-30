@@ -70,10 +70,13 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
         Log.d(TAG, "onCreateView: Constant.allFileNameList.size(): "+Constant.allFileNameList.size());
         Log.d(TAG, "onCreateView: PreferenceManager.loadData(mContext, \"pref_allFileNameList\").size(): "+PreferenceManager.loadData(mContext, "pref_allFileNameList").size());
 
+        //when there was no text change
         if(Constant.allFileNameList.size() == PreferenceManager.loadData(mContext,"pref_allFileNameList").size() ) {
+            Log.d(TAG, "onCreateView/when there was no text change");
             recyclerViewAdapter = new RecyclerViewAdapter(mContext, this, PreferenceManager.loadData(mContext, "pref_allFileNameList"));
-
+        //when there was text change
         }else{
+            Log.d(TAG, "onCreateView/when there was text change");
             PreferenceManager.saveData(mContext,"pref_allFileNameList", Constant.allFileNameList);
             PreferenceManager.saveData(mContext,"pref_allParentPathList", Constant.allParentPathList);
             PreferenceManager.saveData(mContext,"pref_allAbsolutePathList", Constant.allAbsolutePathList);
