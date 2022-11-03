@@ -42,13 +42,13 @@ import java.util.Map;
 public class ProfileSetDetailActivity extends AppCompatActivity{
 
     private ImageButton imageButton;
-    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNumber,
-            profile_EditText_address, profile_EditText_email, profile_EditText_e_name, profile_EditText_age,
+    private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNum,
+            profile_EditText_addr, profile_EditText_email, profile_EditText_e_name, profile_EditText_age,
             profile_EditText_ch_name, profile_EditText_SNS, profile_EditText_number;
 
     private Button profile_picture_loadButton, complete_profile_setting_button, profile_menu;
     private String userID;
-    private String name, e_name, ch_name, rrn, age, SNS, phoneNumber, number, email, address;
+    private String name, e_name, ch_name, rrn, age, SNS, phoneNum, number, email, addr;
 
     public Uri imageUri;
     public ImageView profile_picture;
@@ -61,7 +61,7 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_setting_detailed);
+        setContentView(R.layout.activity_profile_setting_detail);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -73,24 +73,24 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
         fStorage = FirebaseStorage.getInstance();
         storageReference = fStorage.getReference();
 
-        profile_EditText_name = (EditText)findViewById(R.id.profile_EditText_name);
+        profile_EditText_name = findViewById(R.id.profile_EditText_name);
         profile_EditText_e_name = findViewById(R.id.profile_EditText_e_name);
         profile_EditText_ch_name = findViewById(R.id.profile_EditText_ch_name);
-        profile_EditText_rrn = (EditText)findViewById(R.id.profile_EditText_rrn);
+        profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
         profile_EditText_age = findViewById(R.id.profile_EditText_age);
         profile_EditText_SNS = findViewById(R.id.profile_EditText_SNS);
-        profile_EditText_phoneNumber = (EditText)findViewById(R.id.profile_EditText_phoneNumber);
-        profile_EditText_number = (EditText)findViewById(R.id.profile_EditText_number);
+        profile_EditText_phoneNum = findViewById(R.id.profile_EditText_phoneNum);
+        profile_EditText_number = findViewById(R.id.profile_EditText_number);
         profile_EditText_email = findViewById(R.id.profile_EditText_email);
-        profile_EditText_address = (EditText)findViewById(R.id.profile_EditText_address);
+        profile_EditText_addr = findViewById(R.id.profile_EditText_addr);
 
 
-        profile_picture_loadButton = (Button)findViewById(R.id.profile_picture_loadButton);
-        profile_picture = (ImageView)findViewById(R.id.profile_picture);
+        profile_picture_loadButton = findViewById(R.id.profile_picture_loadButton);
+        profile_picture = findViewById(R.id.profile_picture);
 
 
 
-        imageButton = (ImageButton) findViewById(R.id.profile_setting_back_button);
+        imageButton =  findViewById(R.id.profile_setting_back_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,8 +119,8 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
                 rrn = value.getString("rrn");
                 age = value.getString("age");
                 SNS = value.getString("SNS");
-                address = value.getString("address");
-                phoneNumber = value.getString("phoneNumber");
+                addr = value.getString("addr");
+                phoneNum = value.getString("phoneNum");
                 number = value.getString("number");
                 email = value.getString("email");
 
@@ -131,8 +131,8 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
                 profile_EditText_rrn.setText(rrn);
                 profile_EditText_age.setText(age);
                 profile_EditText_SNS.setText(SNS);
-                profile_EditText_address.setText(address);
-                profile_EditText_phoneNumber.setText(phoneNumber);
+                profile_EditText_addr.setText(addr);
+                profile_EditText_phoneNum.setText(phoneNum);
                 profile_EditText_number.setText(number);
                 profile_EditText_email.setText(email);
 
@@ -161,10 +161,10 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
                 rrn = profile_EditText_rrn.getText().toString().trim();
                 age = profile_EditText_age.getText().toString().trim();
                 SNS=profile_EditText_SNS.getText().toString().trim();
-                phoneNumber = profile_EditText_phoneNumber.getText().toString().trim();
+                phoneNum = profile_EditText_phoneNum.getText().toString().trim();
                 number=profile_EditText_number.getText().toString().trim();
                 email = profile_EditText_email.getText().toString().trim();
-                address = profile_EditText_address.getText().toString().trim();
+                addr = profile_EditText_addr.getText().toString().trim();
 
                 if(mAuth.getCurrentUser() == null){
 
@@ -180,10 +180,10 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
                         user.put("rrn", rrn);
                         user.put("age", age);
                         user.put("SNS",SNS);
-                        user.put("phoneNumber", phoneNumber);
+                        user.put("phoneNum", phoneNum);
                         user.put("number",number);
                         user.put("email", email);
-                        user.put("address", address);
+                        user.put("addr", addr);
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

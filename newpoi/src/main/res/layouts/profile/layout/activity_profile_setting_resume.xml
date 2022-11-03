@@ -18,14 +18,14 @@
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="@drawable/btn_back"/>
         <android.widget.Button
-            android:id="@+id/complete_profile_setting_button"
+            android:id="@+id/button_complete"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:background="@drawable/radius"
             android:layout_marginTop="13dp"
             android:textColor="@color/white"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
             android:text="@string/complete"/>
 
         <ImageView

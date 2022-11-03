@@ -29,9 +29,9 @@ public class ProfileDetailFragment extends Fragment {
     private Activity activity;
 
     private TextView profile_name_content, profile_e_name_content, profile_rrn_content,
-            profile_age_content, profile_address_content, profile_email_content, profile_phoneNumber_content,
+            profile_age_content, profile_addr_content, profile_email_content, profile_phoneNum_content,
             profile_ch_name_content, profile_number_content, profile_SNS_content, profile_screen_picture;
-    private String userID, name, e_name, rrn, age, address, email, phoneNumber, ch_name, number, SNS;
+    private String userID, name, e_name, rrn, age, addr, email, phoneNum, ch_name, number, SNS;
 
     private FirebaseStorage fStorage;
     private FirebaseAuth mAuth;
@@ -49,9 +49,9 @@ public class ProfileDetailFragment extends Fragment {
         profile_e_name_content = view.findViewById(R.id.profile_e_name_content);
         profile_rrn_content = view.findViewById(R.id.profile_rrn_content);
         profile_age_content = view.findViewById(R.id.profile_age_content);
-        profile_address_content = view.findViewById(R.id.profile_address_content);
+        profile_addr_content = view.findViewById(R.id.profile_addr_content);
         profile_email_content = view.findViewById(R.id.profile_email_content);
-        profile_phoneNumber_content = view.findViewById(R.id.profile_phoneNumber_content);
+        profile_phoneNum_content = view.findViewById(R.id.profile_phoneNum_content);
         profile_ch_name_content = view.findViewById(R.id.profile_ch_name_content);
         profile_number_content = view.findViewById(R.id.profile_number_content);
         profile_SNS_content = view.findViewById(R.id.profile_SNS_content);
@@ -93,9 +93,9 @@ public class ProfileDetailFragment extends Fragment {
                             e_name = value.getString("e_name");
                             rrn = value.getString("rrn");
                             age = value.getString("age");
-                            address = value.getString("address");
+                            addr = value.getString("addr");
                             email = value.getString("email");
-                            phoneNumber = value.getString("phoneNumber");
+                            phoneNum = value.getString("phoneNum");
                             ch_name = value.getString("ch_name");
                             number = value.getString("number");
                             SNS = value.getString("SNS");
@@ -107,9 +107,9 @@ public class ProfileDetailFragment extends Fragment {
                             profile_e_name_content.setText(e_name);
                             profile_rrn_content.setText(rrn);
                             profile_age_content.setText(age);
-                            profile_address_content.setText(address);
+                            profile_addr_content.setText(addr);
                             profile_email_content.setText(email);
-                            profile_phoneNumber_content.setText(phoneNumber);
+                            profile_phoneNum_content.setText(phoneNum);
                         }
                     }
                 });
@@ -121,9 +121,9 @@ public class ProfileDetailFragment extends Fragment {
                 profile_e_name_content.setText("");
                 profile_rrn_content.setText("");
                 profile_age_content.setText("");
-                profile_address_content.setText("");
+                profile_addr_content.setText("");
                 profile_email_content.setText("");
-                profile_phoneNumber_content.setText("");
+                profile_phoneNum_content.setText("");
 //            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
             }
         }

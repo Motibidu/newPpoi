@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">로그인</string>
+    <string name="logout">로그아웃</string>
+    <string name="password">비밀번호</string>
+</resources>

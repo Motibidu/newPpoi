@@ -245,8 +245,9 @@ public class ProfileScrnActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             else if (b_resumeProfile){
-                                Intent intent = new Intent(ProfileScrnActivity.this, ProfileSetResumeActivity.class);
-                                startActivity(intent);
+//                                Intent intent = new Intent(ProfileScrnActivity.this, ProfileSetResumeActivity.class);
+//                                startActivity(intent);
+                                Toast.makeText(mContext,"위 버튼을 이용해주시면 감사하겠습니다.",Toast.LENGTH_SHORT).show();
                             }
 
                         }

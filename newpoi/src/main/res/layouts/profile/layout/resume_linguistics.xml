@@ -60,7 +60,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="시험"
-                            app:suffixText="YYYY/MM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -76,7 +75,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="점수"
-                            app:suffixText="YYYY/MM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -101,8 +99,7 @@
                             android:hint="기관"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
-                            android:layout_weight="1"
-                            app:suffixText="졸업/졸업 예정">
+                            android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/highschool_graIfy_EditText"
                                 android:layout_width="match_parent"
@@ -176,7 +173,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="점수"
-                            app:suffixText="YYYY/MM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -192,7 +188,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="기관"
-                            app:suffixText="YYYY/MM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -216,7 +211,6 @@
                         android:id="@+id/master_Textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/profile_picture_loadButton"
                         android:layout_marginTop="25dp"
                         android:layout_marginLeft="25dp"
                         android:layout_marginRight="30dp"
@@ -303,7 +297,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageButton
-                        android:id="@+id/back_button"
+                        android:id="@+id/imageBtn_back"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="18dp"
@@ -311,7 +305,7 @@
                         android:src="@drawable/ic_baseline_arrow_back_24"
                         android:background="@drawable/btn_back"/>
                     <android.widget.Button
-                        android:id="@+id/complete_button"
+                        android:id="@+id/btn_complete"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/radius"

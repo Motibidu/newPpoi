@@ -6,39 +6,83 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_below="@+id/profile_screen_picture">
-    <TextView
-        android:id="@+id/eduBack"
+    <Button
+        android:id="@+id/btn_eduBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_screen_picture"
-        android:layout_marginLeft="30dp"
+        android:layout_marginVertical="30dp"
+        android:textSize="25sp"
+        android:background="@drawable/btn_back"
+        android:textColor="@color/halfTransparent_grey"
         android:text="@string/eduBack"/>
-    <TextView
-        android:id="@+id/formOfCareer"
+    <Button
+        android:id="@+id/btn_formOfCareer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eduBack"
-        android:layout_marginLeft="30dp"
+        android:layout_marginVertical="30dp"
+        android:textSize="25sp"
+        android:background="@drawable/btn_back"
+        android:textColor="@color/halfTransparent_grey"
         android:text="@string/formOfCareer"/>
-    <TextView
-        android:id="@+id/linguistics"
+    <Button
+        android:id="@+id/btn_lang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eduBack"
-        android:layout_marginLeft="30dp"
-        android:text="어학사항"/>
-    <TextView
-        android:id="@+id/selfIntroduction"
+        android:layout_marginVertical="30dp"
+        android:textSize="25sp"
+        android:background="@drawable/btn_back"
+        android:textColor="@color/halfTransparent_grey"
+        android:text="@string/lang"/>
+
+    <Button
+        android:id="@+id/btn_licenses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/awLic"
-        android:layout_marginLeft="30dp"
+        android:layout_marginVertical="30dp"
+        android:textSize="25sp"
+        android:background="@drawable/btn_back"
+        android:textColor="@color/halfTransparent_grey"
+        android:text="@string/awLic"/>
+
+    <Button
+        android:id="@+id/btn_selfIntroduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:textSize="25sp"
+        android:background="@drawable/btn_back"
+        android:textColor="@color/halfTransparent_grey"
         android:text="@string/selfIntroduction"/>
-    <TextView
-        android:id="@+id/lincenses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/eduBack"
-        android:layout_marginLeft="30dp"
-        android:text="자격증"/>
+<!--    <TextView-->
+<!--        android:id="@+id/formOfCareer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginVertical="30dp"-->
+<!--        android:textSize="25sp"-->
+<!--        android:text="@string/formOfCareer"/>-->
+<!--    <TextView-->
+<!--        android:id="@+id/lang"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginVertical="30dp"-->
+<!--        android:textSize="25sp"-->
+<!--        android:text="@string/lang"/>-->
+<!--    <TextView-->
+<!--        android:id="@+id/selfIntroduction"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginVertical="30dp"-->
+<!--        android:textSize="25sp"-->
+<!--        android:text="@string/selfIntroduction"/>-->
+<!--    <TextView-->
+<!--        android:id="@+id/lincenses"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginVertical="30dp"-->
+<!--        android:textSize="25sp"-->
+<!--        android:text="@string/awLic"/>-->
 </LinearLayout>

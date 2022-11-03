@@ -11,4 +11,10 @@
     <string name="SNS">SNS</string>
     <string name="addr">주소</string>
 
+    <string name = "eduBack">학력사항</string>
+    <string name = "formOfCareer">경력사항</string>
+    <string name = "awLic">수상 및 자격증</string>
+    <string name = "selfIntroduction">자기소개서</string>
+    <string name = "lang">어학사항</string>
+
 </resources>

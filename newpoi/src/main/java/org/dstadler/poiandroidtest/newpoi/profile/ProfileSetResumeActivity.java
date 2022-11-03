@@ -24,7 +24,7 @@ public class ProfileSetResumeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_setting_resume);
+        setContentView(R.layout.activity_profile_setting_resume);
 
         context = getApplicationContext();
 
@@ -56,7 +56,7 @@ public class ProfileSetResumeActivity extends AppCompatActivity {
         linguistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeLinguisticsActivity.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, ResumeLangActivity.class);
                 startActivity(intent);
             }
         });

@@ -191,7 +191,7 @@ public class ResumeEcubackActivity extends AppCompatActivity {
                         });
                     }
                     //profile_screen으로 화면을 전환한다.
-                    startActivity(intent);
+                    onBackPressed();
                 }
             }
         });
