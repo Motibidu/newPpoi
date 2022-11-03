@@ -226,18 +226,6 @@ public class ScanActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        String name = Constant.scanInfo.get("name");
-        String engName = Constant.scanInfo.get("engName");
-        String chName = Constant.scanInfo.get("chName");
-        String rrn = Constant.scanInfo.get("rrn");
-        String email = Constant.scanInfo.get("email");
-        String addr = Constant.scanInfo.get("addr");
-        String phoneNum = Constant.scanInfo.get("phoneNum");
-        String age = Constant.scanInfo.get("age");
-
-
-
-
         if (mAuth.getCurrentUser() == null) {
 
         }
@@ -246,22 +234,15 @@ public class ScanActivity extends AppCompatActivity{
             if (userID != null) {
                 DocumentReference documentReference = fStore.collection("users").document(userID);
                 Map<String, Object> user = new HashMap<>();
-//                user.put("name", name);
-//                user.put("engName", engName);
-//                user.put("chName", chName);
-//                user.put("rrn", rrn);
-//                user.put("age", age);
-//                user.put("phoneNumber", phoneNum);
-//                user.put("email", email);
-//                user.put("address", addr);
+
                 user.put("name", PreferenceManager.getString(mContext,"edit_name"));
                 user.put("engName", PreferenceManager.getString(mContext,"edit_engName"));
                 user.put("chName", PreferenceManager.getString(mContext,"edit_chName"));
                 user.put("rrn", PreferenceManager.getString(mContext,"edit_rrn"));
                 user.put("age", PreferenceManager.getString(mContext,"edit_age"));
-                user.put("phoneNumber", PreferenceManager.getString(mContext,"edit_phoneNum"));
+                user.put("phoneNum", PreferenceManager.getString(mContext,"edit_phoneNum"));
                 user.put("email", PreferenceManager.getString(mContext,"edit_email"));
-                user.put("address", PreferenceManager.getString(mContext,"edit_addr"));
+                user.put("addr", PreferenceManager.getString(mContext,"edit_addr"));
 
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -277,6 +258,10 @@ public class ScanActivity extends AppCompatActivity{
                 });
             }
         }
+
+        Intent intent = new Intent(mContext, ProfileScrnActivity.class);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 

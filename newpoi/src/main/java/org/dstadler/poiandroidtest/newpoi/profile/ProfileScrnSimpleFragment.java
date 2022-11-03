@@ -2,7 +2,6 @@ package org.dstadler.poiandroidtest.newpoi.profile;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
@@ -33,12 +30,12 @@ public class ProfileScrnSimpleFragment extends Fragment {
     private View view;
     private Activity activity;
 
-    private TextView profile_name_content, profile_rrn_content, profile_age_content, profile_address_content, profile_email_content, profile_phoneNumber_content;
+    private TextView profile_name_content, profile_rrn_content, profile_age_content, profile_addr_content, profile_email_content, profile_phoneNum_content;
     private Context mContext;
 
 
     private String userID;
-    String name, rrn, age, address, email, phoneNumber;
+    String name, rrn, age, addr, email, phoneNum;
 
     private FirebaseStorage fStorage;
     private FirebaseAuth mAuth;
@@ -62,14 +59,14 @@ public class ProfileScrnSimpleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profile_screen_simple, container, false);
+        view = inflater.inflate(R.layout.fragment_profile_scrn_simple, container, false);
 
         profile_name_content = view.findViewById(R.id.profile_name_content);
         profile_rrn_content = view.findViewById(R.id.profile_rrn_content);
         profile_age_content = view.findViewById(R.id.profile_age_content);
-        profile_address_content = view.findViewById(R.id.profile_address_content);
+        profile_addr_content = view.findViewById(R.id.profile_addr_content);
         profile_email_content = view.findViewById(R.id.profile_email_content);
-        profile_phoneNumber_content = view.findViewById(R.id.profile_phoneNumber_content);
+        profile_phoneNum_content = view.findViewById(R.id.profile_phoneNum_content);
         updateUI(account);
 
         return view;
@@ -105,16 +102,16 @@ public class ProfileScrnSimpleFragment extends Fragment {
                                 name = value.getString("name");
                                 rrn = value.getString("rrn");
                                 age = value.getString("age");
-                                address = value.getString("address");
+                                addr = value.getString("addr");
                                 email = value.getString("email");
-                                phoneNumber = value.getString("phoneNumber");
+                                phoneNum = value.getString("phoneNum");
 
                                 profile_name_content.setText(name);
                                 profile_rrn_content.setText(rrn);
                                 profile_age_content.setText(age);
-                                profile_address_content.setText(address);
+                                profile_addr_content.setText(addr);
                                 profile_email_content.setText(email);
-                                profile_phoneNumber_content.setText(phoneNumber);
+                                profile_phoneNum_content.setText(phoneNum);
                             }
                         }
                     });
@@ -126,9 +123,9 @@ public class ProfileScrnSimpleFragment extends Fragment {
             profile_name_content.setText("");
             profile_rrn_content.setText("");
             profile_age_content.setText("");
-            profile_address_content.setText("");
+            profile_addr_content.setText("");
             profile_email_content.setText("");
-            profile_phoneNumber_content.setText("");
+            profile_phoneNum_content.setText("");
 //            Toast.makeText(profile_screen.this,"???",Toast.LENGTH_SHORT).show();
         }
     }

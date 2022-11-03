@@ -142,7 +142,7 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/phoneNumber_Layout"
+                            android:id="@+id/phoneNum_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/phoneNum"
@@ -150,14 +150,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/phoneNumber_EditText"
+                                android:id="@+id/phoneNum_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/address_Layout"
+                            android:id="@+id/addr_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/addr"
@@ -165,7 +165,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/address_EditText"
+                                android:id="@+id/addr_EditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"

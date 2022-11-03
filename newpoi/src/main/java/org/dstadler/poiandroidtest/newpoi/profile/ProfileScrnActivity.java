@@ -85,9 +85,7 @@ public class ProfileScrnActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         storageReference = fStorage.getInstance().getReference();
 
-
-
-
+        //back button
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,17 +144,40 @@ public class ProfileScrnActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         updateUI(account);
 
-        Fragment frg = getSupportFragmentManager().findFragmentByTag(PreferenceManager.getString(mContext,"fragmentTag_ProfileScrnActivity"));
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.detach(frg);
-        ft.attach(frg);
-        ft.commit();
+//        Fragment frg = getSupportFragmentManager().findFragmentByTag(PreferenceManager.getString(mContext,"fragmentTag_ProfileScrnActivity"));
+//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        profile_screen_number = PreferenceManager.getInt(mContext,"profile_screen_number");
+//        Toast.makeText(mContext,Integer.toString(profile_screen_number),Toast.LENGTH_SHORT).show();
+        if(profile_screen_number == -1 || profile_screen_number == 0){
+            b_simpleProfile= true; b_detailedProfile = false; b_resumeProfile = false;
+            setFrag(0);
+            profileMenu_TextView.setText("간편 프로필");
+        }
+        else if (profile_screen_number == 1){
+            b_simpleProfile= false; b_detailedProfile = true; b_resumeProfile = false;
+            setFrag(profile_screen_number);
+            profileMenu_TextView.setText("세부 프로필");
+        }
+        else if (profile_screen_number == 2){
+            b_simpleProfile= false; b_detailedProfile = false; b_resumeProfile = true;
+            setFrag(profile_screen_number);
+            profileMenu_TextView.setText("이력서 프로필");
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        PreferenceManager.setInt(mContext, "profile_screen_number", 0);
+//        PreferenceManager.setInt(mContext, "profile_screen_number", 0);
     }
 
     public void showPopup(View v) {

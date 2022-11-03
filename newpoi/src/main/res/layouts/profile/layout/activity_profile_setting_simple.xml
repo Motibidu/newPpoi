@@ -16,16 +16,30 @@
             android:layout_marginTop="18dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="@drawable/btn_back"/>
-        <android.widget.Button
-            android:id="@+id/button_clear"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radius"
-            android:layout_marginTop="13dp"
-            android:textColor="@color/white"
+        <LinearLayout
+            android:id="@+id/layout_clear_restore"
             android:layout_toStartOf="@+id/button_complete"
-            android:layout_marginEnd="18dp"
-            android:text="초기화"/>
+            android:layout_marginStart="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/radius">
+            <TextView
+                android:id="@+id/profileEdit_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="되돌리기"/>
+            <ImageView
+                android:id="@+id/profileEdit_ImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+        </LinearLayout>
 
 
         <android.widget.Button
@@ -78,7 +92,8 @@
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="30dp"
                 android:hint="@string/hint_name"
-                android:inputType="textAutoComplete" />
+                android:inputType="textAutoComplete"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/text_rrn"
@@ -93,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="30dp"
-                android:hint= "@string/hint_rrn"/>
+                android:hint= "@string/hint_rrn"
+                android:singleLine="true"/>
             <TextView
                 android:id="@+id/text_age"
                 android:layout_width="match_parent"
@@ -107,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="30dp"
-                android:hint="@string/hint_age" />
+                android:hint="@string/hint_age"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/text_phoneNum"
@@ -122,14 +139,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="30dp"
-                android:hint="@string/hint_phoneNum" />
+                android:hint="@string/hint_phoneNum"
+                android:singleLine="true"/>
             <TextView
                 android:id="@+id/text_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="30dp"
-                android:text="@string/email"/>
+                android:text="@string/email"
+                android:singleLine="true"/>
             <EditText
                 android:id="@+id/editText_email"
                 android:layout_width="match_parent"
@@ -151,7 +170,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
                 android:layout_marginEnd="30dp"
-                android:hint="@string/hint_addr" />
+                android:hint="@string/hint_addr"
+                android:singleLine="true"/>
         </LinearLayout>
 
 

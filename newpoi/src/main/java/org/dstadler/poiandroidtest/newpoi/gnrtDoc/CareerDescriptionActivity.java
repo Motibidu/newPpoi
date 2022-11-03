@@ -103,13 +103,13 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
 
 
-    private String name, email, phoneNumber, address;
+    private String name, email, phoneNum, addr;
 
 
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
             master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText;
-    private TextInputEditText name_EditText, email_EditText, phoneNumber_EditText, address_EditText;
+    private TextInputEditText name_EditText, email_EditText, phoneNum_EditText, addr_EditText;
     private String highschool_enterYM,  highschool_graYM, highschool_name, highschool_graCls,
             university_enterYM, university_graYM, university_graCls, university_name, university_major,
             master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB;
@@ -218,8 +218,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         name_EditText = findViewById(R.id.name_EditText);                   //이름
         email_EditText = findViewById(R.id.email_EditText);                 //이메일
-        phoneNumber_EditText = findViewById(R.id.phoneNumber_EditText);     //휴대폰
-        address_EditText = findViewById(R.id.address_EditText);             //주소
+        phoneNum_EditText = findViewById(R.id.phoneNum_EditText);     //휴대폰
+        addr_EditText = findViewById(R.id.addr_EditText);             //주소
 
         expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
 
@@ -434,8 +434,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 //                        //get texts;
 //                        name = name_EditText.getText().toString().trim();
 //                        email = email_EditText.getText().toString().trim();
-//                        phoneNumber = phoneNumber_EditText.getText().toString().trim();
-//                        address = address_EditText.getText().toString().trim();
+//                        phoneNum = phoneNum_EditText.getText().toString().trim();
+//                        addr = addr_EditText.getText().toString().trim();
 //
 //                        highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
 //                        highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
@@ -528,7 +528,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
                 //download/ZN폴더에 profile.jpg라는 파일이 있다면 "Profile Image File Exists!"라는 팝업 문구를 띄운다.
                 if (imgFile.exists()){
-                    Toast.makeText(mContext, "Profile Image File Exists!", Toast.LENGTH_SHORT).show();
+                    downloadEP.download_picture();
                     //프로필 이미지 파일이 존재할 때는 DOC_DWNL_CMPLT이벤트를 발생시킨다.
                     documentProcess = new Intent(DOC_DWNL_CMPLT);
                     sendBroadcast(documentProcess);
@@ -538,7 +538,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 // (download_picture()메소드는 download/ZN 폴더에 "profile.jpg"라는 이름으로 프로필 이미지를 다운로드한다.)
                 else{
                     downloadEP.download_picture();
-                    Toast.makeText(mContext, "Downloading Profile Image", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -550,6 +549,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 fileName = fileName+".docx";
                 imgFile = new File(Environment.getExternalStoragePublicDirectory
                         (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+
 
                 //프로필 이미지가 존재할 때
                 if (imgFile.exists()) {
@@ -588,8 +588,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         //문서 내에 key : value 데이터들을 Map<string, string> data 변수내에 삽입한다.
                         data.put("name", name);
                         data.put("email", email);
-                        data.put("phoneNumber", phoneNumber);
-                        data.put("address", address);
+                        data.put("phoneNum", phoneNum);
+                        data.put("addr", addr);
 
                         data.put("highschool_enterYM", highschool_enterYM);
                         data.put("highschool_graYM", highschool_graYM);
@@ -783,8 +783,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     case R.id.applyToProfile:
                         name = name_EditText.getText().toString().trim();
                         email = email_EditText.getText().toString().trim();
-                        phoneNumber = phoneNumber_EditText.getText().toString().trim();
-                        address = address_EditText.getText().toString().trim();
+                        phoneNum = phoneNum_EditText.getText().toString().trim();
+                        addr = addr_EditText.getText().toString().trim();
 
                         license1_date = license1_date_EditText.getText().toString().trim();
                         license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
@@ -852,8 +852,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                                 user = new HashMap<>();
                                 user.put("name", name);
                                 user.put("email", email);
-                                user.put("phoneNumber", phoneNumber);
-                                user.put("address", address);
+                                user.put("phoneNum", phoneNum);
+                                user.put("addr", addr);
                                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -974,13 +974,13 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     if (value != null && value.exists()) {
                         name = value.getString("name");
                         email = value.getString("email");
-                        phoneNumber = value.getString("phoneNumber");
-                        address = value.getString("address");
+                        phoneNum = value.getString("phoneNum");
+                        addr = value.getString("addr");
 
                         name_EditText.setText(name);
                         email_EditText.setText(email);
-                        phoneNumber_EditText.setText(phoneNumber);
-                        address_EditText.setText(address);
+                        phoneNum_EditText.setText(phoneNum);
+                        addr_EditText.setText(addr);
                     }
 
                 }
@@ -1277,9 +1277,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         }
     }
+    //check if download is complete or not
     class checkingDownloadThread extends Thread{
         boolean downloadComplete = false;
         File f;
+
 
         public void run() {
             while(!downloadComplete) {
@@ -1287,9 +1289,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 try {
                     if(docName == docName) {
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+
                     }
                     else{
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+
                     }
 
                     downloadComplete = true;
@@ -1341,8 +1345,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 //get texts;
                 name = name_EditText.getText().toString().trim();
                 email = email_EditText.getText().toString().trim();
-                phoneNumber = phoneNumber_EditText.getText().toString().trim();
-                address = address_EditText.getText().toString().trim();
+                phoneNum = phoneNum_EditText.getText().toString().trim();
+                addr = addr_EditText.getText().toString().trim();
 
                 highschool_enterYM = highschool_enterYM_EditText.getText().toString().trim();
                 highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
@@ -1417,6 +1421,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         boolean downloadComplete = false;
         File f;
+        File imagePicture;
 
         public void run() {
             while(!downloadComplete) {
@@ -1424,9 +1429,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 try {
                     if(docName == docName) {
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+                        imagePicture = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+"profile.jpg");
                     }
                     else{
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+                        imagePicture = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+"profile.jpg");
                     }
 
                     downloadComplete = true;

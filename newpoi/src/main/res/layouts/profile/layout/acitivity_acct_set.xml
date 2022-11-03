@@ -8,7 +8,7 @@
             android:id="@+id/backBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:background="@drawable/btn_back"/>
@@ -16,9 +16,9 @@
             android:id="@+id/cmpltBtn"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp"
             android:text="@string/complete"
             android:textColor="@color/white"
             android:background="@drawable/radius"/>
@@ -58,7 +58,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/none"
-            android:textSize="30dp"/>
+            android:textSize="30sp"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signInBtn"

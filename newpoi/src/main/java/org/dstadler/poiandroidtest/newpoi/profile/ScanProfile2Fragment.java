@@ -72,41 +72,6 @@ public class ScanProfile2Fragment extends Fragment{
         addr = map.get("addr");
         phoneNum = map.get("phoneNum");
 
-        if(name.isEmpty()){
-            Constant.scanInfo.put("name", "");
-        }else{
-            Constant.scanInfo.put("name", name.get(name.size() - 1));
-        }
-        if(engName.isEmpty()){
-            Constant.scanInfo.put("engName", "");
-        }else{
-            Constant.scanInfo.put("engName", engName.get(engName.size() - 1));
-        }
-        if(chName.isEmpty()){
-            Constant.scanInfo.put("chName", "");
-        }else{
-            Constant.scanInfo.put("chName", chName.get(chName.size() - 1));
-        }
-        if(rnn.isEmpty()){
-            Constant.scanInfo.put("rnn", "");
-        }else{
-            Constant.scanInfo.put("rnn", rnn.get(rnn.size() - 1));
-        }
-        if(email.isEmpty()){
-            Constant.scanInfo.put("email", "");
-        }else{
-            Constant.scanInfo.put("email", email.get(email.size() - 1));
-        }
-        if(addr.isEmpty()){
-            Constant.scanInfo.put("addr", "");
-        }else{
-            Constant.scanInfo.put("addr", addr.get(addr.size() - 1));
-        }
-        if(phoneNum.isEmpty()){
-            Constant.scanInfo.put("phoneNum", "");
-        }else{
-            Constant.scanInfo.put("phoneNum", phoneNum.get(phoneNum.size() - 1));
-        }
     }
 
     @Override
@@ -252,11 +217,7 @@ public class ScanProfile2Fragment extends Fragment{
         imageButton_addr = v.findViewById(R.id.imagebutton_addr);
 
 
-        if(getAge().length() == 0 || getAge() == null){
-            Constant.scanInfo.put("age", "");
-        }else{
-            Constant.scanInfo.put("age", getAge());
-        }
+
 
         imageButton_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,7 +303,15 @@ public class ScanProfile2Fragment extends Fragment{
             edit_rrn.setText("");
             PreferenceManager.setString(mContext,"edit_rrn", "");
         }
-
+        //when getAge is empty
+        if(getAge().length() == 0 || getAge() == null){
+            edit_age.setText("");
+            PreferenceManager.setString(mContext,"edit_age", "");
+        }else{ //when getAge exists
+            edit_age.setText(getAge());
+            PreferenceManager.setString(mContext,"edit_age", getAge());
+            Log.d(TAG, getAge());
+        }
         if (phoneNum.size() != 0) {
             edit_phoneNum.setText(phoneNum.get(phoneNum.size() - 1));
             PreferenceManager.setString(mContext,"edit_phoneNum", phoneNum.get(phoneNum.size() - 1));

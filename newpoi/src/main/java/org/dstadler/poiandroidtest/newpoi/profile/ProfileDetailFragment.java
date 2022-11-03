@@ -41,7 +41,7 @@ public class ProfileDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profile_screen_detailed, container, false);
+        view = inflater.inflate(R.layout.fragment_profile_scrn_detail, container, false);
 
         activity = getActivity();
 
