@@ -202,6 +202,21 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/num_Layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/num"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/num_EditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/email_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

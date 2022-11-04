@@ -91,14 +91,14 @@ public class DocCatActivity extends AppCompatActivity {
         });
         //경력 기술서 cumstomView
         careerDescription_customImgV = findViewById(R.id.careerDescription_customImgV);
-        careerDescription_customImgV.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description0_page1, reqWidth, reqHeight));
+        careerDescription_customImgV.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description0_page0, reqWidth, reqHeight));
         careerDescription_customImgV.setColorFilter(Color.parseColor("#6F000000"));
         careerDescription_customImgV.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 intent = new Intent(DocCatActivity.this, CareerDescriptionCatAcitivity.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page0);
                 intent.putExtra("imgPath", imgPath.toString());
                 startActivity(intent);
             }

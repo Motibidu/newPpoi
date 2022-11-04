@@ -33,6 +33,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.aspose.words.Document;
+import com.aspose.words.DocumentBuilder;
+import com.aspose.words.FindReplaceOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -103,13 +106,16 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
 
 
-    private String name, email, phoneNum, addr;
+    private String name, email, phoneNum, addr, engName, chName, rrn, age, num;
 
 
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
             master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText;
-    private TextInputEditText name_EditText, email_EditText, phoneNum_EditText, addr_EditText;
+
+    private TextInputEditText name_EditText, email_EditText, phoneNum_EditText, addr_EditText, engName_EditText, chName_EditText, rrn_EditText, age_EditText, num_EditText;
+
+
     private String highschool_enterYM,  highschool_graYM, highschool_name, highschool_graCls,
             university_enterYM, university_graYM, university_graCls, university_name, university_major,
             master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB;
@@ -179,7 +185,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_career_description);
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
-        filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
+        filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page0;
 
         //handler1
         handler1 = new Handler();
@@ -217,8 +223,13 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         expandedScrn_name = findViewById(R.id.expandedScrn_name);
 
         name_EditText = findViewById(R.id.name_EditText);                   //이름
-        email_EditText = findViewById(R.id.email_EditText);                 //이메일
+        engName_EditText= findViewById(R.id.engName_EditText);
+        chName_EditText= findViewById(R.id.chName_EditText);
+        rrn_EditText= findViewById(R.id.rrn_EditText);
+        age_EditText= findViewById(R.id.age_EditText);
         phoneNum_EditText = findViewById(R.id.phoneNum_EditText);     //휴대폰
+        num_EditText= findViewById(R.id.num_EditText);
+        email_EditText = findViewById(R.id.email_EditText);                 //이메일
         addr_EditText = findViewById(R.id.addr_EditText);             //주소
 
         expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
@@ -554,70 +565,18 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         data.put("award2_date", award2_date);
                         data.put("award2_cntnt", award2_cntnt);
                         data.put("award2_publication", award2_publication);
-//                        data.put("name", name);
-//                        data.put("email", email);
-//                        data.put("phoneNum", phoneNum);
-//                        data.put("addr", addr);
-//                        data.put("rrn", addr);
-//
-//                        data.put("highschool_enterYM", highschool_enterYM);
-//                        data.put("highschool_graYM", highschool_graYM);
-//                        data.put("highschool_graCls", highschool_graCls);
-//                        data.put("highschool_name", highschool_name);
-//
-//                        data.put("university_enterYM", university_enterYM);
-//                        data.put("university_graYM", university_graYM);
-//                        data.put("university_graCls", university_graCls);
-//                        data.put("university_name", university_name);
-//                        data.put("university_major", university_major);
-//
-//                        data.put("master_enterYM", master_enterYM);
-//                        data.put("master_graYM", master_graYM);
-//                        data.put("master_graCls", master_graCls);
-//                        data.put("master_name", master_name);
-//                        data.put("master_major", master_major);
-//                        data.put("master_graThe", master_graThe);
-//                        data.put("master_LAB", master_LAB);
-//
-//                        data.put("formOfCareer1_name", formOfCareer1_name);
-//                        data.put("formOfCareer1_enterYM", formOfCareer1_enterYM);
-//                        data.put("formOfCareer1_resignYM", formOfCareer1_resignYM);
-//                        data.put("formOfCareer1_office", formOfCareer1_office);
-//                        data.put("formOfCareer1_task", formOfCareer1_task);
-//
-//                        data.put("formOfCareer2_name", formOfCareer2_name);
-//                        data.put("formOfCareer2_enterYM", formOfCareer2_enterYM);
-//                        data.put("formOfCareer2_resignYM", formOfCareer2_resignYM);
-//                        data.put("formOfCareer2_office", formOfCareer2_office);
-//                        data.put("formOfCareer2_task", formOfCareer2_task);
-//
-//                        data.put("formOfCareer3_name", formOfCareer3_name);
-//                        data.put("formOfCareer3_enterYM", formOfCareer3_enterYM);
-//                        data.put("formOfCareer3_resignYM", formOfCareer3_resignYM);
-//                        data.put("formOfCareer3_office", formOfCareer3_office);
-//                        data.put("formOfCareer3_task", formOfCareer3_task);
-//
-//                        data.put("license1_date", license1_date);
-//                        data.put("license1_cntnt", license1_cntnt);
-//                        data.put("license1_grade", license1_grade);
-//                        data.put("license1_publication", license1_publication);
-//
-//                        data.put("license2_date", license2_date);
-//                        data.put("license2_cntnt", license2_cntnt);
-//                        data.put("license2_grade", license2_grade);
-//                        data.put("license2_publication", license2_publication);
-//
-//                        data.put("award1_date", award1_date);
-//                        data.put("award1_cntnt", award1_cntnt);
-//                        data.put("award1_publication", award1_publication);
-//
-//                        data.put("award2_date", award2_date);
-//                        data.put("award2_cntnt", award2_cntnt);
-//                        data.put("award2_publication", award2_publication);
 
+                        Document document = new Document(is);
+                        document.getRange().replace("name",name, new FindReplaceOptions());
+//                        document.getRange().replace("engName",engName, new FindReplaceOptions());
+//                        document.getRange().replace("rrn",rrn, new FindReplaceOptions());
+                        document.getRange().replace("email",email, new FindReplaceOptions());
+                        document.getRange().replace("addr",addr, new FindReplaceOptions());
+                        document.save(Environment.getExternalStoragePublicDirectory
+                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName);
                         //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
-                        CustomXWPFDocument c = new CustomXWPFDocument();
-                        c.replace(is,data,out);
+//                        CustomXWPFDocument c = new CustomXWPFDocument();
+//                        c.replace(is,data,out);
 
                         //임시파일을 삭제한다.
                         docFile.delete();
@@ -940,13 +899,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
                         name = value.getString("name");
-                        email = value.getString("email");
+                        engName = value.getString("engName");
+                        chName = value.getString("chName");
+                        rrn = value.getString("rrn");
+                        age = value.getString("age");
                         phoneNum = value.getString("phoneNum");
+                        num = value.getString("num");
+                        email = value.getString("email");
                         addr = value.getString("addr");
 
                         name_EditText.setText(name);
-                        email_EditText.setText(email);
+                        engName_EditText.setText(engName);
+                        chName_EditText.setText(chName);
+                        rrn_EditText.setText(rrn);
+                        age_EditText.setText(age);
                         phoneNum_EditText.setText(phoneNum);
+                        num_EditText.setText(num);
+                        email_EditText.setText(email);
                         addr_EditText.setText(addr);
                     }
 
@@ -1256,13 +1225,10 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 try {
                     if(docName == docName) {
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
-
                     }
                     else{
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
-
                     }
-
                     downloadComplete = true;
 
                 }catch (NullPointerException e){

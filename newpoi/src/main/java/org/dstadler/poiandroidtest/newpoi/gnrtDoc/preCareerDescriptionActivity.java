@@ -179,7 +179,7 @@ public class preCareerDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_career_description);
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
-        filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1;
+        filePath = "android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page0;
 
         //handler1
         handler1 = new Handler();

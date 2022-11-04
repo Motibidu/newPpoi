@@ -90,13 +90,13 @@ public class ProfileDetailFragment extends Fragment {
 //                    });
                         if (value != null && value.exists()) {
                             name = value.getString("name");
-                            e_name = value.getString("e_name");
+                            e_name = value.getString("engName");
                             rrn = value.getString("rrn");
                             age = value.getString("age");
                             addr = value.getString("addr");
                             email = value.getString("email");
                             phoneNum = value.getString("phoneNum");
-                            ch_name = value.getString("ch_name");
+                            ch_name = value.getString("chName");
                             number = value.getString("number");
                             SNS = value.getString("SNS");
 

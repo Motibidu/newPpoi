@@ -45,9 +45,9 @@ public class CareerDescriptionCatAcitivity extends AppCompatActivity {
         careerDescription1 = findViewById(R.id.careerDescription1);
 
         //이미지 해상도 조정, 반투명 설정
-        careerDescription0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description0_page1, reqWidth, reqHeight));
+        careerDescription0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description0_page0, reqWidth, reqHeight));
         careerDescription0.setColorFilter(Color.parseColor("#08000000"));
-        careerDescription1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description1_page1, reqWidth, reqHeight));
+        careerDescription1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.career_description1_page0, reqWidth, reqHeight));
         careerDescription1.setColorFilter(Color.parseColor("#08000000"));
 
         careerDescription0.setOnClickListener(new View.OnClickListener(){
@@ -56,9 +56,9 @@ public class CareerDescriptionCatAcitivity extends AppCompatActivity {
                 //careerDescription_expanded_screen으로 이동
                 intent = new Intent(mContext, CareerDescriptionActivity.class);
                 //첫번째 페이지, 이미지 URI
-                imgPath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1);
+                imgPath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page0);
                 //두번째 페이지, 이미지 URI
-                imgPath2 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page2);
+                imgPath2 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description0_page1);
 
                 intent.putExtra("imgPath1", imgPath1.toString());
                 intent.putExtra("imgPath2", imgPath2.toString());
@@ -75,16 +75,16 @@ public class CareerDescriptionCatAcitivity extends AppCompatActivity {
                 //careerDescription_expanded_screen으로 이동
                 intent = new Intent(mContext, CareerDescriptionActivity.class);
                 //첫번째 페이지, 이미지 URI
-                imgPath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description1_page1);
+                imgPath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description1_page0);
                 //두번째 페이지, 이미지 URI
-                imgPath2 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description1_page2);
+                imgPath2 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.career_description1_page1);
 
                 intent.putExtra("imgPath1", imgPath1.toString());
                 intent.putExtra("imgPath2", imgPath2.toString());
                 intent.putExtra("imgPath3", "");
 
                 //Firebase Storage 내 문서 이름 : carrerDescription0
-                intent.putExtra("docName","careerDescription0");
+                intent.putExtra("docName","careerDescription1");
                 startActivity(intent);
             }
         });
