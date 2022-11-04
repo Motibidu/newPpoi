@@ -35,29 +35,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-//import com.google.api.client.util.Lists;
-//import com.google.api.gax.paging.Page;
-//import com.google.auth.oauth2.GoogleCredentials;
-//import com.google.cloud.vision.v1.AnnotateImageRequest;
-//import com.google.cloud.vision.v1.AnnotateImageResponse;
-//import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
-//import com.google.cloud.vision.v1.Feature;
-//import com.google.cloud.vision.v1.Image;
-//import com.google.cloud.vision.v1.ImageAnnotatorClient;
-//import com.google.cloud.vision.v1.WebDetection;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.CustomXWPFDocument;
 import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
-import org.dstadler.poiandroidtest.newpoi.cls.GoogleManager;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RoundedCornersTransformation;
 import org.dstadler.poiandroidtest.newpoi.main.MainScrnActivity;
@@ -70,7 +54,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PromissoryActivity extends AppCompatActivity {
+public class prePromissoryActivity extends AppCompatActivity {
 
     public static int sCorner = 80;
     public static int sMargin = 1;
@@ -110,10 +94,6 @@ public class PromissoryActivity extends AppCompatActivity {
 
     String filePath;
 
-    private DocumentReference documentReference;
-    private String userID;
-    private String name, addr, rrn;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,29 +118,27 @@ public class PromissoryActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                 R.drawable.promissory0);
 
-//        pScre_name = PreferenceManager.getString(PromissoryActivity.this, "Scre_name");
-//        pScre_add = PreferenceManager.getString(PromissoryActivity.this, "Scre_add");
-//        pScre_rrn = PreferenceManager.getString(PromissoryActivity.this, "Scre_rrn");
+        pScre_name = PreferenceManager.getString(prePromissoryActivity.this, "Scre_name");
+        pScre_add = PreferenceManager.getString(prePromissoryActivity.this, "Scre_add");
+        pScre_rrn = PreferenceManager.getString(prePromissoryActivity.this, "Scre_rrn");
+        pSdeb_name = PreferenceManager.getString(prePromissoryActivity.this, "Sdeb_name");
+        pSdeb_add = PreferenceManager.getString(prePromissoryActivity.this, "Sdeb_add");
+        pSdeb_rrn = PreferenceManager.getString(prePromissoryActivity.this, "Sdeb_rrn");
+        pSjoi_name = PreferenceManager.getString(prePromissoryActivity.this, "Sjoi_name");
+        pSjoi_add = PreferenceManager.getString(prePromissoryActivity.this, "Sjoi_add");
+        pSjoi_rrn = PreferenceManager.getString(prePromissoryActivity.this, "Sjoi_rrn");
+        pSori = PreferenceManager.getString(prePromissoryActivity.this, "Sori");
+        pSara = PreferenceManager.getString(prePromissoryActivity.this, "Sara");
+        pSin = PreferenceManager.getString(prePromissoryActivity.this, "Sin");
+        pSgday = PreferenceManager.getString(prePromissoryActivity.this, "Sgday");
+        pSpri_rep = PreferenceManager.getString(prePromissoryActivity.this, "Spri_rep");
+        pSyear = PreferenceManager.getString(prePromissoryActivity.this, "Syear");
+        pSmonth = PreferenceManager.getString(prePromissoryActivity.this, "Smonth");
+        pSday = PreferenceManager.getString(prePromissoryActivity.this, "Sday");
 
-        pSdeb_name = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_name");
-        pSdeb_add = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_add");
-        pSdeb_rrn = PreferenceManager.getString(PromissoryActivity.this, "Sdeb_rrn");
-        pSjoi_name = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_name");
-        pSjoi_add = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_add");
-        pSjoi_rrn = PreferenceManager.getString(PromissoryActivity.this, "Sjoi_rrn");
-        pSori = PreferenceManager.getString(PromissoryActivity.this, "Sori");
-        pSara = PreferenceManager.getString(PromissoryActivity.this, "Sara");
-        pSin = PreferenceManager.getString(PromissoryActivity.this, "Sin");
-        pSgday = PreferenceManager.getString(PromissoryActivity.this, "Sgday");
-        pSpri_rep = PreferenceManager.getString(PromissoryActivity.this, "Spri_rep");
-        pSyear = PreferenceManager.getString(PromissoryActivity.this, "Syear");
-        pSmonth = PreferenceManager.getString(PromissoryActivity.this, "Smonth");
-        pSday = PreferenceManager.getString(PromissoryActivity.this, "Sday");
-
-        cre_name = findViewById(R.id.editText0); //cre_name.setText(pScre_name);
-        cre_add = findViewById(R.id.editText1); //cre_add.setText(pScre_add);
-        cre_rrn = findViewById(R.id.editText2); //cre_rrn.setText(pScre_rrn);
-        updateUI();
+        cre_name = findViewById(R.id.editText0); cre_name.setText(pScre_name);
+        cre_add = findViewById(R.id.editText1); cre_add.setText(pScre_add);
+        cre_rrn = findViewById(R.id.editText2); cre_rrn.setText(pScre_rrn);
         deb_name = findViewById(R.id.editText3); deb_name.setText(pSdeb_name);
         deb_add = findViewById(R.id.editText4); deb_add.setText(pSdeb_add);
         deb_rrn = findViewById(R.id.editText5); deb_rrn.setText(pSdeb_rrn);
@@ -241,7 +219,7 @@ public class PromissoryActivity extends AppCompatActivity {
                     fileName = expanded_screen_name.getText().toString().trim();
 
                     if (checkString(fileName)) {
-                        Toast.makeText(PromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(prePromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     } else {
                         imgName = intent.getStringExtra("imgName");
 
@@ -256,12 +234,12 @@ public class PromissoryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 checkPermission();
                 if (mAuth.getCurrentUser() == null) {
-                    Toast.makeText(PromissoryActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(prePromissoryActivity.this, "로그인 해주세요!", Toast.LENGTH_SHORT).show();
                 } else {
                     expanded_screen_name = findViewById(R.id.expanded_screen_name);
                     fileName = expanded_screen_name.getText().toString().trim();
                     if (checkString(fileName)) {
-                        Toast.makeText(PromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(prePromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     } else {
                         expanded_screen_name = findViewById(R.id.expanded_screen_name);
                         fileName = expanded_screen_name.getText().toString().trim();
@@ -296,7 +274,7 @@ public class PromissoryActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long document_downloadID = PreferenceManager.getLong(PromissoryActivity.this, "doc_dwnlID");
+            long document_downloadID = PreferenceManager.getLong(prePromissoryActivity.this, "doc_dwnlID");
 
 
             if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (document_downloadID == completeDownloadId)) {
@@ -333,7 +311,7 @@ public class PromissoryActivity extends AppCompatActivity {
                         Intent i = new Intent(DOCUMENT_PROCESS_COMPLETE);
                         sendBroadcast(i);
 
-                        Toast.makeText(PromissoryActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(prePromissoryActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -341,7 +319,7 @@ public class PromissoryActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(PromissoryActivity.this, "No File!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(prePromissoryActivity.this, "No File!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -368,54 +346,27 @@ public class PromissoryActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        PreferenceManager.setString(PromissoryActivity.this, "Scre_name", cre_name.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Scre_add", cre_add.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Scre_rrn", cre_rrn.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_name", deb_name.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_add", deb_add.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sdeb_rrn", deb_rrn.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_name", joi_name.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_add", joi_add.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sjoi_rrn", joi_rrn.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sori", ori.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sara", ara.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sin", in.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sgday", gday.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Spri_rep", pri_rep.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Syear", year.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Smonth", month.getText().toString().trim());
-        PreferenceManager.setString(PromissoryActivity.this, "Sday", day.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Scre_name", cre_name.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Scre_add", cre_add.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Scre_rrn", cre_rrn.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sdeb_name", deb_name.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sdeb_add", deb_add.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sdeb_rrn", deb_rrn.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sjoi_name", joi_name.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sjoi_add", joi_add.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sjoi_rrn", joi_rrn.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sori", ori.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sara", ara.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sin", in.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sgday", gday.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Spri_rep", pri_rep.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Syear", year.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Smonth", month.getText().toString().trim());
+        PreferenceManager.setString(prePromissoryActivity.this, "Sday", day.getText().toString().trim());
         super.onPause();
     }
 
-    private void updateUI(){
-        GoogleManager mGoogleManager = new GoogleManager(mContext);
 
-        if (mGoogleManager.isSignedIn()) {
-            mAuth = FirebaseAuth.getInstance();
-            storageReference = fStorage.getInstance().getReference();
-            userID = mAuth.getCurrentUser().getUid();
-
-            //FirebaseFirestore의 collection("users").document(userID)에서 이름, 이메일, 휴대전화, 주소를 가져오고
-            //EditText에 적용한다.
-            documentReference = FirebaseFirestore.getInstance().collection("users").document(userID);
-            documentReference.addSnapshotListener(PromissoryActivity.this, new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (value != null && value.exists()) {
-                        name = value.getString("name");
-                        addr = value.getString("addr");
-                        rrn = value.getString("rrn");
-
-                        cre_name.setText(name);
-                        cre_add.setText(addr);
-                        cre_rrn.setText(rrn);
-                    }
-
-                }
-            });
-        }
-    }
 
 
     private void checkPermission(){
@@ -458,7 +409,7 @@ public class PromissoryActivity extends AppCompatActivity {
                 for (int i = 0; i < grantResults.length; i++) {
                     // grantResults[] : 허용된 권한은 0, 거부한 권한은 -1
                     if (grantResults[i] < 0) {
-                        Toast.makeText(PromissoryActivity.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(prePromissoryActivity.this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

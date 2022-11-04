@@ -47,7 +47,7 @@ public class ResumeCareerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.resume_form_of_career);
+        setContentView(R.layout.activity_resume_career);
 
         context = getApplicationContext();
         backBtn = findViewById(R.id.backBtn);

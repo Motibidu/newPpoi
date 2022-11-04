@@ -1,6 +1,5 @@
 package org.dstadler.poiandroidtest.newpoi.profile;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -70,7 +69,7 @@ public class ProfileScrnResumeFragment extends Fragment {
         btn_selfIntroduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mFragmentActivity, org.dstadler.poiandroidtest.newpoi.selfIntroduction.class);
+                Intent intent = new Intent(mFragmentActivity, SelfIntroductionActivity.class);
                 startActivity(intent);
             }
         });

@@ -5,5 +5,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="themeColor">#34ace0</color>
     <color name="halfTransparent_grey">#6F000000</color>
+    <color name="red">#9B111E</color>
 
 </resources>

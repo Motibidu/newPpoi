@@ -43,12 +43,12 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
 
     private ImageButton imageButton;
     private EditText profile_EditText_name, profile_EditText_rrn, profile_EditText_phoneNum,
-            profile_EditText_addr, profile_EditText_email, profile_EditText_e_name, profile_EditText_age,
-            profile_EditText_ch_name, profile_EditText_SNS, profile_EditText_number;
+            profile_EditText_addr, profile_EditText_email, profile_EditText_engName, profile_EditText_age,
+            profile_EditText_chName, profile_EditText_SNS, profile_EditText_num;
 
     private Button profile_picture_loadButton, complete_profile_setting_button, profile_menu;
     private String userID;
-    private String name, e_name, ch_name, rrn, age, SNS, phoneNum, number, email, addr;
+    private String name, engName, chName, rrn, age, SNS, phoneNum, num, email, addr;
 
     public Uri imageUri;
     public ImageView profile_picture;
@@ -74,13 +74,13 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
         storageReference = fStorage.getReference();
 
         profile_EditText_name = findViewById(R.id.profile_EditText_name);
-        profile_EditText_e_name = findViewById(R.id.profile_EditText_e_name);
-        profile_EditText_ch_name = findViewById(R.id.profile_EditText_ch_name);
+        profile_EditText_engName = findViewById(R.id.profile_EditText_engName);
+        profile_EditText_chName = findViewById(R.id.profile_EditText_chName);
         profile_EditText_rrn = findViewById(R.id.profile_EditText_rrn);
         profile_EditText_age = findViewById(R.id.profile_EditText_age);
         profile_EditText_SNS = findViewById(R.id.profile_EditText_SNS);
         profile_EditText_phoneNum = findViewById(R.id.profile_EditText_phoneNum);
-        profile_EditText_number = findViewById(R.id.profile_EditText_number);
+        profile_EditText_num = findViewById(R.id.profile_EditText_num);
         profile_EditText_email = findViewById(R.id.profile_EditText_email);
         profile_EditText_addr = findViewById(R.id.profile_EditText_addr);
 
@@ -114,26 +114,26 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 name = value.getString("name");
-                e_name = value.getString("e_name");
-                ch_name = value.getString("ch_name");
+                engName = value.getString("engName");
+                chName = value.getString("chName");
                 rrn = value.getString("rrn");
                 age = value.getString("age");
                 SNS = value.getString("SNS");
                 addr = value.getString("addr");
                 phoneNum = value.getString("phoneNum");
-                number = value.getString("number");
+                num = value.getString("num");
                 email = value.getString("email");
 
 
                 profile_EditText_name.setText(name);
-                profile_EditText_e_name.setText(e_name);
-                profile_EditText_ch_name .setText(ch_name);
+                profile_EditText_engName.setText(engName);
+                profile_EditText_chName .setText(chName);
                 profile_EditText_rrn.setText(rrn);
                 profile_EditText_age.setText(age);
                 profile_EditText_SNS.setText(SNS);
                 profile_EditText_addr.setText(addr);
                 profile_EditText_phoneNum.setText(phoneNum);
-                profile_EditText_number.setText(number);
+                profile_EditText_num.setText(num);
                 profile_EditText_email.setText(email);
 
 
@@ -156,13 +156,13 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
 //                Toast.makeText(profile_setting.this,imageUri.toString(),Toast.LENGTH_SHORT).show();
 
                 name = profile_EditText_name.getText().toString().trim();
-                e_name = profile_EditText_e_name.getText().toString().trim();
-                ch_name=profile_EditText_ch_name.getText().toString().trim();
+                engName = profile_EditText_engName.getText().toString().trim();
+                chName=profile_EditText_chName.getText().toString().trim();
                 rrn = profile_EditText_rrn.getText().toString().trim();
                 age = profile_EditText_age.getText().toString().trim();
                 SNS=profile_EditText_SNS.getText().toString().trim();
                 phoneNum = profile_EditText_phoneNum.getText().toString().trim();
-                number=profile_EditText_number.getText().toString().trim();
+                num=profile_EditText_num.getText().toString().trim();
                 email = profile_EditText_email.getText().toString().trim();
                 addr = profile_EditText_addr.getText().toString().trim();
 
@@ -175,13 +175,13 @@ public class ProfileSetDetailActivity extends AppCompatActivity{
                         DocumentReference documentReference = fStore.collection("users").document(userID);
                         Map<String, Object> user = new HashMap<>();
                         user.put("name", name);
-                        user.put("e_name", e_name);
-                        user.put("ch_name",ch_name);
+                        user.put("engName", engName);
+                        user.put("chName",chName);
                         user.put("rrn", rrn);
                         user.put("age", age);
                         user.put("SNS",SNS);
                         user.put("phoneNum", phoneNum);
-                        user.put("number",number);
+                        user.put("num",num);
                         user.put("email", email);
                         user.put("addr", addr);
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

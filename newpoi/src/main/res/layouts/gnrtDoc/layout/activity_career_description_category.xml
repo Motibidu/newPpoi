@@ -31,6 +31,14 @@
                 android:layout_marginLeft="5dp"
                 android:scaleType="fitXY"
                 android:background="@drawable/btn_bg" />
+            <org.dstadler.poiandroidtest.newpoi.cls.customImageView
+                android:id="@+id/careerDescription1"
+                android:layout_width="184dp"
+                android:layout_height="260dp"
+                android:padding="5sp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_bg" />
 
         </GridLayout>
     </ScrollView>

@@ -158,7 +158,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".selfIntroduction"
+        <activity android:name=".profile.SelfIntroductionActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".profile.ProfileSetResumeActivity">
             <intent-filter>

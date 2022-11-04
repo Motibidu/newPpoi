@@ -70,28 +70,28 @@
         android:layout_marginEnd="30dp"
         android:hint="@string/hint_name" />
     <TextView
-        android:id="@+id/profile_Textview_e_name"
+        android:id="@+id/profile_Textview_engName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="30dp"
         android:text="@string/engName"/>
     <EditText
-        android:id="@+id/profile_EditText_e_name"
+        android:id="@+id/profile_EditText_engName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="30dp"
         android:hint="@string/hint_engName" />
     <TextView
-        android:id="@+id/profile_Textview_ch_name"
+        android:id="@+id/profile_Textview_chName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="30dp"
         android:text="@string/chName"/>
     <EditText
-        android:id="@+id/profile_EditText_ch_name"
+        android:id="@+id/profile_EditText_chName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
@@ -154,14 +154,14 @@
             android:layout_marginEnd="30dp"
             android:hint="@string/hint_phoneNum" />
         <TextView
-            android:id="@+id/profile_Textview_number"
+            android:id="@+id/profile_Textview_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="30dp"
             android:text="@string/num"/>
         <EditText
-            android:id="@+id/profile_EditText_number"
+            android:id="@+id/profile_EditText_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="23dp"

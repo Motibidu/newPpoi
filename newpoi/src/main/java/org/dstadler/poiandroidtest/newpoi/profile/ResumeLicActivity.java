@@ -47,7 +47,7 @@ public class ResumeLicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.resume_licenses);
+        setContentView(R.layout.activity_resume_licenses);
         license1_date_EditText = findViewById(R.id.license1_date_EditText);
         license1_cntnt_EditText = findViewById(R.id.license1_cntnt_Edittext);
         license1_grade_EditText = findViewById(R.id.license1_grade_EditText);

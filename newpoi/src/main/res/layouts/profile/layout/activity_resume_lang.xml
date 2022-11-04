@@ -19,28 +19,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
-                    android:id="@+id/highschool"
+                    android:id="@+id/lang1"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border">
                     <TextView
-                        android:id="@+id/highschool_Textview"
+                        android:id="@+id/text_lang1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="30dp"
                         android:text="어학사항1"
                         android:gravity="center"/>
                     <LinearLayout
-                        android:id="@+id/highschool_layout0"
+                        android:id="@+id/layout_lang1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/highschool_Textview">
+                        android:layout_below="@+id/text_lang1">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/highschool_name_Layout"
+                            android:id="@+id/TextInputLayout_lang1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="언어"
@@ -48,15 +48,15 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/highschool_name_EditText"
+                                android:id="@+id/TextInputEditText_lang1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/highschool_enterYM_Layout"
-                            android:layout_below="@+id/highschool_Textview"
+                            android:id="@+id/TextInputLayout_test1"
+                            android:layout_below="@+id/TextInputLayout_test1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="시험"
@@ -64,14 +64,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/highschool_enterYM_EditText"
+                                android:id="@+id/TextInputEditText_test1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/highschool_graYM_Layout"
+                            android:id="@+id/TextInputLayout_score1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="점수"
@@ -79,21 +79,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/highschool_graYM_EditText"
+                                android:id="@+id/TextInputEditText_score1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/highschool_Linearlayout1"
-                        android:layout_below="@+id/highschool_layout0"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/highschool_graIfy_Layout"
+                            android:id="@+id/TextInputLayout_institution1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="기관"
@@ -101,7 +94,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/highschool_graIfy_EditText"
+                                android:id="@+id/TextInputEditText_institution1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -110,29 +103,28 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/university"
-                    android:layout_below="@+id/highschool"
+                    android:id="@+id/lang2"
+                    android:layout_below="@+id/lang1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border">
                     <TextView
-                        android:id="@+id/university_Textview"
+                        android:id="@+id/text_lang2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/profile_picture_loadButton"
                         android:layout_marginTop="25dp"
                         android:layout_marginLeft="25dp"
                         android:layout_marginRight="30dp"
                         android:text="어학사항2"
                         android:gravity="center"/>
                     <LinearLayout
-                        android:layout_below="@id/university_Textview"
+                        android:layout_below="@id/text_lang2"
                         android:id="@+id/university_layout0"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/university_name_Layout"
+                            android:id="@+id/TextInputLayout_lang2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="언어"
@@ -140,14 +132,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/university_name_EditText"
+                                android:id="@+id/TextInputEditText_lang2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/universityMajor_Layout"
+                            android:id="@+id/TextInputLayout_test2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="시험"
@@ -155,21 +147,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/universityMajor_EditText"
+                                android:id="@+id/TextInputEditText_test2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/university_layout1"
-                        android:orientation="vertical"
-                        android:layout_below="@+id/university_layout0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/university_enterYM_Layout"
+                            android:id="@+id/TextInputLayout_score2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="점수"
@@ -177,14 +162,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/university_enterYM_EditText"
+                                android:id="@+id/TextInputEditText_score2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/university_graYM_Layout"
+                            android:id="@+id/TextInputLayout_institution2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="기관"
@@ -192,39 +177,38 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/university_graYM_EditText"
+                                android:id="@+id/TextInputEditText_institution2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
-
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/master"
-                    android:layout_below="@+id/university"
+                    android:id="@+id/lang3"
+                    android:layout_below="@+id/lang2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_border">
                     <TextView
-                        android:id="@+id/master_Textview"
+                        android:id="@+id/text_lang3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="30dp"
                         android:text="어학사항3"
                         android:gravity="center"
                         />
                     <LinearLayout
-                        android:id="@+id/master_layout0"
+                        android:id="@+id/layout_lang3"
                         android:orientation="vertical"
-                        android:layout_below="@+id/master_Textview"
+                        android:layout_below="@+id/text_lang3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/master_name_Layout"
+                            android:id="@+id/TextInputLayout_lang3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="언어"
@@ -232,14 +216,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/master_name_EditText"
+                                android:id="@+id/TextInputEditText_lang3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/masterMajor_Layout"
+                            android:id="@+id/TextInputLayout_test3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="시험"
@@ -247,21 +231,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/mastorMajor_EditText"
+                                android:id="@+id/TextInputEditText_test3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/master_layout1"
-                        android:layout_below="@+id/master_layout0"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/master_enterYM_Layout"
+                            android:id="@+id/TextInputLayout_score3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="점수"
@@ -269,14 +246,14 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/master_enterYM_EditText"
+                                android:id="@+id/TextInputEditText_score3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/master_graYM_Layout"
+                            android:id="@+id/TextInputLayout_institution3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="기관"
@@ -284,7 +261,7 @@
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/master_graYM_EditText"
+                                android:id="@+id/TextInputEditText_institution3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
@@ -319,161 +296,3 @@
         </FrameLayout>
     </com.amar.library.ui.StickyScrollView>
 </RelativeLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기간"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText5"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout0"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="상세내용"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText0"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기관 및 발행처"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--    </LinearLayout>-->
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기간"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText5"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout0"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="상세내용"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText0"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기관 및 발행처"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--    </LinearLayout>-->
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기간"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText5"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout0"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="상세내용"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText0"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/um_text_input_layout1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="기관 및 발행처"-->
-<!--            app:hintTextColor="@color/themeColor"-->
-<!--            app:boxStrokeColor="@color/themeColor"-->
-<!--            android:layout_weight="1">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/um_editText1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/layout_border"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--    </LinearLayout>-->
-<!--</LinearLayout>-->

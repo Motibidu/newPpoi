@@ -27,7 +27,7 @@ public class PromissoryCatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_promissory);
+        setContentView(R.layout.activity_promissory_category);
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
@@ -42,6 +42,13 @@ public class PromissoryCatActivity extends AppCompatActivity {
         promissory0 = findViewById(R.id.promissory0);
         promissory0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory0, reqWidth, reqHeight));
         promissory0.setColorFilter(Color.parseColor("#08000000"));
+        promissory1 = findViewById(R.id.promissory1);
+        promissory1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory1_page1, reqWidth, reqHeight));
+        promissory1.setColorFilter(Color.parseColor("#08000000"));
+        promissory2 = findViewById(R.id.promissory2);
+        promissory2.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory2, reqWidth, reqHeight));
+        promissory2.setColorFilter(Color.parseColor("#08000000"));
+
         promissory0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -54,9 +61,7 @@ public class PromissoryCatActivity extends AppCompatActivity {
             }
         });
 
-        promissory1 = findViewById(R.id.promissory1);
-        promissory1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory1_page1, reqWidth, reqHeight));
-        promissory1.setColorFilter(Color.parseColor("#08000000"));
+
         promissory1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -69,9 +74,7 @@ public class PromissoryCatActivity extends AppCompatActivity {
             }
         });
 
-        promissory2 = findViewById(R.id.promissory2);
-        promissory2.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory2, reqWidth, reqHeight));
-        promissory2.setColorFilter(Color.parseColor("#08000000"));
+
         promissory2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

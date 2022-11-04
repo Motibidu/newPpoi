@@ -64,7 +64,7 @@ public class ProfileSetResumeActivity extends AppCompatActivity {
         selfIntroduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileSetResumeActivity.this, org.dstadler.poiandroidtest.newpoi.selfIntroduction.class);
+                Intent intent = new Intent(ProfileSetResumeActivity.this, org.dstadler.poiandroidtest.newpoi.profile.SelfIntroductionActivity.class);
                 startActivity(intent);
             }
         });

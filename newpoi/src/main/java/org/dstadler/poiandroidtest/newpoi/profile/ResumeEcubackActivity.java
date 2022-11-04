@@ -49,7 +49,7 @@ public class ResumeEcubackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.resume_edu_back);
+        setContentView(R.layout.activity_resume_eduback);
         mContext = getApplicationContext();
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
