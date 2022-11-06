@@ -42,10 +42,4 @@ public class Method {
         }
 
     }
-
-//    public static void loadInfoFromPref(Context mContext){
-//        ArrayList<String> pref_allFilNameList = new ArrayList(PreferenceManager.load(mContext, "pref_allFilNameList"));
-//        ArrayList<String> allFileNameList = new ArrayList(PreferenceManager.getStringArrayPref(mContext, "pref_allFileNameList"));
-//
-//    }
 }

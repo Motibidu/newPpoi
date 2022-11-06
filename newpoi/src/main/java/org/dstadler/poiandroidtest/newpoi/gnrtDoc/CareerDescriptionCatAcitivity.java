@@ -83,7 +83,7 @@ public class CareerDescriptionCatAcitivity extends AppCompatActivity {
                 intent.putExtra("imgPath2", imgPath2.toString());
                 intent.putExtra("imgPath3", "");
 
-                //Firebase Storage 내 문서 이름 : carrerDescription0
+                //Firebase Storage 내 문서 이름 : careerDescription1
                 intent.putExtra("docName","careerDescription1");
                 startActivity(intent);
             }

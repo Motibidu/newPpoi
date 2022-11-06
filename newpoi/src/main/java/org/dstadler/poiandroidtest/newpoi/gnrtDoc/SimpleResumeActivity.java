@@ -301,6 +301,7 @@ public class SimpleResumeActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSION_STORAGE:
                 for (int i = 0; i < grantResults.length; i++) {

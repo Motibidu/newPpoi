@@ -36,6 +36,9 @@ import androidx.core.content.ContextCompat;
 import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceOptions;
+import com.aspose.words.RelativeHorizontalPosition;
+import com.aspose.words.RelativeVerticalPosition;
+import com.aspose.words.WrapType;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -45,6 +48,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -118,17 +122,19 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
     private String highschool_enterYM,  highschool_graYM, highschool_name, highschool_graCls,
             university_enterYM, university_graYM, university_graCls, university_name, university_major,
-            master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB;
+            master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB,
+            hN, hEnt, hGrad , hIfy, uN , uMaj, uEnt , uGrad, uIfy , mN, mEnt , mGrad, mIfy, mMaj;
     private TextInputEditText formOfCareer1_name_EditText, formOfCareer1_enterYM_EditText ,formOfCareer1_office_EditText  ,formOfCareer1_task_EditText ,formOfCareer1_resignYM_EditText
             ,formOfCareer2_name_EditText, formOfCareer2_enterYM_EditText , formOfCareer2_office_EditText, formOfCareer2_task_EditText, formOfCareer2_resignYM_EditText
             ,formOfCareer3_name_EditText, formOfCareer3_enterYM_EditText, formOfCareer3_office_EditText, formOfCareer3_task_EditText, formOfCareer3_resignYM_EditText;
-    private String formOfCareer1_name, formOfCareer1_enterYM, formOfCareer1_office , formOfCareer1_task, formOfCareer1_resignYM
-            ,formOfCareer2_name, formOfCareer2_enterYM, formOfCareer2_office, formOfCareer2_task, formOfCareer2_resignYM
-            ,formOfCareer3_name, formOfCareer3_enterYM, formOfCareer3_office, formOfCareer3_task, formOfCareer3_resignYM;
+    private String corpN1, dep1, corpEnt1, corpRes1, work1
+            ,corpN2, dep2, corpEnt2, corpRes2, work2
+            ,corpN3, dep3, corpEnt3, corpRes3, work3;
     private TextInputEditText license1_date_EditText, license1_cntnt_EditText, license1_grade_EditText, license1_publication_EditText,
             license2_date_EditText, license2_cntnt_EditText, license2_grade_EditText, license2_publication_EditText,
             award1_date_EditText, award1_cntnt_EditText, award1_publication_EditText,
             award2_date_EditText, award2_cntnt_EditText, award2_publication_EditText;
+    private TextInputLayout TextInputLayout_name, TextInputLayout_engName, TextInputLayout_chName, TextInputLayout_rrn, TextInputLayout_age, TextInputLayout_phoneNum, TextInputLayout_num, TextInputLayout_email, TextInputLayout_addr;
 
     private String license1_date, license1_cntnt, license1_grade, license1_publication,
             license2_date, license2_cntnt, license2_grade, license2_publication,
@@ -151,7 +157,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
 
     private ImageView expandedScrn_mainImageView1, expandedScrn_mainImageView2, expandedScrn_mainImageView3;
-    private String fileName, folder;
+    private String fileName, fileNameWithExt;
 
 
 
@@ -210,20 +216,15 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         //var
-
-
         bExpanded = false;
 
 
         //widgets
         progressBar = findViewById(R.id.progressBar);
-
-
-
         expandedScrn_name = findViewById(R.id.expandedScrn_name);
 
         name_EditText = findViewById(R.id.name_EditText);                   //이름
-        engName_EditText= findViewById(R.id.engName_EditText);
+        engName_EditText= findViewById(R.id.engName_EditText);              //영어이름
         chName_EditText= findViewById(R.id.chName_EditText);
         rrn_EditText= findViewById(R.id.rrn_EditText);
         age_EditText= findViewById(R.id.age_EditText);
@@ -231,6 +232,16 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         num_EditText= findViewById(R.id.num_EditText);
         email_EditText = findViewById(R.id.email_EditText);                 //이메일
         addr_EditText = findViewById(R.id.addr_EditText);             //주소
+
+        TextInputLayout_name = findViewById(R.id.TextInputLayout_name);
+        TextInputLayout_engName = findViewById(R.id.TextInputLayout_engName);
+        TextInputLayout_chName = findViewById(R.id.TextInputLayout_chName);
+        TextInputLayout_rrn = findViewById(R.id.TextInputLayout_rrn);
+        TextInputLayout_age = findViewById(R.id.TextInputLayout_age);
+        TextInputLayout_phoneNum = findViewById(R.id.TextInputLayout_phoneNum);
+        TextInputLayout_num = findViewById(R.id.TextInputLayout_num);
+        TextInputLayout_email = findViewById(R.id.TextInputLayout_email);
+        TextInputLayout_addr = findViewById(R.id.TextInputLayout_addr);
 
         expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
 
@@ -323,17 +334,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         award2_publication_EditText = findViewById(R.id.award2_publication_EditText);
         award2 = findViewById(R.id.award2);
 
-        //로그인 해있지 않은 경우 기본사항(고등학교, 경력사항1, 자격증1, 수상1)만 디스플레이하고 나머지 항목을 생략한다.
-        //나머지 항목은 팝업 메뉴에 '펼치기'기능을 통해 디스플레이한다.
-        //if(mAuth.getCurrentUser() == null){
-            formOfCareer2.setVisibility(View.GONE);
-            formOfCareer3.setVisibility(View.GONE);
-            university.setVisibility(View.GONE);
-            master.setVisibility(View.GONE);
-            license2.setVisibility(View.GONE);
-            award2.setVisibility(View.GONE);
-        //}
-        
+
         expandedScrn_mainImageView1 = findViewById(R.id.expandedScrn_mainImageView1);
         expandedScrn_mainImageView2 = findViewById(R.id.expandedScrn_mainImageView2);
         expandedScrn_mainImageView3 = findViewById(R.id.expandedScrn_mainImageView3);
@@ -343,6 +344,34 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         imgPath1 = intent.getStringExtra("imgPath1");
         imgPath2 = intent.getStringExtra("imgPath2");
         imgPath3 = intent.getStringExtra("imgPath3");
+
+
+        docName = intent.getStringExtra("docName");
+
+        if(docName.equals("careerDescription0")){
+            Log.d(TAG, "onCreate/docName : "+docName);
+//            TextInputLayout_name.setVisibility(View.GONE);
+            TextInputLayout_engName.setVisibility(View.GONE);
+            TextInputLayout_chName.setVisibility(View.GONE);
+            TextInputLayout_rrn.setVisibility(View.GONE);
+            TextInputLayout_age.setVisibility(View.GONE);
+//            TextInputLayout_phoneNum.setVisibility(View.GONE);
+            TextInputLayout_num.setVisibility(View.GONE);
+//            TextInputLayout_email.setVisibility(View.GONE);
+//            TextInputLayout_addr.setVisibility(View.GONE);
+        }
+        else if(docName.equals("careerDescription1")){
+            Log.d(TAG, "onCreate/docName : "+docName);
+//            TextInputLayout_name.setVisibility(View.GONE);
+//            TextInputLayout_engName.setVisibility(View.GONE);
+            TextInputLayout_chName.setVisibility(View.GONE);
+//            TextInputLayout_rrn.setVisibility(View.GONE);
+//            TextInputLayout_age.setVisibility(View.GONE);
+//            TextInputLayout_phoneNum.setVisibility(View.GONE);
+            TextInputLayout_num.setVisibility(View.GONE);
+//            TextInputLayout_email.setVisibility(View.GONE);
+//            TextInputLayout_addr.setVisibility(View.GONE);
+        }
 
         //find widgets;
         expandedScrn_name = findViewById(R.id.expandedScrn_name);
@@ -403,8 +432,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 checkPermission();
 
                 //handler2
-
-
                 //if user is logged off
                 if (mAuth.getCurrentUser() == null) {
                     Toast.makeText(CareerDescriptionActivity.this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
@@ -427,161 +454,263 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 showPopup(expandedScrn_menu);
             }
         });
-
     }
+
     private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             long cmpltDwnlID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             long doc_dwnlID = PreferenceManager.getLong(CareerDescriptionActivity.this, "doc_dwnlID");
             long img_dwnlID = PreferenceManager.getLong(CareerDescriptionActivity.this, "img_dwnlID");
-            //DownloadManager.ACTION_DOWNLOAD_COMPLETE 이벤트를 수신했으며,
-            //DownloadManager의 최신 다운로드로부터 반환받은 long타입 값,
-            // 그리고 downloadFile_with_modify()메소드를 수행하면서 PreferenceManager에 등록한
-            // "doc_dwnlID"의 값이 같을 때 다음 if문을 수행한다.
 
+            InputStream is = null;
+            Document document = null;
 
+            //다운로드 완료, 마지막 다운이 문서일때
             if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (doc_dwnlID == cmpltDwnlID)) {
-                imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
-                //download/ZN폴더에 profile.jpg라는 파일이 있다면 "Profile Image File Exists!"라는 팝업 문구를 띄운다.
-                if (imgFile.exists()){
-                    downloadEP.download_picture();
-                    //프로필 이미지 파일이 존재할 때는 DOC_DWNL_CMPLT이벤트를 발생시킨다.
-                    documentProcess = new Intent(DOC_DWNL_CMPLT);
-                    sendBroadcast(documentProcess);
-                }
-                //파일이 없다면 downloadEP 클래스의 download_picture()메소드를
-                // 출하고 "Downloading Profile Image"팝업 이미지를 띄운다.
-                // (download_picture()메소드는 download/ZN 폴더에 "profile.jpg"라는 이름으로 프로필 이미지를 다운로드한다.)
-                else{
-                    downloadEP.download_picture();
-                }
+//                imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+                downloadEP.download_picture();
             }
 
-            //DownloadManager.ACTION_DOWNLOAD_COMPLETE 이벤트를 수신했으며,
-            //DownloadManager의 최신 다운로드로부터 반환받은 long타입 값, 그리고 download_picture()를 수행하면서
-            // PreferenceManager에 등록한 "img_dwnlID"의 값이 같을 때 다음 if문을 수행한다.
-            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (img_dwnlID == cmpltDwnlID)
-                    || intent.getAction().equals(DOC_DWNL_CMPLT)){
-                fileName = fileName+".docx";
-                imgFile = new File(Environment.getExternalStoragePublicDirectory
-                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
 
-
-                //프로필 이미지가 존재할 때
-                if (imgFile.exists()) {
-                    //문서에 삽입할 프로필 이미지의 경로
-                    String img_path = Environment.getExternalStoragePublicDirectory
-                            (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg";
-                    //이미지를 삽입할 문서의 경로
-                    String doc_path = Environment.getExternalStoragePublicDirectory
-                            (Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+fileName;
-                    //CustomXWPFDocuemnt()의 runImg()메소드는 워드 문서에 "사진"으로 북마크를 등록해놓은 자리에 이미지 파일을 삽입한다.
-                    //넓이와 높이는 워드파일의 확장명을 .zip으로 바꾸고 /word/document.xml에서 <wp:extent cx="?"(넓이) cy="?"(높이)/>태그에서 추출한다.
-                    //behindDoc이 true일 때 글씨 "사진"은 사진의 뒤에 위치한다.
-                    new CustomXWPFDocument().runImg("사진",doc_path, img_path, true,
-                            1133475, 1510665, 0, 0);//Bookmark replacement picture
-                }
-                else {
-                    Toast.makeText(CareerDescriptionActivity.this, "No Image File!", Toast.LENGTH_SHORT).show();
-                }
-                //RUNIMG_CMPLT 이벤트를 발생시킨다.
-                documentProcess = new Intent(RUNIMG_CMPLT);
-                sendBroadcast(documentProcess);
-            }
-            //수신한 action이 RUNIMG_CMPLT일 때
-            if(intent.getAction().equals(RUNIMG_CMPLT)) {
+            //다운로드 완료, 마지막 다운이 프로필사진일 때
+            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (img_dwnlID == cmpltDwnlID)) {
+                fileNameWithExt = fileName+".docx";
+                Log.d(TAG, "onReceive/fileNameWithExt : "+fileNameWithExt);
                 docFile = new File(Environment.getExternalStoragePublicDirectory
-                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
+                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
                 //임시파일이 존재할 때
                 if (docFile.exists()) {
-//                    Toast.makeText(mContext, "Document processing start!", Toast.LENGTH_SHORT).show();
                     try {
-                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory
-                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
-                        final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory
-                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName));
+                        //(name, engN, chN) = (이름, 영어이름, 한자이름)
+                        //(rrn, age, phoneNum, email, addr) = (주민번호, 나이, 전화번호, 이메일, 주소)
 
-                        //문서 내에 key : value 데이터들을 Map<string, string> data 변수내에 삽입한다.
-                        //high : highSchool
-                        //univ : university
-                        data.put("name", name);
-                        data.put("email", email);
-                        data.put("phoneNum", phoneNum);
-                        data.put("addr", addr);
-                        data.put("rrn", addr);
+                        //(hN, hEnt, hGrad, hIfy) = (고등학교 이름, 고등학교 입학년월, 고등학교 졸업년월, 졸업구분)
+                        //(uN, uMaj, uEnt, uGrad, uIfy) = (대학교 이름, 대학교 전공, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
+                        //(mN, mEnt, mGrad, mIfy) = (대학교 이름, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
 
-                        data.put("highschool_enterYM", highschool_enterYM);
-                        data.put("highschool_graYM", highschool_graYM);
-                        data.put("highschool_graCls", highschool_graCls);
-                        data.put("highschool_name", highschool_name);
+                        //(corpN, dep, corpEnt, corpRes, work) = (회사이름, 담당부서, 입사년월, 퇴사년월, 담당업무)
 
-                        data.put("university_enterYM", university_enterYM);
-                        data.put("university_graYM", university_graYM);
-                        data.put("university_graCls", university_graCls);
-                        data.put("university_name", university_name);
-                        data.put("university_major", university_major);
+                        try {
+                            is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            document = new Document(is);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        DocumentBuilder builder = new DocumentBuilder(document);
 
-                        data.put("master_enterYM", master_enterYM);
-                        data.put("master_graYM", master_graYM);
-                        data.put("master_graCls", master_graCls);
-                        data.put("master_name", master_name);
-                        data.put("master_major", master_major);
-                        data.put("master_graThe", master_graThe);
-                        data.put("master_LAB", master_LAB);
+                        if(docName.equals("careerDescription0")){
+                            builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
+                                    RelativeHorizontalPosition.MARGIN,
+                                    360,
+                                    RelativeVerticalPosition.MARGIN,
+                                    20,
+                                    110,
+                                    150,
+                                    WrapType.SQUARE);
+                        }
+                        else if(docName.equals("careerDescription1")){
+                            builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
+                                    RelativeHorizontalPosition.MARGIN,
+                                    25,
+                                    RelativeVerticalPosition.MARGIN,
+                                    80,
+                                    110,
+                                    150,
+                                    WrapType.SQUARE);
+                        }
+                        if(name.isEmpty()) {
+                            document.getRange().replace("name","홍길동", new FindReplaceOptions());
+                        } else{document.getRange().replace("name",name, new FindReplaceOptions());}
+                        if(engName.isEmpty()) {
+                            document.getRange().replace("engN","Hong Gil Dong", new FindReplaceOptions());
+                        } else{document.getRange().replace("engN",engName, new FindReplaceOptions());}
+                        if(chName.isEmpty()) {
+                            document.getRange().replace("chN","", new FindReplaceOptions());}
+                        else{document.getRange().replace("chN",chName, new FindReplaceOptions());}
+                        if(rrn.isEmpty()) {
+                            document.getRange().replace("rrn","", new FindReplaceOptions());}
+                        else{document.getRange().replace("rrn",rrn, new FindReplaceOptions());}
+                        if(age.isEmpty()) {
+                            document.getRange().replace("age","", new FindReplaceOptions());
+                        } else{document.getRange().replace("age",age, new FindReplaceOptions());}
+                        if(phoneNum.isEmpty()) {
+                            document.getRange().replace("phoneNum","", new FindReplaceOptions());
+                        } else{document.getRange().replace("phoneNum",phoneNum, new FindReplaceOptions());}
+                        if(email.isEmpty()) {
+                            document.getRange().replace("name","", new FindReplaceOptions());
+                        } else{document.getRange().replace("email",email, new FindReplaceOptions());}
+                        if(addr.isEmpty()) {
+                            document.getRange().replace("addr","", new FindReplaceOptions());
+                        } else{document.getRange().replace("addr",addr, new FindReplaceOptions());}
 
-                        data.put("formOfCareer1_name", formOfCareer1_name);
-                        data.put("formOfCareer1_enterYM", formOfCareer1_enterYM);
-                        data.put("formOfCareer1_resignYM", formOfCareer1_resignYM);
-                        data.put("formOfCareer1_office", formOfCareer1_office);
-                        data.put("formOfCareer1_task", formOfCareer1_task);
+                        if(hN.isEmpty()) {
+                            document.getRange().replace("hN","", new FindReplaceOptions());
+                        } else{document.getRange().replace("hN",hN, new FindReplaceOptions());}
+                        if(hEnt.isEmpty()) {
+                            document.getRange().replace("hEnt","", new FindReplaceOptions());
+                        } else{document.getRange().replace("hEnt",hEnt, new FindReplaceOptions());}
+                        if(hGrad.isEmpty()) {
+                            document.getRange().replace("hGrad","", new FindReplaceOptions());
+                        } else{document.getRange().replace("hGrad",hGrad, new FindReplaceOptions());}
+                        if(hIfy.isEmpty()) {
+                            document.getRange().replace("hIfy","", new FindReplaceOptions());
+                        }else{document.getRange().replace("hIfy",hIfy, new FindReplaceOptions());}
 
-                        data.put("formOfCareer2_name", formOfCareer2_name);
-                        data.put("formOfCareer2_enterYM", formOfCareer2_enterYM);
-                        data.put("formOfCareer2_resignYM", formOfCareer2_resignYM);
-                        data.put("formOfCareer2_office", formOfCareer2_office);
-                        data.put("formOfCareer2_task", formOfCareer2_task);
+                        if(uN.isEmpty()) {
+                            document.getRange().replace("uN","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uN",uN, new FindReplaceOptions());}
+                        if(uMaj.isEmpty()) {
+                            document.getRange().replace("uMaj","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uMaj",uMaj, new FindReplaceOptions());}
+                        if(uEnt.isEmpty()) {
+                            document.getRange().replace("uEnt","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uEnt",uEnt, new FindReplaceOptions());}
+                        if(uGrad.isEmpty()) {
+                            document.getRange().replace("uGrad","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uGrad",uGrad, new FindReplaceOptions());}
+                        if(uIfy.isEmpty()) {
+                            document.getRange().replace("uIfy","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uIfy",uIfy, new FindReplaceOptions());}
 
-                        data.put("formOfCareer3_name", formOfCareer3_name);
-                        data.put("formOfCareer3_enterYM", formOfCareer3_enterYM);
-                        data.put("formOfCareer3_resignYM", formOfCareer3_resignYM);
-                        data.put("formOfCareer3_office", formOfCareer3_office);
-                        data.put("formOfCareer3_task", formOfCareer3_task);
+                        if(mN.isEmpty()) {
+                            document.getRange().replace("mN","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mN",mN, new FindReplaceOptions());}
+                        if(mMaj.isEmpty()) {
+                            document.getRange().replace("mMaj","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mMaj",mMaj, new FindReplaceOptions());}
+                        if(mEnt.isEmpty()) {
+                            document.getRange().replace("mEnt","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mEnt",mEnt, new FindReplaceOptions());}
+                        if(mGrad.isEmpty()) {
+                            document.getRange().replace("mGrad","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mGrad",mGrad, new FindReplaceOptions());}
+                        if(mIfy.isEmpty()) {
+                            document.getRange().replace("mIfy","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mIfy",mIfy, new FindReplaceOptions());}
 
-                        data.put("license1_date", license1_date);
-                        data.put("license1_cntnt", license1_cntnt);
-                        data.put("license1_grade", license1_grade);
-                        data.put("license1_publication", license1_publication);
+                        if(corpN1.isEmpty()) {
+                            document.getRange().replace("corpN1","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpN1",corpN1, new FindReplaceOptions());}
+                        if(dep1.isEmpty()) {
+                            document.getRange().replace("dep1","", new FindReplaceOptions());
+                        } else{document.getRange().replace("dep1",dep1, new FindReplaceOptions());}
+                        if(corpEnt1.isEmpty()) {
+                            document.getRange().replace("corpEnt1","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpEnt1",corpEnt1, new FindReplaceOptions());}
+                        if(corpRes1.isEmpty()) {
+                            document.getRange().replace("corpRes1","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpRes1",corpRes1, new FindReplaceOptions());}
+                        if(work1.isEmpty()) {
+                            document.getRange().replace("work1","", new FindReplaceOptions());
+                        } else{document.getRange().replace("work1",work1, new FindReplaceOptions());}
 
-                        data.put("license2_date", license2_date);
-                        data.put("license2_cntnt", license2_cntnt);
-                        data.put("license2_grade", license2_grade);
-                        data.put("license2_publication", license2_publication);
+                        if(corpN2.isEmpty()) {
+                            document.getRange().replace("corpN2","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpN2",corpN2, new FindReplaceOptions());}
+                        if(dep2.isEmpty()) {
+                            document.getRange().replace("dep2","", new FindReplaceOptions());
+                        } else{document.getRange().replace("dep2",dep2, new FindReplaceOptions());}
+                        if(corpEnt2.isEmpty()) {
+                            document.getRange().replace("corpEnt2","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpEnt2",corpEnt2, new FindReplaceOptions());}
+                        if(corpRes2.isEmpty()) {
+                            document.getRange().replace("corpRes2","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpRes2",corpRes2, new FindReplaceOptions());}
+                        if(work2.isEmpty()) {
+                            document.getRange().replace("work2","", new FindReplaceOptions());
+                        } else{document.getRange().replace("work2",work2, new FindReplaceOptions());}
 
-                        data.put("award1_date", award1_date);
-                        data.put("award1_cntnt", award1_cntnt);
-                        data.put("award1_publication", award1_publication);
+                        if(corpN3.isEmpty()) {
+                            document.getRange().replace("corpN3","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpN3",corpN3, new FindReplaceOptions());}
+                        if(dep3.isEmpty()) {
+                            document.getRange().replace("dep3","", new FindReplaceOptions());
+                        } else{document.getRange().replace("dep3",dep3, new FindReplaceOptions());}
+                        if(corpEnt3.isEmpty()) {
+                            document.getRange().replace("corpEnt3","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpEnt3",corpEnt3, new FindReplaceOptions());}
+                        if(corpRes3.isEmpty()) {
+                            document.getRange().replace("corpRes3","", new FindReplaceOptions());
+                        } else{document.getRange().replace("corpRes3",corpRes3, new FindReplaceOptions());}
+                        if(work3.isEmpty()) {
+                            document.getRange().replace("work3","", new FindReplaceOptions());
+                        } else{document.getRange().replace("work3",work3, new FindReplaceOptions());}
 
-                        data.put("award2_date", award2_date);
-                        data.put("award2_cntnt", award2_cntnt);
-                        data.put("award2_publication", award2_publication);
-
-                        Document document = new Document(is);
-                        document.getRange().replace("name",name, new FindReplaceOptions());
-//                        document.getRange().replace("engName",engName, new FindReplaceOptions());
-//                        document.getRange().replace("rrn",rrn, new FindReplaceOptions());
-                        document.getRange().replace("email",email, new FindReplaceOptions());
-                        document.getRange().replace("addr",addr, new FindReplaceOptions());
                         document.save(Environment.getExternalStoragePublicDirectory
-                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName);
-                        //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
-//                        CustomXWPFDocument c = new CustomXWPFDocument();
-//                        c.replace(is,data,out);
+                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileNameWithExt);
 
                         //임시파일을 삭제한다.
                         docFile.delete();
 
-                        Toast.makeText(CareerDescriptionActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
+//                        data.put("name", name);
+//                        data.put("email", email);
+//                        data.put("phoneNum", phoneNum);
+//                        data.put("addr", addr);
+//                        data.put("rrn", addr);
+//
+//                        data.put("highschool_enterYM", highschool_enterYM);
+//                        data.put("highschool_graYM", highschool_graYM);
+//                        data.put("highschool_graCls", highschool_graCls);
+//                        data.put("highschool_name", highschool_name);
+//
+//                        data.put("university_enterYM", university_enterYM);
+//                        data.put("university_graYM", university_graYM);
+//                        data.put("university_graCls", university_graCls);
+//                        data.put("university_name", university_name);
+//                        data.put("university_major", university_major);
+//
+//                        data.put("master_enterYM", master_enterYM);
+//                        data.put("master_graYM", master_graYM);
+//                        data.put("master_graCls", master_graCls);
+//                        data.put("master_name", master_name);
+//                        data.put("master_major", master_major);
+//                        data.put("master_graThe", master_graThe);
+//                        data.put("master_LAB", master_LAB);
+//
+//                        data.put("formOfCareer1_name", formOfCareer1_name);
+//                        data.put("formOfCareer1_enterYM", formOfCareer1_enterYM);
+//                        data.put("formOfCareer1_resignYM", formOfCareer1_resignYM);
+//                        data.put("formOfCareer1_office", formOfCareer1_office);
+//                        data.put("formOfCareer1_task", formOfCareer1_task);
+//
+//                        data.put("formOfCareer2_name", formOfCareer2_name);
+//                        data.put("formOfCareer2_enterYM", formOfCareer2_enterYM);
+//                        data.put("formOfCareer2_resignYM", formOfCareer2_resignYM);
+//                        data.put("formOfCareer2_office", formOfCareer2_office);
+//                        data.put("formOfCareer2_task", formOfCareer2_task);
+//
+//                        data.put("formOfCareer3_name", formOfCareer3_name);
+//                        data.put("formOfCareer3_enterYM", formOfCareer3_enterYM);
+//                        data.put("formOfCareer3_resignYM", formOfCareer3_resignYM);
+//                        data.put("formOfCareer3_office", formOfCareer3_office);
+//                        data.put("formOfCareer3_task", formOfCareer3_task);
+//
+//                        data.put("license1_date", license1_date);
+//                        data.put("license1_cntnt", license1_cntnt);
+//                        data.put("license1_grade", license1_grade);
+//                        data.put("license1_publication", license1_publication);
+//
+//                        data.put("license2_date", license2_date);
+//                        data.put("license2_cntnt", license2_cntnt);
+//                        data.put("license2_grade", license2_grade);
+//                        data.put("license2_publication", license2_publication);
+//
+//                        data.put("award1_date", award1_date);
+//                        data.put("award1_cntnt", award1_cntnt);
+//                        data.put("award1_publication", award1_publication);
+//
+//                        data.put("award2_date", award2_date);
+//                        data.put("award2_cntnt", award2_cntnt);
+//                        data.put("award2_publication", award2_publication);
+
+                        //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
+//                        CustomXWPFDocument c = new CustomXWPFDocument();
+//                        c.replace(is,data,out);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
@@ -591,6 +720,33 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     Toast.makeText(CareerDescriptionActivity.this, "No Document File!", Toast.LENGTH_SHORT).show();
                 }
             }
+            //            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (img_dwnlID == cmpltDwnlID)
+//                    || intent.getAction().equals(DOC_DWNL_CMPLT))
+
+            //다운로드 완료, 마지막 다운이 프로필사진일 때
+//            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (cmpltDwnlID == img_dwnlID)){
+//                imgFile = new File(Environment.getExternalStoragePublicDirectory
+//                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+//                //프로필 이미지가 존재할 때
+//                if (imgFile.exists()) {
+//                    //문서에 삽입할 프로필 이미지의 경로
+//                    String img_path = Environment.getExternalStoragePublicDirectory
+//                            (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg";
+//                    //이미지를 삽입할 문서의 경로
+//                    fileNameWithExt = fileName+".docx";
+//                    String doc_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+fileNameWithExt;
+//                    Log.d(TAG, "fileNameWithExt : "+fileNameWithExt);
+//
+//                    //CustomXWPFDocuemnt()의 runImg()메소드는 워드 문서에 "사진"으로 북마크를 등록해놓은 자리에 이미지 파일을 삽입한다.
+//                    //넓이와 높이는 워드파일의 확장명을 .zip으로 바꾸고 /word/document.xml에서 <wp:extent cx="?"(넓이) cy="?"(높이)/>태그에서 추출한다.
+//                    //behindDoc이 true일 때 글씨 "사진"은 사진의 뒤에 위치한다.
+////                    new CustomXWPFDocument().runImg("사진",doc_path, img_path, true,
+////                            1133475, 1510665, 0, 0);//Bookmark replacement picture.
+//                }
+//                else {
+//                    Toast.makeText(CareerDescriptionActivity.this, "No Image File!", Toast.LENGTH_SHORT).show();
+//                }
+//            }
         }
     };
 
@@ -633,17 +789,17 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                              master_graThe = master_graThe_EditText.getText().toString().trim();
                              master_LAB = master_LAB_EditText.getText().toString().trim();
 
-                             formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
-                             formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
-                             formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
-                             formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
-                             formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+                             corpN2 = formOfCareer2_name_EditText.getText().toString().trim();
+                             corpEnt2 = formOfCareer2_enterYM_EditText.getText().toString().trim();
+                             corpRes2 = formOfCareer2_resignYM_EditText.getText().toString().trim();
+                             dep2 = formOfCareer2_office_EditText.getText().toString().trim();
+                             work2 = formOfCareer2_task_EditText.getText().toString().trim();
 
-                             formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
-                             formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
-                             formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
-                             formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
-                             formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+                             corpN3 = formOfCareer3_name_EditText.getText().toString().trim();
+                             corpEnt3 = formOfCareer3_enterYM_EditText.getText().toString().trim();
+                             corpRes3 = formOfCareer3_resignYM_EditText.getText().toString().trim();
+                             dep3 = formOfCareer3_office_EditText.getText().toString().trim();
+                             work3 = formOfCareer3_task_EditText.getText().toString().trim();
 
                              license1_date = license1_date_EditText.getText().toString().trim();
                              license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
@@ -665,12 +821,12 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
                              PreferenceManager.setBoolean(mContext, "careerbExpanded", false);
 
-                             if (checkString(formOfCareer2_name) && checkString(formOfCareer2_enterYM) && checkString(formOfCareer2_resignYM) && checkString(formOfCareer2_office) &&
-                                     checkString(formOfCareer2_task)) {
+                             if (checkString(corpN2) && checkString(dep2) && checkString(corpEnt2) && checkString(corpRes2) &&
+                                     checkString(work2)) {
                                  formOfCareer2.setVisibility(View.GONE);
                              }
-                             if (checkString(formOfCareer3_name) && checkString(formOfCareer3_enterYM) && checkString(formOfCareer3_resignYM) && checkString(formOfCareer3_office) &&
-                                     checkString(formOfCareer3_task)) {
+                             if (checkString(corpN3) && checkString(dep3) && checkString(corpEnt3) && checkString(corpRes3) &&
+                                     checkString(work3)) {
                                  formOfCareer3.setVisibility(View.GONE);
                              }
                              if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
@@ -751,23 +907,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         master_graThe = master_graThe_EditText.getText().toString().trim();
                         master_LAB = master_LAB_EditText.getText().toString().trim();
                         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
-                        formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();
-                        formOfCareer1_resignYM = formOfCareer1_resignYM_EditText.getText().toString().trim();
-                        formOfCareer1_office = formOfCareer1_office_EditText.getText().toString().trim();
-                        formOfCareer1_task = formOfCareer1_task_EditText.getText().toString().trim();
+                        corpN1 = formOfCareer1_name_EditText.getText().toString().trim();
+                        corpEnt1 = formOfCareer1_enterYM_EditText.getText().toString().trim();
+                        corpRes1 = formOfCareer1_resignYM_EditText.getText().toString().trim();
+                        dep1 = formOfCareer1_office_EditText.getText().toString().trim();
+                        work1 = formOfCareer1_task_EditText.getText().toString().trim();
 
-                        formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
-                        formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
-                        formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
-                        formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
-                        formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+                        corpN2 = formOfCareer2_name_EditText.getText().toString().trim();
+                        corpEnt2 = formOfCareer2_enterYM_EditText.getText().toString().trim();
+                        corpRes2 = formOfCareer2_resignYM_EditText.getText().toString().trim();
+                        dep2 = formOfCareer2_office_EditText.getText().toString().trim();
+                        work2 = formOfCareer2_task_EditText.getText().toString().trim();
 
-                        formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
-                        formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
-                        formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
-                        formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
-                        formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+                        corpN3 = formOfCareer3_name_EditText.getText().toString().trim();
+                        corpEnt3 = formOfCareer3_enterYM_EditText.getText().toString().trim();
+                        corpRes3 = formOfCareer3_resignYM_EditText.getText().toString().trim();
+                        dep3 = formOfCareer3_office_EditText.getText().toString().trim();
+                        work3 = formOfCareer3_task_EditText.getText().toString().trim();
                         
                         if(mAuth.getCurrentUser() == null){
                             Toast.makeText(mContext,"로그인 해주세요!",Toast.LENGTH_SHORT).show();
@@ -842,23 +998,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
                                 documentReference = fStore.collection("users").document(userID).collection("profiles").document("formOfCareer");
                                 user = new HashMap<>();
-                                user.put("formOfCareer1_name", formOfCareer1_name);
-                                user.put("formOfCareer1_enterYM", formOfCareer1_enterYM);
-                                user.put("formOfCareer1_resignYM", formOfCareer1_resignYM);
-                                user.put("formOfCareer1_office", formOfCareer1_office);
-                                user.put("formOfCareer1_task", formOfCareer1_task);
+                                user.put("formOfCareer1_name", corpN1);
+                                user.put("formOfCareer1_enterYM", corpEnt1);
+                                user.put("formOfCareer1_resignYM", corpRes1);
+                                user.put("formOfCareer1_office", dep1);
+                                user.put("formOfCareer1_task", work1);
 
-                                user.put("formOfCareer2_name", formOfCareer2_name);
-                                user.put("formOfCareer2_enterYM", formOfCareer2_enterYM);
-                                user.put("formOfCareer2_resignYM", formOfCareer2_resignYM);
-                                user.put("formOfCareer2_office", formOfCareer2_office);
-                                user.put("formOfCareer2_task", formOfCareer2_task);
+                                user.put("formOfCareer2_name", corpN2);
+                                user.put("formOfCareer2_enterYM", corpEnt2);
+                                user.put("formOfCareer2_resignYM", corpRes2);
+                                user.put("formOfCareer2_office", dep2);
+                                user.put("formOfCareer2_task", work2);
 
-                                user.put("formOfCareer3_name", formOfCareer3_name);
-                                user.put("formOfCareer3_enterYM", formOfCareer3_enterYM);
-                                user.put("formOfCareer3_resignYM", formOfCareer3_resignYM);
-                                user.put("formOfCareer3_office", formOfCareer3_office);
-                                user.put("formOfCareer3_task", formOfCareer3_task);
+                                user.put("formOfCareer3_name", corpN3);
+                                user.put("formOfCareer3_enterYM", corpEnt3);
+                                user.put("formOfCareer3_resignYM", corpRes3);
+                                user.put("formOfCareer3_office", dep3);
+                                user.put("formOfCareer3_task", work3);
                                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -928,50 +1084,51 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
-                        highschool_enterYM = value.getString("highschool_enterYM");
-                        highschool_graYM = value.getString("highschool_graYM");
-                        highschool_name = value.getString("highschool_name");
-                        highschool_graCls = value.getString("highschool_graCls");
 
-                        university_enterYM = value.getString("university_enterYM");
-                        university_graYM = value.getString("university_graYM");
-                        university_graCls = value.getString("university_graCls");
-                        university_name = value.getString("university_name");
-                        university_major = value.getString("university_major");
+                        hN = value.getString("highschool_name");
+                        hEnt = value.getString("highschool_enterYM");
+                        hGrad = value.getString("highschool_graYM");
+                        hIfy = value.getString("highschool_graCls");
+
+                        uN = value.getString("university_name");
+                        uEnt = value.getString("university_enterYM");
+                        uGrad = value.getString("university_graYM");
+                        uMaj = value.getString("university_major");
+                        uIfy = value.getString("university_graCls");
                         if (!bExpanded &&checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
                                 checkString(university_major)) {
                             university.setVisibility(View.GONE);
                         }
 
-                        master_enterYM = value.getString("master_enterYM");
-                        master_graYM = value.getString("master_graYM");
-                        master_graCls = value.getString("master_graCls");
-                        master_name = value.getString("master_name");
-                        master_major = value.getString("master_major");
+                        mN = value.getString("master_name");
+                        mEnt = value.getString("master_enterYM");
+                        mGrad = value.getString("master_graYM");
+                        mMaj = value.getString("master_major");
                         master_graThe = value.getString("master_graThe");
                         master_LAB = value.getString("master_LAB");
+                        mIfy = value.getString("master_graCls");
                         if (!bExpanded &&checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
                                 checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
                             master.setVisibility(View.GONE);
                         }
-                        highschool_enterYM_EditText.setText(highschool_enterYM);
-                        highschool_graYM_EditText.setText(highschool_graYM);
-                        highschool_name_EditText.setText(highschool_name);
-                        highschool_graCls_EditText.setText(highschool_graCls);
+                        highschool_name_EditText.setText(hN);
+                        highschool_enterYM_EditText.setText(hEnt);
+                        highschool_graYM_EditText.setText(hGrad);
+                        highschool_graCls_EditText.setText(hIfy);
 
-                        university_enterYM_EditText.setText(university_enterYM);
-                        university_graYM_EditText.setText(university_graYM);
-                        university_graCls_EditText.setText(university_graCls);
-                        university_name_EditText.setText(university_name);
-                        university_major_EditText.setText(university_major);
+                        university_name_EditText.setText(uN);
+                        university_enterYM_EditText.setText(uEnt);
+                        university_graYM_EditText.setText(uGrad);
+                        university_major_EditText.setText(uMaj);
+                        university_graCls_EditText.setText(uIfy);
 
-                        master_enterYM_EditText.setText(master_enterYM);
-                        master_graYM_EditText.setText(master_graYM);
-                        master_graCls_EditText.setText(master_graCls);
-                        master_name_EditText.setText(master_name);
-                        master_major_EditText.setText(master_major);
+                        master_name_EditText.setText(mN);
+                        master_enterYM_EditText.setText(mEnt);
+                        master_graYM_EditText.setText(mGrad);
+                        master_major_EditText.setText(mMaj);
                         master_graThe_EditText.setText(master_graThe);
                         master_LAB_EditText.setText(master_LAB);
+                        master_graCls_EditText.setText(mIfy);
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
@@ -1039,65 +1196,61 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
-                        formOfCareer1_name = value.getString("formOfCareer1_name");
-                        formOfCareer1_enterYM = value.getString("formOfCareer1_enterYM");
-                        formOfCareer1_resignYM = value.getString("formOfCareer1_resignYM");
-                        formOfCareer1_office = value.getString("formOfCareer1_office");
-                        formOfCareer1_task = value.getString("formOfCareer1_task");
+                        corpN1 = value.getString("formOfCareer1_name");
+                        corpEnt1 = value.getString("formOfCareer1_enterYM");
+                        corpRes1 = value.getString("formOfCareer1_resignYM");
+                        dep1 = value.getString("formOfCareer1_office");
+                        work1 = value.getString("formOfCareer1_task");
 //                    if(checkString(formOfCareer1_name)&&checkString(formOfCareer1_enter)&&checkString(formOfCareer1_resign)&&checkString(formOfCareer1_office)&&
 //                            checkString(formOfCareer1_task)){
 //                        formOfCareer1.setVisibility(View.GONE);
 //                    }
 
-                        formOfCareer2_name = value.getString("formOfCareer2_name");
-                        formOfCareer2_enterYM = value.getString("formOfCareer2_enterYM");
-                        formOfCareer2_resignYM = value.getString("formOfCareer2_resignYM");
-                        formOfCareer2_office = value.getString("formOfCareer2_office");
-                        formOfCareer2_task = value.getString("formOfCareer2_task");
-                        if (!bExpanded &&checkString(formOfCareer2_name) && checkString(formOfCareer2_enterYM) && checkString(formOfCareer2_resignYM) && checkString(formOfCareer2_office) &&
-                                checkString(formOfCareer2_task)) {
+                        corpN2 = value.getString("formOfCareer2_name");
+                        corpEnt2 = value.getString("formOfCareer2_enterYM");
+                        corpRes2 = value.getString("formOfCareer2_resignYM");
+                        dep2 = value.getString("formOfCareer2_office");
+                        work2 = value.getString("formOfCareer2_task");
+                        if (!bExpanded &&checkString(corpN2) && checkString(dep2) && checkString(corpEnt2) && checkString(corpRes2) &&
+                                checkString(work2)) {
                             formOfCareer2.setVisibility(View.GONE);
                         }
 
-                        formOfCareer3_name = value.getString("formOfCareer3_name");
-                        formOfCareer3_enterYM = value.getString("formOfCareer3_enterYM");
-                        formOfCareer3_resignYM = value.getString("formOfCareer3_resignYM");
-                        formOfCareer3_office = value.getString("formOfCareer3_office");
-                        formOfCareer3_task = value.getString("formOfCareer3_task");
-                        if (!bExpanded &&checkString(formOfCareer3_name) && checkString(formOfCareer3_enterYM) && checkString(formOfCareer3_resignYM) && checkString(formOfCareer3_office) &&
-                                checkString(formOfCareer3_task)) {
+                        corpN3 = value.getString("formOfCareer3_name");
+                        corpEnt3 = value.getString("formOfCareer3_enterYM");
+                        corpRes3 = value.getString("formOfCareer3_resignYM");
+                        dep3 = value.getString("formOfCareer3_office");
+                        work3 = value.getString("formOfCareer3_task");
+                        if (!bExpanded &&checkString(corpN3) && checkString(dep3) && checkString(corpEnt3) && checkString(corpRes3) &&
+                                checkString(work3)) {
                             formOfCareer3.setVisibility(View.GONE);
                         }
 
-                        formOfCareer1_name_EditText.setText(formOfCareer1_name);
-                        formOfCareer1_enterYM_EditText.setText(formOfCareer1_enterYM);
-                        formOfCareer1_resignYM_EditText.setText(formOfCareer1_resignYM);
-                        formOfCareer1_office_EditText.setText(formOfCareer1_office);
-                        formOfCareer1_task_EditText.setText(formOfCareer1_task);
+                        formOfCareer1_name_EditText.setText(corpN1);
+                        formOfCareer1_enterYM_EditText.setText(corpEnt1);
+                        formOfCareer1_resignYM_EditText.setText(corpRes1);
+                        formOfCareer1_office_EditText.setText(dep1);
+                        formOfCareer1_task_EditText.setText(work1);
 
-                        formOfCareer2_name_EditText.setText(formOfCareer2_name);
-                        formOfCareer2_enterYM_EditText.setText(formOfCareer2_enterYM);
-                        formOfCareer2_resignYM_EditText.setText(formOfCareer2_resignYM);
-                        formOfCareer2_office_EditText.setText(formOfCareer2_office);
-                        formOfCareer2_task_EditText.setText(formOfCareer2_task);
+                        formOfCareer2_name_EditText.setText(corpN2);
+                        formOfCareer2_enterYM_EditText.setText(corpEnt2);
+                        formOfCareer2_resignYM_EditText.setText(corpRes2);
+                        formOfCareer2_office_EditText.setText(dep2);
+                        formOfCareer2_task_EditText.setText(work2);
 
-                        formOfCareer3_name_EditText.setText(formOfCareer3_name);
-                        formOfCareer3_enterYM_EditText.setText(formOfCareer3_enterYM);
-                        formOfCareer3_resignYM_EditText.setText(formOfCareer3_resignYM);
-                        formOfCareer3_office_EditText.setText(formOfCareer3_office);
-                        formOfCareer3_task_EditText.setText(formOfCareer3_task);
+                        formOfCareer3_name_EditText.setText(corpN3);
+                        formOfCareer3_enterYM_EditText.setText(corpEnt3);
+                        formOfCareer3_resignYM_EditText.setText(corpRes3);
+                        formOfCareer3_office_EditText.setText(dep3);
+                        formOfCareer3_task_EditText.setText(work3);
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
         }
     }
-
-
-
 
     //DownloadManager.ACTION_DOWNLOAD_COMPLETE, RUNIMG_CMPLT, DOC_DWNL_CMPLT 이벤트를 받을 수 있도록 하는
     //broadcastReceiver를 등록한다.
@@ -1176,7 +1329,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
     }
 
-
+    //문서를 다운하기만 한다.
     class downloadTmpltThread extends Thread{
         public void run() {
             handler1.post(new Runnable() {
@@ -1185,60 +1338,55 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
+            docName = intent.getStringExtra("docName");         //default이름
+            fileName = expandedScrn_name.getText().toString().trim(); //사용자가 입력한 파일이름
+            Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
 
-            //사용자가 파일이름 EditText에 기록한 내용을 불러온다.
-
-            //파일이름이 비어있을 경우 "제목을 입력해주세요!"팝업 문구를 띄우고,
-            //파일이름이 존재할 경우 파일 제목을 fileName으로 하는 docName+".docx"의 문서를 다운로드한다.
-            //get titles
-            docName = intent.getStringExtra("docName");
-            fileName = expandedScrn_name.getText().toString().trim();
-
+            //사용자가 파일 이름 입력을 하지 않았을 때, default이름으로 다운로드 한다.
             if(checkString(fileName)){
-
-                //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
-                //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
-                //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_without_modify(docName, docName);
             }
+            //사용자가 파일이름을 입력했을 때
             else{
-                //careerDescription.class에서 보내온 docName을 불러온다.
-                docName = intent.getStringExtra("docName");
-                //다운로드진입점 클래스(downloadEP)를 생성하고 download_without_modfiy메소드를 호출한다.
-                //download_without_modify메소드는 파이어베이스에서 uri를 성공적으로 불러오면 해당 uri를 downloadFile_without_modify메소드에 전달한다.
-                //downloadFile_without_modify메소드는 download/ZN 폴더에 ".docx" 확장자를 붙여 문서를 다운로드한다.
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_without_modify(fileName, docName);
             }
         }
     }
-    //check if download is complete or not
+    //문서 다운이 끝났는지 체크한다.
     class checkingDownloadThread extends Thread{
         boolean downloadComplete = false;
         File f;
 
-
         public void run() {
+            docName = intent.getStringExtra("docName");         //default이름
+            fileName = expandedScrn_name.getText().toString().trim(); //사용자가 입력한 파일이름
+            if(fileName.isEmpty()) {
+                Log.d(TAG, "run/absolutePath : "+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/"+docName+".docx");
+            }
+            else {
+                Log.d(TAG, "run/absolutePath : " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName + ".docx");
+            }
+            //파일 인스턴스를 생성할 수 있으면 반복문을 빠져나온다.
             while(!downloadComplete) {
-                //if can make File object, jump out of a loop
                 try {
-                    if(docName == docName) {
+                    if(checkString(fileName)) {
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
                     }
                     else{
                         f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
                     }
-                    downloadComplete = true;
-
-                }catch (NullPointerException e){
-                    Log.d(TAG, "Download is not completed yet");
-                }
+                    if(f.exists()&& !f.isDirectory()){
+                        downloadComplete = true;
+                    }
+                }catch (NullPointerException e){}
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
                 } catch (Exception e) {}
             }
+            //progressBar를 숨긴다.
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1250,32 +1398,26 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         }
     }
 
+    //프로필이미지와 텍스트를 대체시킨다.
     class tmpltProcessThread extends Thread{
         @Override
         public void run() {
-            handler2.post(new Runnable() {
+            handler2.post(new Runnable() { //progressBar를 보인다.
                 @Override
                 public void run() {
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
 
-            docName = intent.getStringExtra("docName");
-            fileName = expandedScrn_name.getText().toString().trim();
-            if (checkString(fileName)) {
-//                Toast.makeText(mContext, "파일 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
+            docName = intent.getStringExtra("docName");             //default이름
+            fileName = expandedScrn_name.getText().toString().trim();     //사용자가 입력한 파일이름
+            Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
 
+            if (checkString(fileName)) {
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_with_modify(docName, docName);
             } else {
-//                Toast.makeText(mContext, "Document processing Start!", Toast.LENGTH_SHORT).show();
 
-                //get titles;
-                docName = intent.getStringExtra("docName");
-                fileName = expandedScrn_name.getText().toString().trim();
-
-                //get texts;
                 name = name_EditText.getText().toString().trim();
                 email = email_EditText.getText().toString().trim();
                 phoneNum = phoneNum_EditText.getText().toString().trim();
@@ -1300,23 +1442,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 master_graThe = master_graThe_EditText.getText().toString().trim();
                 master_LAB = master_LAB_EditText.getText().toString().trim();
 
-                formOfCareer1_name = formOfCareer1_name_EditText.getText().toString().trim();
-                formOfCareer1_enterYM = formOfCareer1_enterYM_EditText.getText().toString().trim();
-                formOfCareer1_resignYM = formOfCareer1_resignYM_EditText.getText().toString().trim();
-                formOfCareer1_office = formOfCareer1_office_EditText.getText().toString().trim();
-                formOfCareer1_task = formOfCareer1_task_EditText.getText().toString().trim();
+                corpN1 = formOfCareer1_name_EditText.getText().toString().trim();
+                corpEnt1 = formOfCareer1_enterYM_EditText.getText().toString().trim();
+                corpRes1 = formOfCareer1_resignYM_EditText.getText().toString().trim();
+                dep1 = formOfCareer1_office_EditText.getText().toString().trim();
+                work1 = formOfCareer1_task_EditText.getText().toString().trim();
 
-                formOfCareer2_name = formOfCareer2_name_EditText.getText().toString().trim();
-                formOfCareer2_enterYM = formOfCareer2_enterYM_EditText.getText().toString().trim();
-                formOfCareer2_resignYM = formOfCareer2_resignYM_EditText.getText().toString().trim();
-                formOfCareer2_office = formOfCareer2_office_EditText.getText().toString().trim();
-                formOfCareer2_task = formOfCareer2_task_EditText.getText().toString().trim();
+                corpN2 = formOfCareer2_name_EditText.getText().toString().trim();
+                corpEnt2 = formOfCareer2_enterYM_EditText.getText().toString().trim();
+                corpRes2 = formOfCareer2_resignYM_EditText.getText().toString().trim();
+                dep2 = formOfCareer2_office_EditText.getText().toString().trim();
+                work2 = formOfCareer2_task_EditText.getText().toString().trim();
 
-                formOfCareer3_name = formOfCareer3_name_EditText.getText().toString().trim();
-                formOfCareer3_enterYM = formOfCareer3_enterYM_EditText.getText().toString().trim();
-                formOfCareer3_resignYM = formOfCareer3_resignYM_EditText.getText().toString().trim();
-                formOfCareer3_office = formOfCareer3_office_EditText.getText().toString().trim();
-                formOfCareer3_task = formOfCareer3_task_EditText.getText().toString().trim();
+                corpN3 = formOfCareer3_name_EditText.getText().toString().trim();
+                corpEnt3 = formOfCareer3_enterYM_EditText.getText().toString().trim();
+                corpRes3 = formOfCareer3_resignYM_EditText.getText().toString().trim();
+                dep3 = formOfCareer3_office_EditText.getText().toString().trim();
+                work3 = formOfCareer3_task_EditText.getText().toString().trim();
 
                 license1_date = license1_date_EditText.getText().toString().trim();
                 license1_cntnt = license1_cntnt_EditText.getText().toString().trim();
@@ -1336,48 +1478,49 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 award2_cntnt = award2_cntnt_EditText.getText().toString().trim();
                 award2_publication = award2_publication_EditText.getText().toString().trim();
 
-                //사용자가 인터페이스에 기록한 모든 내용을 불러오고 downloadEP클래스의 download_with_modify메소드를 호출한다.
-                //download_with_modify메소드는 Firebase Storage로부터 uri를 성공적으로 불러오면 해당 uri를 downloadFile_with_modify메소드에게 전달한다.
-                //downloadFile_with_modify메소드는 전달받은 uri를 통해 DownloadManager클래스 long enqueue(Uri uri)메소드를 호출한다.
-                //enqueue메소드로부터 반환받은 long타입의 값을 PreferenceManager의 키 "doc_dwnlID"의 대응값으로 저장한다.
-
-                //fileName : 사용자 입력사항
-                //docName : 파이어베이스 문서 이름
-
-                Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
                 downloadEP = new DownloadEP(getApplicationContext());
                 downloadEP.download_with_modify(fileName, docName);
             }
         }
     }
-    class checkingProcessThread extends Thread{
 
+    //텍스트, 프로필 이미지 대체가 끝났는지 체크한다.
+    class checkingProcessThread extends Thread{
         boolean downloadComplete = false;
+
         File f;
         File imagePicture;
 
         public void run() {
+
+            docName = intent.getStringExtra("docName");             //default이름
+            fileName = expandedScrn_name.getText().toString().trim();     //사용자가 입력한 파일이름
+
+            if(fileName.isEmpty()) {
+                Log.d(TAG, "run/absolutePath : "+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/"+docName+".docx");
+            }
+            else {
+                Log.d(TAG, "run/absolutePath : " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName + ".docx");
+            }
+            //File 인스턴스를 만들 수 있으면 반복문을 빠져나온다.
             while(!downloadComplete) {
-                //if can make File object, jump out of a loop
                 try {
-                    if(docName == docName) {
-                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
-                        imagePicture = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+"profile.jpg");
+                    if(fileName.isEmpty()) {
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/"+docName+".docx");
                     }
                     else{
-                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
-                        imagePicture = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+"profile.jpg");
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/"+fileName+".docx");
                     }
-
-                    downloadComplete = true;
-
-                }catch (NullPointerException e){
-                    Log.d(TAG, "Download is not completed yet");
-                }
+                    if(f.exists()&& !f.isDirectory()){
+                        downloadComplete = true;
+                    }
+                    Log.d(TAG, "run/f.exists() : "+f.exists());
+                }catch (NullPointerException e){}
                 try {
                     Log.d(TAG, "DDING DDONG");
                     Thread.sleep(500);
                 } catch (Exception e) {}
+
             }
             handler2.post(new Runnable() {
                 @Override

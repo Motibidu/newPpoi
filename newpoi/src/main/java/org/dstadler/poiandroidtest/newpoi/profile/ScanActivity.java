@@ -219,7 +219,6 @@ public class ScanActivity extends AppCompatActivity{
     }
     public void buttonCompleteListen() {
 
-
         FirebaseAuth mAuth;
         FirebaseFirestore fStore;
 
@@ -264,8 +263,6 @@ public class ScanActivity extends AppCompatActivity{
         finish();
     }
 
-
-
     private void recognizeTextFromImage(){
         Log.d(TAG, "recognizeTextFromImage: ");
         progressDialog.setMessage("Preparing image...");
@@ -281,7 +278,9 @@ public class ScanActivity extends AppCompatActivity{
                         @Override
                         public void onSuccess(Text text) {
                             progressDialog.dismiss();;
+                            //이미지에서 텍스트들을 불러온다.
                             String recognizedText = text.getText();
+
                             stringProcess(recognizedText);
                         }
                     })
@@ -306,9 +305,8 @@ public class ScanActivity extends AppCompatActivity{
     private void stringProcess(String str){
 
 
-        //split string by a space
+        //split string by a enter
         String[] splitStr_n = str.split("\\n+");
-        String[] splitStr_s = str.split("\\s+");
         Map<String,ArrayList<String>> m = new HashMap<String, ArrayList<String>>();
 
         //init customMatcher
@@ -326,18 +324,22 @@ public class ScanActivity extends AppCompatActivity{
 
 
         int j = 0;
+        //문자열을
         for (String s: splitStr_n){
             j++;
             cus.set_splitStr(s);
 
+
             cus.set_name();
+            //문자열에 정규식과 매칭되는 subString 있다면
             if(cus.find()){
+                //sp= the subString
                 sp = cus.group();
                 if(!(sp.contains("이메일")||sp.contains("주소")||sp.contains("분야")||
                         sp.contains("이력서")||sp.contains("이수")||sp.contains("전공명")||
                         sp.contains("이름")||sp.contains("주민번호")||sp.contains("날짜")||
                         sp.contains("관리")||sp.contains("전공")||sp.contains("서울")||
-                        sp.contains("대학"))) {
+                        sp.contains("대학")||sp.contains("학교"))) {
                     Log.d(TAG, j+":name : " + sp);
                     if(!name.contains(sp)){name.add(sp);}
                 }

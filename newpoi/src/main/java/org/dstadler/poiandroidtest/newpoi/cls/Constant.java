@@ -17,9 +17,6 @@ public class Constant {
     public static ArrayList<String> allParentPathList = new ArrayList<>();
     public static List<RecyclerViewAdapter.FileLayoutHolder> list = new ArrayList<>();
 
-
     public static HashMap<String, String> scanInfo= new HashMap<>();
-
-
 
 }

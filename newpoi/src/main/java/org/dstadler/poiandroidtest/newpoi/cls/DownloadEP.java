@@ -76,6 +76,7 @@ public class DownloadEP {
             }
         });
     }
+
     //양식파일 다운로드하고 PreferenceManager의 doc_dwnlID에 downloadID 등록
     public void downloadFile_with_modify(Context context, String fileName, String fileExtension, String url){
 

@@ -122,18 +122,6 @@ public class CustomXWPFDocument extends XWPFDocument {
         docPr.setDescr("Generated");
     }
 
-//    public static void main(String[] args) throws IOException, InvalidFormatException {
-//		String doc_path = "E:\\apache-tomcat-8.0.30\\webapps\\jeefh\\fh\\doc\\pageoffice\\c3f13d99bb1e455fb585691271a9d729.doc";
-//        String doc_path = "D:\\11.docx";
-//        String img_path = "E:\\apache-tomcat-8.0.30\\webapps\\jeefh\\fh\\doc\\pageoffice\\img\\jsk.png";
-//        new CustomXWPFDocument().runText("PO_user_name1",doc_path, "d");//Bookmark replacement content
-//        new CustomXWPFDocument().runImg("PO_user_name1",doc_path, img_path, true, 100, 100, 0, 0);//Bookmark replacement picture
-//        // new CustomXWPFDocument().runText("PO_user_name2",doc_path, "bb");//Bookmark replacement content
-//        // new CustomXWPFDocument().runImg("PO_user_name2",doc_path, img_path, true, 100, 100, 80, 0);//Bookmark replace picture
-//        // new CustomXWPFDocument().runText("PO_user_name3",doc_path, "cc");//Bookmark replacement content
-//        // new CustomXWPFDocument().runImg("PO_user_name3",doc_path, img_path, true, 100, 100, 160, 0);//Bookmark replace picture
-//    }
-
     /**
      * @param name book signature
      * @param doc_path word path

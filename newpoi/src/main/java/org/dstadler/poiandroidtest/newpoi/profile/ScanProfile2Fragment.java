@@ -51,13 +51,6 @@ public class ScanProfile2Fragment extends Fragment{
     private ArrayList<String> phoneNum = new ArrayList<String>();
     private ArrayList<String> age = new ArrayList<String>();
 
-    private String result;
-
-    private buttonCompleteListener buttonCompleteListener;
-
-    public interface buttonCompleteListener {
-        void buttonCompleteListen();
-    }
 
 
     public ScanProfile2Fragment() {
@@ -363,11 +356,14 @@ public class ScanProfile2Fragment extends Fragment{
             } else if (prrn.contains(",")) {
                 splitprrn = prrn.split(",");
                 Log.d(TAG, "splitrrn[0] : " + splitprrn[0]);
+            } else{
+                splitprrn[0] = prrn.substring(0, 2);
             }
+            Log.d(TAG, "setAge/splitrrn[0] = " + splitprrn[0]);
 
             if (splitprrn[0].length() == 2) {
                 String firstChar = Character.toString(splitprrn[0].charAt(0));
-                Log.d(TAG, "firshChar : " + firstChar);
+                Log.d(TAG, "firstChar : " + firstChar);
                 //68, 71, 86, 92
                 if (firstChar.equals("6") || firstChar.equals("7") || firstChar.equals("8") || firstChar.equals("9")) {
                     Log.d(TAG, "condition1 : " + Integer.toString(year - Integer.parseInt(splitprrn[0]) - 1899));
@@ -404,6 +400,8 @@ public class ScanProfile2Fragment extends Fragment{
             } else if (prrn.contains(",")) {
                 splitprrn = prrn.split(",");
                 Log.d(TAG, "splitrrn[0] : " + splitprrn[0]);
+            } else{
+                splitprrn[0] = prrn.substring(0, 2);
             }
 
             if (splitprrn[0].length() == 2) {
