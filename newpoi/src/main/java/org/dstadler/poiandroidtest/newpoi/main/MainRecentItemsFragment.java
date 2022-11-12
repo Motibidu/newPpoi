@@ -105,16 +105,6 @@ public class MainRecentItemsFragment extends Fragment implements RecyclerViewAda
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onIconMoreClick(int position) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog();
         PreferenceManager.setInt(getContext(),"filePosition", position);

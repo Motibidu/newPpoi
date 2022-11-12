@@ -98,19 +98,19 @@
                         android:layout_width="184dp"
                         android:layout_height="260dp"
                         android:padding="5sp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:scaleType="fitXY" />
                     <TextView
                         android:id="@+id/carrerDescription_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/careerDescription_customImgV"
+                        android:layout_alignStart="@+id/careerDescription_customImgV"
                         android:layout_alignTop="@+id/careerDescription_customImgV"
-                        android:layout_alignRight="@+id/careerDescription_customImgV"
+                        android:layout_alignEnd="@+id/careerDescription_customImgV"
                         android:layout_alignBottom="@+id/careerDescription_customImgV"
                         android:layout_margin="1dp"
                         android:gravity="center"
-                        android:text="경력 기술서"
+                        android:text="디자인 이력서"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
                 </RelativeLayout>

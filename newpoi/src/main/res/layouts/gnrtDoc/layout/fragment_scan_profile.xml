@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="0dp"
-                android:hint="이름을 입력해주세요." />
+                android:hint="@string/hint_name" />
             <ImageButton
                 android:id="@+id/imagebutton_name"
                 android:layout_width="30dp"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="0dp"
-                android:hint="이름을 입력해주세요." />
+                android:hint="@string/hint_engName" />
             <ImageButton
                 android:id="@+id/imagebutton_engName"
                 android:layout_width="30dp"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="0dp"
-                android:hint="이름을 입력해주세요." />
+                android:hint="@string/hint_chName" />
             <ImageButton
                 android:id="@+id/imagebutton_chName"
                 android:layout_width="30dp"
@@ -109,7 +109,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:hint="OOOOOO-OOOOOOO" />
+                android:hint="@string/hint_rrn" />
             <ImageButton
                 android:id="@+id/imagebutton_rrn"
                 android:layout_width="30dp"
@@ -137,7 +137,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:hint="나이를 입력해주세요." />
+                android:hint="@string/hint_age" />
         </RelativeLayout>
 
 
@@ -157,7 +157,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:hint="나이를 입력해주세요." />
+                android:hint="@string/hint_phoneNum" />
             <ImageButton
                 android:id="@+id/imagebutton_phoneNum"
                 android:layout_width="30dp"
@@ -185,7 +185,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:hint="이메일을 입력해주세요." />
+                android:hint="@string/hint_email" />
             <ImageButton
                 android:id="@+id/imagebutton_email"
                 android:layout_width="30dp"
@@ -211,7 +211,7 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:hint="나이를 입력해주세요." />
+                android:hint="@string/hint_addr" />
             <ImageButton
                 android:id="@+id/imagebutton_addr"
                 android:layout_width="30dp"

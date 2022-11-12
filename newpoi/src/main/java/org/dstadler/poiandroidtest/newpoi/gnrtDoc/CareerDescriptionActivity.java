@@ -68,7 +68,6 @@ import org.dstadler.poiandroidtest.newpoi.profile.ProfileScrnActivity;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -91,7 +90,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     // vars
     private boolean bExpanded;
     private String docName;
-    private String imgPath1, imgPath2, imgPath3;
+    private String pagePath0, pagePath1, pagePath2;
 
 
     //widgets
@@ -115,7 +114,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
-            master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText;
+            master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText, TextInputEditText_uLoc, TextInputEditText_uSco, TextInputEditText_mLoc, TextInputEditText_mSco;
 
     private TextInputEditText name_EditText, email_EditText, phoneNum_EditText, addr_EditText, engName_EditText, chName_EditText, rrn_EditText, age_EditText, num_EditText;
 
@@ -123,7 +122,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     private String highschool_enterYM,  highschool_graYM, highschool_name, highschool_graCls,
             university_enterYM, university_graYM, university_graCls, university_name, university_major,
             master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB,
-            hN, hEnt, hGrad , hIfy, uN , uMaj, uEnt , uGrad, uIfy , mN, mEnt , mGrad, mIfy, mMaj;
+            hN, hEnt, hGrad , hIfy, uN , uMaj, uEnt , uGrad, uLoc, uSco, uIfy , mN, mEnt, mLoc, mSco, mGrad, mIfy, mMaj;
+
     private TextInputEditText formOfCareer1_name_EditText, formOfCareer1_enterYM_EditText ,formOfCareer1_office_EditText  ,formOfCareer1_task_EditText ,formOfCareer1_resignYM_EditText
             ,formOfCareer2_name_EditText, formOfCareer2_enterYM_EditText , formOfCareer2_office_EditText, formOfCareer2_task_EditText, formOfCareer2_resignYM_EditText
             ,formOfCareer3_name_EditText, formOfCareer3_enterYM_EditText, formOfCareer3_office_EditText, formOfCareer3_task_EditText, formOfCareer3_resignYM_EditText;
@@ -134,7 +134,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             license2_date_EditText, license2_cntnt_EditText, license2_grade_EditText, license2_publication_EditText,
             award1_date_EditText, award1_cntnt_EditText, award1_publication_EditText,
             award2_date_EditText, award2_cntnt_EditText, award2_publication_EditText;
-    private TextInputLayout TextInputLayout_name, TextInputLayout_engName, TextInputLayout_chName, TextInputLayout_rrn, TextInputLayout_age, TextInputLayout_phoneNum, TextInputLayout_num, TextInputLayout_email, TextInputLayout_addr;
+    private TextInputLayout TextInputLayout_name, TextInputLayout_engName, TextInputLayout_chName, TextInputLayout_rrn, TextInputLayout_age, TextInputLayout_phoneNum, TextInputLayout_num, TextInputLayout_email, TextInputLayout_addr, TextInputLayout_uLoc, TextInputLayout_uSco, TextInputLayout_mLoc, TextInputLayout_mSco;
 
     private String license1_date, license1_cntnt, license1_grade, license1_publication,
             license2_date, license2_cntnt, license2_grade, license2_publication,
@@ -243,6 +243,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputLayout_email = findViewById(R.id.TextInputLayout_email);
         TextInputLayout_addr = findViewById(R.id.TextInputLayout_addr);
 
+        TextInputLayout_uLoc = findViewById(R.id.TextInputLayout_uLoc);
+        TextInputLayout_uSco = findViewById(R.id.TextInputLayout_uSco);
+        TextInputLayout_mLoc = findViewById(R.id.TextInputLayout_mLoc);
+        TextInputLayout_mSco = findViewById(R.id.TextInputLayout_mSco);
+
         expandedScrn_download_without_modify = findViewById(R.id.expandedScrn_download_without_modify);
 
         //학력사항//
@@ -262,10 +267,15 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         university_name_EditText = findViewById(R.id.university_name_EditText);
         university_major_EditText = findViewById(R.id.university_major_EditText);
         university = findViewById(R.id.university);
+        TextInputEditText_uLoc = findViewById(R.id.TextInputEditText_uLoc);
+        TextInputEditText_uSco = findViewById(R.id.TextInputEditText_uSco);
+
         //대학원
         master_enterYM_EditText = findViewById(R.id.master_enterYM_EditText);
         master_graYM_EditText = findViewById(R.id.master_graYM_EditText);
         master_graCls_EditText = findViewById(R.id.master_graCls_EditText);
+        TextInputEditText_mLoc = findViewById(R.id.TextInputEditText_mLoc);
+        TextInputEditText_mSco = findViewById(R.id.TextInputEditText_mSco);
         master_name_EditText = findViewById(R.id.master_name_EditText);
         master_major_EditText = findViewById(R.id.master_major_EditText);
         master_graThe_EditText = findViewById(R.id.master_graThe_EditText);
@@ -340,15 +350,15 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         expandedScrn_mainImageView3 = findViewById(R.id.expandedScrn_mainImageView3);
 
         intent = getIntent();
-        //imgPath1, imgPath2, imgPath3을 불러온다.
-        imgPath1 = intent.getStringExtra("imgPath1");
-        imgPath2 = intent.getStringExtra("imgPath2");
-        imgPath3 = intent.getStringExtra("imgPath3");
+        //pagePath0, pagePath1, pagePath2을 불러온다.
+        pagePath0 = intent.getStringExtra("pagePath0");
+        pagePath1 = intent.getStringExtra("pagePath1");
+        pagePath2 = intent.getStringExtra("pagePath2");
 
 
         docName = intent.getStringExtra("docName");
 
-        if(docName.equals("careerDescription0")){
+        if(docName.equals("career_description0")){
             Log.d(TAG, "onCreate/docName : "+docName);
 //            TextInputLayout_name.setVisibility(View.GONE);
             TextInputLayout_engName.setVisibility(View.GONE);
@@ -377,26 +387,26 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         expandedScrn_name = findViewById(R.id.expandedScrn_name);
 
         //첫번째, 두번째, 세번째 페이지를 설정한다.
-        if(!checkString(imgPath1)) {
-            imgUri1 = Uri.parse(imgPath1);
+        if(!checkString(pagePath0)) {
+            imgUri1 = Uri.parse(pagePath0);
             Glide.with(this).load(imgUri1)
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.bitmapTransform(
                             new RoundedCornersTransformation(this, sCorner, sMargin, "#34ace0", sBorder))).into(expandedScrn_mainImageView1);
         }
-        //imgPath2에 값이 있을 때 첫번째 mainImageView에 rounded처리된 imgUri2의 이미지를 설정한다.
-        if(!checkString(imgPath2)) {
-            imgUri2 = Uri.parse(imgPath2);
+        //pagePath1에 값이 있을 때 첫번째 mainImageView에 rounded처리된 imgUri2의 이미지를 설정한다.
+        if(!checkString(pagePath1)) {
+            imgUri2 = Uri.parse(pagePath1);
             Glide.with(this).load(imgUri2)
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.bitmapTransform(
                             new RoundedCornersTransformation(this, sCorner, sMargin, "#34ace0", sBorder))).into(expandedScrn_mainImageView2);
         }
-        //imgPath3에 값이 있을 때 첫번째 mainImageView에 rounded처리된 imgUri3의 이미지를 설정한다.
-        if(!checkString(imgPath3)) {
-            imgUri3 = Uri.parse(imgPath3);
+        //pagePath2에 값이 있을 때 첫번째 mainImageView에 rounded처리된 imgUri3의 이미지를 설정한다.
+        if(!checkString(pagePath2)) {
+            imgUri3 = Uri.parse(pagePath2);
             Glide.with(this).load(imgUri3)
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .apply(RequestOptions.skipMemoryCacheOf(true))
@@ -486,7 +496,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         //(rrn, age, phoneNum, email, addr) = (주민번호, 나이, 전화번호, 이메일, 주소)
 
                         //(hN, hEnt, hGrad, hIfy) = (고등학교 이름, 고등학교 입학년월, 고등학교 졸업년월, 졸업구분)
-                        //(uN, uMaj, uEnt, uGrad, uIfy) = (대학교 이름, 대학교 전공, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
+                        //(uN, uMaj, uEnt, uGrad, uLoc, uSco uIfy) = (대학교 이름, 대학교 전공, 대학교 입학년월, 대학교 졸업년월, 대학교 소재지, 대학교 학점, 대학교 졸업구분)
                         //(mN, mEnt, mGrad, mIfy) = (대학교 이름, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
 
                         //(corpN, dep, corpEnt, corpRes, work) = (회사이름, 담당부서, 입사년월, 퇴사년월, 담당업무)
@@ -503,7 +513,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         }
                         DocumentBuilder builder = new DocumentBuilder(document);
 
-                        if(docName.equals("careerDescription0")){
+                        if(docName.equals("career_description0")){
                             builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
                                     RelativeHorizontalPosition.MARGIN,
                                     360,
@@ -573,13 +583,19 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         if(uGrad.isEmpty()) {
                             document.getRange().replace("uGrad","", new FindReplaceOptions());
                         } else{document.getRange().replace("uGrad",uGrad, new FindReplaceOptions());}
+                        if(uLoc.isEmpty()) {
+                            document.getRange().replace("uLoc","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uLoc",uLoc, new FindReplaceOptions());}
+                        if(uSco.isEmpty()) {
+                            document.getRange().replace("uSco","", new FindReplaceOptions());
+                        } else{document.getRange().replace("uSco",uSco, new FindReplaceOptions());}
                         if(uIfy.isEmpty()) {
                             document.getRange().replace("uIfy","", new FindReplaceOptions());
                         } else{document.getRange().replace("uIfy",uIfy, new FindReplaceOptions());}
 
                         if(mN.isEmpty()) {
                             document.getRange().replace("mN","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mN",mN, new FindReplaceOptions());}
+                        } else{document.getRange().replace("mN",mN+"석사", new FindReplaceOptions());}
                         if(mMaj.isEmpty()) {
                             document.getRange().replace("mMaj","", new FindReplaceOptions());
                         } else{document.getRange().replace("mMaj",mMaj, new FindReplaceOptions());}
@@ -589,6 +605,12 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         if(mGrad.isEmpty()) {
                             document.getRange().replace("mGrad","", new FindReplaceOptions());
                         } else{document.getRange().replace("mGrad",mGrad, new FindReplaceOptions());}
+                        if(mLoc.isEmpty()) {
+                            document.getRange().replace("mLoc","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mLoc",mGrad, new FindReplaceOptions());}
+                        if(uSco.isEmpty()) {
+                            document.getRange().replace("mSco","", new FindReplaceOptions());
+                        } else{document.getRange().replace("mSco",mSco, new FindReplaceOptions());}
                         if(mIfy.isEmpty()) {
                             document.getRange().replace("mIfy","", new FindReplaceOptions());
                         } else{document.getRange().replace("mIfy",mIfy, new FindReplaceOptions());}
@@ -755,15 +777,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         popupMenu.inflate(R.menu.expanded_menu);
         Menu menuOpts = popupMenu.getMenu();
 
-        //PreferenceManager에 등록된 bExpanded가 true일 때(펼쳐져 있을때) "숨기기"를 디스플레이 한다.
-        //PreferenceManager에 등록된 bExpanded가 false일 때(숨겨져 있을 때) "펼치기"를 디스플레이한다.
-        bExpanded = PreferenceManager.getBoolean(mContext, "careerbExpanded");
         if(bExpanded){
             menuOpts.getItem(0).setTitle("숨기기");
         }
         else{
             menuOpts.getItem(0).setTitle("펼치기");
-
         }
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -771,7 +789,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.expand:
-                        bExpanded = PreferenceManager.getBoolean(mContext, "careerbExpanded");
                         //bExpanded가 false일 때(숨겨져 있을 때) "펼치기"를 누르면
                         //대학교, 대학원, 경력사항2, 경력사항3, 자격증2, 수상2를 디스플레이 한다.
                          if(bExpanded) {
@@ -836,13 +853,20 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                              if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
                                      checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
                                  master.setVisibility(View.GONE);
+
+                             }if (checkString(license1_date) && checkString(license1_cntnt) && checkString(license1_grade) && checkString(license1_publication)) {
+                                 license1.setVisibility(View.GONE);
                              }
                              if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
                                  license2.setVisibility(View.GONE);
                              }
+                             if (checkString(award1_date) && checkString(award1_cntnt) && checkString(award1_publication)) {
+                                 award1.setVisibility(View.GONE);
+                             }
                              if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
                                  award2.setVisibility(View.GONE);
                              }
+                             bExpanded = false;
                              Toast.makeText(CareerDescriptionActivity.this, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
                         }
                          //bExpanded가 true일 때(펼쳐져 있을 때) "숨기기"를 누르면
@@ -858,6 +882,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                              license2.setVisibility(View.VISIBLE);
                              award1.setVisibility(View.VISIBLE);
                              award2.setVisibility(View.VISIBLE);
+                             bExpanded = true;
                              Toast.makeText(CareerDescriptionActivity.this, "모든 항목이 펼쳐 졌습니다.", Toast.LENGTH_SHORT).show();
 
                         }
@@ -892,18 +917,22 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         highschool_graYM = highschool_graYM_EditText.getText().toString().trim();
                         highschool_name=highschool_name_EditText.getText().toString().trim();
                         highschool_graCls = highschool_graCls_EditText.getText().toString().trim();
-
+                        
+                        university_name=university_name_EditText.getText().toString().trim();
                         university_enterYM = university_enterYM_EditText.getText().toString().trim();
                         university_graYM=university_graYM_EditText.getText().toString().trim();
-                        university_graCls = university_graCls_EditText.getText().toString().trim();
-                        university_name=university_name_EditText.getText().toString().trim();
+                        uLoc= TextInputEditText_uLoc.getText().toString().trim();
+                        uSco= TextInputEditText_uSco.getText().toString().trim();
                         university_major = university_major_EditText.getText().toString().trim();
+                        university_graCls = university_graCls_EditText.getText().toString().trim();
 
+                        master_name = master_name_EditText.getText().toString().trim();
                         master_enterYM = master_enterYM_EditText.getText().toString().trim();
                         master_graYM = master_graYM_EditText.getText().toString().trim();
-                        master_graCls = master_graCls_EditText.getText().toString().trim();
-                        master_name = master_name_EditText.getText().toString().trim();
+                        mLoc= TextInputEditText_mLoc.getText().toString().trim();
+                        mSco= TextInputEditText_mSco.getText().toString().trim();
                         master_major = master_major_EditText.getText().toString().trim();
+                        master_graCls = master_graCls_EditText.getText().toString().trim();
                         master_graThe = master_graThe_EditText.getText().toString().trim();
                         master_LAB = master_LAB_EditText.getText().toString().trim();
                         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -977,16 +1006,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                                 user.put("highschool_graYM", highschool_graYM);
                                 user.put("highschool_name", highschool_name);
                                 user.put("highschool_graCls", highschool_graCls);
+
+
+                                user.put("university_name", university_name);
                                 user.put("university_enterYM", university_enterYM);
                                 user.put("university_graYM", university_graYM);
-                                user.put("university_graCls", university_graCls);
-                                user.put("university_name", university_name);
+                                user.put("uLoc", uLoc);
+                                user.put("uSco",uSco);
                                 user.put("university_major", university_major);
+                                user.put("university_graCls", university_graCls);
+
+                                user.put("master_name", master_name);
                                 user.put("master_enterYM", master_enterYM);
                                 user.put("master_graYM", master_graYM);
-                                user.put("master_graCls", master_graCls);
-                                user.put("master_name", master_name);
+                                user.put("mLoc", mLoc);
+                                user.put("mSco",mSco);
                                 user.put("master_major", master_major);
+                                user.put("master_graCls", master_graCls);
                                 user.put("master_graThe", master_graThe);
                                 user.put("master_LAB", master_LAB);
                                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -1046,6 +1082,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             mAuth = FirebaseAuth.getInstance();
             storageReference = fStorage.getInstance().getReference();
             userID = mAuth.getCurrentUser().getUid();
+            bExpanded = false;
 
             //FirebaseFirestore의 collection("users").document(userID)에서 이름, 이메일, 휴대전화, 주소를 가져오고
             //EditText에 적용한다.
@@ -1093,22 +1130,24 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         uN = value.getString("university_name");
                         uEnt = value.getString("university_enterYM");
                         uGrad = value.getString("university_graYM");
+                        uLoc = value.getString("uLoc");
+                        uSco= value.getString("uSco");
                         uMaj = value.getString("university_major");
                         uIfy = value.getString("university_graCls");
-                        if (!bExpanded &&checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
-                                checkString(university_major)) {
+                        if (!bExpanded &&checkString(uN) && checkString(uEnt) && checkString(uGrad) && checkString(uLoc) &&checkString(uSco) && checkString(uMaj) && checkString(uIfy)) {
                             university.setVisibility(View.GONE);
                         }
 
                         mN = value.getString("master_name");
                         mEnt = value.getString("master_enterYM");
                         mGrad = value.getString("master_graYM");
+                        mLoc = value.getString("mLoc");
+                        mSco= value.getString("mSco");
                         mMaj = value.getString("master_major");
                         master_graThe = value.getString("master_graThe");
                         master_LAB = value.getString("master_LAB");
                         mIfy = value.getString("master_graCls");
-                        if (!bExpanded &&checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
-                                checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
+                        if (!bExpanded &&!bExpanded &&checkString(mN) && checkString(mEnt) && checkString(mGrad) && checkString(mLoc) &&checkString(mSco) && checkString(mMaj) && checkString(mIfy)) {
                             master.setVisibility(View.GONE);
                         }
                         highschool_name_EditText.setText(hN);
@@ -1119,12 +1158,16 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         university_name_EditText.setText(uN);
                         university_enterYM_EditText.setText(uEnt);
                         university_graYM_EditText.setText(uGrad);
+                        TextInputEditText_uLoc.setText(uLoc);
+                        TextInputEditText_uSco.setText(uSco);
                         university_major_EditText.setText(uMaj);
                         university_graCls_EditText.setText(uIfy);
 
                         master_name_EditText.setText(mN);
                         master_enterYM_EditText.setText(mEnt);
                         master_graYM_EditText.setText(mGrad);
+                        TextInputEditText_mLoc.setText(mLoc);
+                        TextInputEditText_mSco.setText(mSco);
                         master_major_EditText.setText(mMaj);
                         master_graThe_EditText.setText(master_graThe);
                         master_LAB_EditText.setText(master_LAB);

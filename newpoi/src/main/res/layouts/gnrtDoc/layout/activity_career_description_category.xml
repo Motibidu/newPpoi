@@ -1,46 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version = "1.0" encoding = "utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    tools:context=".gnrtDoc.CareerDescriptionCatActivity">
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/themeColor"
+        app:layout_constraintTop_toTopOf="parent"
         app:title="새로 만들기 : "
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         />
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/topAppBar">
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:rowCount="4">
-            <org.dstadler.poiandroidtest.newpoi.cls.customImageView
-                android:id="@+id/careerDescription0"
-                android:layout_width="184dp"
-                android:layout_height="260dp"
-                android:padding="5sp"
-                android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/btn_bg" />
-            <org.dstadler.poiandroidtest.newpoi.cls.customImageView
-                android:id="@+id/careerDescription1"
-                android:layout_width="184dp"
-                android:layout_height="260dp"
-                android:padding="5sp"
-                android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/btn_bg" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scrollbars="vertical"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        </GridLayout>
-    </ScrollView>
-
-</RelativeLayout>

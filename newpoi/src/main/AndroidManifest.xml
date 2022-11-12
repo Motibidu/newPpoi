@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".gnrtDoc.DocCatActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme_material"
             android:parentActivityName=".main.MainScrnActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -41,7 +41,7 @@
 
         <activity android:name=".gnrtDoc.CareerDescriptionActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.CareerDescriptionCatAcitivity">
+            android:parentActivityName=".gnrtDoc.CareerDescriptionCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -53,7 +53,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".gnrtDoc.CareerDescriptionCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".gnrtDoc.PromissoryCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">
@@ -61,13 +67,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.CareerDescriptionCatAcitivity"
+        <activity android:name=".gnrtDoc.EmploymentContractCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".gnrtDoc.SimpleResumeCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">

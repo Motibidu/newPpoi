@@ -207,7 +207,6 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
         if(item.getItemId() == R.id.add_screen){
             Intent intent = new Intent(mContext, DocCatActivity.class);
             startActivity(intent);
-
         }
 
         else if(item.getItemId() == R.id.refresh){

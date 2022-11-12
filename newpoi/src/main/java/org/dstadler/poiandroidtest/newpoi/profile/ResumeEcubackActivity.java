@@ -30,9 +30,11 @@ import java.util.Map;
 public class ResumeEcubackActivity extends AppCompatActivity {
     private TextInputEditText highschool_enterYM_EditText, highschool_graYM_EditText, highschool_name_EditText, highschool_graCls_EditText,
             university_enterYM_EditText, university_graYM_EditText, university_graCls_EditText, university_name_EditText, university_major_EditText,
-            master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText;
+            master_enterYM_EditText, master_graYM_EditText, master_graCls_EditText, master_name_EditText, master_major_EditText, master_graThe_EditText,master_LAB_EditText,
+            TextInputEditText_uLoc, TextInputEditText_uSco, TextInputEditText_mLoc, TextInputEditText_mSco;
+
     private String highschool_enterYM,  highschool_graYM, highschool_name, highschool_graCls, university_enterYM, university_graYM, university_graCls, university_name,
-            university_major, master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB;
+            university_major, master_enterYM, master_graYM, master_graCls, master_name, master_major, master_graThe, master_LAB, uLoc, uSco, mLoc, mSco;
 
 
     private FirebaseFirestore fStore;
@@ -73,16 +75,21 @@ public class ResumeEcubackActivity extends AppCompatActivity {
         highschool_name_EditText = findViewById(R.id.highschool_name_EditText);
         highschool_graCls_EditText = findViewById(R.id.highschool_graCls_EditText);
 
+        university_name_EditText = findViewById(R.id.university_name_EditText);
         university_enterYM_EditText = findViewById(R.id.university_enterYM_EditText);
         university_graYM_EditText = findViewById(R.id.university_graYM_EditText);
+        TextInputEditText_uLoc = findViewById(R.id.TextInputEditText_uLoc);
+        TextInputEditText_uSco = findViewById(R.id.TextInputEditText_uSco);
+
         university_graCls_EditText = findViewById(R.id.university_graCls_EditText);
-        university_name_EditText = findViewById(R.id.university_name_EditText);
         university_major_EditText = findViewById(R.id.university_major_EditText);
 
+        master_name_EditText = findViewById(R.id.master_name_EditText);
         master_enterYM_EditText = findViewById(R.id.master_enterYM_EditText);
         master_graYM_EditText = findViewById(R.id.master_graYM_EditText);
+        TextInputEditText_mLoc = findViewById(R.id.TextInputEditText_mLoc);
+        TextInputEditText_mSco = findViewById(R.id.TextInputEditText_mSco);
         master_graCls_EditText = findViewById(R.id.master_graCls_EditText);
-        master_name_EditText = findViewById(R.id.master_name_EditText);
         master_major_EditText = findViewById(R.id.master_major_EditText);
         master_graThe_EditText = findViewById(R.id.master_graThe_EditText);
         master_LAB_EditText = findViewById(R.id.master_LAB_EditText);
@@ -98,16 +105,22 @@ public class ResumeEcubackActivity extends AppCompatActivity {
                 highschool_graYM = value.getString("highschool_graYM");
                 highschool_name=value.getString("highschool_name");
                 highschool_graCls = value.getString("highschool_graCls");
+
+                university_name=value.getString("university_name");
                 university_enterYM = value.getString("university_enterYM");
                 university_graYM=value.getString("university_graYM");
-                university_graCls = value.getString("university_graCls");
-                university_name=value.getString("university_name");
                 university_major = value.getString("university_major");
+                uLoc = value.getString("uLoc");
+                uSco = value.getString("uSco");
+                university_graCls = value.getString("university_graCls");
+
+                master_name = value.getString("master_name");
                 master_enterYM = value.getString("master_enterYM");
                 master_graYM = value.getString("master_graYM");
-                master_graCls = value.getString("master_graCls");
-                master_name = value.getString("master_name");
                 master_major = value.getString("master_major");
+                mLoc = value.getString("mLoc");
+                mSco = value.getString("mSco");
+                master_graCls = value.getString("master_graCls");
                 master_graThe = value.getString("master_graThe");
                 master_LAB = value.getString("master_LAB");
 
@@ -116,17 +129,25 @@ public class ResumeEcubackActivity extends AppCompatActivity {
                 highschool_name_EditText.setText(highschool_name);
                 highschool_graCls_EditText.setText(highschool_graCls);
 
+
+
+
+                university_name_EditText.setText(university_name);
                 university_enterYM_EditText.setText(university_enterYM);
                 university_graYM_EditText.setText(university_graYM);
-                university_graCls_EditText.setText(university_graCls);
-                university_name_EditText.setText(university_name);
+                TextInputEditText_uLoc.setText(uLoc);
+                TextInputEditText_uSco.setText(uSco);
                 university_major_EditText.setText(university_major);
+                university_graCls_EditText.setText(university_graCls);
 
+                master_name_EditText.setText(master_name);
                 master_enterYM_EditText.setText(master_enterYM);
                 master_graYM_EditText.setText(master_graYM);
-                master_graCls_EditText.setText(master_graCls);
-                master_name_EditText.setText(master_name);
+                TextInputEditText_mLoc.setText(mLoc);
+                TextInputEditText_mSco.setText(mSco);
                 master_major_EditText.setText(master_major);
+                master_graCls_EditText.setText(master_graCls);
+
                 master_graThe_EditText.setText(master_graThe);
                 master_LAB_EditText.setText(master_LAB);
             }
@@ -144,17 +165,21 @@ public class ResumeEcubackActivity extends AppCompatActivity {
                 highschool_name=highschool_name_EditText.getText().toString().trim();
                 highschool_graCls = highschool_graCls_EditText.getText().toString().trim();
 
+                university_name=university_name_EditText.getText().toString().trim();
                 university_enterYM = university_enterYM_EditText.getText().toString().trim();
                 university_graYM=university_graYM_EditText.getText().toString().trim();
-                university_graCls = university_graCls_EditText.getText().toString().trim();
-                university_name=university_name_EditText.getText().toString().trim();
+                uLoc= TextInputEditText_uLoc.getText().toString().trim();
+                uSco= TextInputEditText_uSco.getText().toString().trim();
                 university_major = university_major_EditText.getText().toString().trim();
+                university_graCls = university_graCls_EditText.getText().toString().trim();
 
+                master_name = master_name_EditText.getText().toString().trim();
                 master_enterYM = master_enterYM_EditText.getText().toString().trim();
                 master_graYM = master_graYM_EditText.getText().toString().trim();
-                master_graCls = master_graCls_EditText.getText().toString().trim();
-                master_name = master_name_EditText.getText().toString().trim();
+                mLoc= TextInputEditText_mLoc.getText().toString().trim();
+                mSco= TextInputEditText_mSco.getText().toString().trim();
                 master_major = master_major_EditText.getText().toString().trim();
+                master_graCls = master_graCls_EditText.getText().toString().trim();
                 master_graThe = master_graThe_EditText.getText().toString().trim();
                 master_LAB = master_LAB_EditText.getText().toString().trim();
 
@@ -172,16 +197,22 @@ public class ResumeEcubackActivity extends AppCompatActivity {
                         user.put("highschool_graYM", highschool_graYM);
                         user.put("highschool_name",highschool_name);
                         user.put("highschool_graCls", highschool_graCls);
+
+                        user.put("university_name",university_name);
                         user.put("university_enterYM", university_enterYM);
                         user.put("university_graYM",university_graYM);
-                        user.put("university_graCls", university_graCls);
-                        user.put("university_name",university_name);
+                        user.put("uLoc", uLoc);
+                        user.put("uSco",uSco);
                         user.put("university_major", university_major);
+                        user.put("university_graCls", university_graCls);
+
+                        user.put("master_name", master_name);
                         user.put("master_enterYM", master_enterYM);
                         user.put("master_graYM", master_graYM);
-                        user.put("master_graCls",master_graCls);
-                        user.put("master_name", master_name);
+                        user.put("mLoc", mLoc);
+                        user.put("mSco",mSco);
                         user.put("master_major",master_major);
+                        user.put("master_graCls",master_graCls);
                         user.put("master_graThe", master_graThe);
                         user.put("master_LAB", master_LAB);
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -290,7 +290,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입학년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -306,7 +306,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="졸업년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -400,7 +400,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="입학년월"
-                                app:suffixText="YYYY/MM"
+                                app:suffixText="@string/suffix_YM"
                                 app:hintTextColor="@color/themeColor"
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">
@@ -416,12 +416,42 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="졸업년월"
-                                app:suffixText="YYYY/MM"
+                                app:suffixText="@string/suffix_YM"
                                 app:hintTextColor="@color/themeColor"
                                 app:boxStrokeColor="@color/themeColor"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/university_graYM_EditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_border"
+                                    android:singleLine="true"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/TextInputLayout_uLoc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="소재지"
+                                app:hintTextColor="@color/themeColor"
+                                app:boxStrokeColor="@color/themeColor"
+                                android:layout_weight="1">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/TextInputEditText_uLoc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/layout_border"
+                                    android:singleLine="true"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/TextInputLayout_uSco"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="학점"
+                                app:hintTextColor="@color/themeColor"
+                                app:boxStrokeColor="@color/themeColor"
+                                android:layout_weight="1">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/TextInputEditText_uSco"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/layout_border"
@@ -537,6 +567,37 @@
                                 android:singleLine="true"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayout_mLoc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="소재지"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditText_mLoc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayout_mSco"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="학점"
+                            app:hintTextColor="@color/themeColor"
+                            app:boxStrokeColor="@color/themeColor"
+                            android:layout_weight="1">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditText_mSco"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/layout_border"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/master_graCls_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -643,7 +704,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -659,7 +720,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="퇴사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -744,7 +805,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -760,7 +821,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="퇴사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -847,7 +908,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="입사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -863,7 +924,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="퇴사년월"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -917,7 +978,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="취득일"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -1003,7 +1064,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="취득일"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -1088,7 +1149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="수상일자"
-                            app:suffixText="YYYY/MM"
+                            app:suffixText="@string/suffix_YM"
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="1">
@@ -1164,7 +1225,7 @@
                             android:hint="수상일자"
                             app:boxStrokeColor="@color/themeColor"
                             app:hintTextColor="@color/themeColor"
-                            app:suffixText="YYYY/MM">
+                            app:suffixText="@string/suffix_YM">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/award2_date_EditText"

@@ -11,6 +11,14 @@
     <string name="SNS">SNS</string>
     <string name="addr">주소</string>
 
+    <string name="schN">학교명</string>
+    <string name="Ent">입학년월</string>
+    <string name="Gra">졸업년월</string>
+    <string name="Ify">졸업구분</string>
+    <string name="Loc">소재지</string>
+    <string name="Sco">학점</string>
+
+
     <string name = "eduBack">학력사항</string>
     <string name = "formOfCareer">경력사항</string>
     <string name = "awLic">수상 및 자격증</string>

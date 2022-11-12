@@ -10,4 +10,8 @@
     <string name="hint_email">gildong@naver.com</string>
     <string name="hint_SNS">Twitter/Facebook/Instagram</string>
     <string name="hint_addr">길동로12</string>
+
+    <string name="suffix_YM">YYYY/MM</string>
+    <string name="suffix_Ify">졸업/졸업예정</string>
+
 </resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout_catList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/btn_bg"
+    >
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="184dp"
+        android:layout_height="260dp">
+        <org.dstadler.poiandroidtest.newpoi.cls.customImageView
+            android:id="@+id/customImage"
+            android:layout_width="184dp"
+            android:layout_height="260dp"
+            android:padding="5sp"
+            android:layout_marginStart="5dp"
+            android:scaleType="fitXY" />
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/customImage"
+            android:layout_alignTop="@+id/customImage"
+            android:layout_alignEnd="@+id/customImage"
+            android:layout_alignBottom="@+id/customImage"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+</LinearLayout>

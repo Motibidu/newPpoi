@@ -40,13 +40,13 @@ public class PromissoryCatActivity extends AppCompatActivity {
         reqHeight = 520;
 
         promissory0 = findViewById(R.id.promissory0);
-        promissory0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory0, reqWidth, reqHeight));
+        promissory0.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory0_page0, reqWidth, reqHeight));
         promissory0.setColorFilter(Color.parseColor("#08000000"));
         promissory1 = findViewById(R.id.promissory1);
-        promissory1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory1_page1, reqWidth, reqHeight));
+        promissory1.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory1_page0, reqWidth, reqHeight));
         promissory1.setColorFilter(Color.parseColor("#08000000"));
         promissory2 = findViewById(R.id.promissory2);
-        promissory2.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory2, reqWidth, reqHeight));
+        promissory2.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.promissory2_page0, reqWidth, reqHeight));
         promissory2.setColorFilter(Color.parseColor("#08000000"));
 
         promissory0.setOnClickListener(new View.OnClickListener(){
@@ -54,9 +54,9 @@ public class PromissoryCatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory0_page0);
                 intent.putExtra("imgPath", imgPath.toString());
-                intent.putExtra("imgName","promissory0");
+                intent.putExtra("docName","promissory0");
                 startActivity(intent);
             }
         });
@@ -67,9 +67,9 @@ public class PromissoryCatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory1_page1);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory1_page0);
                 intent.putExtra("imgPath", imgPath.toString());
-                intent.putExtra("imgName","promissory1");
+                intent.putExtra("docName","promissory1");
                 startActivity(intent);
             }
         });
@@ -80,9 +80,9 @@ public class PromissoryCatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(PromissoryCatActivity.this, PromissoryActivity.class);
 
-                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory2);
+                Uri imgPath = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+R.drawable.promissory2_page0);
                 intent.putExtra("imgPath", imgPath.toString());
-                intent.putExtra("imgName","promissory2");
+                intent.putExtra("docName","promissory2");
                 startActivity(intent);
             }
         });

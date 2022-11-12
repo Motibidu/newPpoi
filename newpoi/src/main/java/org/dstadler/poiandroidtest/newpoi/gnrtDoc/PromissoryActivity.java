@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.aspose.words.Document;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -60,7 +62,6 @@ import org.dstadler.poiandroidtest.newpoi.cls.DownloadEP;
 import org.dstadler.poiandroidtest.newpoi.cls.GoogleManager;
 import org.dstadler.poiandroidtest.newpoi.cls.PreferenceManager;
 import org.dstadler.poiandroidtest.newpoi.cls.RoundedCornersTransformation;
-import org.dstadler.poiandroidtest.newpoi.main.MainScrnActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -84,7 +85,7 @@ public class PromissoryActivity extends AppCompatActivity {
     private TextInputLayout L_cre_name, L_cre_add, L_cre_rrn, L_deb_name, L_deb_add, L_deb_rrn, L_joi_name, L_joi_add, L_joi_rrn, L_ori, L_ara, L_in, L_gday, L_pri_rep, L_year, L_month, L_day;
     private String Scre_name, Scre_add, Scre_rrn, Sdeb_name, Sdeb_add, Sdeb_rrn, Sjoi_name, Sjoi_add, Sjoi_rrn, Sori, Sara, Sin, Sgday, Spri_rep, Syear, Smonth, Sday;
     private String pScre_name, pScre_add, pScre_rrn, pSdeb_name, pSdeb_add, pSdeb_rrn, pSjoi_name, pSjoi_add, pSjoi_rrn, pSori, pSara, pSin, pSgday, pSpri_rep, pSyear, pSmonth, pSday;
-    private String imgName, imgPath;
+    private String docName, imgPath;
     private Uri imgUri;
     private Intent intent;
     private EditText expanded_screen_name;
@@ -94,7 +95,7 @@ public class PromissoryActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private ImageView expanded_screen_mainImageView;
-    private String fileName, folder;
+    private String fileName, fileNameWithExt;
     private StorageReference storageReference;
 
     private static final int MY_PERMISSION_STORAGE = 1111;
@@ -106,13 +107,15 @@ public class PromissoryActivity extends AppCompatActivity {
 
     private File f;
     public static String PACKAGE_NAME;
-    private static final String TAG = MainScrnActivity.class.getSimpleName();
+    private static final String TAG = "PromissoryActivity";
 
     String filePath;
 
     private DocumentReference documentReference;
     private String userID;
     private String name, addr, rrn;
+
+    private Document document;
 
 
     @Override
@@ -136,7 +139,7 @@ public class PromissoryActivity extends AppCompatActivity {
         create = findViewById(R.id.expanded_screen_create);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                R.drawable.promissory0);
+                R.drawable.promissory0_page0);
 
 //        pScre_name = PreferenceManager.getString(PromissoryActivity.this, "Scre_name");
 //        pScre_add = PreferenceManager.getString(PromissoryActivity.this, "Scre_add");
@@ -194,9 +197,6 @@ public class PromissoryActivity extends AppCompatActivity {
         L_month= findViewById(R.id.text_input_layout16);
         L_day= findViewById(R.id.text_input_layout17);
 
-
-
-
         expanded_screen_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +207,7 @@ public class PromissoryActivity extends AppCompatActivity {
 
         intent = getIntent();
         imgPath = intent.getStringExtra("imgPath");
-        imgName = intent.getStringExtra("imgName");
+        docName = intent.getStringExtra("docName");
         imgUri = Uri.parse(imgPath);
 
 
@@ -218,14 +218,14 @@ public class PromissoryActivity extends AppCompatActivity {
                 .apply(RequestOptions.bitmapTransform(
                         new RoundedCornersTransformation(this, sCorner, sMargin, "#34ace0", sBorder))).into(expanded_screen_mainImageView);
 
-        if (imgName.equals("promissory1")){
+        if (docName.equals("promissory1")){
             L_cre_rrn.setVisibility(View.GONE);
             L_joi_name.setVisibility(View.GONE);
             L_joi_add.setVisibility(View.GONE);
             L_joi_rrn.setVisibility(View.GONE);
             L_cre_rrn.setVisibility(View.GONE);
         }
-        if (imgName.equals("promissory2")){
+        if (docName.equals("promissory2")){
             L_joi_name.setVisibility(View.GONE);
             L_joi_add.setVisibility(View.GONE);
             L_joi_rrn.setVisibility(View.GONE);
@@ -243,10 +243,10 @@ public class PromissoryActivity extends AppCompatActivity {
                     if (checkString(fileName)) {
                         Toast.makeText(PromissoryActivity.this, "제목을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     } else {
-                        imgName = intent.getStringExtra("imgName");
+                        docName = intent.getStringExtra("docName");
 
                         downloadEP = new DownloadEP(getApplicationContext());
-                        downloadEP.download_without_modify(fileName, imgName);
+                        downloadEP.download_without_modify(fileName, docName);
                     }
                 }
         });
@@ -265,7 +265,7 @@ public class PromissoryActivity extends AppCompatActivity {
                     } else {
                         expanded_screen_name = findViewById(R.id.expanded_screen_name);
                         fileName = expanded_screen_name.getText().toString().trim();
-                        imgName = intent.getStringExtra("imgName");
+                        docName = intent.getStringExtra("docName");
 
                         Scre_name = cre_name.getText().toString().trim();
                         Scre_add = cre_add.getText().toString().trim();
@@ -286,7 +286,7 @@ public class PromissoryActivity extends AppCompatActivity {
                         Sday = day.getText().toString().trim();
 
                         downloadEP = new DownloadEP(getApplicationContext());
-                        downloadEP.download_with_modify(fileName, imgName);
+                        downloadEP.download_with_modify(fileName, docName);
                     }
                 }
             }
@@ -300,13 +300,14 @@ public class PromissoryActivity extends AppCompatActivity {
 
 
             if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (document_downloadID == completeDownloadId)) {
-                fileName = fileName+".docx";
-                f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
+                fileNameWithExt = fileName+".docx";
+                f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
+
+                Log.d(TAG, "broadcastReceiver/f.exists() : "+f.exists());
                 if (f.exists()) {
-//                    Toast.makeText(promissory_expanded_screen.this, "The file exists!", Toast.LENGTH_SHORT).show();
                     try {
-                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName);
-                        final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName));
+                        InputStream is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
+                        final FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileNameWithExt));
 
                         data.put("cre_name", Scre_name);
                         data.put("cre_add", Scre_add);
@@ -328,11 +329,8 @@ public class PromissoryActivity extends AppCompatActivity {
                         CustomXWPFDocument c = new CustomXWPFDocument();
                         c.replace(is,data,out);
 
+
                         f.delete();
-
-                        Intent i = new Intent(DOCUMENT_PROCESS_COMPLETE);
-                        sendBroadcast(i);
-
                         Toast.makeText(PromissoryActivity.this, "Finished!", Toast.LENGTH_SHORT).show();
 
                     } catch (FileNotFoundException e) {
@@ -347,10 +345,6 @@ public class PromissoryActivity extends AppCompatActivity {
 
         }
     };
-
-
-
-
 
     @Override
     protected void onStart() {

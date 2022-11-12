@@ -34,7 +34,9 @@ public class DownloadEP {
         this.context = context;
     }
 
-    //uri 불러오기
+    //원본문서 다운로드
+    //fileName : 사용자가 입력한 제목
+    //docName  : 서버에 등록된 제목
     public void download_without_modify(String fileName, String docName){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         storageReference = fStorage.getInstance().getReference();
@@ -48,7 +50,6 @@ public class DownloadEP {
             }
         });
     }
-    //양식파일 다운로드
     public void downloadFile_without_modify(Context context, String fileName, String fileExtension, String url){
 
         DownloadManager downloadManager = (DownloadManager) context.
@@ -61,6 +62,7 @@ public class DownloadEP {
         downloadManager.enqueue(request);
     }
 
+    //placeholder 있는 문서 다운로드
     //fileName : 사용자가 입력한 제목
     //docName  : 서버에 등록된 제목
     public void download_with_modify(String fileName, String docName){
@@ -89,7 +91,6 @@ public class DownloadEP {
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/."+fileName+fileExtension);
 
 
-        //        Toast.makeText(promissory_expanded_screen.this, downloadID+"_downloadFile_with_modify", Toast.LENGTH_SHORT).show();
         long downloadID = downloadManager.enqueue(request);
         PreferenceManager.setLong(context, "doc_dwnlID", downloadID);
     }
@@ -135,7 +136,6 @@ public class DownloadEP {
                 }
             });
         }
-        //when imageFile doesn't exist
         else if (!imageFile.exists()){
             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override

@@ -352,6 +352,8 @@ public class CustomXWPFDocument extends XWPFDocument {
                 }
             }
         }
+        docx.write(out);
+        docx.close();
     }
     public void replace2(XWPFParagraph p, Map<String, String> data) {
         String pText = p.getText(); // complete paragraph as string

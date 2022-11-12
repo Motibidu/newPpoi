@@ -61,27 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.pref_allAbsolutePathList = PreferenceManager.loadData(mContext, "pref_allAbsolutePathList");
         this.pref_allParentPathList = PreferenceManager.loadData(mContext, "pref_allParentPathList");
 
-//        if (!Constant.allFileNameList.isEmpty()){
-//            for (String str : Constant.allFileNameList) {
-//                Log.d(TAG, "RecyclerViewAdapter/Constant.allFilenameList: " + str);
-//            }
-//        }
-//        if (!filteredList.isEmpty()){
-//            for(String str : filteredList) {
-//                Log.d(TAG, "RecyclerViewAdapter/filteredList: "+str);
-//            }
-//        }
-//        if (!allParentPathList.isEmpty()){
-//            for(String str : allParentPathList) {
-//                Log.d(TAG, "RecyclerViewAdapter/allParentPathList: "+str);
-//            }
-//        }
-//        if (!allAbsolutePathList.isEmpty()){
-//            for(String str : allAbsolutePathList) {
-//                Log.d(TAG, "RecyclerViewAdapter/allAbsolutePathList: "+str);
-//            }
-//        }
-
         if (pref_allFileNameList.isEmpty()){
             Log.d(TAG, "empty/onBindViewHolder: Constant.size(): "+Constant.allFileList.size());
         }else{
@@ -171,19 +150,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-//        if (pref_allFileNameList.isEmpty() || pref_allFileNameList.size() == 0){
-//            ((FileLayoutHolder) holder).title.setText(Constant.allFileList.get(position).getName());
-////            ((FileLayoutHolder) holder).title.setText(Constant.allAbsolutePathList.get(position));
-//        }else{
-//            ((FileLayoutHolder) holder).title.setText(pref_allFileNameList.get(position));
-////            ((FileLayoutHolder) holder).title.setText(pref_allAbsolutePathList.get(position));
-//        }
-//        Log.d(TAG, "onBindViewHolder: position : "+Integer.toString(position));
-//        Log.d(TAG, "onBindViewHolder: size :"+filteredList.size());
-//        for(String s : filteredList){
-//            Log.d(TAG, "onBindViewHolder: string : "+s);
-//        }
         ((FileLayoutHolder) holder).title.setText(filteredList.get(position));
         ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.ic_icons8_microsoft_word_2019);
     }

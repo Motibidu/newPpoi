@@ -14,7 +14,7 @@ public class customMatcher {
     List<String> rnn = new ArrayList<String>();
 
     // name_regx 테스트
-    // 후보군 첫번째에 로그인에서 이름을 불러온다.
+    // 성이 많은 순서 1~50
     String name_regx
             = "^(김|이|박|최|정|강|조|윤|장|임|한|오|" +                              //12개
                 "서|신|권|황|안|송|류|전|홍|고|문|양|손|" +                           //13개
@@ -26,24 +26,28 @@ public class customMatcher {
             "Seo|Sin|Shin|Gwon|Kwon|Kwun|Hwang|An|Ahn|Ann|Song|Ryu|Jeon|Jun|Hong|Ko|Go|Kho|Gho|Mun|Moon|Moun|Muhn|Yang|Ryang|Yhang|Son|Sohn|Shon|" +
             "Bae|Bai|Pai|Cho|Jo|Joe|Joh|Jho|Jou|Zo|Paek|Baek|Back|Baik|Paik|Beak|Baeg|Heo|Huh|Hu|Yu|Yoo|You|Ryu|Ryoo|Lyu|Nam|Nahm|Nham|" +
             "Sim|Shim|Sym|Seem|Sihm|No|Noh|Nho|Ro|Rho)(\\s|\\,|\\-)?[a-zA-Z\\s,\\-]{0,}";
+
     // engName_regex without annotation for test
     //(Kim|Gim|Lee|Pak|Bak|Park|Choe|Choi|Kang|Gang|Khang|Cho|Jo|Joe|Yun|Yoon|Youn|Chang|Jang|Im|Lim|Yim|Rim|Han|O|Oh|Seo|Sin|Shin|Gwon|Kwon|Kwun|Hwang|An|Ahn|Ann|Song|Ryu|Jeon|Jun|Hong|Ko|Go|Kho|Gho|Mun|Moon|Moun|Muhn|Yang|Ryang|Yhang|Son|Sohn|Shon|Bae|Bai|Pai|Cho|Jo|Joe|Joh|Jho|Jou|Zo|Paek|Baek|Back|Baik|Paik|Beak|Baeg|Heo|Huh|Hu|Yu|Yoo|You|Ryu|Ryoo|Lyu|Nam|Nahm|Nham|Sim|Shim|Sym|Seem|Sihm|No|Noh|Nho|Ro|Rho)(\s)?[a-zA-Z\s]{0,}
+
+    // chName_regx 테스트 통과 내역
+    //
     String chName_regx
             = "[一-龥]{2,4}";
 
     // rnn_regx1 테스트 통과 내역
     //
-    String rnn_regx1 //981109-1236412
+    String rnn_regx1 //ex) 981109-1236412
             = "\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|[3][01])\\-[1-4][0-9]{6}";
 
     // rnn_regx2 테스트 통과 내역
     //
-    String rnn_regx2 //98(.| |년)11(.| |월)09(.| |일)
+    String rnn_regx2 //ex) 98(.| |년)11(.| |월)09(.| |일)
             = "(6|7|8|9)\\d(\\.|\\s|년)(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)(\\s)?(0[1-9]|[12][0-9]|[3][01])(일)?(\\s)?";
 
     // rnn_regx3 테스트 통과 내역
     //
-    String rnn_regx3 // 1987년 01월 01일 (만 00세)
+    String rnn_regx3 // ex) 1987년 01월 01일 (만 00세)
             = "(19|20)\\d{2}(\\.|\\s|년)?(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)?(\\s)?(0[1-9]|[12][0-9]|[3][01])(일)?(\\s)?";
 
 
@@ -54,32 +58,36 @@ public class customMatcher {
     //•010,1234.1234
     String phoneNum_regx
             = "(O|0)1(O|0|1|[6-9])[\\.|\\-|\\,]?(\\d|O){4}[\\.|\\-|\\,]?(\\d|O){4}";
-    //url_regx 테스트
+    
+    //url_regx 테스트 통과 내역
     //
-    String url_regx //https://github.com/Motibidu
+    String url_regx //ex) https://github.com/Motibidu
             = "(https?):\\/\\/([^:\\/\\s]+)(:([^\\/]*))?((\\/[^\\s/\\/]+)*)?\\/?([^#\\s\\?]*)(\\?([^#\\s]*))?(#(\\w*))?";
 
-    // email 테스트
+    // email 테스트 통과 내역
     // jack981109@naver.com
-    String email_regx //jack981109@naver.com
+    String email_regx //ex) jack981109@naver.com
 //            = "(.*)[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}(.*)";
             = "(.*)[0-9a-zA-Z\\s]([-_.]?[0-9a-zA-Z\\s])*@[0-9a-zA-Z\\s]([-_.]?[0-9a-zA-Z\\s])*.[a-zA-Z\\s]{2,3}(.*)";
 
-    //addrregx 테스트
+    //addrregx 테스트 통과 내역
     //
     String addr_regx
             = "(([가-힣A-Za-z·\\d~\\-\\.]{2,}(로|길|대로).[\\d|\\-\\d]+)|([가-힣A-Za-z·\\d~\\-\\.]+(읍|면|동|리)\\s)[\\d]+)";
 
-    //schl_regx 테스트
+    //schl_regx 테스트 통과 내역
     //
-    String schl_regx //...학교 | ...대학 | ...학원
+    String schl_regx //ex) ...학교 | ...대학 | ...학원
             = "[가-힣]*(학교|대학|학원)";
 
-    //period 테스트
+    //period1 테스트 통과 내역
     //
-    String period_regx1
+    String period_regx1 //ex) 69[.| |"년"]06[.| |"월"]
             = "(6|7|8|9)\\d(\\.|\\s|년)(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)(\\s)?";
-    String period_regx2
+
+    //period2 테스트 통과 내역
+    //
+    String period_regx2 //ex) 1969[.| |"년"]06[.| |"월"]
             = "(19|20)\\d{2}(\\.|\\s|년)(\\s)?(0?[1-9]|1[0-2])(\\.|\\s|월)";
 
 

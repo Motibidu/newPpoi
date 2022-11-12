@@ -331,7 +331,7 @@ public class ScanActivity extends AppCompatActivity{
 
 
             cus.set_name();
-            //문자열에 정규식과 매칭되는 subString 있다면
+            //문자열에 정규식과 매칭되는 subString 있을 때
             if(cus.find()){
                 //sp= the subString
                 sp = cus.group();
@@ -339,7 +339,8 @@ public class ScanActivity extends AppCompatActivity{
                         sp.contains("이력서")||sp.contains("이수")||sp.contains("전공명")||
                         sp.contains("이름")||sp.contains("주민번호")||sp.contains("날짜")||
                         sp.contains("관리")||sp.contains("전공")||sp.contains("서울")||
-                        sp.contains("대학")||sp.contains("학교"))) {
+                        sp.contains("대학")||sp.contains("학교")||sp.contains("성장과정")||
+                        sp.contains("우투"))) {
                     Log.d(TAG, j+":name : " + sp);
                     if(!name.contains(sp)){name.add(sp);}
                 }
@@ -415,7 +416,6 @@ public class ScanActivity extends AppCompatActivity{
         m.put("phoneNum",phoneNum);
         m.put("email",email);
         m.put("addr",addr);
-
 
         int channel = ViewPagerAdapter.getChannel();
         switch(channel){
