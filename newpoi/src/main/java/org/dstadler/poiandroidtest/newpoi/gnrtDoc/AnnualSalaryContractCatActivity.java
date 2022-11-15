@@ -15,7 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
-public class CareerDescriptionCatActivity extends AppCompatActivity {
+public class AnnualSalaryContractCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
     private Context mContext;
 
@@ -23,10 +23,7 @@ public class CareerDescriptionCatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
-    String []arr = {"career_description0", "career_description1", "career_description2", "career_description3", "career_description4",
-            "career_description5", "career_description6", "career_description7", "career_description8", "career_description9",
-            "career_description10", "career_description11", "career_description12", "career_description13", "career_description14",
-            "career_description15", "career_description16", "career_description17"};
+    String []arr = {"annual_salary_contract0", "annual_salary_contract1", "annual_salary_contract2"};
 
     String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
 
@@ -35,7 +32,7 @@ public class CareerDescriptionCatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_career_description_category);
+        setContentView(R.layout.activity_annual_salary_contract_category);
         //init
         //contents
         mContext = getApplicationContext();

@@ -31,11 +31,14 @@ public class DocCatActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter_outter recyclerViewAdapter_outter;
 
-    String []res = {"career_description0", "promissory0", "employment_contract0"};
-    String []title = {"디자인 이력서", "차용증", "근로계약서"};
+    String []res = {"career_description0", "promissory0", "employment_contract0", "resignation0","annual_salary_contract0", "freelance_employment_contract0"};
+    String []title = {"디자인 이력서", "차용증", "근로계약서", "사직서", "연봉 계약서", "프리랜서 고용 계약서"};
     String []clsN = {"org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.PromissoryCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.EmploymentContractCatActivity"};
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.EmploymentContractCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ResignationCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.AnnualSalaryContractCatActivity",
+    "org.dstadler.poiandroidtest.newpoi.gnrtDoc.FreelanceEmploymentContractCatActivity"};
 
 
     private Map<String, String[]> arrMap = new HashMap<>();

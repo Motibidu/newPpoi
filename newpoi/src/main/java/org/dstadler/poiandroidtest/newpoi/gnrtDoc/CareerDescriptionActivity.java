@@ -669,66 +669,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         //임시파일을 삭제한다.
                         docFile.delete();
 
-//                        data.put("name", name);
-//                        data.put("email", email);
-//                        data.put("phoneNum", phoneNum);
-//                        data.put("addr", addr);
-//                        data.put("rrn", addr);
-//
-//                        data.put("highschool_enterYM", highschool_enterYM);
-//                        data.put("highschool_graYM", highschool_graYM);
-//                        data.put("highschool_graCls", highschool_graCls);
-//                        data.put("highschool_name", highschool_name);
-//
-//                        data.put("university_enterYM", university_enterYM);
-//                        data.put("university_graYM", university_graYM);
-//                        data.put("university_graCls", university_graCls);
-//                        data.put("university_name", university_name);
-//                        data.put("university_major", university_major);
-//
-//                        data.put("master_enterYM", master_enterYM);
-//                        data.put("master_graYM", master_graYM);
-//                        data.put("master_graCls", master_graCls);
-//                        data.put("master_name", master_name);
-//                        data.put("master_major", master_major);
-//                        data.put("master_graThe", master_graThe);
-//                        data.put("master_LAB", master_LAB);
-//
-//                        data.put("formOfCareer1_name", formOfCareer1_name);
-//                        data.put("formOfCareer1_enterYM", formOfCareer1_enterYM);
-//                        data.put("formOfCareer1_resignYM", formOfCareer1_resignYM);
-//                        data.put("formOfCareer1_office", formOfCareer1_office);
-//                        data.put("formOfCareer1_task", formOfCareer1_task);
-//
-//                        data.put("formOfCareer2_name", formOfCareer2_name);
-//                        data.put("formOfCareer2_enterYM", formOfCareer2_enterYM);
-//                        data.put("formOfCareer2_resignYM", formOfCareer2_resignYM);
-//                        data.put("formOfCareer2_office", formOfCareer2_office);
-//                        data.put("formOfCareer2_task", formOfCareer2_task);
-//
-//                        data.put("formOfCareer3_name", formOfCareer3_name);
-//                        data.put("formOfCareer3_enterYM", formOfCareer3_enterYM);
-//                        data.put("formOfCareer3_resignYM", formOfCareer3_resignYM);
-//                        data.put("formOfCareer3_office", formOfCareer3_office);
-//                        data.put("formOfCareer3_task", formOfCareer3_task);
-//
-//                        data.put("license1_date", license1_date);
-//                        data.put("license1_cntnt", license1_cntnt);
-//                        data.put("license1_grade", license1_grade);
-//                        data.put("license1_publication", license1_publication);
-//
-//                        data.put("license2_date", license2_date);
-//                        data.put("license2_cntnt", license2_cntnt);
-//                        data.put("license2_grade", license2_grade);
-//                        data.put("license2_publication", license2_publication);
-//
-//                        data.put("award1_date", award1_date);
-//                        data.put("award1_cntnt", award1_cntnt);
-//                        data.put("award1_publication", award1_publication);
-//
-//                        data.put("award2_date", award2_date);
-//                        data.put("award2_cntnt", award2_cntnt);
-//                        data.put("award2_publication", award2_publication);
 
                         //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
 //                        CustomXWPFDocument c = new CustomXWPFDocument();
@@ -742,33 +682,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     Toast.makeText(CareerDescriptionActivity.this, "No Document File!", Toast.LENGTH_SHORT).show();
                 }
             }
-            //            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (img_dwnlID == cmpltDwnlID)
-//                    || intent.getAction().equals(DOC_DWNL_CMPLT))
-
-            //다운로드 완료, 마지막 다운이 프로필사진일 때
-//            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (cmpltDwnlID == img_dwnlID)){
-//                imgFile = new File(Environment.getExternalStoragePublicDirectory
-//                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
-//                //프로필 이미지가 존재할 때
-//                if (imgFile.exists()) {
-//                    //문서에 삽입할 프로필 이미지의 경로
-//                    String img_path = Environment.getExternalStoragePublicDirectory
-//                            (Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg";
-//                    //이미지를 삽입할 문서의 경로
-//                    fileNameWithExt = fileName+".docx";
-//                    String doc_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+fileNameWithExt;
-//                    Log.d(TAG, "fileNameWithExt : "+fileNameWithExt);
-//
-//                    //CustomXWPFDocuemnt()의 runImg()메소드는 워드 문서에 "사진"으로 북마크를 등록해놓은 자리에 이미지 파일을 삽입한다.
-//                    //넓이와 높이는 워드파일의 확장명을 .zip으로 바꾸고 /word/document.xml에서 <wp:extent cx="?"(넓이) cy="?"(높이)/>태그에서 추출한다.
-//                    //behindDoc이 true일 때 글씨 "사진"은 사진의 뒤에 위치한다.
-////                    new CustomXWPFDocument().runImg("사진",doc_path, img_path, true,
-////                            1133475, 1510665, 0, 0);//Bookmark replacement picture.
-//                }
-//                else {
-//                    Toast.makeText(CareerDescriptionActivity.this, "No Image File!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
         }
     };
 

@@ -23,10 +23,9 @@ public class EmploymentContractCatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
-    String []arr = {"employment_contract0", "employment_contract1", "employment_contract2", "employment_contract3", "employment_contract4",
-            "employment_contract5", "employment_contract6", "employment_contract7", "employment_contract8", "employment_contract9"};
-    //"employment_contract10", "employment_contract11", "employment_contract12", "employment_contract13", "employment_contract14",
-    //"employment_contract15", "employment_contract16", "employment_contract17"};
+    String []arr = {"employment_contract0", "employment_contract1", "employment_contract2", "employment_contract3", "employment_contract4",};
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
+
 
 
 
@@ -42,7 +41,7 @@ public class EmploymentContractCatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerViewAdapter_inner = new RecyclerViewAdapter_inner(mContext, arr);
+        recyclerViewAdapter_inner = new RecyclerViewAdapter_inner(mContext, arr, clsN);
         recyclerView.setAdapter(recyclerViewAdapter_inner);
 
         //툴바 뒤로가기 버튼

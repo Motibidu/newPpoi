@@ -21,14 +21,17 @@ public class RecyclerViewAdapter_inner extends RecyclerView.Adapter {
 
     public static String PACKAGE_NAME;
     String []arr;
+    String clsN;
     private Context mContext;
+
 
     private static final int WIDTH = 348;
     private static final int HEIGHT = 500;
 
-    public RecyclerViewAdapter_inner(Context mContext, String[] arr){
+    public RecyclerViewAdapter_inner(Context mContext, String[] arr, String clsN){
         this.arr = arr;
         this.mContext = mContext;
+        this.clsN = clsN;
         PACKAGE_NAME = mContext.getPackageName();
     }
 
@@ -60,8 +63,13 @@ public class RecyclerViewAdapter_inner extends RecyclerView.Adapter {
             customImageView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    //careerDescription_expanded_screen으로 이동
-                    Intent intent = new Intent(v.getContext(), CareerDescriptionActivity.class);
+                    Intent intent = null;
+                    try {
+                        Class<?> c =Class.forName(clsN);
+                        intent = new Intent(v.getContext(), c);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
                     Resources res = v.getContext().getResources();
                     Uri pagePath0 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+res.getIdentifier(arr[getAdapterPosition()]+"_page0", "drawable", PACKAGE_NAME));

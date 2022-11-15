@@ -53,6 +53,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.ResignationCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.FreelanceEmploymentContractCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.AnnualSalaryContractCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".gnrtDoc.CareerDescriptionCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">

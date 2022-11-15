@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gnrtDoc.AnnualSalaryContractCatActivity">
+    tools:context=".gnrtDoc.ResignationCatActivity">
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
