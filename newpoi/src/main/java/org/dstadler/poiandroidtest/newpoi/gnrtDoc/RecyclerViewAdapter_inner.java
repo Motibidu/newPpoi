@@ -71,6 +71,7 @@ public class RecyclerViewAdapter_inner extends RecyclerView.Adapter {
                         e.printStackTrace();
                     }
 
+                    //CatActivity의 arr배열
                     Resources res = v.getContext().getResources();
                     Uri pagePath0 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+res.getIdentifier(arr[getAdapterPosition()]+"_page0", "drawable", PACKAGE_NAME));
                     Uri pagePath1 = Uri.parse("android.resource://"+PACKAGE_NAME+"/"+res.getIdentifier(arr[getAdapterPosition()]+"_page1", "drawable", PACKAGE_NAME));
@@ -90,6 +91,7 @@ public class RecyclerViewAdapter_inner extends RecyclerView.Adapter {
 
 
                     //Firebase Storage 내 문서 이름 : career_description0
+                    intent.putExtra("docNum", getAdapterPosition());
                     intent.putExtra("docName",arr[getAdapterPosition()]);
                     v.getContext().startActivity(intent);
                 }

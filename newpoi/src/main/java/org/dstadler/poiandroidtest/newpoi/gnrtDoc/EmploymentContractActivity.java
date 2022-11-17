@@ -24,7 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -72,11 +72,11 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CareerDescriptionActivity extends AppCompatActivity {
+public class EmploymentContractActivity extends AppCompatActivity {
 
 
     //final vars
-    private final String TAG = CareerDescriptionActivity.class.getName();
+    private final String TAG = EmploymentContractActivity.class.getName();
     private final String RUNIMG_CMPLT = "org.dstadler.poiandroidtest.newpoi.RUNIMG_CMPLT";
     private final String DOC_DWNL_CMPLT = "org.dstadler.poiandroidtest.newpoi.DOC_DWNL_CMPLT";
     private static final int MY_PERMISSION_STORAGE = 1111;
@@ -118,7 +118,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
     //경력사항
     private String
-             corpN1, dep1, corpEnt1, corpRes1, work1
+            corpN1, dep1, corpEnt1, corpRes1, work1
             ,corpN2, dep2, corpEnt2, corpRes2, work2
             ,corpN3, dep3, corpEnt3, corpRes3, work3;
 
@@ -156,35 +156,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             TextInputEditText_aYM1 ,TextInputEditText_aC1, TextInputEditText_aP1,
             TextInputEditText_aYM2 ,TextInputEditText_aC2, TextInputEditText_aP2;
 
-    private TextInputLayout
-            TextInputLayout_name, TextInputLayout_email, TextInputLayout_phoneNum, TextInputLayout_addr, TextInputLayout_engName, TextInputLayout_chName, TextInputLayout_rrn, TextInputLayout_age, TextInputLayout_num;
-
-    //학력사항
-    private TextInputLayout
-            TextInputLayout_hN, TextInputLayout_hEnt, TextInputLayout_hGrad , TextInputLayout_hIfy,
-            TextInputLayout_uN, TextInputLayout_uMaj, TextInputLayout_uEnt , TextInputLayout_uGrad, TextInputLayout_uLoc, TextInputLayout_uSco, TextInputLayout_uIfy,
-            TextInputLayout_mN, TextInputLayout_mEnt, TextInputLayout_mLoc, TextInputLayout_mSco, TextInputLayout_mGrad, TextInputLayout_mIfy, TextInputLayout_mMaj;
-
-    //경력사항
-    private TextInputLayout
-            TextInputLayout_corpN1, TextInputLayout_dep1, TextInputLayout_corpEnt1, TextInputLayout_corpRes1, TextInputLayout_work1
-            ,TextInputLayout_corpN2, TextInputLayout_dep2, TextInputLayout_corpEnt2, TextInputLayout_corpRes2, TextInputLayout_work2
-            ,TextInputLayout_corpN3, TextInputLayout_dep3, TextInputLayout_corpEnt3, TextInputLayout_corpRes3, TextInputLayout_work3;
-
-    //자격증 및 수상
-    private TextInputLayout
-            TextInputLayout_licYM1, TextInputLayout_licC1, TextInputLayout_licG1, TextInputLayout_licP1,
-            TextInputLayout_licYM2, TextInputLayout_licC2, TextInputLayout_licG2, TextInputLayout_licP2,
-            TextInputLayout_aYM1 ,TextInputLayout_aC1, TextInputLayout_aP1,
-            TextInputLayout_aYM2 ,TextInputLayout_aC2, TextInputLayout_aP2;
+    private TextInputLayout TextInputLayout_name, TextInputLayout_engName, TextInputLayout_chName, TextInputLayout_rrn, TextInputLayout_age, TextInputLayout_phoneNum, TextInputLayout_num, TextInputLayout_email, TextInputLayout_addr, TextInputLayout_uLoc, TextInputLayout_uSco, TextInputLayout_mLoc, TextInputLayout_mSco;
 
 
 
-    private LinearLayout
-            LinearLayout_highschool, LinearLayout_university, LinearLayout_master,
-            LinearLayout_corp1, LinearLayout_corp2, LinearLayout_corp3,
-            LinearLayout_license1, LinearLayout_license2,
-            LinearLayout_award1, LinearLayout_award2;
+    private RelativeLayout master, university, formOfCareer1, formOfCareer2, formOfCareer3, license2, award2,license1, award1;
 
 
 
@@ -347,97 +323,63 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
 
 
-
         //====================================================================================//
-        //LinearLayout
-        LinearLayout_highschool  = findViewById(R.id.LinearLayout_highschool);
-        LinearLayout_university = findViewById(R.id.LinearLayout_university);
-        LinearLayout_master = findViewById(R.id.LinearLayout_master);
-        LinearLayout_corp1 = findViewById(R.id.LinearLayout_corp1);
-        LinearLayout_corp2 = findViewById(R.id.LinearLayout_corp2);
-        LinearLayout_corp3 = findViewById(R.id.LinearLayout_corp3);
-        LinearLayout_license1 = findViewById(R.id.LinearLayout_license1);
-        LinearLayout_license2 = findViewById(R.id.LinearLayout_license2);
-        LinearLayout_award1 = findViewById(R.id.LinearLayout_award1);
-        LinearLayout_award2 = findViewById(R.id.LinearLayout_award2);
 
+        //각 양식마다 필요없는 사항은 보이지 않도록 한다.
+        docNum = intent.getIntExtra("docNum", 0);
+        if(docNum == 0){
+            Log.d(TAG, "onCreate/docName : "+docName);
+//            TextInputLayout_name.setVisibility(View.GONE);
+            TextInputLayout_engName.setVisibility(View.GONE);
+            TextInputLayout_chName.setVisibility(View.GONE);
+            TextInputLayout_rrn.setVisibility(View.GONE);
+            TextInputLayout_age.setVisibility(View.GONE);
+//            TextInputLayout_phoneNum.setVisibility(View.GONE);
+            TextInputLayout_num.setVisibility(View.GONE);
+//            TextInputLayout_email.setVisibility(View.GONE);
+//            TextInputLayout_addr.setVisibility(View.GONE);
+        }
+        else if(docNum == 1){
+            Log.d(TAG, "onCreate/docName : "+docName);
+//            TextInputLayout_name.setVisibility(View.GONE);
+//            TextInputLayout_engName.setVisibility(View.GONE);
+            TextInputLayout_chName.setVisibility(View.GONE);
+//            TextInputLayout_rrn.setVisibility(View.GONE);
+//            TextInputLayout_age.setVisibility(View.GONE);
+//            TextInputLayout_phoneNum.setVisibility(View.GONE);
+            TextInputLayout_num.setVisibility(View.GONE);
+//            TextInputLayout_email.setVisibility(View.GONE);
+//            TextInputLayout_addr.setVisibility(View.GONE);
+        }
+        else if(docNum == 2){
+            Log.d(TAG, "onCreate/docName : "+docName);
+//            TextInputLayout_name.setVisibility(View.GONE);
+//            TextInputLayout_engName.setVisibility(View.GONE);
+//            TextInputLayout_chName.setVisibility(View.GONE);
+//            TextInputLayout_rrn.setVisibility(View.GONE);
+//            TextInputLayout_age.setVisibility(View.GONE);
+//            TextInputLayout_phoneNum.setVisibility(View.GONE);
+//            TextInputLayout_num.setVisibility(View.GONE);
+//            TextInputLayout_email.setVisibility(View.GONE);
+//            TextInputLayout_addr.setVisibility(View.GONE);
+        }
+        //====================================================================================//
 
         //TextInputLayout
         TextInputLayout_name = findViewById(R.id.TextInputLayout_name);
-        TextInputLayout_engName= findViewById(R.id.TextInputLayout_engName);
-        TextInputLayout_chName= findViewById(R.id.TextInputLayout_chName);
-        TextInputLayout_rrn= findViewById(R.id.TextInputLayout_rrn);
-        TextInputLayout_age= findViewById(R.id.TextInputLayout_age);
+        TextInputLayout_engName = findViewById(R.id.TextInputLayout_engName);
+        TextInputLayout_chName = findViewById(R.id.TextInputLayout_chName);
+        TextInputLayout_rrn = findViewById(R.id.TextInputLayout_rrn);
+        TextInputLayout_age = findViewById(R.id.TextInputLayout_age);
         TextInputLayout_phoneNum = findViewById(R.id.TextInputLayout_phoneNum);
-        TextInputLayout_num= findViewById(R.id.TextInputLayout_num);
+        TextInputLayout_num = findViewById(R.id.TextInputLayout_num);
         TextInputLayout_email = findViewById(R.id.TextInputLayout_email);
         TextInputLayout_addr = findViewById(R.id.TextInputLayout_addr);
-        //고등학교
-        TextInputLayout_hN = findViewById(R.id.TextInputLayout_hN);
-        TextInputLayout_hEnt = findViewById(R.id.TextInputLayout_hEnt);
-        TextInputLayout_hGrad = findViewById(R.id.TextInputLayout_hGrad);
-        TextInputLayout_hIfy = findViewById(R.id.TextInputLayout_hIfy);
 
-        //대학교
-        TextInputLayout_uN = findViewById(R.id.TextInputLayout_uN);
-        TextInputLayout_uEnt = findViewById(R.id.TextInputLayout_uEnt);
-        TextInputLayout_uGrad = findViewById(R.id.TextInputLayout_uGrad);
-        TextInputLayout_uMaj = findViewById(R.id.TextInputLayout_uMaj);
         TextInputLayout_uLoc = findViewById(R.id.TextInputLayout_uLoc);
         TextInputLayout_uSco = findViewById(R.id.TextInputLayout_uSco);
-        TextInputLayout_uIfy = findViewById(R.id.TextInputLayout_uIfy);
-
-        //대학원
-
-        TextInputLayout_mN = findViewById(R.id.TextInputLayout_mN);
-        TextInputLayout_mEnt = findViewById(R.id.TextInputLayout_mEnt);
-        TextInputLayout_mGrad = findViewById(R.id.TextInputLayout_mGrad);
-        TextInputLayout_mMaj = findViewById(R.id.TextInputLayout_mMaj);
         TextInputLayout_mLoc = findViewById(R.id.TextInputLayout_mLoc);
         TextInputLayout_mSco = findViewById(R.id.TextInputLayout_mSco);
-        TextInputLayout_mIfy = findViewById(R.id.TextInputLayout_mIfy);
-
-        TextInputLayout_corpN1 = findViewById(R.id.TextInputLayout_corpN1);
-        TextInputLayout_dep1 = findViewById(R.id.TextInputLayout_dep1);
-        TextInputLayout_corpEnt1 = findViewById(R.id.TextInputLayout_corpEnt1);
-        TextInputLayout_corpRes1 = findViewById(R.id.TextInputLayout_corpRes1);
-        TextInputLayout_work1 = findViewById(R.id.TextInputLayout_work1);
-
-        //경력사항 2
-        TextInputLayout_corpN2 = findViewById(R.id.TextInputLayout_corpN2);
-        TextInputLayout_dep2 = findViewById(R.id.TextInputLayout_dep2);
-        TextInputLayout_corpEnt2 = findViewById(R.id.TextInputLayout_corpEnt2);
-        TextInputLayout_corpRes2 = findViewById(R.id.TextInputLayout_corpRes2);
-        TextInputLayout_work2 = findViewById(R.id.TextInputLayout_work2);
-
-        //경력사항 3
-        TextInputLayout_corpN3 = findViewById(R.id.TextInputLayout_corpN3);
-        TextInputLayout_dep3 = findViewById(R.id.TextInputLayout_dep3);
-        TextInputLayout_corpEnt3 = findViewById(R.id.TextInputLayout_corpEnt3);
-        TextInputLayout_corpRes3 = findViewById(R.id.TextInputLayout_corpRes3);
-        TextInputLayout_work3 = findViewById(R.id.TextInputLayout_work3);
-
-        TextInputLayout_licYM1 = findViewById(R.id.TextInputLayout_licYM1);
-        TextInputLayout_licC1 = findViewById(R.id.TextInputLayout_licC1);
-        TextInputLayout_licC1 = findViewById(R.id.TextInputLayout_licC1);
-        TextInputLayout_licP1 = findViewById(R.id.TextInputLayout_licP1);
-
-
-        TextInputLayout_licYM2 = findViewById(R.id.TextInputLayout_licYM2);
-        TextInputLayout_licC2 = findViewById(R.id.TextInputLayout_licC2);
-        TextInputLayout_licG2 = findViewById(R.id.TextInputLayout_licG2);
-        TextInputLayout_licP2 = findViewById(R.id.TextInputLayout_licP2);
-
-
-        TextInputLayout_aYM1 = findViewById(R.id.TextInputLayout_aYM1);
-        TextInputLayout_aC1 = findViewById(R.id.TextInputLayout_aC1);
-        TextInputLayout_aP1 = findViewById(R.id.TextInputLayout_aP1);
-
-
-        TextInputLayout_aYM2 = findViewById(R.id.TextInputLayout_aYM2);
-        TextInputLayout_aC2 = findViewById(R.id.TextInputLayout_aC2);
-        TextInputLayout_aP2 = findViewById(R.id.TextInputLayout_aP2);
-
 
 
 
@@ -491,6 +433,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_uIfy = findViewById(R.id.TextInputEditText_uIfy);
 
         //대학원
+
         TextInputEditText_mN = findViewById(R.id.TextInputEditText_mN);
         TextInputEditText_mEnt = findViewById(R.id.TextInputEditText_mEnt);
         TextInputEditText_mGrad = findViewById(R.id.TextInputEditText_mGrad);
@@ -498,6 +441,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_mLoc = findViewById(R.id.TextInputEditText_mLoc);
         TextInputEditText_mSco = findViewById(R.id.TextInputEditText_mSco);
         TextInputEditText_mIfy = findViewById(R.id.TextInputEditText_mIfy);
+        master = findViewById(R.id.master);
+
 
         //경력사항//
         //TextInputEditText_corpN1, TextInputEditText_dep1, TextInputEditText_corpEnt1, TextInputEditText_corpRes1, TextInputEditText_work1
@@ -508,21 +453,21 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_corpEnt1 = findViewById(R.id.TextInputEditText_corpEnt1);
         TextInputEditText_corpRes1 = findViewById(R.id.TextInputEditText_corpRes1);
         TextInputEditText_work1 = findViewById(R.id.TextInputEditText_work1);
-
+        formOfCareer1 = findViewById(R.id.formOfCareer1);
         //경력사항 2
         TextInputEditText_corpN2 = findViewById(R.id.TextInputEditText_corpN2);
         TextInputEditText_dep2 = findViewById(R.id.TextInputEditText_dep2);
         TextInputEditText_corpEnt2 = findViewById(R.id.TextInputEditText_corpEnt2);
         TextInputEditText_corpRes2 = findViewById(R.id.TextInputEditText_corpRes2);
         TextInputEditText_work2 = findViewById(R.id.TextInputEditText_work2);
-
+        formOfCareer2 = findViewById(R.id.formOfCareer2);
         //경력사항 3
         TextInputEditText_corpN3 = findViewById(R.id.TextInputEditText_corpN3);
         TextInputEditText_dep3 = findViewById(R.id.TextInputEditText_dep3);
         TextInputEditText_corpEnt3 = findViewById(R.id.TextInputEditText_corpEnt3);
         TextInputEditText_corpRes3 = findViewById(R.id.TextInputEditText_corpRes3);
         TextInputEditText_work3 = findViewById(R.id.TextInputEditText_work3);
-
+        formOfCareer3 = findViewById(R.id.formOfCareer3);
 
         //자격증//
         //date : 취득일
@@ -541,63 +486,23 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_licC1 = findViewById(R.id.TextInputEditText_licC1);
         TextInputEditText_licC1 = findViewById(R.id.TextInputEditText_licC1);
         TextInputEditText_licP1 = findViewById(R.id.TextInputEditText_licP1);
-
+        license1 = findViewById(R.id.license1);
 
         TextInputEditText_licYM2 = findViewById(R.id.TextInputEditText_licYM2);
         TextInputEditText_licC2 = findViewById(R.id.TextInputEditText_licC2);
         TextInputEditText_licG2 = findViewById(R.id.TextInputEditText_licG2);
         TextInputEditText_licP2 = findViewById(R.id.TextInputEditText_licP2);
-
+        license2 = findViewById(R.id.license2);
 
         TextInputEditText_aYM1 = findViewById(R.id.TextInputEditText_aYM1);
         TextInputEditText_aC1 = findViewById(R.id.TextInputEditText_aC1);
         TextInputEditText_aP1 = findViewById(R.id.TextInputEditText_aP1);
-
+        award1 = findViewById(R.id.award1);
 
         TextInputEditText_aYM2 = findViewById(R.id.TextInputEditText_aYM2);
         TextInputEditText_aC2 = findViewById(R.id.TextInputEditText_aC2);
         TextInputEditText_aP2 = findViewById(R.id.TextInputEditText_aP2);
-
-
-        //각 양식마다 필요없는 사항은 보이지 않도록 한다.
-        docNum = intent.getIntExtra("docNum", 0);
-        if(docNum == 0){
-            Log.d(TAG, "onCreate/docName : "+docName);
-//            TextInputLayout_name.setVisibility(View.GONE);
-            TextInputLayout_engName.setVisibility(View.GONE);
-            TextInputLayout_chName.setVisibility(View.GONE);
-            TextInputLayout_rrn.setVisibility(View.GONE);
-            TextInputLayout_age.setVisibility(View.GONE);
-//            TextInputLayout_phoneNum.setVisibility(View.GONE);
-            TextInputLayout_num.setVisibility(View.GONE);
-//            TextInputLayout_email.setVisibility(View.GONE);
-//            TextInputLayout_addr.setVisibility(View.GONE);
-        }
-        else if(docNum == 1){
-            Log.d(TAG, "onCreate/docName : "+docName);
-//            TextInputLayout_name.setVisibility(View.GONE);
-//            TextInputLayout_engName.setVisibility(View.GONE);
-            TextInputLayout_chName.setVisibility(View.GONE);
-//            TextInputLayout_rrn.setVisibility(View.GONE);
-//            TextInputLayout_age.setVisibility(View.GONE);
-//            TextInputLayout_phoneNum.setVisibility(View.GONE);
-            TextInputLayout_num.setVisibility(View.GONE);
-//            TextInputLayout_email.setVisibility(View.GONE);
-//            TextInputLayout_addr.setVisibility(View.GONE);
-        }
-        else if(docNum == 2){
-            Log.d(TAG, "onCreate/docName : "+docName);
-//            TextInputLayout_name.setVisibility(View.GONE);
-//            TextInputLayout_engName.setVisibility(View.GONE);
-//            TextInputLayout_chName.setVisibility(View.GONE);
-//            TextInputLayout_rrn.setVisibility(View.GONE);
-//            TextInputLayout_age.setVisibility(View.GONE);
-//            TextInputLayout_phoneNum.setVisibility(View.GONE);
-//            TextInputLayout_num.setVisibility(View.GONE);
-//            TextInputLayout_email.setVisibility(View.GONE);
-//            TextInputLayout_addr.setVisibility(View.GONE);
-        }
-        //====================================================================================//
+        award2 = findViewById(R.id.award2);
 
     }
 
@@ -844,55 +749,101 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     case R.id.expand:
                         //bExpanded가 false일 때(숨겨져 있을 때) "펼치기"를 누르면
                         //대학교, 대학원, 경력사항2, 경력사항3, 자격증2, 수상2를 디스플레이 한다.
-                        getAllTextFromTextInputEditText();
-                        if(bExpanded) {
-                            if (checkString(corpN2) && checkString(dep2) && checkString(corpEnt2) && checkString(corpRes2) &&
-                                    checkString(work2)) {
-                                LinearLayout_corp2.setVisibility(View.GONE);
-                            }
-                            if (checkString(corpN3) && checkString(dep3) && checkString(corpEnt3) && checkString(corpRes3) &&
-                                    checkString(work3)) {
-                                LinearLayout_corp3.setVisibility(View.GONE);
-                            }
-                            if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
-                                    checkString(university_major)) {
-                                university.setVisibility(View.GONE);
-                            }
-                            if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
-                                    checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
-                                master.setVisibility(View.GONE);
-
-                            }if (checkString(license1_date) && checkString(license1_cntnt) && checkString(license1_grade) && checkString(license1_publication)) {
-                                license1.setVisibility(View.GONE);
-                            }
-                            if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
-                                license2.setVisibility(View.GONE);
-                            }
-                            if (checkString(award1_date) && checkString(award1_cntnt) && checkString(award1_publication)) {
-                                award1.setVisibility(View.GONE);
-                            }
-                            if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
-                                award2.setVisibility(View.GONE);
-                            }
-                            bExpanded = false;
-                            Toast.makeText(mContext, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            PreferenceManager.setBoolean(mContext, "careerbExpanded", true);
-                            LinearLayout_university.setVisibility(View.VISIBLE);
-                            LinearLayout_master.setVisibility(View.VISIBLE);
-
-                            LinearLayout_corp2.setVisibility(View.VISIBLE);
-                            LinearLayout_corp3.setVisibility(View.VISIBLE);
-                            LinearLayout_license1.setVisibility(View.VISIBLE);
-                            LinearLayout_license2.setVisibility(View.VISIBLE);
-
-                            LinearLayout_award1.setVisibility(View.VISIBLE);
-                            LinearLayout_award2.setVisibility(View.VISIBLE);
-                            bExpanded = true;
-                            Toast.makeText(mContext, "모든 항목이 펼쳐 졌습니다.", Toast.LENGTH_SHORT).show();
-                        }
-
+//                        if(bExpanded) {
+//                            university_enterYM = university_enterYM.getText().toString().trim();
+//                            university_graYM = university_graYM.getText().toString().trim();
+//                            university_graCls = university_graCls.getText().toString().trim();
+//                            university_name = university_name.getText().toString().trim();
+//                            university_major = university_major.getText().toString().trim();
+//
+//                            master_enterYM = master_enterYM.getText().toString().trim();
+//                            master_graYM = master_graYM.getText().toString().trim();
+//                            master_graCls = master_graCls.getText().toString().trim();
+//                            master_name = master_name.getText().toString().trim();
+//                            master_major = master_major.getText().toString().trim();
+//                            master_graThe = master_graThe.getText().toString().trim();
+//                            master_LAB = master_LAB.getText().toString().trim();
+//
+//                            corpN2 = formOfCareer2_name.getText().toString().trim();
+//                            corpEnt2 = formOfCareer2_enterYM.getText().toString().trim();
+//                            corpRes2 = formOfCareer2_resignYM.getText().toString().trim();
+//                            dep2 = formOfCareer2_office.getText().toString().trim();
+//                            work2 = formOfCareer2_task.getText().toString().trim();
+//
+//                            corpN3 = formOfCareer3_name.getText().toString().trim();
+//                            corpEnt3 = formOfCareer3_enterYM.getText().toString().trim();
+//                            corpRes3 = formOfCareer3_resignYM.getText().toString().trim();
+//                            dep3 = formOfCareer3_office.getText().toString().trim();
+//                            work3 = formOfCareer3_task.getText().toString().trim();
+//
+//                            license1_date = license1_date.getText().toString().trim();
+//                            license1_cntnt = license1_cntnt.getText().toString().trim();
+//                            license1_grade = license1_grade.getText().toString().trim();
+//                            license1_publication = license1_publication.getText().toString().trim();
+//
+//                            license2_date = license2_date.getText().toString().trim();
+//                            license2_cntnt = license2_cntnt.getText().toString().trim();
+//                            license2_grade = license2_grade.getText().toString().trim();
+//                            license2_publication = license2_publication.getText().toString().trim();
+//
+//                            award1_date = award1_date.getText().toString().trim();
+//                            award1_cntnt = award1_cntnt.getText().toString().trim();
+//                            award1_publication = award1_publication.getText().toString().trim();
+//
+//                            award2_date = award2_date.getText().toString().trim();
+//                            award2_cntnt = award2_cntnt.getText().toString().trim();
+//                            award2_publication = award2_publication.getText().toString().trim();
+//
+//                            PreferenceManager.setBoolean(mContext, "careerbExpanded", false);
+//
+//                            if (checkString(corpN2) && checkString(dep2) && checkString(corpEnt2) && checkString(corpRes2) &&
+//                                    checkString(work2)) {
+//                                formOfCareer2.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(corpN3) && checkString(dep3) && checkString(corpEnt3) && checkString(corpRes3) &&
+//                                    checkString(work3)) {
+//                                formOfCareer3.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
+//                                    checkString(university_major)) {
+//                                university.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
+//                                    checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
+//                                master.setVisibility(View.GONE);
+//
+//                            }if (checkString(license1_date) && checkString(license1_cntnt) && checkString(license1_grade) && checkString(license1_publication)) {
+//                                license1.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
+//                                license2.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(award1_date) && checkString(award1_cntnt) && checkString(award1_publication)) {
+//                                award1.setVisibility(View.GONE);
+//                            }
+//                            if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
+//                                award2.setVisibility(View.GONE);
+//                            }
+//                            bExpanded = false;
+//                            Toast.makeText(mContext, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
+//                        }
+//                        //bExpanded가 true일 때(펼쳐져 있을 때) "숨기기"를 누르면
+//                        //대학교, 대학원, 경력사항2, 경력사항3, 자격증2, 수상2의 모든 하위 항목을 검사하고
+//                        //모든 하위 항목이 비어있는 항목은 숨긴다.
+//                        else{
+//                            PreferenceManager.setBoolean(mContext, "careerbExpanded", true);
+//                            university.setVisibility(View.VISIBLE);
+//                            master.setVisibility(View.VISIBLE);
+//                            formOfCareer2.setVisibility(View.VISIBLE);
+//                            formOfCareer3.setVisibility(View.VISIBLE);
+//
+//                            license1.setVisibility(View.VISIBLE);
+//                            license2.setVisibility(View.VISIBLE);
+//                            award1.setVisibility(View.VISIBLE);
+//                            award2.setVisibility(View.VISIBLE);
+//                            bExpanded = true;
+//                            Toast.makeText(mContext, "모든 항목이 펼쳐 졌습니다.", Toast.LENGTH_SHORT).show();
+//                        }
                         return true;
 
                     //프로필 수정 스크린으로 이동하지 않고 사용자가 기록한 내용을 해당 스크린에서 프로필에 적용할 수 있도록 한다.
@@ -949,31 +900,31 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             });
 
             //학력사항
-            Map<String, Object> eduBack = new HashMap<>();
-            eduBack.put("hN", hN);
-            eduBack.put("hEnt", hEnt);
-            eduBack.put("hGrad", hGrad);
-            eduBack.put("hIfy", hIfy);
+            user = new HashMap<>();
+            user.put("hN", hN);
+            user.put("hEnt", hEnt);
+            user.put("hGrad", hGrad);
+            user.put("hIfy", hIfy);
 
 
-            eduBack.put("uN", uN);
-            eduBack.put("uMaj", uMaj);
-            eduBack.put("uEnt", uEnt);
-            eduBack.put("uLoc", uLoc);
-            eduBack.put("uSco",uSco);
-            eduBack.put("uGrad", uGrad);
-            eduBack.put("uIfy", uIfy);
+            user.put("uN", uN);
+            user.put("uMaj", uMaj);
+            user.put("uEnt", uEnt);
+            user.put("uLoc", uLoc);
+            user.put("uSco",uSco);
+            user.put("uGrad", uGrad);
+            user.put("uIfy", uIfy);
 
-            eduBack.put("mN", mN);
-            eduBack.put("mEnt", mEnt);
-            eduBack.put("mLoc", mLoc);
-            eduBack.put("mSco", mSco);
-            eduBack.put("mGrad",mGrad);
-            eduBack.put("mIfy", mIfy);
-            eduBack.put("mMaj", mMaj);
+            user.put("mN", mN);
+            user.put("mEnt", mEnt);
+            user.put("mLoc", mLoc);
+            user.put("mSco", mSco);
+            user.put("mGrad",mGrad);
+            user.put("mIfy", mIfy);
+            user.put("mMaj", mMaj);
 
             documentReference = fStore.collection("users").document(userID).collection("profiles").document("eduBack");
-            documentReference.update(eduBack).addOnSuccessListener(new OnSuccessListener<Void>() {
+            documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 //                                        Toast.makeText(mContext,"학력 프로필에 적용 되었습니다!",Toast.LENGTH_SHORT).show();
@@ -981,26 +932,26 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             });
 
             //경력사항
-            Map<String, Object> corp = new HashMap<>();
-            corp.put("corpN1", corpN1);
-            corp.put("dep1", dep1);
-            corp.put("corpEnt1", corpEnt1);
-            corp.put("corpRes1", corpRes1);
-            corp.put("work1", work1);
+            user = new HashMap<>();
+            user.put("corpN1", corpN1);
+            user.put("dep1", dep1);
+            user.put("corpEnt1", corpEnt1);
+            user.put("corpRes1", corpRes1);
+            user.put("work1", work1);
 
-            corp.put("corpN2", corpN2);
-            corp.put("dep2", dep2);
-            corp.put("corpEnt2", corpEnt2);
-            corp.put("corpRes2", corpRes2);
-            corp.put("work2", work2);
+            user.put("corpN2", corpN2);
+            user.put("dep2", dep2);
+            user.put("corpEnt2", corpEnt2);
+            user.put("corpRes2", corpRes2);
+            user.put("work2", work2);
 
-            corp.put("corpN3", corpN3);
-            corp.put("dep3", dep3);
-            corp.put("corpEnt3", corpEnt3);
-            corp.put("corpRes3", corpRes3);
-            corp.put("work3", work3);
+            user.put("corpN3", corpN3);
+            user.put("dep3", dep3);
+            user.put("corpEnt3", corpEnt3);
+            user.put("corpRes3", corpRes3);
+            user.put("work3", work3);
             documentReference = fStore.collection("users").document(userID).collection("profiles").document("formOfCareer");
-            documentReference.update(corp).addOnSuccessListener(new OnSuccessListener<Void>() {
+            documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 //                                        Toast.makeText(mContext,"경력 프로필에 적용 되었습니다!",Toast.LENGTH_SHORT).show();
@@ -1091,7 +1042,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         uMaj = value.getString("uMaj");
                         uIfy = value.getString("uIfy");
                         if (!bExpanded &&checkString(uN) && checkString(uEnt) && checkString(uGrad) && checkString(uLoc) &&checkString(uSco) && checkString(uMaj) && checkString(uIfy)) {
-                            LinearLayout_university.setVisibility(View.GONE);
+                            university.setVisibility(View.GONE);
                         }
 
                         mN = value.getString("mN");
@@ -1102,7 +1053,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         mMaj = value.getString("mMaj");
                         mIfy = value.getString("mIfy");
                         if (!bExpanded &&!bExpanded &&checkString(mN) && checkString(mEnt) && checkString(mGrad) && checkString(mLoc) &&checkString(mSco) && checkString(mMaj) && checkString(mIfy)) {
-                            LinearLayout_master.setVisibility(View.GONE);
+                            master.setVisibility(View.GONE);
                         }
 
                     }
@@ -1124,26 +1075,26 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         licC1 = value.getString("licG1");
                         licP1 = value.getString("licP1");
                         if (!bExpanded && checkString(licYM1) && checkString(licC1) && checkString(licG1) && checkString(licP1)) {
-                            LinearLayout_license1.setVisibility(View.GONE);
+                            license1.setVisibility(View.GONE);
                         }
                         licYM2 = value.getString("licYM2");
                         licC2 = value.getString("licC2");
                         licG2 = value.getString("licG2");
                         licP2 = value.getString("licP2");
                         if (!bExpanded && checkString(licYM2) && checkString(licC2) && checkString(licG2) && checkString(licP2)) {
-                            LinearLayout_license2.setVisibility(View.GONE);
+                            license2.setVisibility(View.GONE);
                         }
                         aYM1 = value.getString("aYM1");
                         aC1 = value.getString("aC1");
                         aP1 = value.getString("aP1");
                         if (!bExpanded &&checkString(aYM1) && checkString(aC1) && checkString(aP1)) {
-                            LinearLayout_award1.setVisibility(View.GONE);
+                            award1.setVisibility(View.GONE);
                         }
                         aYM2 = value.getString("aYM2");
                         aC2 = value.getString("aC2");
                         aP2 = value.getString("aP2");
                         if (!bExpanded && checkString(aYM2) && checkString(aC2) && checkString(aP2)) {
-                            LinearLayout_award2.setVisibility(View.GONE);
+                            award2.setVisibility(View.GONE);
                         }
 
 
@@ -1173,7 +1124,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         work2 = value.getString("work2");
                         if (!bExpanded &&checkString(corpN2) && checkString(dep2) && checkString(corpEnt2) && checkString(corpRes2) &&
                                 checkString(work2)) {
-                            LinearLayout_corp2.setVisibility(View.GONE);
+                            formOfCareer2.setVisibility(View.GONE);
                         }
 
                         corpN3 = value.getString("corpN3");
@@ -1183,7 +1134,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         work3 = value.getString("work3");
                         if (!bExpanded &&checkString(corpN3) && checkString(dep3) && checkString(corpEnt3) && checkString(corpRes3) &&
                                 checkString(work3)) {
-                            LinearLayout_corp3.setVisibility(View.GONE);
+                            formOfCareer3.setVisibility(View.GONE);
                         }
                     }
                     else{

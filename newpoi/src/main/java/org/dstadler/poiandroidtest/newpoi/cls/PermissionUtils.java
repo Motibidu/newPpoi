@@ -53,4 +53,6 @@ public class PermissionUtils {
             int requestCode, int permissionCode, int[] grantResults) {
         return requestCode == permissionCode && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
+
+
 }

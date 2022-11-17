@@ -6,6 +6,4 @@
         android:title="프로필 적용"/>
     <item android:id="@+id/moveToProfile"
         android:title="프로필로 이동"/>
-    <item android:id="@+id/priview"
-        android:title="미리보기"/>
 </menu>
