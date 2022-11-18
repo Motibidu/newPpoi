@@ -339,7 +339,6 @@
                         android:id="@+id/LinearLayout_university"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/LinearLayout_highschool"
                         android:background="@drawable/layout_border"
                         android:orientation="vertical">
                         <TextView
@@ -352,8 +351,7 @@
                             android:text="대학교"
                             android:gravity="center"/>
                         <LinearLayout
-                            android:id="@+id/university_layout0"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <com.google.android.material.textfield.TextInputLayout
@@ -386,12 +384,6 @@
                                     android:background="@drawable/layout_border"
                                     android:singleLine="true"/>
                             </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/university_layout1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
                             <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/TextInputLayout_uEnt"
                                 android:layout_width="match_parent"
@@ -477,21 +469,20 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/LinearLayout_university"
                         android:background="@drawable/layout_border">
                         <TextView
-                            android:id="@+id/master_Textview"
+                            android:id="@+id/Text_master"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="25dp"
-                            android:layout_marginLeft="25dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="30dp"
                             android:text="대학교(석사)"
                             android:gravity="center"
                             />
                         <LinearLayout
                             android:id="@+id/master_layout0"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <com.google.android.material.textfield.TextInputLayout
@@ -620,16 +611,15 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/LinearLayout_corp"
+                    android:layout_below="@+id/LinearLayout_eduBack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/LinearLayout_eduBack">
+                    android:orientation="vertical">
                     <LinearLayout
                         android:id="@+id/LinearLayout_corp1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/LinearLayout_eduBack"
                         android:background="@drawable/layout_border"
                         >
                         <TextView
@@ -931,7 +921,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_below="@+id/LinearLayout_eduBack">
+                    android:layout_below="@+id/LinearLayout_corp">
                     <LinearLayout
                         android:id="@+id/LinearLayout_license1"
                         android:orientation="vertical"
@@ -1170,7 +1160,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/LinearLayout_award2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:background="@drawable/layout_border">

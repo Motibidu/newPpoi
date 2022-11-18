@@ -419,7 +419,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         TextInputLayout_licYM1 = findViewById(R.id.TextInputLayout_licYM1);
         TextInputLayout_licC1 = findViewById(R.id.TextInputLayout_licC1);
-        TextInputLayout_licC1 = findViewById(R.id.TextInputLayout_licC1);
+        TextInputLayout_licG1 = findViewById(R.id.TextInputLayout_licG1);
         TextInputLayout_licP1 = findViewById(R.id.TextInputLayout_licP1);
 
 
@@ -539,7 +539,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         TextInputEditText_licYM1 = findViewById(R.id.TextInputEditText_licYM1);
         TextInputEditText_licC1 = findViewById(R.id.TextInputEditText_licC1);
-        TextInputEditText_licC1 = findViewById(R.id.TextInputEditText_licC1);
+        TextInputEditText_licG1 = findViewById(R.id.TextInputEditText_licG1);
         TextInputEditText_licP1 = findViewById(R.id.TextInputEditText_licP1);
 
 
@@ -854,25 +854,25 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                                     checkString(work3)) {
                                 LinearLayout_corp3.setVisibility(View.GONE);
                             }
-                            if (checkString(university_enterYM) && checkString(university_graYM) && checkString(university_graCls) && checkString(university_name) &&
-                                    checkString(university_major)) {
-                                university.setVisibility(View.GONE);
+                            if (checkString(uEnt) && checkString(uGrad) && checkString(uIfy) && checkString(uN) &&
+                                    checkString(uMaj)) {
+                                LinearLayout_university.setVisibility(View.GONE);
                             }
-                            if (checkString(master_enterYM) && checkString(master_graYM) && checkString(master_graCls) && checkString(master_name) &&
-                                    checkString(master_major) && checkString(master_graThe) && checkString(master_LAB)) {
-                                master.setVisibility(View.GONE);
+                            if (checkString(mEnt) && checkString(mGrad) && checkString(mIfy) && checkString(mN) &&
+                                    checkString(mMaj)) {
+                                LinearLayout_master.setVisibility(View.GONE);
 
-                            }if (checkString(license1_date) && checkString(license1_cntnt) && checkString(license1_grade) && checkString(license1_publication)) {
-                                license1.setVisibility(View.GONE);
+                            }if (checkString(licYM1) && checkString(licC1) && checkString(licG1) && checkString(licP1)) {
+                                LinearLayout_license1.setVisibility(View.GONE);
                             }
-                            if (checkString(license2_date) && checkString(license2_cntnt) && checkString(license2_grade) && checkString(license2_publication)) {
-                                license2.setVisibility(View.GONE);
+                            if (checkString(licYM2) && checkString(licC2) && checkString(licG2) && checkString(licP2)) {
+                                LinearLayout_license2.setVisibility(View.GONE);
                             }
-                            if (checkString(award1_date) && checkString(award1_cntnt) && checkString(award1_publication)) {
-                                award1.setVisibility(View.GONE);
+                            if (checkString(aYM1) && checkString(aC1) && checkString(aP1)) {
+                                LinearLayout_award1.setVisibility(View.GONE);
                             }
-                            if (checkString(award2_date) && checkString(award2_cntnt) && checkString(award2_publication)) {
-                                award2.setVisibility(View.GONE);
+                            if (checkString(aYM2) && checkString(aC2) && checkString(aP2)) {
+                                LinearLayout_award2.setVisibility(View.GONE);
                             }
                             bExpanded = false;
                             Toast.makeText(mContext, "기록되지 않은 항목이 숨겨 졌습니다.", Toast.LENGTH_SHORT).show();
@@ -1281,11 +1281,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             //파일 인스턴스를 생성할 수 있으면 반복문을 빠져나온다.
             while(!downloadComplete) {
                 try {
-                    if(checkString(fileName)) {
-                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+docName + ".docx");
+                    if(fileName.isEmpty()) {
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/"+docName+".docx");
                     }
                     else{
-                        f = new File(Environment.DIRECTORY_DOWNLOADS + "/ZN/"+fileName + ".docx");
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileName + ".docx");
                     }
                     if(f.exists()&& !f.isDirectory()){
                         downloadComplete = true;
