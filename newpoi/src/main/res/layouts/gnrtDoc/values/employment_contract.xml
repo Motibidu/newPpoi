@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "bO_details">사용자 상세내용</string>
+    <string name = "w_details">근로자 상세내용</string>
+    <string name = "bON">사업주 이름</string>
+    <string name = "bOA">사업주 주소</string>
+    <string name = "bOCI">사업주 연락처</string>
+    <string name = "bN">사업체명</string>
+    <string name = "wN">근로자 이름</string>
+    <string name = "wA">근로자 주소</string>
+    <string name = "wCI">근로자 연락처</string>
+    <string name = "cC">계약조건</string>
+    <string name = "lCP">근로계약기간</string>
+    <string name = "pOW">근무장소</string>
+    <string name = "bI">업무내용</string>
+    <string name = "fWH">소정근로시간</string>
+    <string name = "wD">근무일</string>
+    <string name = "w">임금</string>
+    <string name = "sIC">사회보험적용여부</string>
+    <string name="wSD">근로시작날</string>
+    <string name="wC">임금조건</string>
+    <string name="wLD">근로마지막날</string>
+    <string name="wST">근로시작시간</string>
+    <string name="wED">근로종료날</string>
+</resources>

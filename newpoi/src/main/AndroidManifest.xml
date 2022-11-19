@@ -54,6 +54,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.EmploymentContractCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".gnrtDoc.FreelanceEmploymentContractCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">
@@ -233,23 +240,20 @@
         </activity>
         <activity android:name=".gnrtDoc.PromissoryActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            android:parentActivityName=".gnrtDoc.PromissoryCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-
-
-        <activity android:name=".gnrtDoc.EmploymentContractCatActivity"
+        <activity android:name=".gnrtDoc.EmploymentContractActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            android:parentActivityName=".gnrtDoc.EmploymentContractCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
 
         <activity android:name=".gnrtDoc.SimpleResumeCatActivity"
             android:theme="@style/AppTheme_material"

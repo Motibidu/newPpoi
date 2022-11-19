@@ -12,7 +12,7 @@ public class GoogleManager {
         this.mContext = mContext;
     }
 
-    private GoogleSignInAccount signInAccount(){
+    public GoogleSignInAccount signInAccount(){
         return GoogleSignIn.getLastSignedInAccount(mContext);
     }
     public boolean isSignedIn() {

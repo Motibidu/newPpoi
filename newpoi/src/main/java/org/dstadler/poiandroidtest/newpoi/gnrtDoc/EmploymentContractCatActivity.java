@@ -24,7 +24,7 @@ public class EmploymentContractCatActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
     String []arr = {"employment_contract0", "employment_contract1", "employment_contract2", "employment_contract3", "employment_contract4",};
-    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.EmploymentContractActivity";
 
 
 

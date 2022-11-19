@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceOptions;
+import com.aspose.words.Range;
 import com.aspose.words.RelativeHorizontalPosition;
 import com.aspose.words.RelativeVerticalPosition;
 import com.aspose.words.WrapType;
@@ -73,28 +74,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CareerDescriptionActivity extends AppCompatActivity {
+    private static final String TAG = CareerDescriptionActivity.class.getName();
 
-
-    //final vars
-    private final String TAG = CareerDescriptionActivity.class.getName();
-    private final String RUNIMG_CMPLT = "org.dstadler.poiandroidtest.newpoi.RUNIMG_CMPLT";
-    private final String DOC_DWNL_CMPLT = "org.dstadler.poiandroidtest.newpoi.DOC_DWNL_CMPLT";
+    //static vars
     private static final int MY_PERMISSION_STORAGE = 1111;
-
-    //image arguments
+    //image attributes
     public static int sCorner = 80;
     public static int sMargin = 1;
     public static int sBorder = 0;
 
-    // vars
     private boolean bExpanded;
     private String docName;
     private String pagePath0, pagePath1, pagePath2;
-
+    private Uri imgUri0, imgUri1, imgUri2;
+    private String fileName, fileNameWithExt;
+    private int docNum;
+    private String userID;
+    private File  docFile;
+    private Map<String, Object> user;
+    private Handler handler1, handler2;
 
     //widgets
     private ImageButton backBtn, imageBtn_more;
-    private Button btn_download, btn_create, expand;
+    private Button btn_download, btn_create;
+    private ProgressBar progressBar;
+    private EditText editText_name;
+    private ImageView image_main0, image_main1, image_main2;
+
+    //contents
+    private Context mContext;
+    private AppCompatActivity mActivity;
 
 
     //firebase
@@ -104,6 +113,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DocumentReference documentReference;
 
+    private Intent intent, moveProfile;
+    private DownloadEP downloadEP;
 
 
     //String
@@ -185,41 +196,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             LinearLayout_corp1, LinearLayout_corp2, LinearLayout_corp3,
             LinearLayout_license1, LinearLayout_license2,
             LinearLayout_award1, LinearLayout_award2;
-
-
-
-
-    private Intent intent, moveProfile;
-    private EditText editText_name;
-
-    private DownloadEP downloadEP;
-
-
-    private Uri imgUri0, imgUri1, imgUri2;
-
-
-    private ImageView image_main0, image_main1, image_main2;
-    private String fileName, fileNameWithExt;
-
-
-    private Context mContext;
-    private AppCompatActivity mActivity;
-
-
-    private String userID;
-
-
-    private File  docFile;
-    private Map<String, Object> user;
-
-    public static String PACKAGE_NAME;
-
-    private Handler handler1, handler2;
-
-    private ProgressBar progressBar;
-
-    private int docNum;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -311,12 +287,12 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 checkPermission();
 
                 //start downloading template, start progressbar
-                downloadTmpltThread downloadTmpltThread = new downloadTmpltThread();
-                downloadTmpltThread.start();
+                downloadFileThread downloadFileThread = new downloadFileThread();
+                downloadFileThread.start();
 
                 //if downloading is finished,stop progressbar
-                checkingDownloadThread checkingDownloadThread = new checkingDownloadThread();
-                checkingDownloadThread.start();
+                checkingDownloadFileThread checkingDownloadFileThread = new checkingDownloadFileThread();
+                checkingDownloadFileThread.start();
             }
         });
         btn_create.setOnClickListener(new View.OnClickListener() {
@@ -328,13 +304,14 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() == null) {
                     Toast.makeText(mContext, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
                 }else{
-                    //start template processing, start progressbar
-                    tmpltProcessThread tmpltProcessThread = new tmpltProcessThread();
-                    tmpltProcessThread.start();
-
-                    //if processing is finished,stop progressbar
-                    checkingProcessThread checkingProcessThread = new checkingProcessThread();
-                    checkingProcessThread.start();
+                    downloadTempFileThread downloadTempFileThread = new downloadTempFileThread();
+                    downloadProfileImgThread downloadProfileImgThread = new downloadProfileImgThread();
+                    createResultThread createResultThread = new createResultThread();
+                    checkingResultThread checkingResultThread = new checkingResultThread();
+                    downloadTempFileThread.start();
+                    downloadProfileImgThread.start();
+                    createResultThread.start();
+                    checkingResultThread.start();
                 }
             }
         });
@@ -561,8 +538,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         //각 양식마다 필요없는 사항은 보이지 않도록 한다.
         docNum = intent.getIntExtra("docNum", 0);
+        Log.d(TAG, "onCreate/docNum : "+docNum);
         if(docNum == 0){
-            Log.d(TAG, "onCreate/docName : "+docName);
 //            TextInputLayout_name.setVisibility(View.GONE);
             TextInputLayout_engName.setVisibility(View.GONE);
             TextInputLayout_chName.setVisibility(View.GONE);
@@ -574,7 +551,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 //            TextInputLayout_addr.setVisibility(View.GONE);
         }
         else if(docNum == 1){
-            Log.d(TAG, "onCreate/docName : "+docName);
 //            TextInputLayout_name.setVisibility(View.GONE);
 //            TextInputLayout_engName.setVisibility(View.GONE);
             TextInputLayout_chName.setVisibility(View.GONE);
@@ -586,7 +562,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 //            TextInputLayout_addr.setVisibility(View.GONE);
         }
         else if(docNum == 2){
-            Log.d(TAG, "onCreate/docName : "+docName);
 //            TextInputLayout_name.setVisibility(View.GONE);
 //            TextInputLayout_engName.setVisibility(View.GONE);
 //            TextInputLayout_chName.setVisibility(View.GONE);
@@ -600,230 +575,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         //====================================================================================//
 
     }
-
-
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            long cmpltDwnlID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            long doc_dwnlID = PreferenceManager.getLong(mContext, "doc_dwnlID");
-            long img_dwnlID = PreferenceManager.getLong(mContext, "img_dwnlID");
-
-            InputStream is = null;
-            Document document = null;
-
-            //다운로드 완료, 마지막 다운이 문서일때
-            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (doc_dwnlID == cmpltDwnlID)) {
-//                imgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
-                downloadEP.download_picture();
-            }
-
-            //다운로드 완료, 마지막 다운이 프로필사진일 때
-            if(intent.getAction() == DownloadManager.ACTION_DOWNLOAD_COMPLETE && (img_dwnlID == cmpltDwnlID)) {
-                fileNameWithExt = fileName+".docx";
-                Log.d(TAG, "onReceive/fileNameWithExt : "+fileNameWithExt);
-                docFile = new File(Environment.getExternalStoragePublicDirectory
-                        (Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
-                //임시파일이 존재할 때
-                if (docFile.exists()) {
-                    try {
-                        //(name, engN, chN) = (이름, 영어이름, 한자이름)
-                        //(rrn, age, phoneNum, email, addr) = (주민번호, 나이, 전화번호, 이메일, 주소)
-
-                        //(hN, hEnt, hGrad, hIfy) = (고등학교 이름, 고등학교 입학년월, 고등학교 졸업년월, 졸업구분)
-                        //(uN, uMaj, uEnt, uGrad, uLoc, uSco uIfy) = (대학교 이름, 대학교 전공, 대학교 입학년월, 대학교 졸업년월, 대학교 소재지, 대학교 학점, 대학교 졸업구분)
-                        //(mN, mEnt, mGrad, mIfy) = (대학교 이름, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
-
-                        //(corpN, dep, corpEnt, corpRes, work) = (회사이름, 담당부서, 입사년월, 퇴사년월, 담당업무)
-
-                        try {
-                            is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            document = new Document(is);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        DocumentBuilder builder = new DocumentBuilder(document);
-
-                        if(docNum == 0){
-                            builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
-                                    RelativeHorizontalPosition.MARGIN,
-                                    360,
-                                    RelativeVerticalPosition.MARGIN,
-                                    20,
-                                    110,
-                                    150,
-                                    WrapType.SQUARE);
-                        }
-                        else if(docNum == 1){
-                            builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
-                                    RelativeHorizontalPosition.MARGIN,
-                                    25,
-                                    RelativeVerticalPosition.MARGIN,
-                                    80,
-                                    110,
-                                    150,
-                                    WrapType.SQUARE);
-                        }
-
-                        //TextInputEditText로부터 텍스트를 불러오고, 클래스 변수에 넣는다.
-                        getAllTextFromTextInputEditText();
-
-                        //워드 파일 내 텍스트를 대체한다.
-                        if(name.isEmpty()) {
-                            document.getRange().replace("name","홍길동", new FindReplaceOptions());
-                        } else{document.getRange().replace("name",name, new FindReplaceOptions());}
-                        if(engName.isEmpty()) {
-                            document.getRange().replace("engN","Hong Gil Dong", new FindReplaceOptions());
-                        } else{document.getRange().replace("engN",engName, new FindReplaceOptions());}
-                        if(chName.isEmpty()) {
-                            document.getRange().replace("chN","", new FindReplaceOptions());}
-                        else{document.getRange().replace("chN",chName, new FindReplaceOptions());}
-                        if(rrn.isEmpty()) {
-                            document.getRange().replace("rrn","", new FindReplaceOptions());}
-                        else{document.getRange().replace("rrn",rrn, new FindReplaceOptions());}
-                        if(age.isEmpty()) {
-                            document.getRange().replace("age","", new FindReplaceOptions());
-                        } else{document.getRange().replace("age",age, new FindReplaceOptions());}
-                        if(phoneNum.isEmpty()) {
-                            document.getRange().replace("phoneNum","", new FindReplaceOptions());
-                        } else{document.getRange().replace("phoneNum",phoneNum, new FindReplaceOptions());}
-                        if(email.isEmpty()) {
-                            document.getRange().replace("name","", new FindReplaceOptions());
-                        } else{document.getRange().replace("email",email, new FindReplaceOptions());}
-                        if(addr.isEmpty()) {
-                            document.getRange().replace("addr","", new FindReplaceOptions());
-                        } else{document.getRange().replace("addr",addr, new FindReplaceOptions());}
-
-                        if(hN.isEmpty()) {
-                            document.getRange().replace("hN","", new FindReplaceOptions());
-                        } else{document.getRange().replace("hN",hN, new FindReplaceOptions());}
-                        if(hEnt.isEmpty()) {
-                            document.getRange().replace("hEnt","", new FindReplaceOptions());
-                        } else{document.getRange().replace("hEnt",hEnt, new FindReplaceOptions());}
-                        if(hGrad.isEmpty()) {
-                            document.getRange().replace("hGrad","", new FindReplaceOptions());
-                        } else{document.getRange().replace("hGrad",hGrad, new FindReplaceOptions());}
-                        if(hIfy.isEmpty()) {
-                            document.getRange().replace("hIfy","", new FindReplaceOptions());
-                        }else{document.getRange().replace("hIfy",hIfy, new FindReplaceOptions());}
-
-                        if(uN.isEmpty()) {
-                            document.getRange().replace("uN","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uN",uN, new FindReplaceOptions());}
-                        if(uMaj.isEmpty()) {
-                            document.getRange().replace("uMaj","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uMaj",uMaj, new FindReplaceOptions());}
-                        if(uEnt.isEmpty()) {
-                            document.getRange().replace("uEnt","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uEnt",uEnt, new FindReplaceOptions());}
-                        if(uGrad.isEmpty()) {
-                            document.getRange().replace("uGrad","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uGrad",uGrad, new FindReplaceOptions());}
-                        if(uLoc.isEmpty()) {
-                            document.getRange().replace("uLoc","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uLoc",uLoc, new FindReplaceOptions());}
-                        if(uSco.isEmpty()) {
-                            document.getRange().replace("uSco","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uSco",uSco, new FindReplaceOptions());}
-                        if(uIfy.isEmpty()) {
-                            document.getRange().replace("uIfy","", new FindReplaceOptions());
-                        } else{document.getRange().replace("uIfy",uIfy, new FindReplaceOptions());}
-
-                        if(mN.isEmpty()) {
-                            document.getRange().replace("mN","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mN",mN+"석사", new FindReplaceOptions());}
-                        if(mMaj.isEmpty()) {
-                            document.getRange().replace("mMaj","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mMaj",mMaj, new FindReplaceOptions());}
-                        if(mEnt.isEmpty()) {
-                            document.getRange().replace("mEnt","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mEnt",mEnt, new FindReplaceOptions());}
-                        if(mGrad.isEmpty()) {
-                            document.getRange().replace("mGrad","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mGrad",mGrad, new FindReplaceOptions());}
-                        if(mLoc.isEmpty()) {
-                            document.getRange().replace("mLoc","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mLoc",mGrad, new FindReplaceOptions());}
-                        if(uSco.isEmpty()) {
-                            document.getRange().replace("mSco","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mSco",mSco, new FindReplaceOptions());}
-                        if(mIfy.isEmpty()) {
-                            document.getRange().replace("mIfy","", new FindReplaceOptions());
-                        } else{document.getRange().replace("mIfy",mIfy, new FindReplaceOptions());}
-
-                        if(corpN1.isEmpty()) {
-                            document.getRange().replace("corpN1","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpN1",corpN1, new FindReplaceOptions());}
-                        if(dep1.isEmpty()) {
-                            document.getRange().replace("dep1","", new FindReplaceOptions());
-                        } else{document.getRange().replace("dep1",dep1, new FindReplaceOptions());}
-                        if(corpEnt1.isEmpty()) {
-                            document.getRange().replace("corpEnt1","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpEnt1",corpEnt1, new FindReplaceOptions());}
-                        if(corpRes1.isEmpty()) {
-                            document.getRange().replace("corpRes1","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpRes1",corpRes1, new FindReplaceOptions());}
-                        if(work1.isEmpty()) {
-                            document.getRange().replace("work1","", new FindReplaceOptions());
-                        } else{document.getRange().replace("work1",work1, new FindReplaceOptions());}
-
-                        if(corpN2.isEmpty()) {
-                            document.getRange().replace("corpN2","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpN2",corpN2, new FindReplaceOptions());}
-                        if(dep2.isEmpty()) {
-                            document.getRange().replace("dep2","", new FindReplaceOptions());
-                        } else{document.getRange().replace("dep2",dep2, new FindReplaceOptions());}
-                        if(corpEnt2.isEmpty()) {
-                            document.getRange().replace("corpEnt2","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpEnt2",corpEnt2, new FindReplaceOptions());}
-                        if(corpRes2.isEmpty()) {
-                            document.getRange().replace("corpRes2","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpRes2",corpRes2, new FindReplaceOptions());}
-                        if(work2.isEmpty()) {
-                            document.getRange().replace("work2","", new FindReplaceOptions());
-                        } else{document.getRange().replace("work2",work2, new FindReplaceOptions());}
-
-                        if(corpN3.isEmpty()) {
-                            document.getRange().replace("corpN3","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpN3",corpN3, new FindReplaceOptions());}
-                        if(dep3.isEmpty()) {
-                            document.getRange().replace("dep3","", new FindReplaceOptions());
-                        } else{document.getRange().replace("dep3",dep3, new FindReplaceOptions());}
-                        if(corpEnt3.isEmpty()) {
-                            document.getRange().replace("corpEnt3","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpEnt3",corpEnt3, new FindReplaceOptions());}
-                        if(corpRes3.isEmpty()) {
-                            document.getRange().replace("corpRes3","", new FindReplaceOptions());
-                        } else{document.getRange().replace("corpRes3",corpRes3, new FindReplaceOptions());}
-                        if(work3.isEmpty()) {
-                            document.getRange().replace("work3","", new FindReplaceOptions());
-                        } else{document.getRange().replace("work3",work3, new FindReplaceOptions());}
-
-                        document.save(Environment.getExternalStoragePublicDirectory
-                                (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileNameWithExt);
-
-                        //임시파일을 삭제한다.
-                        docFile.delete();
-
-
-                        //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
-//                        CustomXWPFDocument c = new CustomXWPFDocument();
-//                        c.replace(is,data,out);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(mContext, "No Document File!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    };
 
     public void showPopup(View v) {
         PopupMenu popupMenu = new PopupMenu(mContext, v);
@@ -1065,7 +816,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         num = value.getString("num");
                         email = value.getString("email");
                         addr = value.getString("addr");
-
+                        //불러온 모든 텍스트들을 TextInputEditText에 넣는다.
+                        setAllTextInTextInputEditText();
 
                     }
                 }
@@ -1104,6 +856,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         if (!bExpanded &&!bExpanded &&checkString(mN) && checkString(mEnt) && checkString(mGrad) && checkString(mLoc) &&checkString(mSco) && checkString(mMaj) && checkString(mIfy)) {
                             LinearLayout_master.setVisibility(View.GONE);
                         }
+                        //불러온 모든 텍스트들을 TextInputEditText에 넣는다.
+                        setAllTextInTextInputEditText();
 
                     }
                     else{
@@ -1145,8 +899,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                         if (!bExpanded && checkString(aYM2) && checkString(aC2) && checkString(aP2)) {
                             LinearLayout_award2.setVisibility(View.GONE);
                         }
-
-
+                        //불러온 모든 텍스트들을 TextInputEditText에 넣는다.
+                        setAllTextInTextInputEditText();
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
@@ -1185,6 +939,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                                 checkString(work3)) {
                             LinearLayout_corp3.setVisibility(View.GONE);
                         }
+                        //불러온 모든 텍스트들을 TextInputEditText에 넣는다.
+                        setAllTextInTextInputEditText();
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"학력사항을 입력해주세요",Toast.LENGTH_SHORT).show();
@@ -1192,7 +948,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                 }
             });
             //불러온 모든 텍스트들을 TextInputEditText에 넣는다.
-            setAllTextInTextInputEditText();
+//            setAllTextInTextInputEditText();
         }
     }
 
@@ -1202,19 +958,13 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        intentFilter.addAction(RUNIMG_CMPLT);
-        intentFilter.addAction(DOC_DWNL_CMPLT);
-
-        registerReceiver(broadcastReceiver, intentFilter);
         updateUI();
     }
     //해당 액티비티가 포커스를 잃으면 broadcastReceiver등록을 해제한다.
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(broadcastReceiver);
+
     }
 
     @Override
@@ -1240,14 +990,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     }
 
     //문서를 다운하기만 한다.
-    class downloadTmpltThread extends Thread{
+    class downloadFileThread extends Thread{
         public void run() {
-            handler1.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-            });
             docName = intent.getStringExtra("docName");         //default이름
             fileName = editText_name.getText().toString().trim(); //사용자가 입력한 파일이름
             Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
@@ -1264,8 +1008,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         }
     }
+
     //문서 다운이 끝났는지 체크한다.
-    class checkingDownloadThread extends Thread{
+    class checkingDownloadFileThread extends Thread{
         boolean downloadComplete = false;
         File f;
 
@@ -1307,9 +1052,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
 
         }
     }
+    //임시파일을 다운한다.
+    class downloadTempFileThread extends Thread{
 
-    //프로필이미지와 텍스트를 대체시킨다.
-    class tmpltProcessThread extends Thread{
         @Override
         public void run() {
             handler2.post(new Runnable() { //progressBar를 보인다.
@@ -1318,10 +1063,9 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                 }
             });
-
             docName = intent.getStringExtra("docName");             //default이름
             fileName = editText_name.getText().toString().trim();     //사용자가 입력한 파일이름
-            Log.d(TAG, "run: docName: "+docName+", fileName: "+fileName);
+            Log.d(TAG, "downloadTempFileThread: docName: "+docName+", fileName: "+fileName);
 
             if (checkString(fileName)) {
                 downloadEP = new DownloadEP(getApplicationContext());
@@ -1332,16 +1076,256 @@ public class CareerDescriptionActivity extends AppCompatActivity {
             }
         }
     }
+    //임시파일 다운로드가 끝나면 텍스트와 프로필 이미지를 문서 내에 대체시킨다.
+    class createResultThread extends Thread{
+        boolean downloadComplete = false;
+        File f;
+        File profileImgFile;
+
+        public void run() {
+            docName = intent.getStringExtra("docName");         //default이름
+            fileName = editText_name.getText().toString().trim(); //사용자가 입력한 파일이름
+
+            if(fileName.isEmpty()) {
+                Log.d(TAG, "run/absolutePath : "+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+docName+".docx");
+            }
+            else {
+                Log.d(TAG, "run/absolutePath : " + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName + ".docx");
+            }
+            //파일 인스턴스를 생성할 수 있으면 반복문을 빠져나온다.
+            while(!downloadComplete) {
+                try {
+                    if(fileName.isEmpty()) {
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+docName+".docx");
+                        profileImgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+                    }
+                    else{
+                        f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName + ".docx");
+                        profileImgFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+                    }
+                    if(f.exists()&& !f.isDirectory() && profileImgFile.exists()&& !profileImgFile.isDirectory()){
+                        downloadComplete = true;
+                    }
+                }catch (NullPointerException e){}
+                try {
+                    Log.d(TAG, "DDING DDONG");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
+
+            fileNameWithExt = fileName+".docx";
+            Log.d(TAG, "onReceive/fileNameWithExt : "+fileNameWithExt);
+            docFile = new File(Environment.getExternalStoragePublicDirectory
+                    (Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
+            //임시파일이 존재할 때
+            if (docFile.exists()) {
+                try {
+                    //(name, engN, chN) = (이름, 영어이름, 한자이름)
+                    //(rrn, age, phoneNum, email, addr) = (주민번호, 나이, 전화번호, 이메일, 주소)
+
+                    //(hN, hEnt, hGrad, hIfy) = (고등학교 이름, 고등학교 입학년월, 고등학교 졸업년월, 졸업구분)
+                    //(uN, uMaj, uEnt, uGrad, uLoc, uSco uIfy) = (대학교 이름, 대학교 전공, 대학교 입학년월, 대학교 졸업년월, 대학교 소재지, 대학교 학점, 대학교 졸업구분)
+                    //(mN, mEnt, mGrad, mIfy) = (대학교 이름, 대학교 입학년월, 대학교 졸업년월, 졸업구분)
+
+                    //(corpN, dep, corpEnt, corpRes, work) = (회사이름, 담당부서, 입사년월, 퇴사년월, 담당업무)
+                    InputStream is = null;
+                    Document document = null;
+                    try {
+                        is = new FileInputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileNameWithExt);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        document = new Document(is);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    DocumentBuilder builder = new DocumentBuilder(document);
+
+                    if(docNum == 0){
+                        builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
+                                RelativeHorizontalPosition.MARGIN,
+                                360,
+                                RelativeVerticalPosition.MARGIN,
+                                20,
+                                110,
+                                150,
+                                WrapType.SQUARE);
+                    }
+                    else if(docNum == 1){
+                        builder.insertImage(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg",
+                                RelativeHorizontalPosition.MARGIN,
+                                25,
+                                RelativeVerticalPosition.MARGIN,
+                                80,
+                                110,
+                                150,
+                                WrapType.SQUARE);
+                    }
+
+                    //TextInputEditText로부터 텍스트를 불러오고, 클래스 변수에 넣는다.
+                    getAllTextFromTextInputEditText();
+                    Range range = document.getRange();
+
+                    if(name.isEmpty()) {
+                        range.replace("name","홍길동", new FindReplaceOptions());
+                    } else{range.replace("name",name, new FindReplaceOptions());}
+                    if(engName.isEmpty()) {
+                        range.replace("engN","Hong Gil Dong", new FindReplaceOptions());
+                    } else{range.replace("engN",engName, new FindReplaceOptions());}
+                    if(chName.isEmpty()) {
+                        range.replace("chN","", new FindReplaceOptions());}
+                    else{range.replace("chN",chName, new FindReplaceOptions());}
+                    if(rrn.isEmpty()) {
+                        range.replace("rrn","", new FindReplaceOptions());}
+                    else{range.replace("rrn",rrn, new FindReplaceOptions());}
+                    if(age.isEmpty()) {
+                        range.replace("age","", new FindReplaceOptions());
+                    } else{range.replace("age",age, new FindReplaceOptions());}
+                    if(phoneNum.isEmpty()) {
+                        range.replace("phoneNum","", new FindReplaceOptions());
+                    } else{range.replace("phoneNum",phoneNum, new FindReplaceOptions());}
+                    if(email.isEmpty()) {
+                        range.replace("name","", new FindReplaceOptions());
+                    } else{range.replace("email",email, new FindReplaceOptions());}
+                    if(addr.isEmpty()) {
+                        range.replace("addr","", new FindReplaceOptions());
+                    } else{range.replace("addr",addr, new FindReplaceOptions());}
+
+                    if(hN.isEmpty()) {
+                        range.replace("hN","", new FindReplaceOptions());
+                    } else{range.replace("hN",hN, new FindReplaceOptions());}
+                    if(hEnt.isEmpty()) {
+                        range.replace("hEnt","", new FindReplaceOptions());
+                    } else{range.replace("hEnt",hEnt, new FindReplaceOptions());}
+                    if(hGrad.isEmpty()) {
+                        range.replace("hGrad","", new FindReplaceOptions());
+                    } else{range.replace("hGrad",hGrad, new FindReplaceOptions());}
+                    if(hIfy.isEmpty()) {
+                        range.replace("hIfy","", new FindReplaceOptions());
+                    }else{range.replace("hIfy",hIfy, new FindReplaceOptions());}
+
+                    if(uN.isEmpty()) {
+                        range.replace("uN","", new FindReplaceOptions());
+                    } else{range.replace("uN",uN, new FindReplaceOptions());}
+                    if(uMaj.isEmpty()) {
+                        range.replace("uMaj","", new FindReplaceOptions());
+                    } else{range.replace("uMaj",uMaj, new FindReplaceOptions());}
+                    if(uEnt.isEmpty()) {
+                        range.replace("uEnt","", new FindReplaceOptions());
+                    } else{range.replace("uEnt",uEnt, new FindReplaceOptions());}
+                    if(uGrad.isEmpty()) {
+                        range.replace("uGrad","", new FindReplaceOptions());
+                    } else{range.replace("uGrad",uGrad, new FindReplaceOptions());}
+                    if(uLoc.isEmpty()) {
+                        range.replace("uLoc","", new FindReplaceOptions());
+                    } else{range.replace("uLoc",uLoc, new FindReplaceOptions());}
+                    if(uSco.isEmpty()) {
+                        range.replace("uSco","", new FindReplaceOptions());
+                    } else{range.replace("uSco",uSco, new FindReplaceOptions());}
+                    if(uIfy.isEmpty()) {
+                        range.replace("uIfy","", new FindReplaceOptions());
+                    } else{range.replace("uIfy",uIfy, new FindReplaceOptions());}
+
+                    if(mN.isEmpty()) {
+                        range.replace("mN","", new FindReplaceOptions());
+                    } else{range.replace("mN",mN+"석사", new FindReplaceOptions());}
+                    if(mMaj.isEmpty()) {
+                        range.replace("mMaj","", new FindReplaceOptions());
+                    } else{range.replace("mMaj",mMaj, new FindReplaceOptions());}
+                    if(mEnt.isEmpty()) {
+                        range.replace("mEnt","", new FindReplaceOptions());
+                    } else{range.replace("mEnt",mEnt, new FindReplaceOptions());}
+                    if(mGrad.isEmpty()) {
+                        range.replace("mGrad","", new FindReplaceOptions());
+                    } else{range.replace("mGrad",mGrad, new FindReplaceOptions());}
+                    if(mLoc.isEmpty()) {
+                        range.replace("mLoc","", new FindReplaceOptions());
+                    } else{range.replace("mLoc",mGrad, new FindReplaceOptions());}
+                    if(uSco.isEmpty()) {
+                        range.replace("mSco","", new FindReplaceOptions());
+                    } else{range.replace("mSco",mSco, new FindReplaceOptions());}
+                    if(mIfy.isEmpty()) {
+                        range.replace("mIfy","", new FindReplaceOptions());
+                    } else{range.replace("mIfy",mIfy, new FindReplaceOptions());}
+
+                    if(corpN1.isEmpty()) {
+                        range.replace("corpN1","", new FindReplaceOptions());
+                    } else{range.replace("corpN1",corpN1, new FindReplaceOptions());}
+                    if(dep1.isEmpty()) {
+                        range.replace("dep1","", new FindReplaceOptions());
+                    } else{range.replace("dep1",dep1, new FindReplaceOptions());}
+                    if(corpEnt1.isEmpty()) {
+                        range.replace("corpEnt1","", new FindReplaceOptions());
+                    } else{range.replace("corpEnt1",corpEnt1, new FindReplaceOptions());}
+                    if(corpRes1.isEmpty()) {
+                        range.replace("corpRes1","", new FindReplaceOptions());
+                    } else{range.replace("corpRes1",corpRes1, new FindReplaceOptions());}
+                    if(work1.isEmpty()) {
+                        range.replace("work1","", new FindReplaceOptions());
+                    } else{range.replace("work1",work1, new FindReplaceOptions());}
+
+                    if(corpN2.isEmpty()) {
+                        range.replace("corpN2","", new FindReplaceOptions());
+                    } else{range.replace("corpN2",corpN2, new FindReplaceOptions());}
+                    if(dep2.isEmpty()) {
+                        range.replace("dep2","", new FindReplaceOptions());
+                    } else{range.replace("dep2",dep2, new FindReplaceOptions());}
+                    if(corpEnt2.isEmpty()) {
+                        range.replace("corpEnt2","", new FindReplaceOptions());
+                    } else{range.replace("corpEnt2",corpEnt2, new FindReplaceOptions());}
+                    if(corpRes2.isEmpty()) {
+                        range.replace("corpRes2","", new FindReplaceOptions());
+                    } else{range.replace("corpRes2",corpRes2, new FindReplaceOptions());}
+                    if(work2.isEmpty()) {
+                        range.replace("work2","", new FindReplaceOptions());
+                    } else{range.replace("work2",work2, new FindReplaceOptions());}
+
+                    if(corpN3.isEmpty()) {
+                        range.replace("corpN3","", new FindReplaceOptions());
+                    } else{range.replace("corpN3",corpN3, new FindReplaceOptions());}
+                    if(dep3.isEmpty()) {
+                        range.replace("dep3","", new FindReplaceOptions());
+                    } else{range.replace("dep3",dep3, new FindReplaceOptions());}
+                    if(corpEnt3.isEmpty()) {
+                        range.replace("corpEnt3","", new FindReplaceOptions());
+                    } else{range.replace("corpEnt3",corpEnt3, new FindReplaceOptions());}
+                    if(corpRes3.isEmpty()) {
+                        range.replace("corpRes3","", new FindReplaceOptions());
+                    } else{range.replace("corpRes3",corpRes3, new FindReplaceOptions());}
+                    if(work3.isEmpty()) {
+                        range.replace("work3","", new FindReplaceOptions());
+                    } else{range.replace("work3",work3, new FindReplaceOptions());}
+
+
+                    document.save(Environment.getExternalStoragePublicDirectory
+                            (Environment.DIRECTORY_DOWNLOADS) + "/ZN/" + fileNameWithExt);
+
+                    //임시파일을 삭제한다.
+                    docFile.delete();
+
+
+                    //CustomXWPFDocument클래스의 replace메소드는 워드 파일 내에 "${key}"를 value값으로 대체한다.
+//                        CustomXWPFDocument c = new CustomXWPFDocument();
+//                        c.replace(is,data,out);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     //텍스트, 프로필 이미지 대체가 끝났는지 체크한다.
-    class checkingProcessThread extends Thread{
+    class checkingResultThread extends Thread{
         boolean downloadComplete = false;
 
         File f;
         File imagePicture;
 
         public void run() {
-
             docName = intent.getStringExtra("docName");             //default이름
             fileName = editText_name.getText().toString().trim();     //사용자가 입력한 파일이름
 
@@ -1378,6 +1362,35 @@ public class CareerDescriptionActivity extends AppCompatActivity {
                     Toast.makeText(mContext,"성공적으로 문서가 생성되었습니다.",Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+    }
+    //프로필 이미지를 다운로드한다.
+    class downloadProfileImgThread extends Thread{
+        @Override
+        public void run() {
+                downloadEP = new DownloadEP(getApplicationContext());
+                downloadEP.download_picture();
+            }
+    }
+    //프로필이미지가 존재하는지 체크한다.
+    class checkingProfileImgThread extends Thread{
+        boolean ifProfileImgExists = false;
+        File f;
+        @Override
+        public void run() {
+            while(!ifProfileImgExists) {
+                try {
+                    f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
+                    if(f.exists()&& !f.isDirectory()){
+                        ifProfileImgExists = true;
+                    }
+                    Log.d(TAG, "run/if_ProfileImgExists : "+f.exists());
+                }catch (NullPointerException e){}
+                try {
+                    Log.d(TAG, "DDING DDONG_ProfileImgExists");
+                    Thread.sleep(500);
+                } catch (Exception e) {}
+            }
         }
     }
     private void setAllTextInTextInputEditText(){
@@ -1456,6 +1469,11 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         //TextInputEditText_mN, TextInputEditText_mEnt, TextInputEditText_mLoc, TextInputEditText_mSco, TextInputEditText_mGrad, TextInputEditText_mIfy, TextInputEditText_mMaj;
 
         name = TextInputEditText_name.getText().toString().trim();
+        engName = TextInputEditText_engName.getText().toString().trim();
+        chName = TextInputEditText_chName.getText().toString().trim();
+        rrn = TextInputEditText_rrn.getText().toString().trim();
+        age = TextInputEditText_age.getText().toString().trim();
+        num = TextInputEditText_num.getText().toString().trim();
         email = TextInputEditText_email.getText().toString().trim();
         phoneNum = TextInputEditText_phoneNum.getText().toString().trim();
         addr = TextInputEditText_addr.getText().toString().trim();

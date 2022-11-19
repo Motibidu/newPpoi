@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="from">부터</string>
+    <string name="to">까지</string>
+    <string name="wET">근로종료시간</string>
+</resources>

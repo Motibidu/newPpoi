@@ -568,7 +568,7 @@ public class MainScrnActivity extends AppCompatActivity implements BottomSheetDi
                     ft.commit();
 
 
-
+                    PreferenceManager.setBoolean(mContext,"loadDirectoryComplete", true);
                     Log.d(TAG, "run: loadDirectory is completed");
                     Toast.makeText(mContext,"loadDirectory is completed",Toast.LENGTH_SHORT).show();
                 }

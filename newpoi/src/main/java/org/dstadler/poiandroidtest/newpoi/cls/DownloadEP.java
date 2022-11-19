@@ -89,54 +89,21 @@ public class DownloadEP {
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/."+fileName+fileExtension);
-
-
-        long downloadID = downloadManager.enqueue(request);
-        PreferenceManager.setLong(context, "doc_dwnlID", downloadID);
+        downloadManager.enqueue(request);
     }
 
     //프로필 이미지 다운로드
     public void download_picture(){
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/profile.jpg");
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        if (!imageFile.exists()){
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
 
-        mAuth = FirebaseAuth.getInstance();
-        storageReference = fStorage.getInstance().getReference();
-        userID = mAuth.getCurrentUser().getUid();
-        int imageFileSize;
-        StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
-        
-        //when imageFile already exists
-        if(imageFile.exists()){
-            imageFileSize = Integer.parseInt(String.valueOf(imageFile.length() / 1024));
-            profileRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-                @Override
-                public void onSuccess(StorageMetadata storageMetadata) {
-                    if(storageMetadata.getSizeBytes() == imageFileSize){
-                        //do nothing
-                    }
-                    else{
-                        imageFile.delete();
-                        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                DownloadManager downloadManager = (DownloadManager) context.
-                                        getSystemService(Context.DOWNLOAD_SERVICE);
-                                DownloadManager.Request request = new DownloadManager.Request(uri);
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/profile.jpg");
+            mAuth = FirebaseAuth.getInstance();
+            storageReference = fStorage.getInstance().getReference();
+            userID = mAuth.getCurrentUser().getUid();
 
-                                long downloadID = downloadManager.enqueue(request);
-                                PreferenceManager.setLong(context, "img_dwnlID", downloadID);
-
-                            }
-                        });
-                    }
-                }
-            });
-        }
-        else if (!imageFile.exists()){
+            StorageReference profileRef = storageReference.child("users/"+userID+"/profile.jpg");
             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -145,10 +112,6 @@ public class DownloadEP {
                     DownloadManager.Request request = new DownloadManager.Request(uri);
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/ZN/profile.jpg");
-
-                    long downloadID = downloadManager.enqueue(request);
-                    PreferenceManager.setLong(context, "img_dwnlID", downloadID);
-
                 }
             });
         }
