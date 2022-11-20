@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- commons-->
+    <string name="date">날짜</string>
     <string name="from">부터</string>
     <string name="to">까지</string>
+
+
     <string name="wET">근로종료시간</string>
+
+    <!--resignation-->
+    <string name = "rK"> 직급</string>
+    <string name = "dT"> 근무부서</string>
+    <string name = "jD"> 입사날짜</string>
+    <string name = "dD"> 퇴사날짜</string>
+    <string name = "rFR"> 사직사유</string>
+    <string name = "tD"> 당일날짜</string>
+    <string name = "eN"> 사원번호</string>
+    <string name="aP_details">신청인 상세내용</string>
+    <string name="dB">생년월일</string>
+    <string name="aP_iH_details">신청인 사내 상세내용</string>
+
 </resources>

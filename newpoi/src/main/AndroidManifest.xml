@@ -252,6 +252,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.ResignationActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.EmploymentContractCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
 

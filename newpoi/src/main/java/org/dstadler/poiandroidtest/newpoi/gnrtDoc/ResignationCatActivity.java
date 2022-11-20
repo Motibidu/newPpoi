@@ -25,7 +25,7 @@ public class ResignationCatActivity extends AppCompatActivity {
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
     String []arr = {"resignation0", "resignation1", "resignation2"};
 
-    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ResignationActivity";
 
 
 
