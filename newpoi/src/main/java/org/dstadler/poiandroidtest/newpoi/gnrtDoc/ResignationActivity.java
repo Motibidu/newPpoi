@@ -78,7 +78,7 @@ public class ResignationActivity extends AppCompatActivity {
     public static int sBorder = 0;
 
     // vars
-    private boolean bExpanded;
+    private boolean bExpanded= false;
     private String docName;
     private String pagePath0, pagePath1, pagePath2;
     private Uri imgUri0, imgUri1, imgUri2;
@@ -219,11 +219,6 @@ public class ResignationActivity extends AppCompatActivity {
         btn_create = findViewById(R.id.btn_create);
         imageBtn_more = findViewById(R.id.imageBtn_more);
 
-
-
-
-        //var
-        bExpanded = false;
 
         //첫번째, 두번째, 세번째 페이지를 설정한다.
         intent = getIntent();

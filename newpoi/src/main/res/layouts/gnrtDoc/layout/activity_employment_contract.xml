@@ -401,12 +401,13 @@
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="6">
+
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/TextInputEditText_wST"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/layout_border"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                         </com.google.android.material.textfield.TextInputLayout>
                         <TextView
                             android:layout_width="wrap_content"
@@ -569,7 +570,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
                     <ImageButton
-                        android:id="@+id/backBtn"
+                        android:id="@+id/imageBtn_back"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="18dp"

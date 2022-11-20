@@ -31,8 +31,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public Context mContext;
 
     public clickListener clickListener;
-    public clickListener filterListener;
-//    public ArrayList<CharSequence> list;
 
     private ArrayList<String> pref_allFileNameList, pref_allAbsolutePathList, pref_allParentPathList;
     private ArrayList<String> allParentPathList;

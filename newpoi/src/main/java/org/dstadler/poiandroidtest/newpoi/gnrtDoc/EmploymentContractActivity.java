@@ -107,11 +107,10 @@ public class EmploymentContractActivity extends AppCompatActivity {
     private int docNum;
     private String userID;
     private File  docFile;
-    private Map<String, Object> user;
     private Handler handler1, handler2;
 
     //widgets
-    private ImageButton backBtn, imageBtn_more;
+    private ImageButton imageBtn_back, imageBtn_more;
     private Button btn_download, btn_create;
     private ProgressBar progressBar;
     private EditText editText_title;
@@ -123,8 +122,6 @@ public class EmploymentContractActivity extends AppCompatActivity {
 
 
     //firebase
-    private StorageReference storageReference;
-    private FirebaseStorage fStorage;
     private FirebaseFirestore fStore;
     private FirebaseAuth mAuth;
     private DocumentReference documentReference;
@@ -206,8 +203,8 @@ public class EmploymentContractActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         //뒤로가기 버튼
-        backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        imageBtn_back = findViewById(R.id.imageBtn_back);
+        imageBtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -216,8 +213,8 @@ public class EmploymentContractActivity extends AppCompatActivity {
 
         //widgets
         progressBar = findViewById(R.id.progressBar);
+
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener setListener;
 
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);

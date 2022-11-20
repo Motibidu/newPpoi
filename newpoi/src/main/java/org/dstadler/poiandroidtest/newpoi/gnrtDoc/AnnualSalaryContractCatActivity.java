@@ -1,8 +1,6 @@
 package org.dstadler.poiandroidtest.newpoi.gnrtDoc;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import org.dstadler.poiandroidtest.newpoi.R;
-import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
 public class AnnualSalaryContractCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
@@ -25,14 +22,14 @@ public class AnnualSalaryContractCatActivity extends AppCompatActivity {
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
     String []arr = {"annual_salary_contract0", "annual_salary_contract1", "annual_salary_contract2"};
 
-    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.AnnualSalaryActivity";
 
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_annual_salary_contract_category);
+        setContentView(R.layout.activity_annual_salary_category);
         //init
         //contents
         mContext = getApplicationContext();

@@ -259,6 +259,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.AnnualSalaryActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.EmploymentContractCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
 
