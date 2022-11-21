@@ -1,28 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="name">이름</string>
-    <string name="engName">영문이름</string>
-    <string name="chName">한문이름</string>
-    <string name="rrn">주민번호</string>
-    <string name="age">나이</string>
-    <string name="phoneNum">휴대폰</string>
-    <string name="num">전화번호</string>
-    <string name="email">E-mail</string>
-    <string name="SNS">SNS</string>
-    <string name="addr">주소</string>
 
-    <string name="schN">학교명</string>
-    <string name="Ent">입학년월</string>
-    <string name="Gra">졸업년월</string>
-    <string name="Ify">졸업구분</string>
-    <string name="Loc">소재지</string>
-    <string name="Sco">학점</string>
-
-
-    <string name = "eduBack">학력사항</string>
-    <string name = "formOfCareer">경력사항</string>
-    <string name = "awLic">수상 및 자격증</string>
-    <string name = "selfIntroduction">자기소개서</string>
-    <string name = "lang">어학사항</string>
 
 </resources>

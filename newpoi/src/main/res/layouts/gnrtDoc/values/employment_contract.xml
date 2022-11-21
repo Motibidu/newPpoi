@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name = "bO_details">사용자 상세내용</string>
-    <string name = "w_details">근로자 상세내용</string>
     <string name = "bON">사업주 이름</string>
     <string name = "bOA">사업주 주소</string>
     <string name = "bOCI">사업주 연락처</string>

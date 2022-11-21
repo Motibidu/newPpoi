@@ -3,18 +3,17 @@ package org.dstadler.poiandroidtest.newpoi.gnrtDoc;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.icu.text.Edits;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +53,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class InnerClass extends AppCompatActivity
 {
@@ -110,7 +113,6 @@ public abstract class InnerClass extends AppCompatActivity
     protected Intent intent, moveProfile;
     protected DownloadEP downloadEP;
 
-    private String attrs[];
 
 
     @Override
@@ -271,6 +273,7 @@ public abstract class InnerClass extends AppCompatActivity
 
         //
         docName = intent.getStringExtra("docName");
+
     }
     
     
@@ -374,14 +377,13 @@ public abstract class InnerClass extends AppCompatActivity
     //임시파일 다운로드가 끝나면 텍스트와 프로필 이미지를 문서 내에 대체시킨다.
     protected class createResultThread extends Thread{
         boolean downloadComplete = false;
-        String[] attrs;
+        HashMap<String, String> attrs;
         File f;
         File profileImgFile;
         InputStream is = null;
         Document document = null;
-        public createResultThread(String[] attrs){
+        public createResultThread(HashMap<String, String> attrs){
             this.attrs = attrs;
-
         }
 
         public void run() {
@@ -417,11 +419,13 @@ public abstract class InnerClass extends AppCompatActivity
 
             if(fileName.isEmpty()) {
                 docFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/."+docName+".docx");
+                fileNameWithExt = docName+".docx";
             }
             else{
                 docFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/ZN/." + fileName + ".docx");
+                fileNameWithExt = fileName+".docx";
             }
-            fileNameWithExt = fileName+".docx";
+
             Log.d(TAG, "onReceive/fileNameWithExt : "+fileNameWithExt);
             //임시파일이 존재할 때
             if (docFile.exists()) {
@@ -442,15 +446,31 @@ public abstract class InnerClass extends AppCompatActivity
                     getAllTextFromTextInputEditText();
                     Range range = document.getRange();
 
+                    Set set = attrs.entrySet();
+                    Iterator iterator = set.iterator();
+                    Map.Entry entry;
                     //<11> Logd
-                    for(int i = 0; i<attrs.length; i++){
-                        Log.d(TAG, "createResultThread/ "+attrs[i].toString()+": "+attrs[i]);
-                    }
-                    for(int j = 0; j<attrs.length; j++){
-                        if(attrs[j].isEmpty()){
-                            range.replace(attrs[j].toString(), "", new FindReplaceOptions());
+//                    for(int i = 0; i<attrs.size(); i++){
+//                        Log.d(TAG, "createResultThread/ "+ attrs.get() +": "+attrs[i]);
+//                    }
+//                    for(int j = 0; j<attrs.length; j++){
+//                        if(attrs[j].isEmpty()){
+//                            range.replace(attrs[j], "", new FindReplaceOptions());
+//                        }else{
+//                            range.replace(attrs[j], attrs[j], new FindReplaceOptions());}
+//                        }
+//                    } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                    while(iterator.hasNext()){
+                        entry = (Map.Entry)iterator.next();
+                        String key = (String)entry.getKey();
+                        String value = (String)entry.getValue();
+                        Log.d(TAG, "createResultThread/ "+ key +": "+value);
+                        if(attrs.get(key).isEmpty()){
+                            range.replace(key, "", new FindReplaceOptions());
                         }else{
-                            range.replace(attrs[j].toString(), attrs[j], new FindReplaceOptions());}
+                            range.replace(key, value, new FindReplaceOptions());}
                         }
                     } catch (Exception e) {
                     e.printStackTrace();
@@ -598,7 +618,7 @@ public abstract class InnerClass extends AppCompatActivity
     protected abstract Intent getIntentFromEachActivity();
     protected abstract void updateUI();
     protected abstract void setAllTextInTextInputEditText();
-    protected abstract String[] getAllTextFromTextInputEditText();
+    protected abstract HashMap<String, String> getAllTextFromTextInputEditText();
     protected abstract void setAllPreferences();
 
 }

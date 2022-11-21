@@ -1,41 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- commons-->
+    <!--상세내용-->
+
+    <string name = "bO_details">사용자 상세내용</string>
+    <string name = "w_details">근로자 상세내용</string>
+    <string name="gapD">갑 상세내용</string>
+    <string name="eulD">을 상세내용</string>
+    <string name ="contractD">계약 상세내용</string>
+    <string name="compensationDamagesD">손해배상 상세내용</string>
+
     <string name="date">날짜</string>
     <string name="from">부터</string>
     <string name="to">까지</string>
 
+    <string name="name">이름</string>
+    <string name="engName">영문이름</string>
+    <string name="chName">한문이름</string>
+    <string name="rrn">주민번호</string>
+    <string name="age">나이</string>
+    <string name="phoneNum">휴대폰</string>
+    <string name="num">전화번호</string>
+    <string name="email">E-mail</string>
+    <string name="SNS">SNS</string>
+    <string name="addr">주소</string>
+
+    <string name="schN">학교명</string>
+    <string name="Ent">입학년월</string>
+    <string name="Gra">졸업년월</string>
+    <string name="Ify">졸업구분</string>
+    <string name="Loc">소재지</string>
+    <string name="Sco">학점</string>
+
+
+    <string name = "eduBack">학력사항</string>
+    <string name = "formOfCareer">경력사항</string>
+    <string name = "awLic">수상 및 자격증</string>
+    <string name = "selfIntroduction">자기소개서</string>
+    <string name = "lang">어학사항</string>
+
+
+
     <string name = "tD"> 당일날짜</string>
     <string name = "wET">근무 종료 시간</string>
+
+    <string name = "uN">사용자 이름</string>
+    <string name = "uPN">사용자 연락처</string>
+    <string name = "uL">사용자 소재지</string>
+    <string name = "bN">사업체명</string>
+
+    <string name = "wN"> 근무자 이름</string>
+    <string name = "wPN"> 근무자 연락처</string>
+    <string name = "wA"> 근무자 주소</string>
+    <string name = "wRRN"> 근무자 주민등록번호</string>
+
+    <string name = "sCP"> 계약기간 시작</string>
+    <string name = "tCP"> 계약기간 종료</string>
+    <string name = "jWD"> 입사날짜</string>
+    <string name = "dWD"> 퇴사날짜</string>
+    <string name = "cD"> 계약일자</string>
+
+
 
 
     <!--resignation-->
     <string name = "rK"> 직급</string>
     <string name = "dT"> 근무부서</string>
-    <string name = "jD"> 입사날짜</string>
-    <string name = "dD"> 퇴사날짜</string>
     <string name = "rFR"> 사직사유</string>
     <string name = "eN"> 사원번호</string>
     <string name="aP_details">신청인 상세내용</string>
     <string name="dB">생년월일</string>
     <string name="aP_iH_details">신청인 사내 상세내용</string>
 
-    <!--annual salary-->
-    <string name = "uN">사용자 이름</string>
-    <string name = "uL"> 사용자 소재지</string>
-    <string name = "bN"> 사업체명</string>
+    <!--contract annual salary-->
     <string name = "bT"> 사업의 종류</string>
-    <string name = "wN"> 근로자 이름</string>
-    <string name = "wRRN"> 근로자 주민등록번호</string>
-    <string name = "wA"> 근로자 주소</string>
     <string name = "tS"> 연봉총액</string>
     <string name = "bS"> 기본급 금액</string>
     <string name = "vA"> 제수당</string>
     <string name = "aA"> 연차수당</string>
     <string name = "sABSP"> 퇴직금중간 정산액</string>
     <string name = "pD"> 지급 날짜</string>
-    <string name = "sCP"> 계약기간 시작</string>
-    <string name = "tCP"> 계약기간 종료</string>
     <string name="wage_details">임금 상세조건</string>
+
+    <!--contract freelance employment-->
+    <string name = "cT"> 계약건명</string>
+    <string name = "dD"> 납품 날짜</string>
+    <string name = "nD"> 납품 횟수</string>
+    <string name = "tCA"> 총 계약금액</string>
+    <string name = "sA"> 착수금액</string>
+    <string name = "bA"> 잔금금액</string>
+    <string name = "hTC"> 손해배상 방법</string>
+    <string name = "cTD"> 분쟁관할법원</string>
+    <string name="payD">임금 상세내용</string>
+
+
 
 </resources>

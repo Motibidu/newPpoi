@@ -36,6 +36,7 @@ public class DocCatActivity extends AppCompatActivity {
     //3. 근로계약서
     //4. 사직서
     //5. 연봉계약서
+
     //6. 프리랜서 고용 계약서
     //7. 표준 이력서     //activity_standard_resume_category
     //8. 매출 잔액 청구서  //activity_invoice_balance_category
@@ -95,8 +96,8 @@ public class DocCatActivity extends AppCompatActivity {
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.PromissoryCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.EmploymentContractCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ResignationCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.AnnualSalaryContractCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.FreelanceEmploymentContractCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractAnnualSalaryCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractFreelanceEmploymentCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.StandardResumeActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.InvoiceBalanceActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ExpirationLaborContractActivity",

@@ -323,7 +323,7 @@
                         android:id="@+id/TextInputLayout_jD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/jD"
+                        android:hint="@string/jWD"
                         app:hintTextColor="@color/themeColor"
                         app:boxStrokeColor="@color/themeColor"
                         android:layout_weight="6">

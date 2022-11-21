@@ -15,7 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import org.dstadler.poiandroidtest.newpoi.R;
 import org.dstadler.poiandroidtest.newpoi.cls.customImageView;
 
-public class FreelanceEmploymentContractCatActivity extends AppCompatActivity {
+public class ContractFreelanceEmploymentCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
     private Context mContext;
 
@@ -25,14 +25,14 @@ public class FreelanceEmploymentContractCatActivity extends AppCompatActivity {
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
     String []arr = {"freelance_employment_contract0", "freelance_employment_contract1", "freelance_employment_contract2"}; //*
 
-    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.CareerDescriptionActivity";
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractFreelanceEmploymentActivity";
 
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_freelance_employment_contract_category); //*
+        setContentView(R.layout.activity_contract_freelance_employment_category);
         //init
         //contents
         mContext = getApplicationContext();

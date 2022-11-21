@@ -61,13 +61,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.FreelanceEmploymentContractCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".gnrtDoc.ResignationCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">
@@ -75,16 +68,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.AnnualSalaryContractCatActivity"
+        <activity android:name=".gnrtDoc.ContractAnnualSalaryCatActivity"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.ContractFreelanceEmploymentCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".gnrtDoc.InnerClass"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.AnnualSalaryContractCatActivity">
+            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -119,9 +119,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.AnnualSalaryActivity"
+        <activity android:name=".gnrtDoc.ContractAnnualSalaryActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.AnnualSalaryContractCatActivity">
+            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ContractFreelanceEmploymentActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

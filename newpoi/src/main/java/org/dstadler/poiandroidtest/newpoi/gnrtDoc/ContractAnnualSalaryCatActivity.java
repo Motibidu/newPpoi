@@ -12,7 +12,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class AnnualSalaryContractCatActivity extends AppCompatActivity {
+public class ContractAnnualSalaryCatActivity extends AppCompatActivity {
     public static String PACKAGE_NAME;
     private Context mContext;
 
@@ -22,7 +22,7 @@ public class AnnualSalaryContractCatActivity extends AppCompatActivity {
     RecyclerViewAdapter_inner recyclerViewAdapter_inner;
     String []arr = {"annual_salary_contract0", "annual_salary_contract1", "annual_salary_contract2"};
 
-    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.AnnualSalaryActivity";
+    String clsN = "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractAnnualSalaryActivity";
 
 
 

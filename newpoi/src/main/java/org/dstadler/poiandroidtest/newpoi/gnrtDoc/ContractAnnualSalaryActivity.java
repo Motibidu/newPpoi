@@ -1,22 +1,17 @@
 package org.dstadler.poiandroidtest.newpoi.gnrtDoc;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,8 +29,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
-public class AnnualSalaryActivity extends InnerClass {
+public class ContractAnnualSalaryActivity extends InnerClass {
 
     //resignation0
     //사용자 상세정보
@@ -288,8 +284,8 @@ public class AnnualSalaryActivity extends InnerClass {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (value != null && value.exists()) {
-                        TextInputEditText_uN.setText(value.getString("name"));
-                        TextInputEditText_uL.setText(value.getString("addr"));
+                       uN = value.getString("name");
+                       uL = value.getString("addr");
                     }
                 }
             });
@@ -314,7 +310,7 @@ public class AnnualSalaryActivity extends InnerClass {
     }
 
     @Override
-    protected String[] getAllTextFromTextInputEditText() {
+    protected HashMap<String, String> getAllTextFromTextInputEditText() {
 
         uN = TextInputEditText_uN.getText().toString().trim();
         uL = TextInputEditText_uL.getText().toString().trim();
@@ -335,15 +331,31 @@ public class AnnualSalaryActivity extends InnerClass {
         wST = TextInputEditText_wST.getText().toString().trim();
         wET = TextInputEditText_wET.getText().toString().trim();
 
-        String[] attrs = new String[]{"uN", "uL", "bN", "bT", "wN", "wRRN", "wA", "tS", "bS", "vA", "aA", "sABSP", "pD", "tD", "jD", "dD", "wST", "wET"};
+        HashMap<String, String> attrs= new HashMap<>();
+        attrs.put("uN", uN);
+        attrs.put("uL", uL);
+        attrs.put("bN", bN);
+        attrs.put("bT", bT);
+        attrs.put("wN", wN);
+        attrs.put("wRRN", wRRN);
+        attrs.put("wA", wA);
+        attrs.put("tS", tS);
+        attrs.put("bS", bS);
+        attrs.put("vA", vA);
+        attrs.put("aA", aA);
+        attrs.put("sABSP", sABSP);
+        attrs.put("pD", pD);
+        attrs.put("tD", tD);
+        attrs.put("jD", jD);
+        attrs.put("dD", dD);
+        attrs.put("wST", wST);
+        attrs.put("wET", wET);
 
         return attrs;
     }
 
     @Override
     protected void setAllTextInTextInputEditText() {
-        TextInputEditText_uN.setText(uN);
-        TextInputEditText_uL.setText(uL);
         TextInputEditText_bN.setText(bN);
         TextInputEditText_bT.setText(bT);
         TextInputEditText_wN.setText(wN);
