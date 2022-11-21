@@ -136,7 +136,7 @@
                         android:layout_weight="1"/>
                 </LinearLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayout_name"
+                    android:id="@+id/TextInputLayout_uN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
@@ -144,14 +144,14 @@
                     app:boxStrokeColor="@color/themeColor"
                     android:layout_weight="1">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditText_name"
+                        android:id="@+id/TextInputEditText_uN"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/layout_border"
                         android:singleLine="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayout_addr"
+                    android:id="@+id/TextInputLayout_uL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/Loc"
@@ -159,14 +159,14 @@
                     app:boxStrokeColor="@color/themeColor"
                     android:layout_weight="1">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditText_addr"
+                        android:id="@+id/TextInputEditText_uL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/layout_border"
                         android:singleLine="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayout_pN"
+                    android:id="@+id/TextInputLayout_bN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/bN"
@@ -174,7 +174,7 @@
                     app:boxStrokeColor="@color/themeColor"
                     android:layout_weight="1">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditText_pN"
+                        android:id="@+id/TextInputEditText_bN"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/layout_border"
@@ -281,7 +281,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="3"
-                android:layout_below="@+id/LinearLayout_bO_details"
+                android:layout_below="@+id/LinearLayout_w_details"
                 android:background="@drawable/layout_border"
                 >
                 <LinearLayout
@@ -337,6 +337,34 @@
                         android:background="@drawable/layout_border"
                         android:singleLine="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:id="@+id/LinearLayout_pD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="horizontal"
+                android:weightSum="8">
+                <ImageView
+                    android:id="@+id/Image_pD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_calendar_today_24"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TextInputLayout_pD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pD"
+                    app:hintTextColor="@color/themeColor"
+                    app:boxStrokeColor="@color/themeColor"
+                    android:layout_weight="6">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditText_pD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/layout_border"
+                        android:singleLine="true"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TextInputLayout_aA"
                     android:layout_width="match_parent"
@@ -371,7 +399,7 @@
                     android:id="@+id/TextInputLayout_vA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/wA"
+                    android:hint="@string/vA"
                     app:hintTextColor="@color/themeColor"
                     app:boxStrokeColor="@color/themeColor"
                     android:layout_weight="1">
@@ -489,7 +517,7 @@
                         android:layout_weight="2"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/TimeLayout_wST"
+                    android:id="@+id/LinearLayout_wST"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -526,7 +554,7 @@
                         android:layout_weight="2"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/TimeLayout_wET"
+                    android:id="@+id/LinearLayout_wET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -595,7 +623,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageButton
-                    android:id="@+id/backBtn"
+                    android:id="@+id/imageBtn_back"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="18dp"

@@ -82,149 +82,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gnrtDoc.FreelanceEmploymentContractCatActivity"
+        <activity android:name=".gnrtDoc.InnerClass"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.StandardResumeActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.InvoiceBalanceActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ExpirationLaborContractActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ChurchResumeActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.PropertyInheritanceContractActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.TransactionApplicationActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.TransactionAgreementActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ReasonForAbsenceCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.PaymentAccountDeclarationCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ReportCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.PurchaseRequestCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.NotificationOfInterviewCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.LetterOfAbsenceCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.FactCheckCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.TrafficAccidentAgreementCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ReasonsForLossCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ResignationOnRecommendationCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.WithdrawalOfAuctionApplicationCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.ReminderCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".gnrtDoc.PowerOfAttorneyCatActivity"
-            android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            android:parentActivityName=".gnrtDoc.AnnualSalaryContractCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -261,7 +121,7 @@
         </activity>
         <activity android:name=".gnrtDoc.AnnualSalaryActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.EmploymentContractCatActivity">
+            android:parentActivityName=".gnrtDoc.AnnualSalaryContractCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
