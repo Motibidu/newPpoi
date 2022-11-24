@@ -77,11 +77,41 @@
         </activity>
         <activity android:name=".gnrtDoc.ContractFreelanceEmploymentCatActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".gnrtDoc.ResumeStandardCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.InvoiceBalanceCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ContractExpirationLaborCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ContractPropertyInheritanceCatActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.DocCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity android:name=".gnrtDoc.InnerClass"
             android:theme="@style/AppTheme_material"
             android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
@@ -114,7 +144,7 @@
         </activity>
         <activity android:name=".gnrtDoc.ResignationActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.EmploymentContractCatActivity">
+            android:parentActivityName=".gnrtDoc.ResignationCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -128,7 +158,35 @@
         </activity>
         <activity android:name=".gnrtDoc.ContractFreelanceEmploymentActivity"
             android:theme="@style/AppTheme_material"
-            android:parentActivityName=".gnrtDoc.ContractAnnualSalaryCatActivity">
+            android:parentActivityName=".gnrtDoc.ContractFreelanceEmploymentCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ResumeStandardActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.ResumeStandardCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.InvoiceBalanceActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.InvoiceBalanceCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ContractExpirationLaborActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.ContractExpirationLaborCatActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gnrtDoc.ContractPropertyInheritanceActivity"
+            android:theme="@style/AppTheme_material"
+            android:parentActivityName=".gnrtDoc.ContractPropertyInheritanceCatActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- commons-->
-    <!--상세내용-->
 
+    <!--갑-->
+    <string name = "gapN"> 갑 이름</string>
+    <string name = "gapAddr"> 갑 주소</string>
+    <string name = "gapRRN"> 갑 주민번호</string>
+    <string name = "gapPN"> 갑 연락처</string>
+
+    <!--을-->
+    <string name = "eulN"> 을 이름</string>
+    <string name = "eulAddr"> 을 주소</string>
+    <string name = "eulRRN"> 을 주민번호</string>
+    <string name = "eulPN"> 을 연락처</string>
+
+    <!--상세내용-->
+    <string name="details">상세내용</string>
     <string name = "bO_details">사용자 상세내용</string>
     <string name = "w_details">근로자 상세내용</string>
     <string name="gapD">갑 상세내용</string>
     <string name="eulD">을 상세내용</string>
+    <string name="gap_details">갑 상세내용</string>
+    <string name="eul_details">을 상세내용</string>
     <string name ="contractD">계약 상세내용</string>
     <string name="compensationDamagesD">손해배상 상세내용</string>
+
 
     <string name="date">날짜</string>
     <string name="from">부터</string>
@@ -42,7 +58,9 @@
 
 
     <string name = "tD"> 당일날짜</string>
+    <string name = "docD"> 문서작성날짜</string>
     <string name = "wET">근무 종료 시간</string>
+    <string name="cED">계약만료날짜</string>
 
     <string name = "uN">사용자 이름</string>
     <string name = "uPN">사용자 연락처</string>
@@ -92,7 +110,29 @@
     <string name = "hTC"> 손해배상 방법</string>
     <string name = "cTD"> 분쟁관할법원</string>
     <string name="payD">임금 상세내용</string>
+    <string name="sender_details">발신자 상세내용</string>
 
+
+    <!--InvoiceBalanceActivity-->
+    <string name = "rP">수신자</string>
+    <string name = "rD"> 송금날짜</string>
+    <string name = "bCD"> 잔액확인서 날짜</string>
+
+    <!--ContractPropertyInheritance-->
+    <string name = "bLoc">건물소재지</string>
+    <string name = "bUAA"> 건물 용도 및 면적</string>
+    <string name = "lLoc"> 토지소재지</string>
+    <string name = "lAA"> 토지 지목및 면적</string>
+    <string name = "prin"> 원금</string>
+    <string name = "wON"> 원정</string>
+    <string name = "sM1"> 특약사항1</string>
+    <string name = "sM2"> 특약사항2</string>
+    <string name = "sM3"> 특약사항3</string>
+
+    <string name = "bR1">을 형제관계1</string>
+    <string name = "bR2"> 을 형제관계2</string>
+    <string name="inherited_real_estate_details">상속부동산 상세내용</string>
+    <string name="sM">특약사항</string>
 
 
 </resources>

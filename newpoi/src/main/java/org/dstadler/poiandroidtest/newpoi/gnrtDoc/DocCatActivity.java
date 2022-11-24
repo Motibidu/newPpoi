@@ -66,22 +66,22 @@ public class DocCatActivity extends AppCompatActivity {
             "사직서", "연봉 계약서", "프리랜서 고용 계약서",
             "표준 이력서", "매출 잔액 청구서", "근로계약 만료 통지문",
 
-            "교회 이력서", "구매 요청서", "면접결과 통지서",
-            "부동산 상속계약서", "거래 신청서", "거래 약정서",
+            "부동산 상속계약서", "구매 요청서", "면접결과 통지서",
+            "매도 위임장", "거래 신청서", "거래 약정서",
             "결근 사유서", "결제 계좌 신고서", "경위서",
 
             "구매 요청서", "면접결과 통지서", "사원 외출서",
             "사실 확인서", "교통사고 합의서", "분실 사유서",
             "권고 사직서", "경매신청 취하서", "독촉장",
 
-            "매도 위임장"};
+            };
 
     String []res = {
             "career_description0", "promissory0", "employment_contract0",
             "resignation0","annual_salary_contract0", "freelance_employment_contract0",
-            "standard_resume0", "invoice_balance0", "expiration_labor_contract0",
+            "resume_standard0", "invoice_balance0", "contract_expiration_labor0",
 
-            "church_resume0", "property_inheritance_contract0", "transaction_application0",
+            "contract_property_inheritance0", "purchase_request0", "transaction_application0",
             "transaction_agreement0", "reason_for_absence0", "payment_account_declaration0",
             "report0","purchase_request0","notification_of_interview0",
 
@@ -98,14 +98,13 @@ public class DocCatActivity extends AppCompatActivity {
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ResignationCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractAnnualSalaryCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractFreelanceEmploymentCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.StandardResumeActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.InvoiceBalanceActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ExpirationLaborContractActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ResumeStandardCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.InvoiceBalanceCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractExpirationLaborCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractPropertyInheritanceCatActivity",
 
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ChurchResumeActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.PropertyInheritanceContractActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionApplicationActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionAgreementActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionApplicationCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionAgreementCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ReasonForAbsenceCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.PaymentAccountDeclarationCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ReportCatActivity",

@@ -178,6 +178,7 @@ public class ResignationActivity extends AppCompatActivity {
         //=================================common===================================//
         //Content
         mContext = getApplicationContext();
+        mActivity = this;
 
         //handler1
         handler1 = new Handler();

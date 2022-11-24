@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 
 import org.dstadler.poiandroidtest.newpoi.R;
 
-public class InvoiceBalanceCatActivity extends OutterClass{
+public class ContractExpirationLaborCatActivity extends OutterClass {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,16 +15,16 @@ public class InvoiceBalanceCatActivity extends OutterClass{
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_invoice_balance_category;
+        return R.layout.activity_contract_expiration_labor_category;
     }
 
     @Override
     protected String[] getImagesTitle() {
-        return new String[]{"invoice_balance0"};
+        return new String[]{"contract_expiration_labor0", "contract_expiration_labor1"};
     }
 
     @Override
     protected String getClassPath() {
-        return "org.dstadler.poiandroidtest.newpoi.gnrtDoc.InvoiceBalanceActivity";
+        return "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractExpirationLaborActivity";
     }
 }

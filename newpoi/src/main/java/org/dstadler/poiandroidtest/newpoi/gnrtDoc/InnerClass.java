@@ -3,6 +3,7 @@ package org.dstadler.poiandroidtest.newpoi.gnrtDoc;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,9 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -38,6 +41,8 @@ import com.aspose.words.Range;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,6 +57,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -532,43 +538,14 @@ public abstract class InnerClass extends AppCompatActivity
         }
     }
 
-    //단일 함수
-    protected void checkPermission(){
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // 다시 보지 않기 버튼을 만드려면 이 부분에 바로 요청을 하도록 하면 됨 (아래 else{..} 부분 제거)
-            // ActivityCompat.requestPermissions((Activity)mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_CAMERA);
 
-            // 처음 호출시엔 if()안의 부분은 false로 리턴 됨 -> else{..}의 요청으로 넘어감
-            if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                new AlertDialog.Builder(mContext)
-                        .setTitle("알림")
-                        .setMessage("저장소 권한이 거부되었습니다. 사용을 원하시면 설정에서 해당 권한을 직접 허용하셔야 합니다.")
-                        .setNeutralButton("설정", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                                intent.setData(Uri.parse("package:" + getPackageName()));
-                                mActivity.startActivity(intent);
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                mActivity.finish();
-                            }
-                        })
-                        .setCancelable(false)
-                        .create()
-                        .show();
-            } else {
-                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_STORAGE);
-            }
-        }
+    protected boolean isSignedIn() {
+        return GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null;
     }
     protected boolean checkString(String str) {
         return str == null || str.length() == 0;
     }
-    protected void showPopup(View v) {
+    private void showPopup(View v) {
         PopupMenu popupMenu = new PopupMenu(mContext, v);
         popupMenu.inflate(R.menu.expanded_menu);
         Menu menuOpts = popupMenu.getMenu();
@@ -612,6 +589,69 @@ public abstract class InnerClass extends AppCompatActivity
         });
         popupMenu.show();
     }
+    //단일 함수
+    private void checkPermission(){
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // 다시 보지 않기 버튼을 만드려면 이 부분에 바로 요청을 하도록 하면 됨 (아래 else{..} 부분 제거)
+            // ActivityCompat.requestPermissions((Activity)mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_CAMERA);
+
+            // 처음 호출시엔 if()안의 부분은 false로 리턴 됨 -> else{..}의 요청으로 넘어감
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle("알림")
+                        .setMessage("저장소 권한이 거부되었습니다. 사용을 원하시면 설정에서 해당 권한을 직접 허용하셔야 합니다.")
+                        .setNeutralButton("설정", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                                intent.setData(Uri.parse("package:" + getPackageName()));
+                                mActivity.startActivity(intent);
+                            }
+                        })
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mActivity.finish();
+                            }
+                        })
+                        .setCancelable(false)
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_STORAGE);
+            }
+        }
+    }
+
+//    private void attachDatepickerDialog(ArrayList<LinearLayout, TextInputEditText> ){
+//        final int year = calendar.get(Calendar.YEAR);
+//        final int month = calendar.get(Calendar.MONTH);
+//        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        final int[] hour = new int[1];
+//        final int[] minute = new int[1];
+//
+//        for (LinearLayout LinearLayout : LinearLayout_list){
+//            LinearLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    DatePickerDialog datePickerDialog = new DatePickerDialog(
+//                            mActivity, new DatePickerDialog.OnDateSetListener() {
+//                        @Override
+//                        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+//                            i1 = i1+1;
+//                            String date = i+"년 "+i1+"월 "+i2+"일";
+//                            TextInputEditText_tD.setText(date);
+//                        }
+//                    }, year, month, day);
+//                    datePickerDialog.show();
+//                }
+//            });
+//        }
+//    }
+    private void attachCalendarPickerListener(){
+
+    }
 
     //가상함수
     protected abstract int getLayoutResourceId();
@@ -620,5 +660,6 @@ public abstract class InnerClass extends AppCompatActivity
     protected abstract void setAllTextInTextInputEditText();
     protected abstract HashMap<String, String> getAllTextFromTextInputEditText();
     protected abstract void setAllPreferences();
+
 
 }

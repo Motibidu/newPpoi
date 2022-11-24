@@ -401,7 +401,6 @@
                             app:hintTextColor="@color/themeColor"
                             app:boxStrokeColor="@color/themeColor"
                             android:layout_weight="6">
-
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/TextInputEditText_wST"
                                 android:layout_width="match_parent"

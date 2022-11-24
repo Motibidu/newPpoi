@@ -374,6 +374,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputLayout_mSco = findViewById(R.id.TextInputLayout_mSco);
         TextInputLayout_mIfy = findViewById(R.id.TextInputLayout_mIfy);
 
+        //경력사항 1
         TextInputLayout_corpN1 = findViewById(R.id.TextInputLayout_corpN1);
         TextInputLayout_dep1 = findViewById(R.id.TextInputLayout_dep1);
         TextInputLayout_corpEnt1 = findViewById(R.id.TextInputLayout_corpEnt1);
@@ -394,6 +395,8 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputLayout_corpRes3 = findViewById(R.id.TextInputLayout_corpRes3);
         TextInputLayout_work3 = findViewById(R.id.TextInputLayout_work3);
 
+        
+        //수상 및 자격증
         TextInputLayout_licYM1 = findViewById(R.id.TextInputLayout_licYM1);
         TextInputLayout_licC1 = findViewById(R.id.TextInputLayout_licC1);
         TextInputLayout_licG1 = findViewById(R.id.TextInputLayout_licG1);
@@ -792,8 +795,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-
         if (isSignedIn()) {
             mAuth = FirebaseAuth.getInstance();
             storageReference = fStorage.getInstance().getReference();
@@ -1403,6 +1404,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_num.setText(num);
         TextInputEditText_email.setText(email);
         TextInputEditText_addr.setText(addr);
+
         TextInputEditText_hN.setText(hN);
         TextInputEditText_hEnt.setText(hEnt);
         TextInputEditText_hGrad.setText(hGrad);
@@ -1423,6 +1425,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_mSco.setText(mSco);
         TextInputEditText_mMaj.setText(mMaj);
         TextInputEditText_mIfy.setText(mIfy);
+
         TextInputEditText_licYM1.setText(licYM1);
         TextInputEditText_licC1.setText(licC1);
         TextInputEditText_licC1.setText(licC1);
@@ -1440,6 +1443,7 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         TextInputEditText_aYM2.setText(aYM2);
         TextInputEditText_aC2.setText(aC2);
         TextInputEditText_aP2.setText(aP2);
+
         TextInputEditText_corpN1.setText(corpN1);
         TextInputEditText_corpEnt1.setText(corpEnt1);
         TextInputEditText_corpRes1.setText(corpRes1);
@@ -1500,9 +1504,6 @@ public class CareerDescriptionActivity extends AppCompatActivity {
         mIfy = TextInputEditText_mIfy.getText().toString().trim();
         mMaj = TextInputEditText_mMaj.getText().toString().trim();
 
-        //TextInputEditText_corpN1, TextInputEditText_dep1, TextInputEditText_corpEnt1, TextInputEditText_corpRes1, TextInputEditText_work1
-        //TextInputEditText_corpN2, TextInputEditText_dep2, TextInputEditText_corpEnt2, TextInputEditText_corpRes2, TextInputEditText_work2
-        //TextInputEditText_corpN3, TextInputEditText_dep3, TextInputEditText_corpEnt3, TextInputEditText_corpRes3, TextInputEditText_work3;
         corpN1 = TextInputEditText_corpN1.getText().toString().trim();
         dep1 = TextInputEditText_dep1.getText().toString().trim();
         corpEnt1 = TextInputEditText_corpEnt1.getText().toString().trim();
