@@ -67,7 +67,7 @@ public class DocCatActivity extends AppCompatActivity {
             "표준 이력서", "매출 잔액 청구서", "근로계약 만료 통지문",
 
             "부동산 상속계약서", "구매 요청서", "면접결과 통지서",
-            "매도 위임장", "자금 투자 계약서", "공사 계약서",
+            "매도 위임장", "거래 신청서", "거래 약정서",
             "결근 사유서", "결제 계좌 신고서", "경위서",
 
             "구매 요청서", "면접결과 통지서", "사원 외출서",
@@ -81,7 +81,7 @@ public class DocCatActivity extends AppCompatActivity {
             "resignation0","annual_salary_contract0", "freelance_employment_contract0",
             "resume_standard0", "invoice_balance0", "contract_expiration_labor0",
 
-            "contract_property_inheritance0", "contract_investment_capital0", "contract_construction0",
+            "contract_property_inheritance0", "purchase_request0", "transaction_application0",
             "transaction_agreement0", "reason_for_absence0", "payment_account_declaration0",
             "report0","purchase_request0","notification_of_interview0",
 
@@ -102,9 +102,9 @@ public class DocCatActivity extends AppCompatActivity {
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.InvoiceBalanceCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractExpirationLaborCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractPropertyInheritanceCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractInvestmentCapitalCatActivity",
-            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ContractConstructionCatActivity",
 
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionApplicationCatActivity",
+            "org.dstadler.poiandroidtest.newpoi.gnrtDoc.TransactionAgreementCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ReasonForAbsenceCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.PaymentAccountDeclarationCatActivity",
             "org.dstadler.poiandroidtest.newpoi.gnrtDoc.ReportCatActivity",
